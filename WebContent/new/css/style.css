@@ -110,14 +110,15 @@ a:hover{ text-decoration: none;color: #2c6dba;}
 .zbqk ul li h1{ font-size: 16px; margin-top: 5px;}
 .zbqk ul li p{font-size: 12px;}
 .bottom{margin-top: 15px;}
-.ygtj{height:220px;background-color: #fff;width: 37.4%;  border-radius: 2px; float: left;padding: 10px 20px;-moz-box-shadow:0px 0px 7px #e8e8e8; -webkit-box-shadow:0px 0px 7px #e8e8e8; box-shadow:0px 0px 7px #e8e8e8;}
-.ygtj img{margin-top: 10px;}
-.cygn{height:220px;background-color: #fff;width: 61.5%;  border-radius: 2px; float: right;padding: 10px 20px;-moz-box-shadow:0px 0px 7px #e8e8e8; -webkit-box-shadow:0px 0px 7px #e8e8e8; box-shadow:0px 0px 7px #e8e8e8;}
-.cygn ul li{ float: left;width: 14.2%;}
+.cygn{min-height:220px; background-color: #fff;width: 37.4%;  border-radius: 2px; float: right;padding: 10px 20px;-moz-box-shadow:0px 0px 7px #e8e8e8; -webkit-box-shadow:0px 0px 7px #e8e8e8; box-shadow:0px 0px 7px #e8e8e8;}
+.cygn ul li{ float: left;width: 18.2%; padding: 0px 0px 15px 0px;}
 .cygn ul li i{font-size: 28px;}
 .cygn ul{padding-top: 30px;}
 .cygn ul li p{text-align: center; margin: 0 auto; border-radius: 50px; width: 60px; height: 60px; line-height: 55px;}
 .cygn ul li h1{margin-top:15px;font-size: 14px; font-weight: normal; text-align: center;}
+.ygtj{height:220px;background-color: #fff;width: 61.5%;  border-radius: 2px; float: left;padding: 10px 20px;-moz-box-shadow:0px 0px 7px #e8e8e8; -webkit-box-shadow:0px 0px 7px #e8e8e8; box-shadow:0px 0px 7px #e8e8e8;}
+.ygtj img{margin-top: 10px;}
+
 
 
 /*列表页*/
