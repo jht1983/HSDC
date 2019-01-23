@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type='text/javascript' src='js/evenfunction.js'></script>
+		<script type='text/javascript' src='js/WdatePicker.js'></script>
+		<script type='text/javascript' src='js/ylpub.js'></script>
+		<script type='text/javascript' src='js/fc.js'></script>
+		<script type='text/javascript' src='js/LodopFuncs.js'></script>
+		<script type='text/javascript' src='js/print.js'></script>
+		<script type='text/javascript' src='js/ylselect.js'></script>
+		<script type='text/javascript' src='js/yltree.js'></script>
+		<script type='text/javascript' src='js/check.js'></script>
+    	<link href='css/table.css' rel='stylesheet' type='text/css' />
+    	<style>
+    	    .Ttable,
+			.Ttable tr th,
+			.Ttable tr td {
+				border-bottom: 1px solid #0094ff;
+				border-top:1px solid #0094ff;
+				border-left:1px solid #0094ff;
+				border-right:1px solid #0094ff;
+			}
+			.Ttable {
+				min-height: 25px;
+				line-height: 25px;
+				border-collapse: collapse;
+			}
+			.index{
+			    width:100px;
+			}
+			.name{
+			     width:100px;
+			}
+			.selectInput{
+			     width:100px;
+			}
+    	</style>
+	</head>
+
+	<body>
+	    <select style="display:none;" id="bcSelect">
+	        <option value=""></option> 
+	        <ylt.for dataId="1509859952877">
+	           <option value="$value">$value</option> 
+	        </ylt.for>
+	    </select>
+        <table class="Ttable" id="selectTurn">
+            
+        </table>
+        <table  class='table1' cellpadding='0' cellspacing='0' width='100%' style="display:black">
+    		<tr>
+    			<td colspan='2' align='right' class='bttformoparea'>
+    				<table>
+    					<tr>
+    						<td>
+    							<a id="submitToObj"  class="button green" href="javascript:tojson(this);" ><span><div
+    									class='bttn_panel'
+    									style='background-image:url(images/eve/qd.png);'>确定</div> </span> </a>
+    						</td>
+    						<td width='50px'>&#160;</td>
+    					</tr>
+    				</table>
+    			</td>
+    		</tr>
+	    </table>
+	  
+    </body>
+	<script>
+	    <ylt.v message="inConditionRow">
+	        var inConditionRow="";
+	    $value
+    	    var inConditionRow="$value";
+	    </ylt.v>
+	    <ylt.v message="gs_upl_kc">
+	        var gs_upl_kc="";
+	    $value
+    	    var gs_upl_kc="$value";
+	    </ylt.v>
+	    <ylt.v message="tid">
+	        var id="";
+	    $value
+    	    var id="$value";
+	    </ylt.v>
+	    
+	    <ylt.for dataId="1516770205416">
+	    var nevalue="$value";
+	    </ylt.for>
+	        
+	   
+	</script>
+	<script>
+	    var table=document.getElementById('selectTurn');
+	    var index=1;
+	    var returnId="";
+	    var tr = document.createElement("tr");
+	    var bcSelect=document.getElementById('bcSelect').innerHTML;
+	    tr.innerHTML="<td>序号</td>"+trCreateElement("","名称",false);
+	    table.appendChild(tr);
+	    <ylt.for dataId="1509935350626">
+	   
+	    	tr = document.createElement("tr");
+	    	tr.innerHTML="<td class='index'>"+index+"</td>"+trCreateElement("$value","$value","$value",true);
+	    	table.appendChild(tr);
+	 
+	    	index++;
+	    </ylt.for>
+	    function trCreateElement(_id,_name,_sbcylb,_tbool){
+	    	var td="<td class='name'>"+_name+"</td>";
+	    	if(_id!=""){
+	    	    returnId+=_id+"|";
+	    	}
+	    	if(inConditionRow!=""){
+	    	   for(var i = 1 ;i<=inConditionRow;i++){
+	    		    if(_tbool==true){
+	    		        td+="<td class='selectInput'><select sbcylb="+_sbcylb+" id='"+_id+"_"+i+"' value=''   />"+bcSelect+"</td>";
+	    		    }else{
+	    		        td+="<td class='selectInput'>"+i+"</td>";
+	    		    }
+	    	    }
+	    	}
+	    	return td;
+	    }
+
+	    function tojson(_obj){
+	        var strSplit="";
+	        var returnStr="";
+	        var returnIdArr = returnId.split("|");
+	        for(var z = 1 ;z<=inConditionRow;z++){
+	            for(var i = 0,j=returnIdArr.length;i<j;i++){
+                    if(returnIdArr[i]==""){
+                        continue;
+                    }
+	                returnStr += strSplit + returnIdArr[i]+"`"+document.getElementById(returnIdArr[i]+"_"+z).value+"`"+document.getElementById(returnIdArr[i]+"_"+z).getAttribute("sbcylb");
+	                strSplit="-";
+	            }
+	        }
+	        getTx("comid=022&newValueT="+returnStr+"&S_ID="+id,"docommand");
+            
+	        parent.getOpenPage(gs_upl_kc).location.reload(true);
+		parent.parent.parent.closeWinById(gs_upl_kc);
+	    }
+	   if(nevalue!=""){
+	       var index=1;
+	       var nevalueArr = nevalue.split('-');
+	       var nevalueArrLength=nevalueArr.length;
+	       var rxd=nevalueArrLength/inConditionRow;
+	       for(var i = 0 ;i<nevalueArrLength;i++){
+	           var value = nevalueArr[i].split('`');
+	           if(i==rxd*index){
+	               index++;
+	           }
+	           console.log(value[0]+"_"+index);
+	           document.getElementById(value[0]+"_"+index).value=value[1];
+	       }
+	   }
+	</script>
+</html>

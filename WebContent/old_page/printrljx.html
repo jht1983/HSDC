@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" style="width:100%">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            width:100%;
+            padding: 0;
+            margin: 0;
+        }
+        .count_underline {
+            text-decoration: underline;
+            width: 100%;
+            word-wrap: break-word;
+        }
+        .tb{
+            table-layout:fixed;
+            width: 100%;
+        }
+        .tb tr,td{
+            height: 40px;
+        }
+        .font_2Em{
+            WORD-WRAP: break-word;
+            text-indent: 2em;
+        }.show_base_span{
+            display: inline-block;border-bottom: 1px solid #000;min-width: 100px;
+        }
+    </style>
+    <script type='text/javascript' src='res/js/alertfField.js?v=1.0'></script>
+</head>
+<body>
+<ylt.view dataId="1522226322630">
+
+
+    <p algin="center" style="text-align:center;font-size:2em; letter-spacing: 8px;">事 故 应 急 抢 修 单</p>
+    <table class= "tb" cellspacing="0" cellpadding="0" border="0">
+        <colgroup>
+            <col width="30%"/>
+            <col width="30%"/>
+            <col width="40%"/>
+        </colgroup>
+        <tr>
+            <td>
+                <span style="">部门：</span><span style="text-decoration: underline">$value</span>
+            </td>
+            <td>
+                <span style="">班组：</span><span style="text-decoration: underline">$value</span>
+            </td>
+            <td>
+                <span style="">№：：</span><span style="text-decoration: underline">$value</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <span style="">1．抢修工作负责人（监护人）：</span><span style="text-decoration: underline">$value</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="3">
+                2．抢修班人员
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <span style="text-decoration: underline">$value</span> 共 <span style="text-decoration: underline">$value</span>  人
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="3">
+                3．抢修任务（抢修地点和抢修内容）：
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <span  class="font_2Em"  style="text-decoration: underline">$value</span>
+            </td>
+        </tr>
+</ylt.view>
+<tr>
+    <td colspan="3">
+        4．安全措施：
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+        <ylt.for dataId="1526456952903">
+            <div class="font_2Em" style="width: 100%;text-decoration: underline;">
+                $value.
+            </div>
+        </ylt.for>
+
+    </td>
+</tr>
+
+<ylt.view dataId="1526524829990">
+
+
+<tr>
+    <td colspan="3">
+        5．抢修地点保留带电部分或注意事项
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+        <span class="font_2Em" style="text-decoration: underline">$value</span>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="3">
+        6．上述1～5项由抢修负责人    <span  style="text-decoration: underline">$value</span>     根据抢修任务布置人     <span style="text-decoration: underline">$value</span>    的布置填写。
+    </td>
+</tr>
+</ylt.view>
+
+<tr>
+    <td colspan="3">
+        7．经现场勘察需补充下列安全措施：
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+
+        <ylt.for dataId="1526457084876">
+            <div class="font_2Em" style="width: 100%;text-decoration: underline;">
+                $value
+            </div>
+        </ylt.for>
+
+
+
+    </td>
+</tr>
+<ylt.view dataId="1526524977315">
+
+<tr>
+    <td colspan="3">
+        经许可人【值班负责人（值长）】    <span style="text-decoration: underline">$value</span>     同意 （  <span style="text-decoration: underline"><span name="upDat">$value</span></span> ）后，已执行。
+    </td>
+</tr>
+
+<tr>
+    <td colspan="3">
+        8．许可抢修时间：  <span style="text-decoration: underline"><span name="upDat">$value</span></span>
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+        许可人【值班负责人（值长）】：<span style="text-decoration: underline">$value</span>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="3">
+        抢修结束汇报：
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+        本次抢修工作于 <span>_______年____月____日____时____分</span>结束。
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+        现场设备状况及保留安全措施：
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+        <span class="font_2Em"  style="text-decoration: underline" ></span>
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+        抢修班人员全部撤离，材料工具已清理完毕，事故应急抢修单已终结。
+    </td>
+</tr>
+
+<tr>
+    <td colspan="3">
+        抢修工作负责人：<span style="text-decoration: underline">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 许可人【值班负责人（值长）】：<span style="text-decoration: underline">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+        填用时间： <span>_______年____月____日____时____分</span>
+    </td>
+</tr>
+</ylt.view>
+</table>
+
+
+</div>
+</body>
+<script>
+dataFormat("upDat","yyyy年MM月dd日 hh时mm分");
+    window.print();
+</script>
+</html>

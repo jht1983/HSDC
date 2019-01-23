@@ -1,0 +1,119 @@
+<body>
+	<!--startprint-->
+	<ylt.for dataId="1513665196724">
+	<h3 align="center">榆能榆神热电发电厂</h3>
+	<table border="0" cellspacing="0" cellpadding="0" align="center" width="80%">
+		<tr>
+			<td style="text-align: center;"><u>$value</u>号机组<u>$value</u>级检修工程开工报告</td>
+		</tr>
+		<tr>
+			<td>承包项目：<u>$value</u> &nbsp;第&nbsp;&nbsp;页/共&nbsp;&nbsp;页</td>
+		</tr>
+		<tr>
+			<td>
+			<div id="add"></div>
+					<table border="1" cellspacing="0" cellpadding="0" width="100%" style="border-top: hidden;">
+					<tr>
+						<td >施工单位自查说明</td>
+						<td colspan="5">$value
+						
+						</td>
+					</tr>
+					<tr>
+						<td>
+							提交日期
+						</td>
+						<td>
+							$value
+						</td>
+						<td>
+							提交人
+						</td>
+						<td>
+							$value
+						</td>
+						<td>
+							接收人
+						</td>
+						<td>
+							$value
+						</td>
+					</tr>
+					<tr>
+						<td >检修监理审核意见</td>
+						<td colspan="5">$value</td>
+					</tr>
+					<tr>
+						<td>
+							总监理工程师
+						</td>
+						<td>
+							$value
+						</td>
+						<td>
+							工程总指挥
+						</td>
+						<td>
+							$value
+						</td>
+						<td>
+							批准日期
+						</td>
+						<td>
+							$value
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td >
+				开工报告检测项目包括：<br />
+				1、施工组织机构和人员名单、特殊工种人员有效资格证书，以及施工人员安全、技术培训情况；<br />
+				2、施工器械及工具清单和有效检验合格证；<br />
+				3、现场安全措施和措施项目及其落实情况，以及检修设备安全隔离和危险工作安措落实情况。
+				
+			</td>
+		</tr>
+			
+		
+	</table>
+	</ylt.for>
+	<!--endprint-->
+</body>
+<div id="dis" style="display:none">
+	<table border="1" cellspacing="0" cellpadding="0" width="100%">
+					<tr>
+						<th>序号</th>
+						<th colspan="2">施工器械检验和人员培训清单</th>
+						<th>份数</th>
+						<th colspan="2">备注</th>
+					</tr>
+					<ylt.for dataId="1513666346590">
+					<tr>
+						<td name="xuhao"></td>
+						<td colspan="2">$value</td>
+						<td>$value</td>
+						<td colspan="2">$value</td>
+					</tr>
+					</ylt.for>
+					</table>
+</div>
+<script>
+	var xh = document.getElementsByName("xuhao");
+	for(var i = 0; i < xh.length; i++) {
+		xh[i].innerHTML = i + 1;
+	}
+	document.getElementById("add").innerHTML = document.getElementById("dis").innerHTML;
+
+	function preview() {
+		var bdhtml = window.document.body.innerHTML;
+		var sprnstr = "<!--startprint-->";
+		var eprnstr = "<!--endprint-->";
+		var prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+		var prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+		window.document.body.innerHTML = prnhtml;
+		window.print();
+	}
+	preview();
+</script>

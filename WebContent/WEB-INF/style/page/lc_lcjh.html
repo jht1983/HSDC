@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .Table{
+            width:100%;
+            border-collapse: collapse;
+        }
+        .Table td,th{
+            border: 1px solid #000;
+        }
+        .Table th{
+            height: 80px;
+        }
+        .Table td{
+            height: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!--startprint-->
+<table class="Table" cellspacing="0" cellpadding="0">
+    <col width="16.5%"/>
+    <col width="16.5%"/>
+    <col width="16.5%"/>
+    <col width="16.5%"/>
+    <col width="16.5%"/>
+    <col width=""/>
+    <tr>
+        <th colspan="6">
+            <h1>两措计划</h1>
+        </th>
+    </tr>
+    <ylt.for dataId="1514270011002">
+    <tr >
+        <td>
+            组织
+        </td>
+        <td colspan="2">
+            $value
+        </td>
+        <td>
+            编制人
+        </td>
+        <td  colspan="2">
+            $value
+        </td>
+    </tr>
+    <tr>
+        <td>计划编码</td>
+        <td>$value</td>
+        <td>计划描述</td>
+        <td>$value</td>
+        <td>状态</td>
+        <td>$value</td>
+    </tr>
+    <tr>
+        <td>计划年度</td>
+        <td>$value</td>
+        <td>联系人</td>
+        <td>$value</td>
+        <td>两措种类</td>
+        <td>$value</td>
+    </tr>
+    <tr>
+        <td>填报时间</td>
+        <td>$value</td>
+        <td>预计费用（万）</td>
+        <td>$value</td>
+        <td>实际费用（万）</td>
+        <td>$value</td>
+    </tr>
+    </ylt.for>
+    
+  
+    <tr>
+        <td colspan="6" style="text-align: left;">两措计划子实体</td>
+    </tr>
+    <tr>
+        <td colspan="6">
+            <table id="fbiao" style="width: 100%;border-collapse: collapse;border-width:0px; border-style:hidden;" cellspacing="0" cellpadding="0">
+                <col width="11%">
+                <col width="11%">
+                <col width="11%">
+                <col width="11%">
+                <col width="11%">
+                <col width="11%">
+                <col width="11%">
+                <col width="11%">
+                <col width="11%">
+                <tr>
+                    <td>项目名称</td>
+                    <td>计划费用（万）</td>
+                    <td>实际费用（万）</td>
+                    <td>计划完成时间</td>
+                    <td>责任部门</td>
+                    <td>负责人</td>
+                    <td>状态</td>
+                    <td>完成时间</td>
+                    <td>执行情况</td>
+                </tr>
+                
+                <ylt.for dataId="1514270028660">
+                    <tr>
+                    <td>$value</td>
+                    <td>$value（万）</td>
+                    <td>$value（万）</td>
+                    <td>$value</td>
+                    <td>$value</td>
+                    <td>$value</td>
+                    <td>$value</td>
+                    <td>$value</td>
+                    <td>$value</td>
+                    </tr>
+                </ylt.for>
+            </table>
+        </td>
+    </tr>
+</table>
+<!--endprint-->
+</body>
+
+<script>
+       function preview() {
+		var bdhtml = window.document.body.innerHTML;
+		var sprnstr = "<!--startprint-->";
+		var eprnstr = "<!--endprint-->";
+		var prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+		var prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+		window.document.body.innerHTML = prnhtml;
+		window.print();
+	}
+	preview();
+</script>
+</html>

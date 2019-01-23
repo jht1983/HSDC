@@ -1,0 +1,38 @@
+.graphTb td {
+	border: 1px solid #666
+}
+
+input {
+	width: 140px
+}
+
+.input_short{
+	width:30px;
+}
+
+select {
+	width: 150px;
+}
+
+ul {
+	list-style: none;
+	line-height: 40px;
+	margin-left: 0px;
+}
+
+li {
+	display: block;
+	float: left;
+	width: 120px;
+}
+
+.disabledDiv {
+	position: absolute;
+	width: 25%;
+	height: 100%;
+	left: 75%;
+	top: 10px;
+	background: #000;
+	filter: alpha(opacity = 0);
+	opacity: 0
+}

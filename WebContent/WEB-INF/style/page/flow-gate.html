@@ -1,0 +1,140 @@
+<script type='text/javascript' src='js/evenfunction.js'></script>
+<script type='text/javascript' src='js/WdatePicker.js'></script>
+<script type='text/javascript' src='js/ylpub.js'></script>
+<script type='text/javascript' src='js/fc.js'></script>
+<script type='text/javascript' src='js/LodopFuncs.js'></script>
+<script type='text/javascript' src='js/print.js'></script>
+<script type='text/javascript' src='js/ylselect.js'></script>
+<script type='text/javascript' src='js/yltree.js'></script>
+<script type='text/javascript' src='js/check.js'></script>
+<link href='css/table.css' rel='stylesheet' type='text/css'/>
+
+
+
+<ylt.fun fun="TheGateway"/>
+
+<input value='' id='attreventname' type='hidden' style='width:140px;'>
+
+<script>
+        <ylt.v message="gs_upl_kc">
+            var gs_upl_kc="";
+        $value
+            var gs_upl_kc="$value";
+        </ylt.v>
+         <ylt.v message="nodechilds">
+        var nodechilds="";
+    $value
+        var nodechilds="$value";
+    </ylt.v>
+       <ylt.v message="formid">
+        var formid="";
+    $value
+        var formid="$value";
+    </ylt.v>
+  
+</script>
+<script>
+    var objParent = parent.getOpenPage(gs_upl_kc);
+	var objParentFlow = objParent.ylt.flow;
+
+	var arrStrAttrIds = objParentFlow.arrStrAttrIds;
+    var iFieldCount = arrStrAttrIds.length;
+	var nodeId = '';
+    var S_CONDITION = document.getElementById('S_CONDITION');
+
+
+
+ 
+	function initValue(){
+	   document.getElementById('attreventname').value = objParentFlow.objCurSelGraph.data("text");
+	   var attr_childcon = objParentFlow.objCurSelGraph.data("attr_childcon");
+	   if(attr_childcon!="undefined"&&attr_childcon!=undefined){
+	       S_CONDITION.value=attr_childcon;
+	   }
+	    for(var i = 0;i<iFieldCount;i++ ){
+			if(document.getElementById(arrStrAttrIds[i])!=null){
+				document.getElementById(arrStrAttrIds[i]).value=objParentFlow.objCurSelGraph.data("attr_"+arrStrAttrIds[i])==undefined?"":objParentFlow.objCurSelGraph.data("attr_"+arrStrAttrIds[i]);
+		    }
+		
+	    }
+	}
+	initValue();
+	function getAttr() {
+		var objAttr = new Object();
+		for(var i = 0;i<iFieldCount;i++ ){
+
+			    var objInputElement=document.getElementById(arrStrAttrIds[i]);
+			    if(objInputElement!=null){
+				    objAttr[arrStrAttrIds[i]] = objInputElement.value;
+			    }
+		
+	        }
+
+		objAttr['attreventname'] = document.getElementById('attreventname').value;
+		objParentFlow.objCurSelGraph.data("attr_childcon",S_CONDITION.value);
+	
+		objParentFlow.changeAttr(objAttr);
+	}
+	
+	document.getElementById('submitToObj').onclick = function() {
+		getAttr();
+		parent.closeWinById(gs_upl_kc);
+	};
+</script>
+
+<script>
+	var strNodeChild = nodechilds.split(",");
+	var indexLength = strNodeChild.length;
+	var tableElement = document.getElementById("flowgate");
+	var tempTD = "";
+	for(var i = 0; i < indexLength; i++) {
+	    var elementTr = document.createElement("tr");
+		tempTD = "";
+		tempTD += "<td class='td1'>";
+		tempTD += objParentFlow.objCurGraph[strNodeChild[i]].data('text');;
+		tempTD += "</td>";
+		tempTD += "</td>";
+		tempTD += "<td class='td1'>";
+		tempTD += "<input type='radio' name='mr' id='radio_" + strNodeChild[i] + "' onclick='radioCodReturn(this);' value='" + strNodeChild[i] + "'/>";
+		tempTD += "</td>";
+		tempTD += "<td class='td1'>";
+		tempTD += "<input type='button' class='button red' id='sys_node_" + strNodeChild[i] + "' onclick='CONDITION(this," + strNodeChild[i] + ");' style='width:120px;height:40px;' value='设置条件' />";
+		tempTD += "</td>";
+		elementTr.innerHTML = tempTD;
+		tableElement.appendChild(elementTr);
+	}
+	
+	function CONDITION(_obj, num) { 
+		miniWin('设置条件', '', 'flow-gatecon.v?nodechild=' + num+'&formid='+formid+"&parentId="+objParentFlow.objCurSelGraph.data("id"), 1000, 330, '', ''); 
+	}
+	var conButton=null;
+	function radioCodReturn(_obj){
+	    var radio = _obj.value;
+	    $("S_AUDIT_DEF").value=radio;
+	    if(conButton!=null){
+	        conButton.style.display="";
+	    }
+	    $("sys_node_"+radio).style.display="none";
+	    conButton=$("sys_node_"+radio);
+	}
+	function morenxuanze(_obj){
+	    if(_obj.checked){
+	        $('S_AUDIT_SEL').value=strNodeChild;
+	    }else{
+	        $('S_AUDIT_SEL').value="";
+	    }
+	}
+	var audioValue=$("S_AUDIT_DEF").value;
+	var selValue=$("S_AUDIT_SEL").value;
+    
+    if(selValue!=""){
+	    $("SFSDXZJD").click();
+	}else{
+	    
+	}
+	if(audioValue!=""){
+	    $("radio_"+audioValue).click();
+	}else{
+	    
+	}
+</script>

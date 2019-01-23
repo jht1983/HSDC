@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href='css/layout.css' rel='stylesheet' type='text/css' />
+		<link href='css/table.css' rel='stylesheet' type='text/css' />
+		<link href='css/win.css' rel='stylesheet' type='text/css' />
+		<script type='text/javascript' src='js/evenfunction.js'></script>
+		<script type='text/javascript' src='js/WdatePicker.js'></script>
+		<script type='text/javascript' src='js/ylpub.js'></script>
+		<script type='text/javascript' src='js/fc.js'></script>
+		<script type='text/javascript' src='js/LodopFuncs.js'></script>
+		<script type='text/javascript' src='js/print.js'></script>
+		<script type='text/javascript' src='js/ylselect.js'></script>
+		<script type='text/javascript' src='js/yltree.js'></script>
+		<script type='text/javascript' src='js/check.js'></script>
+		<style>
+			span {
+				cursor: pointer;
+			}
+			
+			body {
+				padding: 0;
+				/*去除内边距*/
+				border: 0;
+				/*去除边框*/
+				margin: 0;
+				/*去除外边距*/
+				-moz-user-select: none;
+				/*火狐*/
+				-webkit-user-select: none;
+				/*webkit浏览器*/
+				-ms-user-select: none;
+				/*IE10*/
+				-khtml-user-select: none;
+				/*早期浏览器*/
+				user-select: none;
+				background-color: wheat;
+			}
+			
+			table,
+			table tr th,
+			table tr td {
+				border: 1px solid #0094ff;
+			}
+			input{
+			    width:95%;
+			}
+			table {
+				width: 600px;
+				min-height: 25px;
+				line-height: 25px;
+				text-align: center;
+				border-collapse: collapse;
+			}
+		</style>
+	</head>
+
+	<body>
+		<table id="tablePageCod" >
+			<tr>
+				<td>数据集名称</td>
+				<td colspan="5">
+					<input id="tableName" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					名称
+				</td>
+				<td>
+					数据集编号
+				</td>
+				<td>
+					条件(&拼接)
+				</td>
+				<td>
+					删除
+				</td>
+				<td>
+					拖动
+				</td>
+			</tr>
+		</table>
+		<input id="addCod" type="button" value="添加" />
+		<input id="submitCod" type="button" value="提交" />
+		<div style="display:none ;">
+			<form id="add" method="post">
+				<input type="hidden" name="NO_DOSCRIPT" value="window.location='test.v';" />
+				<input type='hidden' name='NO_charset' value='utf-8' />
+				<ylt.form page="1505198553386">
+					$value $value $value $value $value $value
+				</ylt.form>
+				<input type="submit" id="toDbFrom" />
+			</form>
+		</div>
+	</body>
+	<script>
+		<ylt.v message="sys_bed">
+	    var sys_bed="";
+	    $value;
+	    var sys_bed="$value";
+	    </ylt.v>
+	</script>
+	<script>
+		var tempElement = null;
+		var btn = false;
+
+		function tempClickTotable(_obj) {
+			btn = true;
+			tempElement = _obj.parentNode.parentNode;
+		}
+
+		function tempUpTotable(_obj) {
+			if(btn) {
+				btn = false;
+			}
+			_obj.parentNode.parentNode.parentNode.insertBefore(tempElement, _obj.parentNode.parentNode);
+		}
+
+		function tempOveTable(_obj) {
+			if(!btn) {
+				return;
+			}
+			_obj.parentNode.parentNode.style.borderTop = "3px solid red";
+		}
+
+		function tempOutTable(_obj) {
+			_obj.parentNode.parentNode.style.borderTop = "";
+		}
+
+		function $(_str) {
+			return document.getElementById(_str);
+		}
+
+		function N$(_str) {
+			return document.getElementsByName(_str);
+		}
+		
+		$("addCod").onclick = function() {
+			createElementTr("", "");
+		};
+
+		function createElementTr(strURL, pageName) {
+			var tr = null;
+			if(strURLArr == "" && pageName == "") {
+				tr.setAttribute("name", "trCod");
+				tr.innerHTML = "<td><input type='text' value='" + pageName + "' /></td><td><input type='text' value='" + tempasv.substr(0, strSplitIndex) + "' /></td><td><input type='text' value='" + tempasv.substr(strSplitIndex + 1) + "' /></td><td><span onclick='removeNode(this);'>X</span></td><td><span onmousedown='tempClickTotable(this);' onmouseup='tempUpTotable(this);' onmousemove='tempOveTable(this);' onmouseout='tempOutTable(this);'>+</span></td>";
+				$("tablePageCod").appendChild(tr);
+			} else {
+				strURL = strURL.substr(0, strURL.length - 1);
+				var strURLArr = strURL.split('|');
+				var pageNameArr = pageName.split('|');
+				for(var i = 0, j = strURLArr.length; i < j; i++) {
+					tr = document.createElement("tr");
+					tr.setAttribute("name", "trCod");
+					var tempState = "URL:";
+					var tempStateLength = tempState.length;
+					var urlAndCod = strURLArr[i];
+					var pageName = pageNameArr[i];
+					var tempasv = urlAndCod.substr(tempStateLength);
+					var strSplitIndex = tempasv.indexOf("View?SPAGECODE") >= 0 ? tempasv.indexOf("&") : tempasv.indexOf("?");
+					strSplitIndex = strSplitIndex >= 0 ? strSplitIndex : tempasv.length;
+					tr.innerHTML = "<td><input type='text' value='" + pageName + "' /></td><td><input type='text' value='" + tempasv.substr(0, strSplitIndex) + "' /></td><td><input type='text' value='" + tempasv.substr(strSplitIndex + 1) + "' /></td><td><span onclick='removeNode(this);'>X</span></td><td><span onmousedown='tempClickTotable(this);' onmouseup='tempUpTotable(this);' onmousemove='tempOveTable(this);' onmouseout='tempOutTable(this);'>+</span></td>";
+					$("tablePageCod").appendChild(tr);
+				}
+			}
+		}
+
+		$("submitCod").onclick = function() {
+			var strURL = "";
+			var tableName = "";
+			var pageName = "";
+			var trArr = N$("trCod");
+			var trArrLength = trArr.length;
+			if(trArrLength <= 0) {
+				alert(0);
+				return false;
+			}
+			for(var i = 0; i < trArrLength; i++) {
+				var inputArr = trArr[i].getElementsByTagName("input");
+				pageName += inputArr[0].value + "|";
+				strURL += "URL:" + inputArr[1].value + (inputArr[2].value == "" ? "" : "?" + inputArr[2].value) + "|";
+			}
+			$("t_sys_pagemsg$SFIELDCODE").value = strURL;
+			$("t_sys_pagemsg$SFIELDNAME").value = pageName.substr(0, pageName.length - 1);
+			$("t_sys_pagemsg$SPAGENAME").value = $("tableName").value;
+			$("toDbFrom").click();
+		};
+
+		function removeNode(_obj) {
+			var tr = _obj.parentNode.parentNode;
+			tr.parentNode.removeChild(tr);
+
+		}
+
+		if(sys_bed != "") {
+			$("tableName").value = $("t_sys_pagemsg$SPAGENAME").value;
+			var strURL = $("t_sys_pagemsg$SFIELDCODE").value;
+			var pageName = $("t_sys_pagemsg$SFIELDNAME").value;
+			createElementTr(strURL, pageName);
+		}
+	</script>
+
+</html>

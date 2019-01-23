@@ -1,0 +1,44 @@
+@-webkit-keyframes bounce {
+	  0% { -webkit-transform: translateY(0); }
+	100% { -webkit-transform: translateY(-20px); }
+}
+
+@-moz-keyframes bounce {
+	  0% { -moz-transform: translateY(0); }
+	100% { -moz-transform: translateY(-20px); }
+}
+.dock {
+	position: absolute;
+	bottom: 0;
+	z-index: 0;
+	width: 100%;
+	text-align: center;
+	font: normal 14px/1 'Lucida Grande', Arial, sans-serif;
+}
+
+
+.menubord_center {
+	background-image: url(images/menu/menu-m.png);
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #333;
+}
+.menubord_center table tr td {
+	padding-bottom: 6px;
+	vertical-align:bottom;
+}
+.file_list{float:left;width:100px;height:100px;text-align:center;}
+.file_list_ico{width:35px;height:35px;cursor:hand;}
+.file_list_text{line-height:2.5;height:30px;color:black;font-weight: bold;font-family:"微软雅黑","黑体";font-size:12px;}
+.sys_home_tip{position:absolute;left:0px;top:0px;z-index:1001;}
+.sys_home_tip_content{background: url(../images/content/tip.png);padding:0em 0.8em;white-space:nowrap;border-radius: 8px;font-family:微软雅黑,黑体;font-size:15px;color:#d6d6d6;height:25px;line-height:25px;}
+.apphomemenuleft{background: url(../images/menu/menu-l.png) no-repeat bottom;width:31px;height:55px;}
+.apphomemenucenter{background: url(../images/menu/menu-m.png) repeat-x bottom;}
+.apphomemenuright{background: url(../images/menu/menu-r.png) no-repeat bottom;width:31px;}
+.apphomemainmenu{width:60px;height:auto;margin-left: 20px;margin-bottom: 15px;cursor:hand;}

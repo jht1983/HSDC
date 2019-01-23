@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%">
+<script type='text/javascript' src='js/evenfunction.js'></script>
+<script type='text/javascript' src='js/ylselect.js'></script>
+<script type='text/javascript' src='js/yltree.js'></script>
+<script type='text/javascript' src='js/check.js'></script>
+<script>
+	gs_root = '/sip';
+</script>
+<link href='css/table.css' rel='stylesheet' type='text/css' />
+<table class='table1' cellpadding='0' cellspacing='0' width='100%'>
+	<tr class='tr1'>
+		<td class='inputth1'>活动名称:</td>
+		<td class='inputtd1'><input value='' id='attreventname'
+			type='text' style='width:140px;'>
+		</td>
+		<td class='inputth1'></td>
+		<td class='inputtd1'>
+		</td>
+	</tr>
+    
+	<tr class='tr1' style="display:none;">
+		<td class='inputth1'>跳转到下一流程:</td>
+		<td class='inputtd1'>
+	
+		
+		<input id='S_TZLC' name='S_TZLC' type='text' style='width:140px;'
+			selcode='1501469739899' class='ylselect' seltype='data' dataid='1501469820553'
+			nodecode='S_FLOWID' nodename='S_FLOWNM'>
+			<input  id='NO_S_TZLC'
+			type='hidden' style='width:140px;'>
+		</td>
+	</tr>
+	<tr class='tr1'>
+			<td class='inputth1' style='width:100px;'>
+			    包名称:
+			</td>
+			<td class='inputtd1'>
+			    <input name="S_AUDIT_PAGENAME" id='S_AUDIT_PAGENAME' type='text' style='width:140px;'>
+			</td>
+			<td class='inputth1' style='width:100px;'>
+			    类名称:
+			</td>
+	        <td class='inputtd1'>
+			    <input name="S_AUDIT_CLASSNAME" id='S_AUDIT_CLASSNAME' type='text' style='width:140px;' >
+			</td>
+		</tr>
+	<tr>
+		<td colspan='4' align='right' class='bttformoparea'><table>
+				<tr>
+					<td><a  href="javascript:getAttr();parent.closeWinById(gs_upl_kc);"   class="button green" ><span><div class='bttn_panel'
+									style='background-image:url(images/eve/qd.png);'>确定</div> </span> </a>
+					</td>
+					<td width='50px'>&#160;</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+    <script>
+        <ylt.v message="gs_upl_kc">
+            var gs_upl_kc="";
+        $value
+            var gs_upl_kc="$value";
+        </ylt.v>
+        
+    </script>
+	<script>
+        var objParent=parent.getOpenPage(gs_upl_kc);
+        var objParentFlow=objParent.ylt.flow;
+
+        var array_end = objParentFlow.arrStrAttrIds;var iFieldCount=array_end.length;
+    	function getAttr() {
+			var objAttr = new Object();
+			for(var i = 0;i<iFieldCount;i++ ){
+			    var objInputElement=document.getElementById(array_end[i]);
+			    if(objInputElement!=null){
+				    objAttr[array_end[i]] = objInputElement.value;
+			    }
+		
+	        }
+	        objAttr['attreventname'] = document.getElementById('attreventname').value;
+		    objParentFlow.changeAttr(objAttr);
+		}
+    	function initValue(){
+	   document.getElementById('attreventname').value = objParentFlow.objCurSelGraph.data("text");
+	    for(var i = 0;i<iFieldCount;i++ ){
+			if(document.getElementById(array_end[i])!=null){
+				document.getElementById(array_end[i]).value=objParentFlow.objCurSelGraph.data("attr_"+array_end[i]);
+			}
+		
+	    }
+	}
+	initValue();
+	</script>

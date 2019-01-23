@@ -1,0 +1,26 @@
+body {font-family:ËÎÌו;font-size:12px;color:#0F6269;text-align:left;}
+body,html{background:#f2f4f1;
+scrollbar-face-color: #D8EBE7; 
+scrollbar-shadow-color: #D8EBE7; 
+scrollbar-highlight-color:#D8EBE7; 
+scrollbar-3dlight-color: #D8EBE7; 
+scrollbar-darkshadow-color: #D8EBE7; 
+scrollbar-track-color:#E4F0EE; 
+scrollbar-arrow-color: #08876E;
+}
+}
+a{font-family:ËÎÌו;font-size:12px;color:#063d00;}
+a:link{text-decoration:none;}
+a:visited{text-decoration:none;color:#575956;}
+a:hover{text-decoration:none;color:#575956;}
+
+
+.menutb{width:220;}
+.menutd{padding: 0em 3.6em;height:30;width:220;text-align:left;}
+.menutdover{padding: 0em 3.6em;height:30;width:220;text-align:left;background:url(../images/menu/menubg.jpg);color:green}
+.tabline{background:#176104}
+.tabnocolor{background:}
+
+.menusplit{height:1;background:url(../images/menu/menusplit.jpg);text-align:center;}
+.menusplitstart{height:4;background:url(../images/menu/menusplitstart.jpg);text-align:center;}
+

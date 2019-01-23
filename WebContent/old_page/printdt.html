@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<style>
+			span {
+				display: inline-block;
+				border-bottom: 1px solid #000;
+				text-align: left;
+			}
+			
+			.tb {
+				table-layout: fixed;
+				width: 100%;
+				text-align: left;
+			}
+			
+			.tb tr,
+			td {
+				height: 30px;
+			
+				text-indent: 0.5em;
+			}
+			    .tb td{
+            height:20px;
+           border-bottom:1px solid #000;
+             border-left:1px solid #000;
+             
+        }
+         .tb tr:first-child>td{
+          
+            border-top:1px solid #000;
+        }
+      .tb th{
+          
+            border-bottom:1px solid #000;
+        }
+        .tb td:last-child{
+          
+            border-right:1px solid #000;
+        }
+			
+			.font_2Em {
+				WORD-WRAP: break-word;
+				text-indent: 2em;
+			}
+	body{
+	font-size:13px;
+	color:#000000;
+}
+
+		</style>
+		<script type='text/javascript' src='res/js/alertfField.js?v=1.0'></script>
+	</head>
+
+	<body>
+		<ylt.view dataId="1508829227154">
+			<p algin="center" style="text-align:center;font-size:2em">动土工作票</p>
+			<p algin="left" style="text-align:right;">编号：<span style="width: 200px">$value</span></p>
+			<table class="tb" border="0" cellpadding="0" cellspacing="0">
+				<THEAD style="display:table-header-group;font-weight:bold">
+				<!--<TR><TD colspan="2" align="center" style="font-weight:bold;border:0">每页都有的表头</TD></TR>-->
+			</THEAD>
+			<TBODY style="text-align:center" class="changePage">
+				<colgroup>
+					<col width="20%" />
+					<col width="45%" />
+					<col width="35%" />
+				</colgroup>
+				<tr>
+					<td colspan="2">动土申请部门、专业：$value,$value</td>
+					<td>
+						项目负责人：$value
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">动土项目名称：$value</td>
+					<td>
+						位置：$value
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">动土工作内容及示意图：$value</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						动土范围：$value
+					</td>
+					<td>
+						动土深度：$value
+					</td>
+				</tr>
+				<tr>
+					<td>
+						申请动土时间:
+					</td>
+					<td>
+						<span name="upDat">$value</span>
+					</td>
+					<td>
+						结束时间：<span name="upDat">$value</span>
+					</td>
+				</tr>
+		</ylt.view>
+		<tr>
+			<td style="text-align: left;vertical-align: top" colspan="2">
+				动土施工应采取的安全措施：
+				<ylt.for dataId="1526450237738">
+					<div style="width: 100%" class="font_2Em">$value</div>
+				</ylt.for>
+			</td>
+			<td style="text-align: left;vertical-align: top">
+				风险控制措施：
+				<ylt.for dataId="1526450254293">
+					<div style="width: 100%" class="font_2Em">$value</div>
+				</ylt.for>
+			</td>
+		</tr>
+		<ylt.view dataId="1526450487353">
+			<tr>
+				<td colspan="2">动土工作票签发人：$value</td>
+				<td>
+					日期：<span name="upDat">$value</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">动土工作票接票人：$value</td>
+				<td>
+					日期：<span name="upDat">$value</span>
+				</td>
+			</tr>
+
+			<tr>
+				<td style="border-bottom: none">值长批准</td>
+				<td>开始时间：<span name="upDat">$value</span></td>
+				<td rowspan="2">
+					日期：$value
+				</td>
+			</tr>
+			<tr>
+				<td style="border-top: none">动土时间</td>
+				<td>结束时间：<span name="upDat">$value</span></td>
+			</tr>
+
+			<tr>
+				<td colspan="3">
+					运行补充措施：
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="border-bottom: none">
+					工作票延期：有效期延长到 <span name="upDat">$value</span>
+				</td>
+			</tr>
+			<tr>
+				<td style="border-top: none;border-right: none">
+					值长： $value
+				</td>
+				<td style="border-top: none;border-right: none;border-left: none;text-align: center">
+					工作许可人： $value
+				</td>
+				<td style="border-top: none;border-left: none">
+					工作负责人：$value
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="border-bottom: none">
+					工作结束：工作人员已全部撤离，现场已清理完毕，$value结束。
+				</td>
+			</tr>
+			<tr>
+				<td style="border-top: none;border-right: none">
+					值长： $value
+				</td>
+				<td style="border-top: none;border-right: none;border-left: none;text-align: center">
+					工作许可人： $value
+				</td>
+				<td style="border-top: none;border-left: none">
+					工作负责人：$value
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					备注:
+					<div style="width: 100%" class="font_2Em">$value</div>
+				</td>
+			</tr>
+		</ylt.view>
+		</TBODY>
+			<TFOOT style="display:table-footer-group;font-weight:bold ">
+				<!--<TD colspan="2" align="center" style="font-weight:bold;border:0">每页都有的表尾</TD>-->
+			</TFOOT>
+		</table>
+		<script>
+			dataFormat("upDat","yyyy年MM月dd日 hh时mm分");
+			window.print();
+		</script>
+	<style>
+		@media print {
+			INPUT {
+				display: none
+			}
+		}
+		
+		.changePage {
+			page-break-after: always;
+		}
+	</style>
+	</body>
+
+</html>

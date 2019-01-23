@@ -1,0 +1,32 @@
+<script>
+    var temp="<ylt.fun fun="doFlowRun"/>";
+    
+    if(temp=="true"){
+  
+         var strwin=<ylt.v message="NO_UPL_KC">""$value"$value"</ylt.v>;
+         if(parent.mainhomeframe.location.pathname.indexOf("home.v")!=-1){
+             parent.mainhomeframe.location.reload();
+             parent.closeWinById(strwin);
+         }else if(typeof(parent.mainhomeframe.lxmain)=="undefined"){
+
+               parent.location.reload(); 
+         }else{
+
+             parent.getOpenPage(strwin).location.reload();
+             parent.closeWinById(strwin);
+             
+             /*
+            parent.mainhomeframe.lxmain.location.reload();
+            
+            parent.closeWinById(strwin);
+            */
+         }
+       
+    }else{
+        alert("流转失败");
+       parent.mainhomeframe.lxmain.location.reload();
+        parent.closeWinById(<ylt.v message="NO_UPL_KC">""$value"$value"</ylt.v>);
+       
+    }
+    
+</script>

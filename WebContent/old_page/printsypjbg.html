@@ -1,0 +1,74 @@
+<body>
+	<!--startprint-->
+	<ylt.for dataId="1513672889514">
+	<h3 align="center">榆能榆神热电发电厂</h3>
+	<table border="0" cellspacing="0" cellpadding="0" align="center" width="80%">
+		<tr>
+			<td style="text-align: center;"><u>$value</u>号机组<u>$value</u>级检修试运评价报告</td>
+		</tr>
+		<tr>
+			<td>部门名称：（运行管理部门） &nbsp;第&nbsp;&nbsp;页/共&nbsp;&nbsp;页</td>
+		</tr>
+		<tr>
+			<td>
+				<u>$value</u>号机组（&nbsp;&nbsp; MW）,于<u>$value</u>停运开始检修，<u>$value</u>完成、实际<u>$value</u>竣工， 该机组从上次<u></u>级检修后共服役
+				<u></u>天、其中最长连运<u></u>天，本次<u>$value</u>级 检修工程竣工后于<u>$value</u>开始整体启动调试。于<u>$value</u>完成性能试验并投入正式运行。
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table border="1" cellspacing="0" cellpadding="0" width="100%">
+					<tr>
+						<td>
+							一、主要机组设备冷态试验<br />
+							 (概述部分试运和冷态试验主要情况，根据试验结果对主要性能指标进行分析。)
+							<br /> $value
+
+						</td>
+					</tr>
+					<tr>
+						<td>
+							二、主要机组设备热态试验<br />
+							 (概述整体启动调试和性能试验情况，根据测试数据对主要性能指标做出评价，包括 做出修后生产安全性、设备可靠性和技术经济性评估。)
+							<br /> $value
+
+						</td>
+					</tr>
+					<tr>
+						<td>
+							三、运行评价结论和改进要求<br />
+							 (根据冷态和热态试验结果及运行实际，对秀后设备性能及其检修质量做出总体评价， 同事对试运发现设备缺陷及安全遗留问题，提出补充解决意见和完善改进要求 。)
+							<br /> $value
+
+						</td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				（各专业或部门总结由本部门编审，纳入竣工总结报告审定批准）<br />
+				<hr /><br />
+				<div align="right"><u>$value</u></div>
+			</td>
+		</tr>
+	</table>
+	</ylt.for>
+	<!--endprint-->
+</body>
+
+<script>
+
+	function preview() {
+		var bdhtml = window.document.body.innerHTML;
+		var sprnstr = "<!--startprint-->";
+		var eprnstr = "<!--endprint-->";
+		var prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+		var prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+		window.document.body.innerHTML = prnhtml;
+		window.print();
+	}
+	preview();
+</script>

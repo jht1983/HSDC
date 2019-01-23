@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href='css/table.css' rel='stylesheet' type='text/css' />
+		<script type='text/javascript' src='js/evenfunction.js'></script>
+	    <script type='text/javascript' src='js/ylselect.js'></script>
+	    <script type='text/javascript' src='js/yltree.js'></script>
+	    <script type='text/javascript' src='js/check.js'></script>
+		<style>
+			html {height: 100%;width: 100%;}
+			body {height: 100%;width: 100%;border: 0;margin: 0;-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;background-color: #f4f4f8;}
+			.allDiv{width:100%;height:100%;position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgb(0, 0, 0); z-index: 988;opacity: 0.52;}
+		    .buttonA{
+		        display: inline-block;
+                position: relative;
+                margin-left: 20px;
+                text-align: center;
+                text-shadow: rgba(255, 255, 255, 0.22) 1px 1px 1px;
+                height: 5em;
+                width:15em;
+                letter-spacing: 5px;
+                padding: 0px 20px;
+                text-decoration: none;
+                font: bold 12px/25px 黑体;
+		    }
+		    .divJz{
+		    	height:60px;
+		    	width:120px;
+		    	line-height:60px;
+		    	border:1px solid #e9e9e9;
+		    	float:left;
+		    	font-size:20px;
+		    	margin-left:3px;
+		    	cursor: pointer;
+		    }
+		    h1{
+		        margin: 0;
+    font-size: 14px;
+		    }
+		    .title h1{
+		        color: #0161b3;
+                display: inline-block;
+                background-color: #FFF;
+                line-height: 40px;
+                height: 40px;
+                padding: 0 20px;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+		    }
+		    
+		    .jzrz-tab{
+		        padding: 15px;
+                background-color: #fff;
+                position: relative;
+		    }
+		    .jzrz-tab img{
+		            position: absolute;
+    width: 97.5%;
+		    }
+		    .jzrz-tab{
+		            width: 150px;
+    /*height: 120px;*/
+    z-index: 9999;
+    background-color: rgba(255,255,255,0.8);
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+		    }
+		    ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.jzrz-tab ul li {
+    text-align: center;
+    background-color: #fff;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.jzrz-tab ul li {
+    text-align: center;
+    background-color: #fff;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.jzrz-tab ul li:hover, .jzrz-tab ul .active {
+    background-color: #3fb6ee;
+    color: #fff;
+}
+
+.1ul  {
+    text-align: center;
+    background-color: #fff;
+    height: 40px;
+    width:50px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.right-box {
+    width: 100%;
+    float: right;
+    padding: 15px 0;
+}
+.img-responsive, .thumbnail>img, .thumbnail a>img, .carousel-inner>.item>img, .carousel-inner>.item>a>img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}.center-block {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}.add-jzrz img {
+    position: absolute;
+    width: 100%;
+}
+		</style>
+	</head>
+        
+	<body>
+	    
+	    <!--<div class="right-box">-->
+	        
+	        
+	    <!--    <div class="title">-->
+    	<!--		<h1>机组长运行日志</h1>-->
+    	<!--	</div>-->
+    	<!--	<div class="add-jzrz">-->
+    	<!--		<img src="res/images/jzrz-img.jpg" class="center-block img-responsive" />-->
+    	<!--		<div class="jzrz-tab">-->
+    	<!--			<ul>-->
+    	<!--				<li><a href="#">1#机组</a></li>-->
+    	<!--				<li><a href="#">2#机组</a></li>-->
+    					
+    	<!--			</ul>-->
+    	<!--		</div>-->
+    	<!--	</div>-->
+    		
+    		
+    		
+	    <!--</div>-->
+   
+	    
+<div class="right-box">
+    
+	    <div   class="title">
+    			<h1>日志</h1>
+    		</div>
+	    
+       
+     
+     <div id="1" style="display:none;" class="add-jzrz">
+    		<img src="res/images/jzrz-img.jpg" class="center-block img-responsive" />
+    	    <div  align="center" class="menutext jzrz-tab"  style="position: absolute;right:0px;bottom: 50px;width:100%;background-color: rgba(255,255,255,0.8);" valign="middle">   
+          
+    	       <ul style="width:120px" >
+    				   
+    				    
+    				<li onclick="succession()"><a href="#"  > 接班</a></li>
+  
+    		</ul>
+    	    </div>
+        </div>
+            
+    <!--<div id="1" style="display:none;height: 100%;width: 100%;">-->
+    <!--        <table width="100%" height="100%" style="padding:5%" boder="1">-->
+    <!--            <tr height="80%">-->
+    <!--                <td>-->
+    <!--                    <img src="images/ico/jsgl.png" style="width:100%;height:100%"/>-->
+    <!--                </td>-->
+    <!--            </tr>-->
+    <!--            <tr>-->
+    <!--                <td  align="center" class="menutext" valign="middle">   -->
+    <!--                    <input type="button" class="buttonA blue"  value="接班" onclick="succession()"/>-->
+    <!--                </td>-->
+    <!--            </tr>-->
+    <!--        </table>-->
+    <!--    </div>-->
+    
+        
+        <div id="2" style="display:none;" class="add-jzrz">
+    		<img src="res/images/jzrz-img.jpg" class="center-block img-responsive" />
+    		<div id="22"  align="center" class="menutext"  style="color:#000;font-size:5em;position: absolute;bottom: 50px;width:100%;background-color: rgba(255,255,255,0.8);" valign="middle">   
+            </div>
+        </div>
+        
+        <!--<div id="2" style="display:none;height: 100%;width: 100%;">-->
+        <!--    <table width="100%" height="100%" style="padding:5%" boder="1">-->
+        <!--        <tr height="80%">-->
+        <!--            <td>-->
+        <!--                <img src="images/ico/jsgl.png" style="width:100%;height:100%"/>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td id="22"  align="center" class="menutext"  style="color:#FFF;font-size:5em" valign="middle">   -->
+                        
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--    </table>-->
+        <!--</div>-->
+        
+        
+        
+        <!--机组-->
+
+    		<div id="3" style="display:none;" class="add-jzrz">
+    			<img src="res/images/jzrz-img.jpg" class="center-block img-responsive" />
+    			<div class="jzrz-tab">
+    				<ul>
+    				    <ylt.for dataId="1509936331158"><!-- 循环-->
+    				    
+    				    <li onclick="judgent_location('$value','$value')"><a href="#"  > $value</a></li>
+    				    </ylt.for>
+
+    				</ul>
+    			</div>
+    		</div>
+    		
+    		
+    		<div id="4" style="display:none;" class="add-jzrz">
+    			<img src="res/images/jzrz-img.jpg" class="center-block img-responsive" />
+    			<div id="22"  align="center" class="menutext"  style="color:#000;font-size:5em;position: absolute;bottom: 50px;width:100%;background-color: rgba(255,255,255,0.8);" valign="middle">   
+                    无操作
+                </div>
+    		</div>
+
+	    </div>
+        
+      
+        
+        
+	</body>
+	<script>
+	    <ylt.v message="SYS_STRCURUSER">/*获取SESSION  或者  URL*/
+	        var _userCode="";
+	    $value
+	        var _userCode=",$value,";
+	    </ylt.v>
+	    <ylt.v message="type">
+	        var _type="";
+	    $value
+	        var _type="$value";
+	    </ylt.v>
+	    <ylt.v message="bmid">
+	        var _bmid="";
+	    $value
+	        var _bmid="$value";
+	    </ylt.v>
+	    <ylt.v message="SCOD">
+	        var _SCOD="";
+	    $value
+	        var _SCOD="$value";
+	    </ylt.v>
+	    <ylt.v message="ZJCODE">
+	        var _zjCode="";
+	    $value
+	        var _zjCode="$value";
+	    </ylt.v>
+	    <ylt.for dataId="1508987064870">/*值长*/
+	       var ZZYXRZ="$value`$value`$value`$value`$value`$value`$value`";
+	     
+	    </ylt.for>
+	    <ylt.for dataId="1508987053634">/*机组长*/
+	       var JZZYXRZ="$value`$value`$value`$value`$value`$value`$value`";
+	    
+	    </ylt.for>
+	    <ylt.for dataId="1508987142180">/*脱硫*/
+	       var TLRZ="$value`$value`$value`$value`$value`$value`$value`";
+	       
+	    </ylt.for>
+	    <ylt.for dataId="1508987163633">/*燃运*/
+	       var RLZBRZ="$value`$value`$value`$value`$value`$value`$value`";
+	      
+	    </ylt.for>
+	    <ylt.for dataId="1508987154413">/*化学*/
+	       var HXBZJL="$value`$value`$value`$value`$value`$value`$value`";
+
+	    </ylt.for>
+	    <ylt.for dataId="1508987134820">/*化水*/
+	       var HSYXRZ="$value`$value`$value`$value`$value`$value`$value`";
+	      
+	    </ylt.for>
+	    var id="";
+	    var jzCode="";
+	</script>
+	<script>
+	    
+	    function $(_Str){
+	        return document.getElementById(_Str);
+	    }
+        var LBTZXXNR="";
+        var por = new Date();
+        var nowTime=por.getFullYear()+"-"+(por.getMonth()+1)+"-"+por.getDate();
+        
+	    function judgmentCond(_cond){
+
+	        var _condArr= _cond.split('`');
+	        if(_cond==""){/**是否 无数据  无数据直接接班  没有上一班次**/
+    	        $('1').style.display="";
+    	    }else{
+        	    var zt=_condArr[0];
+        	    id=_condArr[1];
+        	    var user=","+_condArr[2]+",";
+        	    var userName=_condArr[3];
+        	    var lbid=_condArr[4];
+        	    var LBRQ=_condArr[5];
+                LBTZXXNR=_condArr[6];
+  
+                if(userName==="null"){
+                    alert('请检查轮班维护,是否未制定轮班');
+        	       window.location="View?SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&ZJCODE="+_zjCode;
+        	       return;
+        	   }
+               /* 
+        	    if(new Date(LBRQ).valueOf()>new Date(nowTime).valueOf()){
+        	        if(LBRQ!="null"){
+        	            alert("请明天来接班");
+        	            locationTozhanshi();
+        	            return false;
+        	        }else{
+        	             window.location="View?SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&S_LBID="+lbid+"&ZJCODE="+_zjCode;
+        	        }
+        	    }
+        	    */
+        	    if(zt=="YJB"){
+        	      
+        	        if(user.indexOf(_userCode)!=-1){/**接班用户等于当前用户直接跳转**/
+        	            window.location="View?SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&S_ID="+id+"&S_LBID="+lbid+"&ZJCODE="+_zjCode;
+        	        }else{/**已接班,当前用户不是下一个用户**/
+                        
+        	            
+        	            if(confirm("本班值长是"+userName+"您只能查看内容")){
+        	                locationTozhanshi();
+        	            }else{
+        	                $('4').style.display="";
+        	            }
+        	        }
+        	    }else{
+        	        if(user.indexOf(_userCode)!=-1){/**接班**/
+        	            $('1').style.display="";
+        	        }else{/**等待接班    未接班 当前接班人不是 当前用户**/
+        	            $('22').innerHTML="等待"+userName+"接班";
+        	            $('2').style.display="";
+        	           
+        	        }
+        	    }
+    	    }
+	    }
+	    function locationTozhanshi(){
+            window.location="View?S_ZBCZZD=FBBZZ&SYS_NO_CREATEDATDATA=true&SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&ZJCODE="+_zjCode+"&S_ID="+id;
+	    }
+		/*当前数据修改类型  修改为YJB */
+	    function succession(){
+	        if(confirm(LBTZXXNR)){
+    	        if(_type=="ZZRZ"){
+                    doCommand("comid=033&tableName=T_ZZYXRZ&tableCol=S_BCLB&S_ID_CODE=S_ID&S_ID="+id);
+                }else if(_type=="JZZRZ"){
+                    doCommand("comid=033&tableName=T_JZZYXRZ&tableCol=S_BCLB&S_ID_CODE=S_ID&S_ID="+id);
+                }else if(_type=="TLRZ"){
+                    doCommand("comid=033&tableName=T_TLYXRZ&tableCol=S_BCLB&S_ID_CODE=S_ID&S_ID="+id);
+                }else if(_type=="RLZBRZ"){
+                    doCommand("comid=033&tableName=T_RLZBJL&tableCol=S_BCLB&S_ID_CODE=S_ID&S_ID="+id);
+                }else if(_type=="HXBZJL"){
+                    doCommand("comid=033&tableName=S_HXBZRZ&tableCol=S_BCLB&S_ID_CODE=S_ID&S_ID="+id);
+                }else if(_type=="HSYXRZ"){
+                    doCommand("comid=033&tableName=T_HSRZJL&tableCol=S_BCLB&S_ID_CODE=S_ID&S_ID="+id);
+                }
+    	        location.reload();
+	        }
+	    }
+	    function sys_judgent_byType(){
+		    if(_type=="ZZRZ"){
+	            if (typeof(ZZYXRZ) != "undefined") {
+	                judgmentCond(ZZYXRZ);
+	            }else{
+	                window.location="View?SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&ZJCODE="+_zjCode;
+	            }
+	        }else if(_type=="JZZRZ"){
+	            if (typeof(JZZYXRZ) != "undefined") {
+	                judgmentCond(JZZYXRZ);
+	            }else{
+                    window.location="View?SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&ZJCODE="+_zjCode;
+	           
+	            }
+	        }else if(_type=="TLRZ"){
+	            if (typeof(TLRZ) != "undefined") {
+	                judgmentCond(TLRZ);
+	            }else{
+	                window.location="View?SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&ZJCODE="+_zjCode;
+	            }
+	        }else if(_type=="RLZBRZ"){
+	            if (typeof(RLZBRZ) != "undefined") {
+	                judgmentCond(RLZBRZ);
+	            }else{
+	                window.location="View?SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&ZJCODE="+_zjCode;
+	            }
+	        }else if(_type=="HXBZJL"){
+	            if (typeof(HXBZJL) != "undefined") {
+	                judgmentCond(HXBZJL);
+	            }else{
+	                window.location="View?SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&ZJCODE="+_zjCode;
+	            }
+	        }else if(_type=="HSYXRZ"){
+	            if (typeof(HSYXRZ) != "undefined") {
+	                judgmentCond(HSYXRZ);
+	            }else{
+	                window.location="View?SPAGECODE="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&ZJCODE="+_zjCode;
+	            }
+	        }
+	    }
+	    function judgent_location(_code,_id){
+	        window.location="logshift.v?SCOD="+_SCOD+"&type="+_type+"&bmid="+_bmid+"&ZJCODE="+_code;
+
+	    }
+	</script>
+	
+	<script>
+        if(_type=="JZZRZ"&&_zjCode==""){
+            $('3').style.display=""; 
+        }else{
+            sys_judgent_byType();
+        }
+	</script>
+</html>

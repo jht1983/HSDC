@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<script type='text/javascript' src='js/evenfunction.js'></script>
+		<script type='text/javascript' src='js/ylselect.js'></script>
+		<script type='text/javascript' src='js/yltree.js'></script>
+		<script type='text/javascript' src='js/check.js'></script>
+		<link href='css/table.css' rel='stylesheet' type='text/css' />
+	</head>
+
+	<body>
+	    <div id="UPDATESELECT" style="width:100%;height:100%;background:#e9e9e9;display:none">
+	        
+	        <table id="UPDATE">
+	            <tr>
+	                <td>
+	                   <span>
+	                        更新
+	                   </span>
+	                </td>
+	                <td>
+	                    <span onclick="SYS_INSERT(this,'UPDATE')" style="line-height:33px;color:#539ddd;font-weight:bold;font-size:20px;cursor:pointer;">
+	                         ＋ 
+	                    </span>
+	                    
+	                </td>
+	                
+	            </tr>
+
+	        </table>
+	       
+	        
+	        <table id="COND">
+	            <tr>
+	                <td>
+	                    <span>
+	                    条件  (可不填写)
+	                    </span>
+	                </td>
+	                <td>
+	                    <span onclick="SYS_INSERT(this,'COND')" style="line-height:33px;color:#539ddd;font-weight:bold;font-size:20px;cursor:pointer;">
+	                         ＋ 
+	                    </span>
+	                </td>
+	            </tr>
+	          
+	        </table>
+	         
+	        <input type='button' onclick='seve()' value='保存'/>
+	    </div>
+	     <textarea id="UPDATECOND" style="display:none">
+	            
+	                
+	                       
+	                   </select>
+	                </td>
+	                <td>
+	                    等于
+	                </td>
+	                <td>
+	                    <input type="text"/>
+	                </td>
+	                <td>
+	                    <span onclick='SYS_DELETE_CELL(this)' style="line-height:33px;color:#539ddd;font-weight:bold;font-size:20px;cursor:pointer;">
+	                         x 
+	                    </span>
+	                </td>
+	            
+	        </textarea>
+	        <textarea id="CONDCOND" style="display:none">
+	   
+	
+	                </td>
+	                <td>
+	                    等于
+	                </td>
+	                <td>
+	                    <input type="text"/>
+	                </td>
+	                <td>
+	                    <span onclick='SYS_DELETE_CELL(this)' style="line-height:33px;color:#539ddd;font-weight:bold;font-size:20px;cursor:pointer;">
+	                         x 
+	                    </span>
+	                </td>
+	            
+	        </textarea>
+	    <select id="pazet" style="display:none">
+	    </select>
+		<table class='table1' cellpadding='0' cellspacing='0' width='100%' style="display:black;">
+			<tr class='tr1'>
+				<td class='inputth1'>名称</td>
+				<td class='inputth1'>
+					<input value='' id='attreventname' type='text' style='width:140px;' />
+				</td>
+			</tr>
+			<tr class='tr1'>
+				<td class='inputth1'>流程编号</td>
+				<td class='inputth1'>
+					<input id='NO_AUDIT_FLOWNAME' type='text' style='width:140px;' onclick="javaScript:miniWin('选择','','View?SPAGECODE=1503728096570',1000,300,'','');" readonly="readonly">
+					<input id='S_FLOW_SON' type='hidden' style='width:140px;' readonly="readonly">
+				</td>
+			</tr>
+			<tr class='tr1'>
+				<td class='inputth1'>类型</td>
+				<td class='inputth1'>
+					<select  id='S_CHILD_TYPE' style='width:140px;'>
+					    <option value='A'>流程</option>
+					    <option value='T'>事务</option>
+					</select>
+					<input type='button' value='设置条件' onclick="javascript:$('UPDATESELECT').style.display='';CONDSELE='';"/>
+				</td>
+			</tr>
+			<tr class='tr1' style="display:none;">
+				<td class='inputth1'>事务运行</td>
+				<td class='inputth1'>
+					<textarea name='S_CHILD_TRANSQL' id='S_CHILD_TRANSQL' style="width:100%;"></textarea>
+					<input type="text" id="NO_ZWMC" style='width:100%' readonly />
+				</td>
+			</tr>
+			<tr class='tr1' style="display:none;">
+				<td class='inputth1'>字段参数</td>
+				<td class='inputth1'>
+					<textarea name='S_CHILD_TRANCON' id='S_CHILD_TRANCON' style="width:100%"></textarea>
+				</td>
+			</tr>
+		</table>
+				<table class='table1' cellpadding='0' cellspacing='0' width='100%' style="display:black;position:fixed; bottom:0;">
+		<tr>
+			<td colspan='2' align='right' class='bttformoparea'>
+				<table>
+					<tr>
+						<td>
+							<a id="submitToObj"  href="javascript:getAttr();"  class="button green" ><span><div
+									class='bttn_panel'
+									style='background-image:url(images/eve/qd.png);'>确定</div> </span> </a>
+						</td>
+						<td width='50px'>&#160;</td>
+					</tr>
+
+				</table>
+			</td>
+		</tr>
+	</table>
+
+	</body>
+	<ylt.fun fun="ChildField"/>
+	<script>
+		<ylt.v message="gs_upl_kc">
+            var gs_upl_kc="";
+        $value
+            var gs_upl_kc="$value";
+        </ylt.v>
+	</script>
+	<script>
+		var objParent = parent.getOpenPage(gs_upl_kc);
+		var objParentFlow = objParent.ylt.flow;
+		var array_end = objParentFlow.arrStrAttrIds;
+		var iFieldCount = array_end.length;
+		
+        function $(_Str){
+            return document.getElementById(_Str);
+        }
+        function $N(_Str){
+            return document.getElementsByName(_Str);
+        }
+		function getAttr() {
+			var objAttr = new Object();
+			TRANSQLrep();
+			for(var i = 0; i < iFieldCount; i++) {
+				var objInputElement = document.getElementById(array_end[i]);
+				if(objInputElement != null) {
+					objAttr[array_end[i]] = objInputElement.value;
+				}
+
+			}
+			objAttr['attreventname'] = document.getElementById('attreventname').value;
+			objParentFlow.changeAttr(objAttr);
+			parent.closeWinById(gs_upl_kc);
+		}
+
+		function initValue() {
+			document.getElementById('attreventname').value = objParentFlow.objCurSelGraph.data("text");
+			for(var i = 0; i < iFieldCount; i++) {
+				if(document.getElementById(array_end[i]) != null) {
+					document.getElementById(array_end[i]).value = objParentFlow.objCurSelGraph.data("attr_" + array_end[i]) == undefined ? "" : objParentFlow.objCurSelGraph.data("attr_" + array_end[i]);
+				}
+			}
+			$('S_CHILD_TRANSQL').value=$('S_CHILD_TRANSQL').value.replace(/\^/g,"%").replace(/-\*-/g,"\'");
+		}
+		initValue();
+	</script>
+    <script>
+        var TableName="";
+        var TableCondSelect = $('pazet');/* 表单字段下拉框 */
+        function initTableCondSelect(){/* 初始化表单字段下拉框 */
+            var initSele = "";
+            for(var i = 0 , j = flowId.length; i<j ; i++){
+                var CondAttr = flowId[i];
+                
+                if(TableName==''){
+                    TableName=CondAttr[0].split('.')[0];
+                }
+                initSele += "<option value='"+CondAttr[0]+"'>"+CondAttr[1]+"</option>";
+            }
+            TableCondSelect.innerHTML=initSele;
+        }
+        addInitEvent(initTableCondSelect);/* 初始化表单字段下拉框 */
+        
+        /* updata table set cond=zhi where ID=zhi
+        、类型是T的是事物
+            是A的是正常的
+        */
+        function TRANSQLrep(){
+            var S_CHILD_TRANSQL = document.getElementById('S_CHILD_TRANSQL').value;
+            document.getElementById('S_CHILD_TRANSQL').value=S_CHILD_TRANSQL.replace(/%/g,"^").replace(/"/g,"-*-").replace(/'/g,"-*-");
+        }
+        
+        
+    </script>
+    <script>
+        var UPDATE=$('UPDATE');
+        var COND=$('COND');
+        var CONDSELE="";
+        function SYS_INSERT(_obj,_str){
+            var tr = document.createElement('tr');
+            tr.innerHTML="<td><select>"+TableCondSelect.innerHTML+$(_str+"COND").value;
+           $(_str).appendChild(tr);
+        }
+        function SYS_DELETE_CELL(_obj){
+            var tr = _obj.parentNode.parentNode;
+	        tr.parentNode.removeChild(tr);
+        }
+        function seve(){
+            var TableNameID=TableName+".S_ID"; 
+            CONDSELE+=TableNameID;
+            var returnValue="update "+TableName + " set ";
+            returnValue +=contepj('UPDATE',' , ');
+            returnValue +=" where "+TableNameID+"='<<"+TableNameID+">>' ";
+            returnValue +=contepj('COND',' and ');
+            $('S_CHILD_TRANSQL').value=returnValue;
+            $('S_CHILD_TRANCON').value=CONDSELE;
+            $('UPDATESELECT').style.display="none";
+        }
+        function contepj(_name,_split){
+            var handElement=$(_name);
+            var returnValue="";
+            var _strSplit="";
+            for(var i = 1 , j = handElement.rows.length ; i < j ;i++){
+                var handElementRow =  handElement.rows[i];
+                if(_name!='COND'){
+
+                    returnValue+=_strSplit + handElementRow.cells[0].firstElementChild.value+" = "+handElementRow.cells[2].firstElementChild.value;
+                }else{
+                    returnValue+=_strSplit + handElementRow.cells[0].firstElementChild.value+" = <<"+handElementRow.cells[2].firstElementChild.value+">> ";
+                    CONDSELE+=","+handElementRow.cells[2].firstElementChild.value;
+                }
+                _strSplit=_split;
+            }
+            return returnValue;
+        }
+    </script>
+</html>

@@ -1,0 +1,83 @@
+<ylt.for dataId="1513647249210">
+<body>
+	<!--startprint-->
+	<h3 align="center">榆能榆神热电发电厂</h3>
+	<table border="0" cellspacing="0" cellpadding="0" align="center" width="80%">
+	
+		<tr>
+			<td style="text-align: center;"><u>$value</u>号机组<u>$value</u>级检修前设备评价报告</td>
+		</tr>
+		<tr>
+			<td>
+				部门名称：<u>$value</u>(运行部门)    第<u>&#160;&#160;</u> 页/共<u>&#160;&#160;</u> 页<br />
+			<hr />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<u>$value</u>号机组上次A（或B）级检修后，<u>$value</u>开始投入运行，本次A（或B）级检修于<u>$value</u>停运，期间
+			服役<u>$value</u>天、累计运行<u>$value</u>小时、最长连运<u>$value</u>小时，共启停<u>$value</u>次、包括计划停运<u>$value</u>次和非计划
+			停运<u>$value</u>次，累计发电量<u>$value</u>万度、平均负荷率<u>$value</u>%、累计供电煤耗<u>$value</u>克/度。
+			
+		
+			</td>
+		</tr>
+		<tr>
+			<td>
+				一、检测周期内运行情况<br />
+				（概述上次检修机组启动调试、性能试验结果和评价结论，投运后机组运行安全性、
+				各专业设备可靠性、以及设备性能和主要技术经济性指标完成情况。）<br />
+				$value
+		
+			</td>
+		</tr>
+		<tr>
+			<td>
+				二、设备可靠性状态分析<br />
+				（以各专业设备综合反映机组运行可靠性状态，对照设计标准和先进机组分析
+				设备性能及健康状况，包括上次设备检修遗留问题造成的后果，以及设备可靠性对
+				生产安全性和技术经济性的影响。）<br />
+				$value
+		
+			</td>
+		</tr>
+		<tr>
+			<td>
+				三、评价结论和改进要求<br />
+				（针对各专业设备健康状况，对修前设备性能及可靠性状态作出评价，综合机组评价
+				结论、以及存在缺陷和隐患，对本次设备检修提出完善建议和改进要求。）<br />
+				$value
+		
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<div align="right"><u>$value</u></div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			(附设备检修前测试报告)<br />
+			<hr /><br />
+			审核：<u>$value</u>（部门负责人）&#160;编制：<u>$value</u>（部门名称）
+			</td>
+		</tr>
+	</table>
+	<!--endprint-->
+</body>
+</ylt.for>
+
+<script>
+         function preview()   
+{   
+var bdhtml=window.document.body.innerHTML;   
+var sprnstr="<!--startprint-->";   
+var eprnstr="<!--endprint-->";   
+var prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);   
+var prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));   
+window.document.body.innerHTML=prnhtml;   
+window.print();   
+} 
+ preview();
+    
+</script>

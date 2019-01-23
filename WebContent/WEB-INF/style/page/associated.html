@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href='css/layout.css?v=6.72' rel='stylesheet' type='text/css'/>
+    <link href='css/table.css?v=6.72' rel='stylesheet' type='text/css'/>
+    <link href='css/win.css?v=6.72' rel='stylesheet' type='text/css'/>
+    <style>
+        html{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        table{
+            height: 100%;
+            width: 100%;
+        }
+       
+        iframe{
+            border:none;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body >
+    <table cellpadding="0" cellspacing="0" border="0">
+        
+        <tr height="50px" style="background-color:#f2f2f2;">
+            <td>
+                <a href="javascript:showTb('data');" class="button green" onclick="this.blur();">
+                    <span>
+                        <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">数据</div>
+                    </span>
+                </a>
+                <a href="javascript:showTb('pic');" class="button green" onclick="this.blur();">
+                    <span>
+                        <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">图形</div>
+                    </span>
+                </a>
+                <!--<span class="button green" onclick="showTb('data');">数据</span>-->
+                <!--<span class="button green" onclick="showTb('pic');">图形</span>-->
+            </td>
+        </tr>
+        
+        
+        <tr id="pic" style="display: ;">
+            <td>
+                <iframe style="width: 100%;height: 100%" src="comp?sys_type=branch&paramid=152317273726310188&S_ID<ylt.v message="S_ID">=$value=$value&</ylt.v>sys_root="></iframe>
+            </td>
+        </tr>
+        <tr id="data" style="display: none">
+            <td>
+                <iframe style="width: 100%;height: 100%"  src="View?SPAGECODE=152317475260510192&S_ID<ylt.v message="S_ID">=$value=$value&</ylt.v>"></iframe>
+            </td>
+        </tr>
+        
+    </table>
+    <script>
+        var def="pic";
+        function showTb(select){
+            document.getElementById(def).style.display="none";
+            document.getElementById(select).style.display="";
+            def=select;
+        }
+    </script>
+</body>
+</html>

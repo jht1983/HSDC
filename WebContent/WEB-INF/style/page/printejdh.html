@@ -1,0 +1,274 @@
+<style>.tb{
+            width: 100%;
+       
+            /*border-collapse: collapse;*/
+        }
+        /*  .tb td{*/
+        /*    height:20px;*/
+        /*   border:1px solid #000;*/
+       
+             
+        /*}*/
+        .tb td{
+            height:20px;
+           border-bottom:1px solid #000;
+             border-left:1px solid #000;
+             
+        }
+         .tb tr:first-child>td{
+          
+            border-top:1px solid #000;
+        }
+      .tb th{
+          
+           border-left:1px solid #000;
+           border-top:1px solid #000;
+            border-bottom:1px solid #000;
+        }
+        .tb th:last-child{
+          
+            border-right:1px solid #000;
+        }
+        .tb td:last-child{
+          
+            border-right:1px solid #000;
+        }
+        
+        body{
+            font-size:13px;
+            color:#000000;
+        }
+        .show_base_span{
+            display: inline-block;border-bottom: 1px solid #000;min-width: 100px;
+        }
+       
+</style>
+<script type='text/javascript' src='res/js/alertfField.js?v=1.1'></script>
+<body>
+	<!--startprint-->
+
+
+	<p algin="center" style="text-align:center;font-size:28px">二级动火工作票</p>
+
+	<br />
+	<ylt.for dataId="1522221200796">
+		<table border='0' cellspacing='0' cellpadding='6' align='center' style="width : 100%">
+		 
+			<tr>
+				<td colspan='2'><span style="float:left;">动火申请部门：<span class="show_base_span">&#160;&#160;$value&#160;&#160;</span></span><span style="float:right;">编号：<span class="show_base_span">&#160;&#160;$value&#160;&#160;</span></span></td>
+			</tr>
+			<tr>
+				<td width="50%">1、动火工作负责人：<span class="show_base_span">&#160;&#160;&#160;&#160;$value&#160;&#160;&#160;&#160;</span></td>
+				<td>班组：<span class="show_base_span">&#160;&#160;&#160;&#160;$value&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td colspan='2'>2、动火执行人： <span class="show_base_span">&#160;&#160;$value&#160;&#160;</span></td>
+
+			</tr>
+			<tr>
+				<td colspan='2'>3、动火地点及设备名称： <span class="show_base_span">&#160;$value;$value&#160;&#160;&#160;&#160;</span></td>
+
+			</tr>
+			<tr>
+				<td colspan='2'>4、动火工作内容（必要时可附页绘图说明）： <span class="show_base_span">&#160;$value&#160;&#160;&#160;&#160;</span></td>
+
+			</tr>
+			<tr>
+				<td colspan='2'>5、动火方式（可填写焊接、切割、打磨、电钻、使用喷灯等）： <span class="show_base_span">&#160;$value&#160;&#160;&#160;&#160;</span></td>
+
+			</tr>
+			
+
+			<tr>
+				<td colspan='2'>
+					<div id="addtable1" class="changePage"></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2'>8、申请动火时间：自<span class="show_base_span">&#160;&#160;<span name="upDat">$value</span>&#160;&#160;</span>至<span class="show_base_span">&#160;&#160;<span name="upDat">$value</span>&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td>动火工作票签发人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;$value&#160;&#160;&#160;&#160;</span> </td>
+				<td>签发日期：<span class="show_base_span">&#160;&#160;&#160;<span name="upDat">$value</span>&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td>9、审批：</td>
+			</tr>
+			<tr>
+				<td>动火部门负责人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;$value&#160;&#160;&#160;&#160;</span> </td>
+				<td>动火部门安监人员签名：<span class="show_base_span">&#160;&#160;&#160;&#160;$value&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td colspan='2'>批准动火时间：自<span class="show_base_span">&#160;&#160;&#160;&#160;<span name="upDat">$value</span>&#160;&#160;&#160;&#160;</span>至<span class="show_base_span">&#160;&#160;&#160;&#160;<span name="upDat">$value</span>&#160;&#160;&#160;&#160;</span> </td>
+			
+
+			</tr>
+			<tr>
+				<td colspan='2'>10、运行部门采取的安全措施已执行完毕：</td>
+
+			</tr>
+			<tr>
+			<td>运行许可动火时间：<span class="show_base_span">&#160;&#160;&#160;&#160;<span name="upDat">$value</span>&#160;&#160;&#160;&#160;</span> </td>
+				<td>运行许可人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;$value&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td colspan='2'>11、应配备的消防设施和采取的消防措施、安全措施已符合要求。可燃性、易爆气体含量或粉尘浓度测定合格。
+				<div id="addtable2" class="changePage"></div>
+				</td>
+			</tr>
+		    <tr>
+				<td>动火执行人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> </td>
+				<td>消防监护人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td>动火工作负责人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> </td>
+				<td>动火部门安监人员签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td colspan='2'>安全措施已全部执行，核对无误：从________年________月________日________时________分许可开始工作。</td>
+			</tr>
+			<tr>
+				<td colspan='2'>12、动火工作终结：动火工作于________年________月________日________时________分结束，材料工具已清理完毕，现场确无残留火种，参与现场动火工作的有关人员已全部撤离，动火工作已结束。</td>
+			</tr>
+	        <tr>
+				<td>动火执行人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> </td>
+				<td>消防监护人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td>动火工作负责人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> </td>
+				<td>运行许可人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td colspan='2'>13、备注：</td>
+			</tr>
+			<tr>
+				<td colspan='2'>（1）对应的检修工作票编号：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span><span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span><span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span><span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span><span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+			<tr>
+				<td colspan='2'>（2）其他事项：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span><span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span><span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span><span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span><span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></td>
+			</tr>
+		</table>
+
+	
+	</ylt.for>
+
+
+    <div id="distable2" style="display:none">
+		<table class="tb" cellspacing="0" cellpadding="2" align="center" style="width: 100%;">
+			<THEAD style="display:table-header-group;font-weight:bold">
+				<!--<TR><TD colspan="2" align="center" style="font-weight:bold;border:3px double red">每页都有的表头2</TD></TR>-->
+			</THEAD>
+			<TBODY style="text-align:center" class="changePage">
+				<tr>					
+				    <td style="text-align:left;width:45%">测量时间</td>
+					<td style="text-align:left;width:13%">测定值</td>
+					<td style="text-align:left;width:14%">是否合格</td>
+					<td style="text-align:left;width:13%">测定人</td>
+					<td style="text-align:left;width:15%">消防监护人</td>
+				</tr>
+				<ylt.for dataId="1542628857926">
+					<tr>
+						<td style="text-align:left">$value</td>
+						<td style="text-align:left">$value</td>
+						<td style="text-align:left"></td>
+						<td style="text-align:left">$value</td>
+						<td style="text-align:left"></td>
+					</tr>
+				</ylt.for>
+                 
+			</TBODY>
+			<TFOOT style="display:table-footer-group;font-weight:bold ">
+				<!--<TD colspan="2" align="center" style="font-weight:bold;border:3px double blue">每页都有的表尾2</TD>-->
+			</TFOOT>
+		</table>
+	</div>
+
+
+	<div id="distable1" style="display:none">
+		<table class="tb" cellspacing="0" cellpadding="2" align="center" style="width: 100%;">
+			<THEAD style="display:table-header-group;font-weight:bold">
+				<!--<TR><TD colspan="2" align="center" style="font-weight:bold;border:3px double red">每页都有的表头2</TD></TR>-->
+			</THEAD>
+			<TBODY style="text-align:center" class="changePage">
+				<tr>
+					<td style="text-align:left">6、运行部门应采取的安全措施：</td>
+				</tr>
+				<ylt.for dataId="1542628849810">
+					<tr>
+						<td style="text-align:left">$value</td>
+					</tr>
+				</ylt.for>
+				<tr>
+					<td style="text-align:left">7、动火部门应采取的安全措施：</td>
+				</tr>
+				<ylt.for dataId="1542628836266">
+					<tr>
+						<td style="text-align:left">$value</td>
+					</tr>
+				</ylt.for>
+          
+			</TBODY>
+			<TFOOT style="display:table-footer-group;font-weight:bold ">
+				<!--<TD colspan="2" align="center" style="font-weight:bold;border:3px double blue">每页都有的表尾2</TD>-->
+			</TFOOT>
+		</table>
+	</div>
+	
+
+
+   
+	<script>
+	    document.getElementById("addtable2").innerHTML = document.getElementById("distable2").innerHTML;
+	    document.getElementById("addtable1").innerHTML = document.getElementById("distable1").innerHTML;
+
+		
+	</script>
+	
+	   <script>
+        function addNumber(_name){
+            var addEle = document.getElementsByName(_name);
+            if(addEle==null){
+                return
+            }
+            for(var i =0 ; i< addEle.length ;i++){
+                addEle[i].innerHTML=i+1;
+            }
+        }
+        addNumber("distable1_1");
+         addNumber("distable1_2");
+         addNumber("distable2_1");
+         addNumber("distable2_2");
+         
+         
+         
+         
+         
+    </script>
+
+	<script>
+	dataFormat("upDat","yyyy年MM月dd日 hh时mm分");
+	
+		function preview() {
+			var bdhtml = window.document.body.innerHTML;
+			var sprnstr = "<!--startprint-->";
+			var eprnstr = "<!--endprint-->";
+			var prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+			var prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+			window.document.body.innerHTML = prnhtml;
+			window.print();
+		}
+		preview();
+	</script>
+	<style>
+		@media print {
+			INPUT {
+				display: none
+			}
+		}
+		
+		.changePage {
+			page-break-after: always;
+		}
+	</style>
+	</body>
+	<!--endprint-->

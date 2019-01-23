@@ -1,0 +1,216 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type='text/javascript' src='js/evenfunction.js'></script>
+		<script type='text/javascript' src='js/WdatePicker.js'></script>
+		<script type='text/javascript' src='js/ylpub.js'></script>
+		<script type='text/javascript' src='js/fc.js'></script>
+		<script type='text/javascript' src='js/LodopFuncs.js'></script>
+		<script type='text/javascript' src='js/print.js'></script>
+		<script type='text/javascript' src='js/ylselect.js'></script>
+		<script type='text/javascript' src='js/yltree.js'></script>
+		<script type='text/javascript' src='js/check.js'></script>
+		<link href='css/table.css' rel='stylesheet' type='text/css' />
+		<style>
+		    body {
+            	width: 100%;
+            	padding: 0;
+            	border: 0;
+            	margin: 0;
+            	-moz-user-select: none;
+            	-webkit-user-select: none;
+            	-ms-user-select: none;
+            	-khtml-user-select: none;
+            	user-select: none;
+            	
+            }
+            .hDiv{
+                width:100%;
+                height:55px;
+                text-align:center;
+                font-weight:bold;
+                font-size: 25px;
+                margin-top:4px;
+                border-top:1px solid #e9e9e9;
+                text-decoration:underline;
+                float:left;
+            }
+            .parentDiv{
+                width:100%;
+                overflow:hidden;
+                padding:0 0 5px 0;
+                text-align:center;
+                line-height:50px;
+            }
+            
+            
+            
+            
+            .sonDiv_red{
+            
+                float:left;
+                width:200px;
+                height:50px;
+                margin-left:4px;
+                margin-top:4px;
+                /*border: 1px solid red;*/
+                border: 1px solid green;
+            }
+            .sonDiv_red>select{
+                /*color:red;*/
+                /*border: 1px solid red;*/
+                color:green;
+                border: 1px solid green;
+            }
+            
+            
+            
+            .sonDiv_green{
+             
+                float:left;
+                width:200px;
+                height:50px;
+                margin-left:4px;
+                margin-top:4px;
+                /*border: 1px solid green;*/
+                border: 1px solid red;
+            }
+            .sonDiv_green>select{
+                /*color:green;*/
+                /*border: 1px solid green;*/
+                color:red;
+                border: 1px solid red;
+            }
+            
+            
+            
+            .sonDiv_blue{
+             
+                float:left;
+                width:200px;
+                height:50px;
+                margin-left:4px;
+                margin-top:4px;
+                border: 1px solid #f397ff;
+            }
+            .sonDiv_blue>select{
+                color:#f397ff;
+                border: 1px solid #f397ff;
+            }
+            .sonDiv_config{
+          
+                float:left;
+                width:200px;
+                height:50px;
+                margin-left:4px;
+                margin-top:4px;
+                border: 1px solid #e9e9e9;
+            }
+            select{
+                background:transparent;
+            }
+		</style>
+
+	</head>
+    
+	<body>
+
+	    <table id="sysbttoCo"  class='table1' cellpadding='0' cellspacing='0' width='100%' style="display:black;border-top:1px solid #e9e9e9;">
+    		<tr>
+    			<td colspan='2' align='right' class='bttformoparea'>
+    				<table>
+    					<tr>
+    						<td>
+    							<a id="submitToObj"  class="button green" href="javascript: rird();" ><span><div
+    									class='bttn_panel'
+    									style='background-image:url(images/eve/qd.png);'>确定</div> </span> </a>
+    						</td>
+    						<td width='50px'>&#160;</td>
+    					</tr>
+    				</table>
+    			</td>
+    		</tr>
+	    </table>
+	        <div id="parentDiv" class="parentDiv">
+	        
+	    </div> 
+	    <ylt.treedata dataId="1506407877404" />
+        
+        <textarea id="SYS_Edit_COND" style="display:none">
+            <ylt.treedata dataId="1517377321860" />
+        </textarea>
+  
+       
+        <script>
+  
+            <ylt.v message="SYS_Edit">
+                var seleValue="<select onchange=\"selectChangeSBZT(this);\">";
+            $value
+                var SYS_Edit="$value";
+                var seleValue="<select disabled=\"disabled\" onchange=\"selectChangeSBZT(this);\">";
+                document.write(document.getElementById('SYS_Edit_COND').value);
+                document.getElementById('sysbttoCo').style.display="none";
+            </ylt.v>
+        </script>
+        
+
+	    <script>
+	        var treeData = objTreeData;
+	        seleValue+='<option value="WPZ"></option><option value="N">运行</option><option value="P">备用</option><option value="X">检修</option></select>';
+	        var parentDiv=document.getElementById('parentDiv');
+	        
+	        function divInsertValue(_name){
+	            var returnValue="<div style='float:left;width:60%;height:100%;line-height:100%;margin-top:12px;'>"+_name+"</div>:"+seleValue;
+	            return returnValue;
+	        }
+	        function selectChangeSBZT(_obj){
+	            var selectValue=_obj.value;
+	            var className=selectValue==="N"?"sonDiv_green":selectValue==="P"?"sonDiv_red":selectValue==="X"?"sonDiv_blue":"sonDiv_config";
+	            _obj.parentNode.setAttribute("class",className);
+	        }
+	        function insertDiv(_Node){
+	            var childNodeIndexLength = _Node.children.length;
+	            if(childNodeIndexLength>0){
+    	            if(_Node.T_RZSBPZ__S_ID!=undefined){
+    	                var divElement = document.createElement('div');
+        	            divElement.setAttribute("class","hDiv");
+        	            divElement.setAttribute("id",_Node.T_RZSBPZ__S_ID);
+        	            divElement.innerHTML=_Node.T_RZSBPZ__S_SBMC;
+        	            parentDiv.appendChild(divElement);
+    	            }
+    	            for(var i =0,j=childNodeIndexLength;i<j;i++){
+    	                insertDiv(_Node.children[i]);
+    	            }
+	            }else{
+	                var divElement = document.createElement('div');
+    	            divElement.setAttribute("class","sonDiv_config");
+    	            divElement.setAttribute("id",_Node.T_RZSBPZ__S_ID);
+    	            divElement.innerHTML=divInsertValue(_Node.T_RZSBPZ__S_SBMC);
+    	            divElement.getElementsByTagName("select")[0].value=_Node.T_RZSBPZ__S_QYZT;
+    	            divElement.getElementsByTagName("select")[0].onchange();
+    	            parentDiv.appendChild(divElement);
+	            }
+	        }
+	        
+	        if(treeData.children.length!=0){
+	             insertDiv(objTreeData);
+	        }else{
+	            parentDiv.innerHTML="<div class='hDiv'>无设备<div>";
+	        }
+	    
+	        function rird(){
+	            var divArr = parentDiv.getElementsByTagName('div');
+	            var returnStr="";
+	            for(var i =0,j=divArr.length;i<j;i++){
+	                if(divArr[i].getElementsByTagName('select').length>0){
+	                    doCommand("comid=018&S_QYZT="+divArr[i].getElementsByTagName('select')[0].value+"&S_ID="+divArr[i].getAttribute('id'));
+	                }
+	            }
+	            alert("保存成功");
+	            var objParent =  sys_getDataWin().getOpenPage(gs_upl_kc);
+	            parent.parent.closeWinById(gs_upl_kc);
+	        }
+	    </script>
+	</body>
+</html>

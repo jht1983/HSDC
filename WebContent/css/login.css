@@ -1,0 +1,13 @@
+html,body{width:100%;height:100%;overflow:hidden;}
+.ad_font{color:white;font-size:26px;font-family:¿¬Ìå;}
+.in_lg{padding-left:36px;width:261px;height:45px;line-height:45px;border:0;border-radius:10px;font-weight:bold;font-size:20px;color:#515151;}
+.in_usr{background:url(../images/console/usr.png)no-repeat 10px center;background-color:#fff;}
+.in_pwd{background:url(../images/console/pwd.png)no-repeat 10px center;background-color:#fff;}
+.bttn_lg{border:2px solid #fff;color:#fff;text-align:center;line-height:43px;width:297px;height:43px;border-radius:10px;font-weight:bold;cursor:pointer;}	
+.bttn_lg:hover{background:#fff;color:#2885d5;}
+@media screen and (max-width:1367px) {
+.in_lg{width:230px;height:35px;line-height:35px;}
+.bttn_lg{width:230px;height:33px;line-height:33px;}
+.ad_font{font-size:20px;}
+}
+

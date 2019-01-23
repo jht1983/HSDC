@@ -1,0 +1,13 @@
+html,body{
+	width:100%;height:100%;margin:0;padding:0;border:0;background:#0090bc;
+}
+.toplogo{height:65px;background:url(../images/style/1/topbg.png) repeat-y;}
+.topbar{font-family:??;height:38px;background:url(../images/style/1/childmenubg.png);color:#fff;}
+.topsplitdiv{width:236px;height:10px;background:url(../images/style/1/splitbg.png) repeat-y right;}
+.menucontainer{width:221px;}
+.menumain{cursor:pointer;color:#edf9fc;font-family:??;height:32px;background:url(../images/style/1/menu.png) no-repeat center center;}
+.mainmenusplit{height:7px;}
+.menuchild{width:201px;background:url(../images/style/1/childmenubg.png);margin-bottom:5px;}
+.menuchilditem{cursor:pointer;padding-left:50px;width:201px;height:31px;color:#bdeffe;overflow:hidden;}
+.menuchildsplit{height:2px;background:url(../images/style/1/menuchildsplit.png);}
+.linestyle{background:url(../images/style/1/splitbg.png);}

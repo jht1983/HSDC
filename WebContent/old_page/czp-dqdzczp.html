@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100%;
+            margin: 0px auto;
+        }
+        tr{
+            height: 30px;
+        }
+        td{
+            text-align: center;
+        }
+        span{
+            display: inline-block;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        .tbal td{
+            border: 1px solid #000;
+        }
+           body{
+	font-size:15px;
+	color:#000000;
+}
+
+
+  .tbTopN td{
+          
+            border-top:1px solid #000;
+            border-left:1px solid #000;
+            border-right:1px solid #000;
+        }
+
+       .tbTopN th {
+          
+            border-top:1px solid #000;
+            border-left:1px solid #000;
+            border-right:1px solid #000;
+        }
+
+ .tbBtmN td{
+          
+            border-bottom:1px solid #000;
+            border-left:1px solid #000;
+            border-right:1px solid #000;
+        }
+       .tbBtmN th{
+          
+            border-bottom:1px solid #000;
+            border-left:1px solid #000;
+            border-right:1px solid #000;
+        }
+        
+.PageNext{page-break-after: always;} 
+    </style>
+</head>
+<body>
+   
+    
+    <script>
+	var maxIndex = 17;
+	var runIndex = 1;
+	var height = 40;
+	var pageAwryindex = 0;   
+	var tableHead = '<div style="text-align: center"><p algin="center" style="text-align:center;font-size:28px">榆能横山煤电公司热力机械操作票</p></div><table style="width: 100%" class="tbTopN" cellspacing="0" cellpadding="2"><colgroup><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width=""/></colgroup><ylt.for dataId="1508936182114"><tr style="font-size:17px;"><td style="border-right:none;">运行值次:</td><td style="border-right:none;border-left:none;" id="yxzc">$value</td><td style="border-right:none;border-left:none;"></td><td style="border-right:none;border-left:none;"></td><td style="border-right:none;border-left:none;">编号:</td><td style=" border-right:1px solid #000;border-left:none;" id="bh">$value</td></tr><tr style="display:none"><td>发令人:</td><td>$value</td><td>受令人:</td><td>$value</td><td>发令时间:</td><td>$value</td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 20%">操作开始时间:</span><span style="width: 30%" id="$value"></span><span style="width: 20%">结束时间:</span><span style="width: 30%" id="$value"></span></td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 20%;">操作任务:</span><span style="width: 80%;text-align: left" id="czrw">$value</span></td></tr></ylt.for></table><table style="width: 100%" class="tbal" border="0" cellspacing="0" cellpadding="2"><THEAD style="display:table-header-group;font-weight:bold"><!--<TR><TD colspan="2" align="center" style="font-weight:bold;border:0">每页都有1的表头</TD></TR>--></THEAD><colgroup><col width="8%"/><col width="79%"/><col width="13%"/></colgroup><tr style="font-size:17px;"><td>顺序 </td><td>操&#160;&#160;作&#160;&#160;项&#160;&#160;目 </td><td>执行情况 </td></tr>';
+	var tablefoot ='</table><ylt.for dataId="1508936662124"><table style="width: 100%" class="tbBtmN" cellspacing="0" cellpadding="2"><tr><td colspan="6"><span style="width: 20%;">备注:</span><span style="width: 80%;text-align: left;">$value</span></td></tr><tr><td colspan="6"><span style="width: 10%;">操作人:</span><span style="width: 20%;text-align: left;" id="$value">&#160;</span><span style="width: 10%;">监护人:</span><span style="width: 20%;text-align: left;" id="$value">&#160;</span><span style="width: 14%;">值长:</span><span style="width: 16%;text-align: left;" id="$value">&#160;</span></td></tr></ylt.for></table>';
+	
+	var tableBody="";
+	var createDiv_m = document.createElement("div");
+	
+	function initFXYK(str_one,str_two,str_three){
+		var one_td=str_one;
+		var two_td=str_two;
+		var three_td=str_three;
+		
+		var one_td_base = Math.ceil(one_td.length/20);
+		var three_td_base = Math.ceil(two_td.length/45);
+		base=one_td_base>three_td_base?one_td_base:three_td_base;
+base=base===0?1:base;
+		if((runIndex+base)>maxIndex){
+			if(pageAwryindex!=0){
+				createDiv_m.innerHTML+='<div style="page-break-after: always;"></div>'+tableHead+tableBody+tablefoot;
+			}else{
+				
+				createDiv_m.innerHTML+=tableHead+tableBody+tablefoot;
+			}
+			pageAwryindex++;
+			tableBody="";
+			runIndex=1;
+		}
+		
+		runIndex=runIndex+base;
+		tableBody+=" <tr style='height:"+height*base+"px'> ";
+		tableBody+="<td>"+one_td+"</td>";
+		tableBody+="<td style='text-align:left'>"+two_td+"</td>";
+		tableBody+="<td>"+three_td+"</td>";
+		tableBody+=" </tr>";
+	}
+	
+	<ylt.for dataId="1508936657025">
+		initFXYK("$value","$value","","");
+	</ylt.for>
+	
+	if(tableBody!=""){
+		if(pageAwryindex!=0){
+		    if(runIndex!=1){
+                var runId= maxIndex-runIndex ;
+                for(var i =0 ; i < runId ;i++){
+                    initFXYK(" "," "," "," ");
+                }
+            }
+       	    createDiv_m.innerHTML+='<div style="page-break-after: always;"></div>'+tableHead+tableBody+tablefoot;
+		}else{
+			createDiv_m.innerHTML+=tableHead+tableBody+tablefoot;
+		}
+	}
+	document.body.appendChild(createDiv_m);
+</script>
+    
+<script>
+	
+	maxIndex = 24;
+	runIndex = 1;
+    height = 30;
+    /*	
+	tableHead = '<div style="page-break-after: always;"></div><table border="1" style="width:100%"><colgroup><col width="16%"/><col width="16%"/><col width="16%"/><col width="16%"/><col width="16%"/><col width=""/></colgroup><tr style="font-size:17px;"><td colspan="3" style="text-align: left;">操作任务：<span id="cpnr">'+document.getElementById("czrw").innerHTML+'</span></td><td colspan="3" style="text-align: left;">操作票编号：<span id="cpbh">'+document.getElementById("bh").innerHTML+'</span></td></tr><tr style="font-size:17px;"><td colspan="6" style="text-align: left;">危险源辨识与风险分析 </td></tr><tr style="font-size:17px;"><td colspan="2">风险分析 </td><td style="text-align: left;">风险等级 </td><td colspan="2" style="text-align: left;">预控措施 </td><td style="text-align: left;">执行人签字 </td></tr>';
+ */
+ 
+	tableHead = '<div style="page-break-after: always;"></div><table border="1" style="width:100%"><colgroup><col width="16%" /><col width="16%" /><col width="16%" /><col width="16%" /><col width="16%" /><col width="" /></colgroup><tr style="font-size:17px;"><td colspan="3" style="text-align: left;">运行值次：<span id="cpnr">'+document.getElementById("yxzc").innerHTML+'</span></td><td colspan="3" style="text-align: left;">操作票编号：<span id="cpbh">'+document.getElementById("bh").innerHTML+'</span></td></tr><tr style="font-size:17px;"><td colspan="6" style="text-align: left;">操作任务：<span id="cpnr">'+document.getElementById("czrw").innerHTML+'</span></td></tr><tr style="font-size:17px;"><td colspan="6" style="text-align: left;">危险源辨识与风险分析 </td></tr><tr style="font-size:17px;"><td colspan="2">风险分析 </td><td style="text-align: left;">风险等级 </td><td colspan="2" style="text-align: left;">预控措施 </td><td style="text-align: left;">执行人签字 </td></tr>';
+	tablefoot ='<tr style="font-size:17px;"><td style="text-align: left;">操作人签名 </td><td></td><td style="text-align: left;">监护人签名 </td><td></td><td style="text-align: left;">值长 </td><td></td></tr><tr style="font-size:17px;"><td style="text-align: left;">备注 </td><td colspan="5" style="text-align: left;">1.预控措施是根据危风险分析一栏中内容一一对应；<br />2.风险等级按照SEP法进行辨识，分为高风险、中风险、低风险；<br />3.操作人和监护人必须手签。 </td></tr></table>';
+
+    tableBody="";
+	createDiv_m = document.createElement("div");
+	
+	function initFXYK_s(str_one,str_two,str_three,str_four){
+		var one_td=str_one;
+		var two_td=str_two;
+		var three_td=str_three;
+		var four_td = str_four;
+		
+		var one_td_base = Math.ceil(one_td.length/13);
+		var three_td_base = Math.ceil(two_td.length/45);
+		base=one_td_base>three_td_base?one_td_base:three_td_base;
+		base=base===0?1:base;
+       
+
+		if((runIndex+base)>maxIndex){
+			createDiv_m.innerHTML+=tableHead+tableBody+tablefoot;
+            console.log(createDiv_m.innerHTML);
+			tableBody="";
+			runIndex=1;
+		}
+		
+		runIndex=runIndex+base;
+		tableBody+=" <tr style='height:"+height*base+"px'> ";
+		tableBody+="<td  style='text-align:left' colspan='2'>"+one_td+"</td>";
+		tableBody+="<td style='text-align:left'>"+two_td+"</td>";
+		tableBody+="<td colspan='2' style='text-align: left;'>"+three_td+"</td>";
+		tableBody+="<td  style='text-align: left;'></td>";
+		tableBody+=" </tr>";
+	
+	}
+	
+	<ylt.for dataId="1536162737846">
+		initFXYK_s("$value","$value","$value","$value");
+	</ylt.for>
+	
+	if(tableBody!=""){
+        if(runIndex!=1){
+            var runId= maxIndex-runIndex ;
+            for(var i =0 ; i < runId ;i++){
+                initFXYK_s(" "," "," "," ");
+
+            }
+        }
+        createDiv_m.innerHTML+=tableHead+tableBody+tablefoot;
+	}
+		
+	document.body.appendChild(createDiv_m);
+</script>
+<script>
+  
+   window.print();
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<html style="width:100%;height:100%">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type='text/javascript' src='js/evenfunction.js'></script>
+		<script type='text/javascript' src='js/WdatePicker.js'></script>
+		<script type='text/javascript' src='js/ylpub.js'></script>
+		<script type='text/javascript' src='js/fc.js'></script>
+		<script type='text/javascript' src='js/LodopFuncs.js'></script>
+		<script type='text/javascript' src='js/print.js'></script>
+		<script type='text/javascript' src='js/ylselect.js'></script>
+		<script type='text/javascript' src='js/yltree.js'></script>
+		<script type='text/javascript' src='js/check.js'></script>
+			<script type='text/javascript' src='js/yluploader.js'></script>
+		<link href='css/table.css' rel='stylesheet' type='text/css' />
+	</head>
+
+	<body>
+        <table id="sys_form_frame" width="100%" border="0" align="center" cellpadding="0" cellspacing="0" height="100%" >
+            
+            <tr>
+                <td height="29" valign="top">
+                    <table id="sys_form_opbttn" class="bttformoparea"  width="100%" border="0" >
+                        <tbody>
+                            <tr>
+                               
+                                <td>
+                                 
+                                    <a href="javascript:createSecurtity();" class="button red" onclick="this.blur();">
+                                        <span>
+                                            <div class="bttn_panel" style="background-image:url(images/eve/gb.png);">新增</div>
+                                        </span>
+                                    </a>
+                                    
+                                    <a href="javascript:updateSecurtity();" class="button red" onclick="this.blur();">
+                                        <span>
+                                            <div class="bttn_panel" style="background-image:url(images/eve/gb.png);">修改</div>
+                                        </span>
+                                    </a>
+                                    <a href="javascript:deleteSecurtity();" class="button red" onclick="this.blur();">
+                                        <span>
+                                            <div class="bttn_panel" style="background-image:url(images/eve/gb.png);">删除</div>
+                                        </span>
+                                    </a>
+                                    <a id="theImport1" class="button red">
+                                        <span>
+                                            <div class="bttn_panel" style="background-image:url(images/eve/gb.png);">导入</div>
+                                        </span>
+                                    </a>
+                                    <script>
+                                        var ur = window.location.pathname;
+                                        var uploadUrl=ur.substring(0,ur.lastIndexOf("/"))+'/uploadFile?';
+                                        initSingUpload_FreeOp('131','modexcel','导入','85120.0','.xlsx,.xls','Excel模板文件','theImport1','0','001001');
+                                    </script>
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <iframe id="security_tree_1" name="security_tree_1" src="View?SPAGECODE=1519610011168&sys_bed=true&S_ID<ylt.v message="FID">$value=$value&</ylt.v><ylt.for dataId="1517540961100">zf=$value&</ylt.for>select_only=true" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0">4
+                   
+                    </iframe>
+                </td>
+            </tr>
+        </table>
+    </body>
+    <script>
+        <ylt.v message="bmid">
+            var bmid = "";
+        $value
+            var bmid = "$value";
+        </ylt.v>
+        <ylt.v message="gs_upl_kc">
+            var gs_upl_kc="";
+        $value
+            var gs_upl_kc="$value";
+        </ylt.v>
+        <ylt.v message="FID">
+            var FID="";
+        $value
+            var FID="$value";
+        </ylt.v>
+        <ylt.v message="S_ID">
+            var S_ID="";
+        $value
+            var S_ID="$value";
+        </ylt.v>
+        <ylt.v message="FName">
+            var FName="";
+        $value
+            var FName="$value";
+        </ylt.v>
+        <ylt.v message="sys_create">
+            var sys_create="";
+        $value
+            var sys_create="$value";
+        </ylt.v>
+    </script>
+    <script>
+    
+        function createSecurtity(){
+            if(sys_create=="false"){
+                alert("末级节点不允许创建");
+                return false;
+            }
+            miniWin('新增','',"View?SPAGECODE=1519610011168&FID="+FID+"&S_ID="+S_ID+"&FName="+FName,2000,2000,'','');
+        }
+        function updateSecurtity(){
+            miniWin('修改','',"View?SPAGECODE=1519610011168&sys_bed=true&S_ID="+FID,2000,2000,'','');
+        }
+        function deleteSecurtity(){
+            if(confirm("确定要删除所选数据吗？")){
+                getTx("T_BZHXMS$S_ID="+FID,"YLDel");
+                alert("删除成功");
+            }
+        }
+    </script>
+</html>

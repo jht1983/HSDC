@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%">
+<meta charset="utf-8">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="css/page.css" rel="stylesheet" type="text/css"></link>
+<title></title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%">
+<style>
+.blanacontainer {
+	padding-left: 10px;
+	padding-top: 10px;
+	text-align: center;
+	width: 300px;
+	height: 254px;
+	float: left;
+}
+
+.blanacontainer img {
+	cursor: pointer;
+	width: 300px;
+	height: 134px;
+}
+</style>
+<body></body>
+</html>
+<script>
+	var uploadUrl = 'uploadFile?';
+</script>
+<script type='text/javascript' src='js/ylwin.js'></script>
+<script type='text/javascript' src='js/yluploader.js'></script>
+<script type='text/javascript' src='js/check.js'></script>
+<script>
+	var objBanner = {
+		"thhd1" : "hdnr.view?id=192",
+	};
+	var strPics = "";
+	for ( var i = 1; i <= 1; i++) {
+		strPics += "<div class='blanacontainer'><img src='images/page/thhd"+i+".jpg' id='sysfile"+i+"'><br><br><div><input onchange=\"dokd(this,'"
+				+ i
+				+ "')\" type='text' value='"
+				+ objBanner['thhd' + i]
+				+ "' style='width:90%;'></div><br><div>"
+				+ i
+				+ ".jpg</div></div>";
+	}
+	document.body.innerHTML = strPics;
+	for ( var i = 1; i <= 1; i++) {
+		initSingUpload_FreeOp('0', 'images/page', 'thhd' + i, '85120.0',
+				'.jpg', '????', 'sysfile' + i, '1476860689871', 'PRO_002');
+	}
+	function dokd(_obj, _i) {
+		var strLink = _obj.value;
+		sys_doComMand('025', 'l=' + strLink + '&i=thhd' + _i, function() {
+		});
+	}
+</script>
+<script></script>

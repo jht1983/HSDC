@@ -1,0 +1,62 @@
+<script>
+<ylt.v message="SBYXFS">/*一组几个*/
+    var SBYXFS="2";
+$value
+    var SBYXFS="$value";
+</ylt.v>
+<ylt.v message="indexName">/*一行几组*/
+    var indexName="1";
+$value
+    var indexName="$value";
+</ylt.v>
+
+    var SBYXFSStare="<td>设备名称 </td><td>运行 </td><td>备用 </td><td>检修 </td>";
+
+</script>
+<script>
+        var index = 0;
+		var bl = SBYXFS; /*一组几个*/
+
+    	var insertHtml="";
+        var S_ID="";
+        var S_SBMC="";
+        var P="";
+        var N="";
+        var X="";
+
+    <ylt.for dataId="1509498346632">
+
+            S_ID="$value";
+        	S_SBMC="$value";
+        	P="$value";
+        	N="$value";
+        	X="$value";
+			if(S_ID.length<4){
+				if(bl!=0){
+					insertHtml+="</table>";
+				}
+				insertHtml+="<table class='Ttable'  style='float: left;width:"+100/indexName+"%'>";
+				for(var z=0;z<bl;z++){
+					insertHtml+="<col width='"+100*(0.4/bl)+"%' /><col width='"+100*(0.2/bl)+"%'/><col width='"+100*(0.2/bl)+"%'/><col width='"+100*(0.2/bl)+"%'/>";
+				}
+				insertHtml+="<tr ><td colspan='"+4*bl+"'>"+S_SBMC+"</td></tr><tr>";
+				for(var z=0;z<bl;z++){
+					insertHtml+=SBYXFSStare;
+				}
+				insertHtml+="</tr>"
+			}else{
+				if(index < bl) {
+					insertHtml += "<td>"+S_SBMC+" </td><td>"+N+" </td><td>"+P+" </td><td>"+X+" </td>";
+					index++;
+				} else {
+					insertHtml += "</tr>";
+					index = 0;
+				}
+			}
+	
+		</ylt.for>
+        document.getElementById("ppap").innerHTML=insertHtml;
+        
+        window.print();
+    
+</script>

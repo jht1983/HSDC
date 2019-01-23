@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+<meta name="renderer" content="webkit">
+<meta name="keywords" content=""/>
+<meta name="description" content=""/>
+<title>首页</title>
+<link href="res/css/sip_new_home.css?v=2.1" rel="stylesheet" type="text/css">
+<link href="res/css/bootstrap.min.css?v=2.1" rel="stylesheet" type="text/css" />
+<link href="res/css/font-awesome.min.css?v=2.1" rel="stylesheet"/>
+<link href="res/css/style.css?v=2.2" rel="stylesheet" type="text/css" />
+<script src="res/js/jquery.js?v=2.1" type="text/javascript"></script>
+<script src="echarts.min.js?v=2.1"></script>
+<script src="res/js/bootstrap.min.js?v=2.1" type="text/javascript"></script>
+<script type="text/javascript">
+$(function () {
+	var navLi=$(".menu .nav li");
+	navLi.mouseover(function () {
+		$(this).find("a").addClass("current");
+		$(this).find('.trig').show();
+		$(this).find(".box").stop().slideDown(200);
+	});
+	navLi.mouseleave(function(){
+		$(this).find("a").removeClass("current");
+		$(this).find('.trig').hide();
+		$(this).find(".box").stop().slideUp(200);
+	});
+})
+</script>
+
+</head>
+<body>	
+
+<div class="main">
+	<!--数据  开始-->
+	<div class="sy-number">
+		<ul>
+			<li onclick="modal_todo_show()">
+				<div class="left-number">
+					<img src="res/images/dbsx-icon.png">
+					<p>待办事项</p>
+				</div>
+				<div class="right-number">
+					<p>
+					<ylt.for dataId="1525521665172">
+                        <span class="blue">$value</span>
+                    </ylt.for>
+					
+					项</p>
+				</div>
+			</li>
+			<li>
+				<div class="left-number">
+					<img src="res/images/aqsc-icon.png">
+					<p>安全生产</p>
+				</div>
+				<div class="right-number">
+					<p><span class="purple">
+					    <ylt.for dataId="1534479850565">
+					        $value
+					    </ylt.for>
+					    
+					</span>天</p>
+				</div>
+			</li>
+			<li>
+				<div class="left-number">
+					<img src="res/images/jhfd-icon.png">
+					<p>计划发电</p>
+				</div>
+				<div class="right-number">
+				    
+					<p><span class="dark-blue">
+					    <ylt.for dataId="1534479080167" param="bmid=001017">
+					        $value
+					        </ylt.for>
+				    </span>万Kwh</p>
+				</div>
+			</li>
+			<li class="last">
+				<div class="left-number">
+					<img src="res/images/sjfd-icon.png">
+					<p>实际发电</p>
+				</div>
+				<div class="right-number">
+					<p><span id="realTime"  class="green">989</span>Mwh</p>
+				</div>
+			</li>
+		
+		</ul>
+	</div>
+	<!--数据  结束-->
+	<div class="main-top" id="main-top">
+		<div class="dbsx">
+			<div class="title">
+				<h1>待办事项</h1>
+				<a href="#" onclick="modal_todo_show()">更多>></a>
+			</div>
+			<div class="dbsx-table" style="min-height:263px" id="dbsx-table">
+				<table class="table table-bordered table-striped" id="dbsx-table-content">
+	  				<tr>
+	  					<th>流程内容</th>
+	  					<th>审核人</th>
+	  					<th>时间</th>
+	  				</tr>
+	  				
+	  			
+
+				</table>
+			</div>	
+		</div>
+
+		<div class="gstp">
+			<div class="title">
+				<h1>常用功能</h1>
+			</div>
+			<div class="gstp-img" id="gstp-img">
+			   <table border="0" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                <tr>
+                  <td>
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height: 100%;    overflow: auto;">
+
+    				    <ylt.for dataId="1514365555773">
+                            <div class="menubttn" arg1="$value" arg2="$value" onclick="doViewMenuUrl('$value');" style="width:70px;height:70px">
+                                <table width="100%" height="100%">
+                                    <tbody>
+                                    <tr>
+                                        <td align="center" class="menuico" valign="bottom"><img class="menucentico"
+                                                                                                src="images/ico/xmgl.png"
+                                                                                                dbsrc="$value" style="width:30px;height:30px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" class="menutext" valign="middle" style="font-size:12px">$value</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ylt.for>
+    				</div>  
+                      
+                  </td>
+                </tr>
+                <tr style="height:60px">
+                  <td>
+                      				                      <div style="
+                        display: inline-block;
+                        width: 100%;
+                        text-align: center;
+                        height:40px
+                    ">
+                                              <input type="button" id="md-modal-fun" style="line-height: 35px;font-size: 18px;
+                        color: #FFF;
+                        height: 35px;
+                        width: 90px;
+                        background-color: #0076c1;
+                        border: 1px solid #0076c1;
+                        border-radius: 5px;
+                        cursor: pointer;"  value="常用功能"/> 
+                                          </div>
+                  </td>
+                </tr>
+              </table>
+			   
+			   
+			   
+		
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div id="sys_divtoppanel" style="background:url(images/top-bg.jpg);height:60px;line-height:60px;text-align: center;    height: 60px;
+    width: 100%;
+    line-height: 60px;
+    text-align: center;
+    bottom: 0px;
+    position: fixed;"> 
+
+<p style="font-size:14px;color:#FFF">地址：陕西省榆林市横山县波罗镇 </p>
+</div>
+
+
+<!-- 待办事项 -->
+<div class="md-modal md-effect-1" id="todo" style="height:100%;top:50%">
+    
+    
+    <table class="md-content" cellpadding="0" border="0" cellspacing="0" style="width:100%;height:100%">
+        <tr style="height:60px;line-height:60px;">
+            <td>
+                <h3 style="border-bottom: 2px solid rgb(233, 233, 233);display: block;font-size: 1.17em;-webkit-margin-before: 1em;-webkit-margin-after: 1em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;font-weight: bold;">待办事项</h3>
+            </td>
+        </tr>
+        <tr class="md-fun-content" valign="top"  align="left">
+            <td style="border-bottom: 2px solid rgb(233, 233, 233);">
+                <div class="box_left_inter_contert" id="parentc" style="width: 99%;height: 100%;overflow: auto;">
+               <table class="conterTable" cellpadding="0" border="0" cellspacing="0">
+                    <colgroup>
+                        <col width="480px">
+                        <col width="120px">
+                        <col width="">
+                    </colgroup>
+                    <tr>
+                        <th>流程内容</th>
+                        <th>审核人</th>
+                        <th>时间</th>
+                    </tr>
+                </table>
+
+                <ylt.for dataId="1525853802311">
+                    <table class="conterTable conterTableTd"  cellpadding="0" border="0" cellspacing="0">
+                        <colgroup>
+                            <col width="480px">
+                            <col width="120px">
+                            <col width="">
+                        </colgroup>
+
+                        <tr>
+                                <td onclick="sp('$value&$value&$value&$value&$value&$value&$value&$value$value');"
+                                    style="text-align: left;text-indent:2em">事件:$value,内容:$value
+                                </td>
+                                <td>$value</td>
+                                <td>$value</td>
+                        </tr>
+
+                    </table>
+                </ylt.for>
+            </div>
+                
+            </td>
+        </tr>
+        <tr class="md-bttn">
+            <td class="md-bttn">
+                 <input type="button" id="md-todo-close" style="line-height: 35px;" onclick="mdTodoClose()" value="关闭"/>
+            </td>
+        </tr>
+    </table>
+    
+
+    
+</div>
+
+
+<script>
+
+    document.getElementById('parentc').style.height=(document.getElementById('todo').offsetHeight-130)+"px";
+    
+  /*  
+    document.getElementById('md-modal-fun').onclick=function () {
+        doViewMenuUrl('View?SPAGECODE=1509178831204')
+    };
+    
+    document.getElementById('md-modal-close').onclick= function () {
+        document.getElementById('fun').setAttribute("class", "md-modal md-effect-1");
+        document.getElementById('fun').style.visibility = "hidden";
+
+    };
+*/
+    function modal_fun_show() {
+        document.getElementById('fun').setAttribute("class", "md-modal md-effect-1 md-show");
+        document.getElementById('fun').style.visibility = "visible";
+    };
+
+    function modal_todo_show(){
+        document.getElementById('todo').setAttribute("class", "md-modal md-effect-1 md-show");
+        document.getElementById('todo').style.visibility = "visible";
+    };
+    
+    
+    document.getElementById('md-todo-close').click = function () {
+        document.getElementById('todo').setAttribute("class", "md-modal md-effect-1");
+        document.getElementById('todo').style.visibility = "hidden";
+
+    };
+       document.getElementById('md-todo-close').addEventListener("click", function () {
+        document.getElementById('todo').setAttribute("class", "md-modal md-effect-1");
+        document.getElementById('todo').style.visibility = "hidden";
+
+    });
+    function mdTodoClose(){
+        document.getElementById('todo').setAttribute("class", "md-modal md-effect-1");
+        document.getElementById('todo').style.visibility = "hidden";
+    }
+    function doViewMenuUrl(_strUrl){parent.document.getElementById("mainhomeframe").src=_strUrl;parent.document.getElementById("secmenuitemcontainer").style.display="none";}
+     
+
+</script>
+
+<!---SISDATE--->
+<script>
+function getAjaxActive(){
+	var xmlHttp;
+ if (window.ActiveXObject) { 
+  xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+ } 
+ else if (window.XMLHttpRequest) { 
+  xmlHttp = new XMLHttpRequest();
+ }
+ return xmlHttp;
+}
+function getTx(param,aStrUrl){
+		var xml=getAjaxActive();
+		xml.open("POST",aStrUrl,false);
+		xml.setRequestHeader("content-length",param.length);  
+		xml.setRequestHeader("content-type","application/x-www-form-urlencoded");  
+		xml.setRequestHeader("charset", "UTF-8");
+		xml.send(param);  
+		var res = xml.responseText;
+		return res;
+	}
+	
+    var realTime = document.getElementById("realTime");
+    var getSISDate = null;
+    var locat = window.location.pathname;
+    function subGetTx(_subStr,_vari){
+        var z = _subStr;
+        _vari ="var "+_vari+"='";
+        z=z.substring(z.indexOf(_vari)+_vari.length);
+        return z.substring(0,z.indexOf("';"));
+    }
+    if(locat.indexOf("/sip")==-1&&locat.indexOf("/hsdc")==-1){
+        getSisDateEvl();
+        getSISDate = setInterval(getSisDateEvl,10000);
+    }
+    function getSisDateEvl(){
+        var Trvalue = subGetTx(getTx("disType=REALTIME","sis_date_ajax.v"),"eleSISData");
+        realTime.title=Trvalue;
+        realTime.innerHTML= parseFloat(Trvalue).toFixed(1);
+    }
+    function sp(id) {
+        var arr = id.split("&");
+        if(arr[8]=="6S"){
+            parent.miniWin('单据', '', 'View?SPAGECODE='+arr[1]+'&sys_bed=true&S_ID='+arr[2]+'&bmid='+arr[3], 2000, 1800, '', '');
+        }else{
+           parent.miniWin('审核', '', 'flow-box.v?home=home&bmid=' + arr[3] + '&s_id=' + arr[2] + '&sys_flow_run_id=' + arr[5] + '&s_flow_id=' + arr[4] + '&flow_ver=' + arr[6] + '&node_code=' + arr[7] + '&spagecode=' + arr[1], 2000, 1800, '', '');
+        }
+    }
+</script>
+<script>
+
+    var mainTopHeight=document.body.clientHeight-180-15;
+    var boxSizing=mainTopHeight-60;
+    document.getElementById('main-top').style.height=mainTopHeight+"px";
+    document.getElementById('dbsx-table').style.height=boxSizing+"px";
+    document.getElementById('gstp-img').style.height=boxSizing+"px";
+    var dbsxNum = Math.floor(boxSizing/37);
+    var dbsxCent = getTx('getLimit='+(dbsxNum-1),'czp_fxyk.v');
+    dbsxCent=dbsxCent.substring(dbsxCent.indexOf('!@#$%^&*()')+'!@#$%^&*()'.length);
+    document.getElementById('dbsx-table-content').innerHTML=dbsxCent.substring(0,dbsxCent.indexOf(")(*&^%$#@!"));
+</script>
+</body>
+</html>

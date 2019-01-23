@@ -1,0 +1,99 @@
+var _dutyID="";/*当前班次ID*/
+var _dutyTeamID="";/*班组编码*/
+var _dutyTeamName="";/*班组名称*/
+var _dutyPerID="";/*班组负责人编码*/
+var _dutyPerName="";/*班组负责人名称*/
+var _dutyShiftID="";/*班次名称*/
+var _dutyShiftName="";/*班次编码*/
+
+var strvzname="";/*设备位置*/
+
+var _strSplit="";
+
+function sumStrings(a,b){
+    var res='', c=0;
+    a = a.split('');
+    b = b.split('');
+    while (a.length || b.length || c){
+        c += ~~a.pop() + ~~b.pop();
+        res = c % 10 + res;
+        c = c>9;
+    }
+    return res.replace(/^0+/,'');
+}
+
+function sys_onblur(_strIN,_strOUT){
+    if(document.getElementById(_strIN)==null){
+        return false;
+    }
+    document.getElementById(_strOUT).value=parseInt(eval(_strOUT));
+    document.getElementById(_strIN).addEventListener("blur",function(){
+        var re = /^(([1-9][0-9]*\.[0-9][0-9]*)|([0]\.[0-9][0-9]*)|([1-9][0-9]*)|([0]{1}))$/;  
+        var thiValue=parseInt(this.value);
+			document.getElementById(_strOUT).value=parseInt(eval(_strOUT))+thiValue;
+    });
+}
+
+
+	var usiParam=[];
+		
+<ylt.for dataId="1508085883875">  /*当前班次的名称*/
+    var jsonT = {};
+    jsonT['_dutyID'] = '$value';
+    jsonT['_dutyTeamID'] = '$value';
+    jsonT['_dutyTeamName'] = '$value';
+    jsonT['_dutyPerID'] = '$value';
+    jsonT['_dutyPerName'] = '$value';
+    jsonT['_dutyShiftName'] = '$value';
+    jsonT['_dutyShiftID'] = '$value';
+    jsonT['_dutyData'] = '$value';
+	usiParam.push(jsonT);
+
+</ylt.for>
+var returnMaxValue = "<ylt.fun fun="Lbrz"/>";
+<ylt.for dataId="1508203369040"> /*值长*/
+    var T_ZZYXRZ$S_NLJYY="$value";
+    var T_ZZYXRZ$S_YLJFDL="$value";
+    var T_ZZYXRZ$S_NLJFDL="$value";
+</ylt.for>
+<ylt.for dataId="1508203384125">/*机组长月*/
+    var T_JZZYXRZ$S_YLJBSL="$value";
+    var T_JZZYXRZ$S_YYXXSS="$value";
+    var T_JZZYXRZ$S_YLJBQL="$value";
+    var T_JZZYXRZ$S_YLJRML="$value";
+    var T_JZZYXRZ$S_YLJRYL="$value";
+    var T_JZZYXRZ$S_YLJYCYAL="$value";
+    var T_JZZYXRZ$S_YLJBCYAL="$value";
+   
+ sys_onblur("T_JZZYXRZ$S_BBBSL","T_JZZYXRZ$S_YLJBSL");
+    sys_onblur("T_JZZYXRZ$S_BBYXXSJ","T_JZZYXRZ$S_YYXXSS");
+    sys_onblur("T_JZZYXRZ$S_BBBQ","T_JZZYXRZ$S_YLJBQL");
+    sys_onblur("T_JZZYXRZ$S_BBRM","T_JZZYXRZ$S_YLJRML");
+    sys_onblur("T_JZZYXRZ$S_BBRY","T_JZZYXRZ$S_YLJRYL");
+    sys_onblur("T_JZZYXRZ$S_ACYQL","T_JZZYXRZ$S_YLJYCYAL");
+    sys_onblur("T_JZZYXRZ$S_BCYAL","T_JZZYXRZ$S_YLJBCYAL");
+</ylt.for>
+<ylt.for dataId="1508207089884">/*机组长年*/
+    var T_JZZYXRZ$S_NLJBSL="$value";
+    var T_JZZYXRZ$S_NYXXSJ="$value";
+    var T_JZZYXRZ$S_NLJBQL="$value";
+    var T_JZZYXRZ$S_NLJRML="$value";
+    var T_JZZYXRZ$S_NLJRYL="$value";
+    var T_JZZYXRZ$S_NLJACYAL="$value";
+    var T_JZZYXRZ$S_NLJBCYAL="$value";
+  sys_onblur("T_JZZYXRZ$S_BBBSL","T_JZZYXRZ$S_NLJBSL");
+    sys_onblur("T_JZZYXRZ$S_BBYXXSJ","T_JZZYXRZ$S_NYXXSJ");
+    sys_onblur("T_JZZYXRZ$S_BBBQ","T_JZZYXRZ$S_NLJBQL");
+    sys_onblur("T_JZZYXRZ$S_BBRM","T_JZZYXRZ$S_NLJRML");
+    sys_onblur("T_JZZYXRZ$S_BBRY","T_JZZYXRZ$S_NLJRYL");
+    sys_onblur("T_JZZYXRZ$S_ACYQL","T_JZZYXRZ$S_NLJACYAL");
+    sys_onblur("T_JZZYXRZ$S_BCYAL","T_JZZYXRZ$S_NLJBCYAL");
+</ylt.for>
+<ylt.for dataId="1508209605544">/*脱硫*/
+    var T_TLYXRZ$S_SHSYL="$value";
+    var T_TLYXRZ$S_GYSZ="$value";
+    var T_TLYXRZ$S_GYSZYL="$value";
+ sys_onblur("T_TLYXRZ$S_BBSHS","T_TLYXRZ$S_SHSYL");
+    sys_onblur("T_TLYXRZ$S_GYSBB","T_TLYXRZ$S_GYSZ");
+    sys_onblur("T_TLYXRZ$S_GYSBBY","T_TLYXRZ$S_GYSZYL");
+</ylt.for>

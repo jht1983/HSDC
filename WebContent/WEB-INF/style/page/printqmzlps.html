@@ -1,0 +1,76 @@
+<body>
+	<!--startprint-->
+	<ylt.for dataId="1513757985087">
+<h3 align="center">榆能榆神热电发电厂</h3>
+	<table border="0" cellspacing="0" cellpadding="0" align="center" width="80%">
+		<tr>
+			<td>
+				<u>$value</u>号机组<u>$value</u>级检修全面质量评审
+		
+			</td>
+			
+		</tr>
+		<tr>
+			<td>部门名称：（监督管理部门）日期：  &nbsp;第&nbsp;&nbsp;页/共&nbsp;&nbsp;页</td>
+			
+		</tr>
+		<tr>
+			<td>
+				<hr/><br />
+				(概述工程竣工总结、质量评审活动情况)
+			</td>
+		</tr>
+		<tr>
+			<td>
+				一、指挥体系自查评价<br />
+				（概述现场和设备全新、主要性能和技术经济指标、过程指挥组织施工作业情况，对自查现状及结果进行
+				分析评价，按本单位考评办法进行分项评分，然后综合各项目评分进行总体评价。）
+				$value
+			
+			</td>
+		</tr>
+			<tr>
+			<td>
+				二、控制体系核查评定<br />
+				（概述过程监督和质量验收情况，以全过程安全、质量、工期和费用控制为依据对三大形象自查
+				评价进行监督评审，按本单位考评办法做出分项和综合评定。）
+				$value
+			
+			</td>
+		</tr>
+			<tr>
+			<td>
+				三、评价结论和改进要求<br />
+				（分别评定各专业优秀项目和单项形象综合评定工程整体形象的奖励等级，在做出评价结论的
+				同时、分别对审核发现提出改进要求，包括分别对现场设备、性能指标和过程管理存在缺陷，
+				提出补充完善要求和持续改进措施。）
+				$value
+			
+			</td>
+		</tr>
+			<tr>
+			<td>
+				附：1、<u></u>号机组<u></u>级检修工程指挥体系评价报告<br />
+				2、<u></u>号机组<u></u>级检修监理工作总结和质量评价报告。<br />
+				<div align="right"><u>$value</u></div><br />
+				(各单位以奖励为主制定质量评审奖励办法)<br />
+				审核：（监督部门负责人）编制：（部门名称）
+			</td>
+		</tr>
+	</table>
+	</ylt.for>
+	<!--endprint-->
+</body>
+<script>
+
+	function preview() {
+		var bdhtml = window.document.body.innerHTML;
+		var sprnstr = "<!--startprint-->";
+		var eprnstr = "<!--endprint-->";
+		var prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+		var prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+		window.document.body.innerHTML = prnhtml;
+		window.print();
+	}
+	preview();
+</script>

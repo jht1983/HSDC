@@ -1,0 +1,110 @@
+	<body>
+<ylt.for dataId="1513653173840">
+
+
+		<!--startprint-->
+		<h3 align="center">榆能榆神热电发电厂</h3>
+		<table border="0" cellspacing="0" cellpadding="0" align="center" width="80%">
+			<tr>
+				<td style="text-align: center;"><u>$value</u>号机组<u>$value</u>级检修文件核查表</td>
+			</tr>
+			<tr>
+				<td>提交部门：<u>$value</u>（设备管理部门） &#160;第<u>&#160;&#160;</u>页/共<u>&#160;&#160;</u>页</td>
+			</tr>
+			<tr>
+				<td>
+			
+							<div id="add"></div>
+
+
+						<table border="1" cellspacing="0" cellpadding="0" width="100%" style="border-top:hidden">
+							<tr>
+								<td>
+									设备管理部门说明
+								</td>
+								<td colspan="5">$value
+									<div align="right">设备管理部门负责人：<u>$value</u></div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									送审日期
+								</td>
+								<td>
+									$value
+								</td>
+								<td>
+									送审人
+								</td>
+								<td>
+									$value
+								</td>
+								<td>
+									接收人
+								</td>
+								<td>
+									$value
+								</td>
+							</tr>
+							<tr>
+								<td>检修审核监理意见</td>
+								<td colspan="5">
+									$value
+
+									<div align="right">检修监理负责人：<u>$value</u></div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="6">
+									送审文件包括：<br /> 1、检修工程组织机构及过程管理文件，施工组织方案和进度网络图；
+									<br /> 2、重大项目安全技术措施、项目作业指导书及其检修记录和质检点验评表；
+									<br /> 3、物资采购和项目承包合同及其技术协议，到货物资厂家质保文件和入库验收签证；
+									<br /> 4、检修设备前测试报告和修后启动调试方案等。
+								</td>
+							</tr>
+						</table>
+				</td>
+			</tr>
+			</table>
+			<!--endprint-->
+
+</ylt.for>
+	</body>
+<div id="dis" style="display: none;">
+	<table border="1" cellspacing="0" cellpadding="0" width="100%">
+		<tr>
+			<th>序号</th>
+			<th colspan="2">送审文件名称</th>
+			<th>份数</th>
+			<th colspan="2">备注</th>
+		</tr>
+		<ylt.for dataId="1513653931267">
+			<tr>
+				<td><span name="xuhao"></span></td>
+				<td colspan="2">$value</td>
+				<td>$value</td>
+				<td colspan="2">$value</td>
+			</tr>
+		</ylt.for>
+	</table>
+		
+</div>
+
+<script>
+	var xh = document.getElementsByName("xuhao");
+	for(var i = 0; i < xh.length; i++) {
+		xh[i].innerHTML = i + 1;
+	}
+	document.getElementById("add").innerHTML = document.getElementById("dis").innerHTML;
+
+	function preview() {
+		var bdhtml = window.document.body.innerHTML;
+		var sprnstr = "<!--startprint-->";
+		var eprnstr = "<!--endprint-->";
+		var prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+		var prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+		window.document.body.innerHTML = prnhtml;
+		window.print();
+	}
+	preview();
+</script>

@@ -1,0 +1,99 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>主界面</title>
+</head>
+
+<body style="display:none;">
+  
+<table width="100%" border="0" >
+    
+  <tr  >
+      
+     
+    <td>
+        <a id="tj" href="Uclient://start/http://61.134.61.241:9080/?ssoKey=$value&uid=$value" target="_blank">点击</a>
+
+        </td>
+  </tr>
+  <tr>
+      <td>
+          NC随机数字:<p id="showSsoKey"></p>
+          <br />
+          NC用户编码:<p id="showUserCode"></p>
+          <br />
+          Iframe访问地址:<p id="iframeUrl"></p>
+           <br />
+          实际访问地址:<p id="HttpUrl"></p>
+          
+          
+          
+       </td>
+  </tr>
+   </ylt.for>
+   
+   
+   
+
+   
+   
+   
+</table>
+
+
+ </body>
+ <script>
+ 
+   <ylt.fun fun="NcSystemlogin"/>
+   
+   </script>
+   <script>
+   
+    var url = "Uclient://start/http://61.134.61.241:9080/?ssoKey="+ssoKey+"&uid="+userCode;
+    var iframeUrl = "http://61.134.61.241:9080/service/ssoRegServlet?ssoKey="+ssoKey+"&userCode="+userCode; 
+    
+    var iframe = document.createElement("iframe"); 
+    iframe.src = iframeUrl;
+    document.getElementById("tj").href=url;
+    if (iframe.attachEvent){ 
+        iframe.attachEvent("onload", function(){ 
+            /*
+             document.getElementById("tj").click();*/
+              var iframe2 = document.createElement("iframe"); 
+            iframe2.src = url;
+             document.body.appendChild(iframe2);
+        }); 
+    } else { 
+        iframe.onload = function(){ 
+          /* document.getElementById("tj").click();*/
+              var iframe2 = document.createElement("iframe"); 
+            iframe2.src = url;
+             document.body.appendChild(iframe2);
+        }; 
+    } 
+    document.body.appendChild(iframe);
+    
+    document.getElementById('showSsoKey').innerHTML=ssoKey;
+    document.getElementById('showUserCode').innerHTML=userCode;
+    document.getElementById('iframeUrl').innerHTML=iframeUrl;
+    document.getElementById('HttpUrl').innerHTML=url;
+    
+    
+  
+    
+/*
+   document.getElementById("tj").href="Uclient://start/http://61.134.61.241:9080/?ssoKey="+"111111"+"&uid="+userCode;
+   
+     window.open(url);
+      */
+           function openwindow() {
+            window.open('pos_search.htm', 'newwindow', 'fullScreen=1, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=n o, status=no');
+            window.opener = null;
+            window.open("", "_self");
+            window.close(); 
+        }
+                 
+
+ </script>
+</html>
+    

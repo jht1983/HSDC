@@ -1,0 +1,128 @@
+<body>
+	<ylt.for dataId="1513669982030">
+	<!--startprint-->
+	
+	<h3 align="center">榆能榆神热电发电厂</h3>
+	<table border="0" cellspacing="0" cellpadding="0" align="center" width="80%">
+		<tr>
+			<td style="text-align:center"><u>$value</u>号机组<u>$value</u>级检修项目质量验收报告</td>
+		</tr>
+		<tr>
+			<td>项目名称：<u>$value</u>&#160;编号<u>$value</u></td>
+		</tr>
+		<tr>
+			<td>
+				<div id="add"></div>
+		
+					<table border="1" cellspacing="0" cellpadding="0" width="100%" style="border-top: hidden;">
+					<tr>
+						<td >施工单位三级验收自评</td>
+						<td colspan="5">$value<div align="right">施工单位负责人：<u>$value</u></div></td>
+					</tr>
+					<tr>
+						<td>
+							提交日期
+						</td>
+						<td>
+							$value
+						</td>
+						<td>
+							提交人
+						</td>
+						<td>
+							$value
+						</td>
+						<td>
+							接收人
+						</td>
+						<td>
+							$value
+						</td>
+					</tr>
+					<tr>
+						<td >检修监理审核意见</td>
+						<td colspan="5">$value
+						<div align="right">项目监理工程师：<u>$value</u></div></td>
+					</tr>
+					<tr>
+						<td>
+							项目负责人
+						</td>
+						<td>
+							$value
+						</td>
+						<td>
+							总监理工程师
+						</td>
+						<td>
+							$value
+						</td>
+						<td>
+							工程总指挥
+						</td>
+						<td>
+							$value
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td >
+				提交验收文件包括：
+				1、项目作业情况和设备检查、维修记录；
+				2、设备测量、装配及其数据记录表格，以及质检点和监理签证表；
+				3、施工单位三级质量验收记录及自评文件。由施工单位自查验收、经项目负责人提出验收意见，通过监理组织验收后
+				进行分部试运。
+				
+			</td>
+		</tr>
+		<tr>
+			<td >
+			审核：<u>$value</u>（部门负责人）
+			编制：<u>$value</u>（部门名称）				
+			</td>
+		</tr>
+	</table>
+	<!--endprint-->
+	</ylt.for>
+</body>
+
+		<div id="dis" style="display: none;">
+				<table border="1" cellspacing="0" cellpadding="0" width="100%">
+					<tr>
+						<th>序号</th>
+						<th colspan="2">提交验收记录及文件</th>
+						<th>份数</th>
+						<th colspan="2">备注</th>
+					</tr>
+					<ylt.for dataId="1513671613567">
+					<tr>
+						<td> <span name="xuhao"></span></td>
+						<td colspan="2">$value</td>
+						<td>$value</td>
+						<td colspan="2">$value</td>
+					</tr>
+					</ylt.for>
+				</table>
+				</div>
+				
+
+<script>
+	var xh = document.getElementsByName("xuhao");
+	for(var i = 0; i < xh.length; i++) {
+		xh[i].innerHTML = i + 1;
+	}
+	document.getElementById("add").innerHTML = document.getElementById("dis").innerHTML;
+
+	function preview() {
+		var bdhtml = window.document.body.innerHTML;
+		var sprnstr = "<!--startprint-->";
+		var eprnstr = "<!--endprint-->";
+		var prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+		var prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+		window.document.body.innerHTML = prnhtml;
+		window.print();
+	}
+	preview();
+</script>

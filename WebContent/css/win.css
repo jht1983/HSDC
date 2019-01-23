@@ -1,0 +1,122 @@
+.win_top_left {
+	background: url(../images/ylwin/win_top_left.png) no-repeat 0 0;width:13px;height:40px;
+}
+.win_top_center {
+	background: url(../images/ylwin/win_top_center.png) repeat-x 0 0;;height:40px;
+}
+.win_top_right {
+	background: url(../images/ylwin/win_top_right.png) no-repeat 0 0;width:13px;
+}
+.win_content {
+	background-color: #FFFFFF;
+}
+.win_left {
+	background: url(../images/ylwin/win_left.png) repeat-y 0 0;
+}
+.win_right {
+	background: url(../images/ylwin/win_right.png) repeat-y 0 0;
+}
+.win_bottom_left {
+	background: url(../images/ylwin/win_bottom_left.png) no-repeat 0 0;height:9px;
+}
+.win_bottom_center {
+	background: url(../images/ylwin/win_bottom_center.png) repeat-x 0 0;
+}
+.win_bottom_right {
+	background: url(../images/ylwin/win_bottom_right.png) no-repeat 0 0;
+}
+.win_title{font-family:微软雅黑;color:black;font-size:12px;font-weight:bold;}
+
+
+.progrees{
+filter:progid:DXImageTransform.microsoft.gradient(gradienttype=1,startColorStr=white,endColorStr=green);font-size:8;text-align:center;color:black;
+background:-webkit-gradient(linear, 0 0, 0 bottom, from(white), to(green));
+}
+
+.sys_web_progress{
+background-color: white;border:1px solid green;
+}
+.sys_web_progress_step{
+	background:url(../images/progress/step.png); height:28px; width:10px;color:white;text-align:right;line-height:28px;overflow:hidden;font-weight:bold;
+}
+.sys_web_progress_caption{
+	letter-spacing:5px;background:white;height:28px; width:500px;height:30px;line-height:30px;font-weight:bold;word-spacing:10px;color:gray;
+}
+
+
+.button {
+	display: inline-block;
+	position: relative;
+	margin-left: 0px;
+	margin-right: 10px;
+	padding: 0 10px;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px rgba(255,255,255,.22);
+	font:  12px/25px 微软雅黑;
+	height:30px;
+	float:left;
+	border-radius:2px;
+	letter-spacing:1px;
+	border:1px solid #cccccc;
+}
+.leftbutton {
+	display: inline-block;
+	position: relative;
+	margin-right: 30px;
+	padding: 0 10px;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px rgba(255,255,255,.22);
+	font:  12px/25px 微软雅黑;
+	height:30px;
+	float:left;
+	border-radius:2px;
+	letter-spacing:1px;
+	border:1px solid #c9c9c9;
+}
+
+	.button:hover {
+			background:#e6e6e6;color:black;
+	}
+	/**
+	.button:hover .bttn_panel {
+		left: -20px;
+			-webkit-filter: drop-shadow(20px 0px 0px red);
+			filter: drop-shadow(20px 20px 0px red);
+			
+	}
+**/
+
+	.leftbutton:hover {
+		background:#e6e6e6;color:black;
+	}
+.green {color: #999999;background: #fff;}
+.red {color: #999999;background: #fff;}
+.blue {color: #999999;background: #fff;}
+.gray {color: #999999;background: #fff;}
+.orange {color: #999999;background: #fff;}	
+.pink {color: #999999;background: #fff;}		
+.current_input{ background:#E0FEE4; border:1px solid #093;}	
+.bttn_panel{background-position: left 9px;background-repeat: no-repeat;padding-left:16px;padding-top:3px;font-family: "微软雅黑"; font-size:12px;}
+
+.bttoparea{width:100%;height:49px;background:#fff;}
+.bttformoparea{width:100%;height:29px;background:#f7f7f7;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;}
+.mutseldiv{padding:0px;margin:0px;color:#333;border:#ececec solid 1px;width:100%;height:60px;background-color:white;overflow:auto;}
+.sys_form_btn{background:#539ddd;border:1px solid #2d8bdd;display: inline-block;
+	position: relative;
+	margin-left: 20px;
+	padding: 0 10px;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px rgba(255,255,255,.22);
+	font:  12px/25px 黑体;
+	height:30px;
+	float:right;
+	border-radius:2px;
+	letter-spacing:5px;color:#fff;}
+.sys_form_btn:hover{background:green;}
+
+
+.mutselfont{font-size:11px;line-height: 14px;}
+.mutselimg{width:10px;height:10px;cursor:pointer;}

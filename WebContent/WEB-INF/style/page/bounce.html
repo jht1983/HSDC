@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 150px;
+            background-color: #f60;
+            border-radius: 10px;
+            text-align:center;
+        }
+    </style>
+</head>
+
+    <body>
+    
+<div id="div">
+    公司公告
+</div>
+
+<script>
+    var winWidth = document.documentElement.clientWidth;  
+    var winHeight = document.documentElement.clientHeight;  
+
+    var ball = document.getElementById('div'); 
+    var ballW = ball.offsetWidth;  
+    var ballH = ball.offsetHeight;
+
+    var ballX = 0; 
+    var ballY = 0; 
+
+    var ballXSpeed = 1; 
+    var ballYSpeed = 2;
+
+    setInterval(function(){ 
+    
+        ballX+=ballXSpeed;
+
+        if(ballX >= winWidth-ballW) { 
+            ballXSpeed = - ballXSpeed; 
+        }else if(ballX <= 0){ 
+            ballXSpeed= -ballXSpeed;  
+        }
+        ball.style.left = ballX + 'px'; 
+
+
+    
+        ballY+=ballYSpeed;
+
+        if(ballY >= winHeight-ballH) { 
+            ballYSpeed = - ballYSpeed; 
+        }else if(ballY <= 0){ 
+            ballYSpeed= -ballYSpeed; 
+        }
+        ball.style.top = ballY + 'px'; 
+
+    },16);
+</script>
+</body>
+</html>

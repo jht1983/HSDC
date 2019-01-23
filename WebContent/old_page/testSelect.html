@@ -1,0 +1,338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%">
+	<script type='text/javascript' src='js/evenfunction.js'></script>
+	<script type='text/javascript' src='js/ylselect.js'></script>
+	<script type='text/javascript' src='js/yltree.js'></script>
+	<script type='text/javascript' src='js/check.js'></script>
+	<script>
+		gs_root = '/sip';
+	</script>
+	<style>
+        .noneTable{
+            background: url("res/images/none.png");
+            background-size: 100% 100%;
+            width:100%;height:20px;cursor: pointer;
+        }
+        .blackTable{
+            background: url("res/images/black.png");
+            background-size: 100% 100%;
+            width:100%;height:20px;cursor: pointer;
+        }
+        .tableCol td{
+            border-top: 1px solid #e9e9e9;border-left: 1px solid #e9e9e9;
+            text-align: center;
+            text-overflow: ellipsis; /* for IE */  
+            -moz-text-overflow: ellipsis; /* for Firefox,mozilla */  
+            overflow: hidden;  
+            white-space: nowrap;  
+        }
+        .none{
+				/* display: none; */
+			}
+				.noneSpan {
+				border: 0.1px solid aliceblue;
+				text-align: center;
+		
+				display: -moz-inline-box;
+				box-sizing: border-box;
+				display: inline-block;
+				cursor: pointer;
+			}
+			
+			.blockSpan {
+				border: 0.1px solid aliceblue;
+			
+				text-align: center;
+			
+				display: -moz-inline-box;
+				box-sizing: border-box;
+				display: inline-block;
+				cursor: pointer;
+				background-color: #539ddd;
+			}
+
+    </style>
+	<link href='css/table.css' rel='stylesheet' type='text/css' />
+	<table id="headTable" class='table1' cellpadding='0' cellspacing='0' width='100%' style="display:black;">
+	    <input value='' id='S_AUDIT_TABLECONTROL' type='hidden' style='width:140px;'>
+		<tr class='tr1'>
+			<td class='inputth1'>活动名称:</td>
+			<td class='inputtd1'><input value='' id='attreventname' type='text' style='width:140px;'>
+			</td>
+			
+			<td class='inputth1'>活动类型:</td>
+			<td class='inputtd1'><input value='' id='S_AUDIT_TYPE' type='text' style='width:140px;' readonly="readonly">
+			</td>
+		</tr>
+		
+		<tr class='tr1'>
+			<td class='inputth1'>描述:</td>
+			<td class='inputtd1'><input value='' id='S_AUDIT_DESC' type='text' style='width:140px;'>
+			</td>
+				<td class='inputth1' style='width:100px;'>通知消息:</td>
+			<td class='inputtd1'>
+				
+			    <input type="text" id="S_AUDIT_TZXX"  ruleTip="通知消息" style="width:140px;" nodepcode="" selcode='1502935066353' class='ylselect'  seltype='datatree'  nodecode='T_XXGL__S_ID' nodename='T_XXGL__S_MBMC' dataid='1502073646538'/>
+			</td>
+		</tr>
+		<tr class='tr1'>
+		    <td class='inputth1' style='width:100px;'>指定部门:</td>
+			<td class='inputtd1'>
+				<input value='' id='S_AUDIT_BRANCH' type='text' style='width:140px;' selcode='001' nodepcode='t_SYS_BRANCH__S_PCODE' class='ylselect' seltype='datatree' dataid='1372908526312' nodecode='t_SYS_BRANCH__S_CODE' nodename='t_SYS_BRANCH__S_NAME'>
+			</td>
+			<td class='inputth1' style='width:100px;'>按岗位审批:</td>
+			<td class='inputtd1'>
+			    <input value='' id='NO_AUDIT_SHOW' type='text' style='width:140px;'  onclick="javaScript:miniWin('选择','','View?SPAGECODE=1501577842420&flow=select',1000,630,'','');"  readonly="readonly">
+				<input value='' id='S_AUDIT_ROLE' type='hidden' style='width:140px;'  readonly="readonly">
+			</td>
+		</tr>
+		<tr class='tr1'>
+			<td class='inputth1' style='width:100px;'>按人员审批:</td>
+			<td class='inputtd1'>
+			    <input value='' id='NO_AUDIT_USER' type='text' style='width:140px;'  onclick="miniWin('选择','','View?SPAGECODE=1501492336775&flow=select',1000,630,'','');"  readonly="readonly">
+				<input value='' id='S_AUDIT_USER' type='hidden' style='width:140px;'  readonly="readonly">
+			</td>
+				<td class='inputth1' style='width:100px;'>调度模式:</td>
+			<td class='inputtd1'>
+			    <input style="vertical-align: middle;" type="radio" name="NO_S_AUDIT_PREEMPTION" id="NO_S_AUDIT_PREEMPTION_QZ" onclick="javascript:$('S_AUDIT_PREEMPTION').value=this.value;$('qz').style.display='none';$('qzCod').style.display='none';" value="QZ"/>
+			    抢占
+			    <input style="vertical-align: middle;" type="radio" name="NO_S_AUDIT_PREEMPTION" id="NO_S_AUDIT_PREEMPTION_ZD" onclick="javascript:$('S_AUDIT_PREEMPTION').value=this.value;$('qz').style.display='none';$('qzCod').style.display='none';" value="ZD"/>
+			    指定
+			    <input style="vertical-align: middle;" type="radio" name="NO_S_AUDIT_PREEMPTION" id="NO_S_AUDIT_PREEMPTION_HQ" onclick="javascript:$('S_AUDIT_PREEMPTION').value=this.value;$('qz').style.display='';$('qzCod').style.display='';" value="HQ"/>
+			    会签
+			    <input type="hidden" id="S_AUDIT_PREEMPTION" name="S_AUDIT_PREEMPTION" value="QZ"/>
+			</td>
+		</tr>
+
+		<tr class='tr1'>
+			<td class='inputth1' style='width:100px;'>是否跳岗:</td>
+			<td class='inputtd1'>
+			   	 <input type="checkbox" id="S_AUDIT_TG" name="S_AUDIT_TG" value="1"/>
+			</td>
+			<td class='inputth1' id="qz" style='width:100px;display:none;'>会签通过(%):</td>
+			<td class='inputtd1' id="qzCod" style='display:none;'>
+			   	 <input type="" id="S_AUD_VAL" name="S_AUD_VAL" value=""/>
+			</td>
+		</tr>
+
+		<tr class='tr1'>
+			<td class='inputth1' style='width:100px;'>逾期天数:</td>
+			<td class='inputtd1'><input value='' id='S_AUDIT_YQTS' name='S_AUDIT_YQTS' rule="bxsz" type='text' style='width:140px;' onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+			</td>
+			
+			<td class='inputth1' style='width:100px;'>逾期处理:</td>
+			<td class='inputtd1'>
+			   <input type='text' seltype='dic' ruleTip="节点审批" name='S_AUDIT_YQTSCL' id='S_AUDIT_YQTSCL' style="width:140px;" class='ylselect' dataid='1501641900643'>
+			</td>
+		</tr>
+
+		<tr class='tr1'>
+			<td class='inputth1' style='width:100px;'>驳回处理方式:</td>
+			<td class='inputtd1'>
+				<input type='text' seltype='dic' ruleTip="驳回处理方式" onchange="choice_audit_thjd()" name='S_AUDIT_THJD' id='S_AUDIT_THJD' style="width:120px;" class='ylselect' dataid='1501324382771'>
+			</td>
+			<td class='inputth1' style='width:100px;display: ;'>附属票据:</td>
+			<td class='inputtd1' style="display: ;">
+				<input value='' id='NO_AUDIT_FSPJ' name='NO_AUDIT_FSPJ' type='hidden' style='width:140px;' readonly="readonly">
+				<input value='' id='S_AUDIT_FSPJ' name='S_AUDIT_FSPJ' type='text'  style='width:140px;' >
+			</td>
+		</tr>
+		</table>
+			<div id="fg" toShow="yes"  class="blackTable"  >
+	    </div>
+	    <div style="width:100%;color:#000;">当前用户:{user},当前用户角色:{role},当前用户部门:{branchid},当前时间:{date},其他请填写默认值</div>
+	    <div id="flowSpan">
+        </div>
+		<ylt.fun fun="tempTheSelectTable"/>
+		<table  class='table1' cellpadding='0' cellspacing='0' width='100%' style="display:black">
+    		<tr>
+    			<td colspan='2' align='right' class='bttformoparea'>
+    				<table>
+    					<tr>
+    						<td>
+    							<a id="submitToObj"  class="button green" href="javascript:getAttr();" ><span><div
+    									class='bttn_panel'
+    									style='background-image:url(images/eve/qd.png);'>确定</div> </span> </a>
+    						</td>
+    						<td width='50px'>&#160;</td>
+    					</tr>
+    				</table>
+    			</td>
+    		</tr>
+	    </table>
+    <script>
+        <ylt.v message="gs_upl_kc">
+            var gs_upl_kc="";
+        $value
+            var gs_upl_kc="$value";
+        </ylt.v>
+    </script>
+	<script>
+        var objParent=parent.getOpenPage(gs_upl_kc);
+        var objParentFlow=objParent.ylt.flow;
+        var array_end = objParentFlow.arrStrAttrIds;
+        var iFieldCount=array_end.length;
+    	function getAttr() {
+    	    if($('S_AUDIT_PREEMPTION').value=="HQ"&&(isNaN($('S_AUD_VAL').value)||$('S_AUD_VAL').value=="")){
+    	        alert("会签必须是数字");
+    	        return false;
+    	    }
+			var objAttr = new Object();
+			for(var i = 0;i<iFieldCount;i++ ){
+			    var objInputElement=document.getElementById(array_end[i]);
+			    if(objInputElement!=null){
+				    objAttr[array_end[i]] = objInputElement.value;
+			    }
+	        }
+	        objAttr['S_AUDIT_TABLECONTROL'] =tableColReturn();
+	        objAttr['attreventname'] = document.getElementById('attreventname').value;
+		    objParentFlow.changeAttr(objAttr);
+		    parent.closeWinById(gs_upl_kc);
+		}
+    	function initValue(){
+	        document.getElementById('attreventname').value = objParentFlow.objCurSelGraph.data("text");
+    	    for(var i = 0;i<iFieldCount;i++ ){
+    			if(document.getElementById(array_end[i])!=null){
+    				document.getElementById(array_end[i]).value=objParentFlow.objCurSelGraph.data("attr_"+array_end[i])==undefined?"":objParentFlow.objCurSelGraph.data("attr_"+array_end[i]);
+    			}
+    	    }
+    	}
+    	initValue();
+		function $(_str) {
+			return document.getElementById(_str);
+		}
+		function tablejong(tableName,tableCod) {
+			var tableAttr = tableCod.split("|");
+			var index = tableAttr.length;
+			var toLeftOrRight = Math.ceil(index / 2);
+			var tableCol = document.getElementById(tableName+"#tableCol1");
+			var tableCol2 = document.getElementById(tableName+"#tableCol2");
+			for(var i = 0; i < index; i++) {
+				var tableColAttr = tableAttr[i].split(",");
+				var tempID=tableName+"$"+tableColAttr[1];
+				var tempTr = "";
+				tempTr = "<tr class='tr1'><td id= '"+tempID+"#Name'>" + tableColAttr[0] + "</td><td style='display:none;' id='" + tempID + "#Code'>" + tableColAttr[1] + "</td><td><input id='" + tempID + "#show' " + (tableColAttr[2] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input id='" + tempID + "#edit' " + (tableColAttr[3] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input id='" + tempID+ "#cl' type='text' style='width:95%'  value='" + tableColAttr[4] + "'  /></td></tr>";
+    			if(i < toLeftOrRight) {
+    				tableCol.innerHTML += tempTr;
+    			} else {
+    				tableCol2.innerHTML += tempTr;
+    			}
+			}
+		}
+		var arrName = [];
+		var arrCod = [];
+		var flowSpan = $("flowSpan");
+		var Element = null;
+		var strSplitTableContRol = TABLECONTROL.split("`");
+		var strSplitTableContRolLength = strSplitTableContRol.length;
+		for(var i = 0; i < strSplitTableContRolLength; i++) {
+			var strSplitTableContRolArr = strSplitTableContRol[i].split("$");
+			var strSplitTableContRolArr = strSplitTableContRol[i].split("$");
+			var tableId=strSplitTableContRolArr[0];
+		    var tableName=strSplitTableContRolArr[1];
+		    var tableJur=strSplitTableContRolArr[2];
+		    var tableCod=strSplitTableContRolArr[3];
+			Element = document.createElement("span");
+			Element.setAttribute("onclick","showTable1(this,'"+tableId+"')");
+			Element.setAttribute("class","noneSpan");
+			Element.innerHTML = "<input style='vertical-align:middle;' type='checkbox' "+(tableJur=="true"?"checked":"")+" id='"+tableId+"#Jur' />"+tableName;
+			arrName.push(tableId);
+			arrCod.push(tableCod);
+			var TABLECONTROL_Value = document.getElementById("S_AUDIT_TABLECONTROL").value;
+			tablejong(tableId,tableCod);
+			flowSpan.appendChild(Element);
+		}
+        var TABLECONTROL_Value = document.getElementById("S_AUDIT_TABLECONTROL").value;
+        if(TABLECONTROL_Value!=null&&TABLECONTROL_Value!=""){
+            var allTableJurCod=TABLECONTROL_Value.split("`");
+            var allTableJurCodLength=allTableJurCod.length;
+    		for(var i = 0;i<allTableJurCodLength;i++){
+    		    var tableJurCod  = allTableJurCod[i].split("$");
+    		    var tableId=tableJurCod[0];
+    		    var tableJur=tableJurCod[1];
+    		    var tableCon=tableJurCod[2];
+    		    var tableConArr=tableCon.split("|");
+    		    var tableConLength=tableConArr.length;
+    		    $(tableId+"#Jur").checked=(tableJur=="true"?true:false);
+    		    if(tableConLength==1){
+    		        continue;
+    		    }
+    		    for(var z = 0 ; z < tableConLength ; z++){
+    		        var temp = tableConArr[z].split(",");
+    		        $(tableId+"$"+temp[0]+"#show").checked=(temp[1]=="true"?true:false);
+    		        $(tableId+"$"+temp[0]+"#edit").checked=(temp[2]=="true"?true:false);
+    		        $(tableId+"$"+temp[0]+"#cl").value=temp[3];
+    		    }
+    		}
+        }
+		var strCol=""; 
+		var spanObj=null;
+		function showTable1(_obj,_str){
+		    if(strCol!=""){
+		        $(strCol+"#tableCol1").style.display="none";
+			    $(strCol+"#tableCol2").style.display="none";
+			    spanObj.className = "noneSpan";
+		    }
+			$(_str+"#tableCol1").style.display="";
+			$(_str+"#tableCol2").style.display="";
+			_obj.className = "blockSpan";
+			spanObj=_obj;
+			strCol=_str;
+		}
+		function tableColReturn(){
+			var strReturn = "";
+			var strSplitReturn = "";
+			var arrNameLength = arrName.length;
+			for(var i=0;i<arrNameLength;i++){
+			    strReturn +=strSplitReturn;
+			    strReturn +=arrName[i]+"$";
+			    strReturn +=$(arrName[i]+"#Jur").checked+"$";
+			    var CodRrrValue=arrCod[i].split("|");
+			    var CodRrrValueLength=CodRrrValue.length;
+			    var strSplit = "";
+			    for(var j = 0 ;j<CodRrrValueLength;j++){
+			        var Code =$(arrName[i]+"$"+CodRrrValue[j].split(",")[1]+"#Code").innerHTML;
+			        var show =$(arrName[i]+"$"+CodRrrValue[j].split(",")[1]+"#show").checked;
+			        var edit =$(arrName[i]+"$"+CodRrrValue[j].split(",")[1]+"#edit").checked;
+			        var cl =$(arrName[i]+"$"+CodRrrValue[j].split(",")[1]+"#cl").value;
+			        if(show==true&&edit==false&&cl==""){
+			            continue;
+			        }
+			        strReturn += strSplit;
+    	
+    				strReturn += Code+ ",";
+    				strReturn += show + ",";
+    				strReturn += edit + ",";
+    				strReturn += cl;
+    				strSplit = "|";
+			    }
+			    strSplitReturn="`";
+			}
+			return strReturn;	
+		}
+	    var S_AUDIT_PREEMPTION = $("S_AUDIT_PREEMPTION").value;
+	    if(S_AUDIT_PREEMPTION==""){
+	        $("NO_S_AUDIT_PREEMPTION_QZ").click();
+	    }else{
+	        $("NO_S_AUDIT_PREEMPTION_"+S_AUDIT_PREEMPTION).click();
+	    }
+	    document.getElementById("fg").onclick = function() {
+			if(this.getAttribute("toShow") == "yes") {
+				document.getElementById("headTable").style.display = "none";
+				this.className = "noneTable";
+				this.setAttribute("toShow", "no")
+			} else {
+				document.getElementById("headTable").style.display = "block";
+				this.className = "blackTable";
+				this.setAttribute("toShow", "yes")
+			}
+		};
+		document.getElementById("NO_AUDIT_FSPJ").onclick=function(){
+		    miniWin('选择','','View?SPAGECODE=1501320802541&type=FSPJ',1000,630,'','');
+		};
+		var spanTabArr = document.getElementById("flowSpan").getElementsByTagName("span");
+		if(spanTabArr.length>0){
+		    spanTabArr[0].click();
+		}
+
+	</script>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/layout.css?v=6.72" rel="stylesheet" type="text/css"><link href="css/table.css?v=6.72" rel="stylesheet" type="text/css"><link href="css/win.css?v=6.72" rel="stylesheet" type="text/css"><script type="text/javascript" src="js/evenfunction.js?v=6.72"></script><script type="text/javascript" src="js/WdatePicker.js?v=6.72"></script><link href="js/skin/WdatePicker.css?v=8" rel="stylesheet" type="text/css"><script type="text/javascript" src="js/ylpub.js?v=6.72"></script><script type="text/javascript" src="js/fc.js?v=6.72"></script><script type="text/javascript" src="js/LodopFuncs.js?v=6.72"></script><script type="text/javascript" src="js/print.js?v=6.72"></script><script type="text/javascript" src="js/ylselect.js?v=6.72"></script><script type="text/javascript" src="js/yltree.js?v=6.72"></script><script type="text/javascript" src="js/check.js?v=6.72"></script>
+
+    <style>
+       body {
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }
+
+    .modPowerTitle {
+        font-size: 20px;
+        height: 50px;
+        width: 100%;
+        line-height: 50px;
+        text-align: center;
+    }
+
+    .modPowerChild {
+        width: 100%;
+        border: 1px solid #f4f4f4;
+        background-color: white;
+    }
+
+    .modPowerChild {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .modPower_nomer {
+        float: left;
+        font-size: 17px;
+        margin: 5px 5px 5px 5px;
+        width: 200px;
+        height: 50px;
+        border: 1px solid #e9e9e9;
+        border-radius: 3px;
+        /*line-height: 50px;*/
+        padding-top: 13px ;
+        padding-left: 5px ;
+        box-sizing: border-box;
+    }
+
+    .modPower_parent {
+        -moz-box-sizing: border-box; /*Firefox3.5+*/
+        -webkit-box-sizing: border-box; /*Safari3.2+*/
+        -o-box-sizing: border-box; /*Opera9.6*/
+        -ms-box-sizing: border-box; /*IE8*/
+        box-sizing: border-box; /*W3C标准(IE9+，Safari5.1+,Chrome10.0+,Opera10.6+都符合box-sizing的w3c标准语法)*/
+        background-color: #029AE5;
+        padding: 10px;
+    }
+
+    .modPower_set {
+        width: 100%;
+        height: auto;
+        font-size: 20px;
+        overflow: hidden;
+        background-color: white;
+        zoom: 1;
+    }
+
+    .modPower_check {
+        float: left;
+        width: 13px;
+        height: 13px;
+        margin: 6px 0px 0px 0px;
+        vertical-align: middle;
+    }
+    .modPower_font{
+        float: left;
+        width: 180px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+     }
+    .modPowerTitle_box {
+        background-color: #f2f2f2;
+        border-top: 1px solid #e7e7e7;
+        border-bottom: 1px solid #e7e7e7
+    }
+    .errorCode{
+        display:none;
+    }
+    .errorName{
+        width:100%;font-size:25px;text-align: center;
+    }
+    </style>
+</head>
+<body>
+<div style="display:none">
+    <form action="modpower.v" id="form" name="form" method="post" accept-charset="utf-8">
+        <input type="hidden" name ="sys_bed" id="sys_bed" value="true"/>
+        <textarea id="SYS_ROLE_PARA" name="SYS_ROLE_PARA" style="display: none">
+            
+        </textarea>
+        <input type="hidden" name ="S_ROLECODE" id="S_ROLECODE" value=<ylt.v message="S_ROLECODE">""$value"$value"</ylt.v> />
+        <input type="hidden" name ="S_MODCODE" id="S_MODCODE" value=<ylt.v message="S_MODCODE">""$value"$value"</ylt.v>/>
+    </form>
+</div>
+<div style="width:100%;height:30px;padding:10px;background-color:#fafafa;">
+    <a href="javascript:countSubmit();" class="button green" onclick="this.blur();">
+        <span>
+            <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">保存</div>
+        </span>
+    </a>
+</div>
+<div class="modPowerTitle modPowerTitle_box" id="modNode" >
+    
+</div>
+
+<div id="powerPanel" class="modPower_set modPower_parent">
+    <div>
+
+
+    </div>
+</div>
+
+</div>
+
+    <ylt.fun fun="getModPowerMeter"/>
+
+</body>
+<script>
+    <ylt.v message="S_ROLECODE">
+    var _roleCode = "";
+    $value
+    var _roleCode = "$value";
+    </ylt.v>
+    
+    var objNodeMsg = JSON.parse(document.getElementById("modPowerModel").value); 
+    var getObjNodeMsg = JSON.parse(document.getElementById("modPowerModel_get").value); 
+    var powerPanel = document.getElementById("powerPanel");
+    var modPower_check = document.getElementsByClassName("modPower_check");
+    var record ={};
+    var recordChild = {};
+    var selRecord = {};
+    var selRecordtemp = {};
+    
+    document.getElementById("modNode").innerHTML = objNodeMsg["text"] + ":" + objNodeMsg["code"];
+
+    function pner(_obj) {
+        var modPower = null;
+        for (var i = 0, j = _obj.length; i < j; i++) {
+            selRecord[_obj[i]["code"]]=new Array();
+            
+            modPower = document.createElement("div");
+            modPower.setAttribute("class", "modPowerChild  modPower_group");
+            var pageCode = _obj[i]["code"];
+            
+            var pind ="";
+            pind += "<div> <div class=\"modPower_set modPowerTitle\">"+ _obj[i]["text"] + ":" + _obj[i]["code"] + "</div>";
+            pind += "<div class=\"modPower_set modPowerTitle\">按钮权限:</div><div class=\"modPower_set\">";
+            pind += generatedBox(_obj[i]["BTTN"], _roleCode, pageCode,"BTTN");
+            pind += "</div><div class=\"modPower_set modPowerTitle\">字段权限:</div><div class=\"modPower_set\">";
+            pind += generatedBox(_obj[i]["FIELD"], _roleCode, pageCode,"FIELD");
+            pind += " </div> </div> <hr/>";
+
+            modPower.innerHTML = pind;
+            powerPanel.appendChild(modPower);
+            record[ _obj[i]["code"]]=recordChild;
+            recordChild={}
+        }
+    }
+
+    function generatedBox(_obj, _roleCode, _pageCode,_tyle) {
+        var retValue = "";
+        var index = 0 ;
+        var cont="";
+        for (var key in _obj) {
+            cont = _pageCode+"_"+_tyle+"_"+index;
+            recordChild[_obj[key]]= cont;
+            retValue += "<div class=\"modPower_nomer\"><input class='modPower_check' checked type=\"checkbox\" id=\""+cont+"\" pageCode='"+_pageCode+"' roleCode='"+_roleCode+"'><div class='modPower_font'>" + key + "</div><textarea style='display: none' inputArg='"+cont+"' id=\""+cont+"_value\">"+_obj[key]+"</textarea></div>";
+            index++
+        }
+        return retValue;
+    }
+
+
+    pner(objNodeMsg["child"]);
+    
+   for(var i = 0 , j = modPower_check.length ; i < j  ; i++){
+        modPower_check[i].addEventListener("click",function(){
+            var pageCode = this.getAttribute("pageCode");
+            var fileCode = document.getElementById(this.id+"_value").value;
+            var roleCode = this.getAttribute("roleCode");
+            selRecordtemp["roleCode"]=roleCode;
+            selRecordtemp["pageCode"]=pageCode;
+            selRecordtemp["fileCode"]=fileCode;
+            if(this.checked==true){
+                for(var key in selRecord[pageCode]){
+                    var CodeEl = selRecord[pageCode][key];
+                    if(CodeEl["fileCode"]==fileCode&&CodeEl["roleCode"]==roleCode&&CodeEl["pageCode"]==pageCode){
+                        selRecord[pageCode].splice(key,1);
+                    }
+                }
+            }else{
+                selRecord[pageCode].push(selRecordtemp);
+              
+            }
+            selRecordtemp={};
+        })
+    }
+ 
+    
+    
+   var textareaArr = document.getElementsByTagName("textarea");
+    for(var key in getObjNodeMsg){
+        for(var i = 0 , j = textareaArr.length; i < j ; i ++){
+            if(textareaArr[i].value==key){
+                document.getElementById(textareaArr[i].getAttribute('inputArg')).click();
+            }
+        }
+    }
+   
+   function countSubmit(){
+        document.getElementById('SYS_ROLE_PARA').value=JSON.stringify(selRecord);
+        document.getElementById('form').submit();
+   }
+    
+</script>
+</html>

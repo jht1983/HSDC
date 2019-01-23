@@ -1,0 +1,27 @@
+body{font-size:14px;}
+.tdlogotitle{height:68px; width:205px;cursor:pointer;background:#0161b3;}
+.logoimg{height:81px;vertical-align:bottom;display:block}
+.tdconsplit{height:50px;background:#0161b3;color:#fff;padding-left:20px;}
+.welcomefont{font-family:ºÚÌå;font-weight:bold;font-size:22px;letter-spacing:5px;}
+.tdcontent{}
+.menubttn{float:left;margin:10px;width:150px;height:100px;color:#fff;}
+.menubttn:hover{background:#0b80e4;cursor:pointer;}
+.menucentico{width:30px;height:30px;}
+.menuico{height:30px;padding-bottom:5px;}
+.menutext{height:20px;color:#fff;}
+.topmenutab{float:left;height:50px;margin-left:15px;margin-right:15px;cursor:pointer;font-size:13px;font-family:Î¢ÈíÑÅºÚ;letter-spacing:2px;}
+.topmenutab:hover{color:#0fc2ab;}
+.topmenuico{margin-top:10px;cursor:pointer;}
+.selMenutab{color:#0fc2ab;float:left;height:50px;margin-left:15px;margin-right:15px;cursor:pointer;font-size:13px;font-family:Î¢ÈíÑÅºÚ;letter-spacing:2px;}
+.selMenutab img{display: inline-block;position:relative;-webkit-filter:drop-shadow(0 0 #0fc2ab);
+            filter:drop-shadow(0 0 #0fc2ab);}
+.divsyssecmenu{background:#06579c;height:100px;}
+.divabsolvemenu{position:absolute;right:0px;z-index:1000;background:#5294e8;top:65px;color:#fff;padding-top:10px;padding-bottom:10px;}
+.divang{position:absolute;right:50px;z-index:1000;top:50px;width:25px;height:6px;padding:0px;}
+.tababsolvmenu{width:120px;}
+.tababsolvmenu .selMenutab{height:25px;}
+.tababsolvmenu .topmenutab{height:25px;}
+.systabicomenu{width:120px;}
+.systdimg{width:20px;}
+.systdtxt{width:100px;}
+.systemico{width:15px;height:15px;}

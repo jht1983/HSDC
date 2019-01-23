@@ -1,0 +1,48 @@
+
+<html>
+
+	<head>
+	
+	</head>
+
+	<body>
+		<div id="showDiv" style="width:200px;float: left">
+			
+		</div>
+		<div id="showDiv2" style="width:200px;float: left">
+		   
+		</div>
+		<form action="test.v" method="post">
+    		<input type="text" name="tableCode" id="tableCode" value="" />
+    		<input type="text" name="tableName" id="tableName" value="" />
+    		<input type="submit" value="tijiao"/> 
+		</form>
+	</body>
+	<script>
+	    var inputTableCode=document.getElementById("tableCode");
+	    var inputtableName=document.getElementById("tableName");
+        var temp="<ylt.fun fun="dataBase"/>";
+        var showDiv = document.getElementById("showDiv");
+        var tempArr =temp.split("\|"); 
+        var tempLength=tempArr.length;
+        for(var i =0 ;i<tempLength;i++){
+            var createDiv = document.createElement("div");
+            var nameCode=tempArr[i].split(",");
+            createDiv.innerHTML=nameCode[0];
+            createDiv.setAttribute("id",nameCode[1]);
+            createDiv.setAttribute("onclick","chuanzhi(this);");
+            showDiv.appendChild(createDiv);
+        }
+        function chuanzhi(_obj){
+            if(inputTableCode.value!=""){
+                inputTableCode.value+=","+_obj.id;
+                inputtableName.value+=","+_obj.innerHTML;
+            }else{
+                inputTableCode.value+=_obj.id;
+                inputtableName.value+=_obj.innerHTML;
+            }
+            var showDiv = document.getElementById("showDiv2");
+            showDiv.appendChild(_obj);
+        }
+    </script>
+</html>

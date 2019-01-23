@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+			<script type='text/javascript' src='js/evenfunction.js'></script>
+	<script type='text/javascript' src='js/ylselect.js'></script>
+	<script type='text/javascript' src='js/yltree.js'></script>
+	<script type='text/javascript' src='js/check.js'></script>
+	<link href='css/table.css' rel='stylesheet' type='text/css' />
+		<style>
+			
+			.div2121>div {
+				float: left;
+				margin-left: 20px;
+				text-align: center;
+				width: 50px;
+				background-color: #e9e9e9;
+			}
+			.Ttable,
+			.Ttable tr th,
+			.Ttable tr td {
+			
+				border-bottom: 1px solid #0094ff;
+			}
+			.Ttable {
+				width: 100%;
+				min-height: 25px;
+				line-height: 25px;
+				border-collapse: collapse;
+			}
+			.radioW{
+			    width: 20px;height: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<table class="Ttable">
+			<tr>
+				<td>
+					<input type="radio" checked name="JYZQ" rowId="1" class="radioW" onclick="toChick(this,1);" />
+				</td>
+				<td>
+					<div>
+						每 <input name="JYZQ_1_1" condition="day" id="JYZQ_1_1" /> 天
+                        第 <input name="JYZQ_1_2" condition="hours" id="JYZQ_1_2" /> 小时
+						第 <input name="JYZQ_1_3" condition="minutes" id="JYZQ_1_3" /> 分钟
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="radio" name="JYZQ" rowId="2" class="radioW" onclick="toChick(this,2);" />
+				</td>
+				<td>
+					<div>
+						每 <input name="JYZQ_2_1" condition="week" /> 周  的 周
+						<select name="JYZQ_2_2" condition="weekday" >
+							<option value="1">一</option>
+							<option value="2">二</option>
+							<option value="3">三</option>
+							<option value="4">四</option>
+							<option value="5">五</option>
+							<option value="6">六</option>
+							<option value="7">七</option>
+						</select>
+						第 <input name="JYZQ_2_3" condition="hours" id="JYZQ_2_3" /> 小时
+						第 <input name="JYZQ_2_4" condition="minutes" id="JYZQ_2_4" /> 分钟
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="radio" name="JYZQ" rowId="3" class="radioW" onclick="toChick(this,3);" />
+				</td>
+				<td>
+					<div>
+						每 <input name="JYZQ_3_1" condition="month" /> 月 的
+						<select name="JYZQ_3_2" condition="3month" >
+							<option value=""></option>
+							<option value="1">上旬</option>
+							<option value="2">中旬</option>
+							<option value="3">下旬</option>
+						</select>
+						的 第 <input name="JYZQ_3_3" condition="day"  /> 天
+						第 <input name="JYZQ_3_4" condition="hours" id="JYZQ_3_4" /> 小时
+						第 <input name="JYZQ_3_5" condition="minutes" id="JYZQ_3_5" /> 分钟
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="radio" name="JYZQ" rowId="4" class="radioW" onclick="toChick(this,4);" />
+				</td>
+				<td>
+					<div>
+						每 <input name="JYZQ_4_1" condition="qua"  /> 季 的 
+						第 <input name="JYZQ_4_2" condition="month"  /> 月 的
+						<select name="JYZQ_4_3" condition="3month" >
+							<option value=""></option>
+							<option value="1">上旬</option>
+							<option value="2">中旬</option>
+							<option value="3">下旬</option>
+						</select> 的 
+						第 <input name="JYZQ_4_4" condition="day"  /> 天
+						第 <input name="JYZQ_4_5" condition="hours" id="JYZQ_4_5" /> 小时
+						第 <input name="JYZQ_4_6" condition="minutes" id="JYZQ_4_6" /> 分钟
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="radio" name="JYZQ" rowId="5" class="radioW" onclick="toChick(this,5);" />
+				</td>
+				<td>
+					<div>
+						每 <input name="JYZQ_5_1" condition="year" /> 年 的
+						 第 <input name="JYZQ_5_2" condition="qua" /> 季度 的 
+						 第 <input name="JYZQ_5_3" condition="month" /> 月 的 
+						<select name="JYZQ_5_4" condition="3month" >
+							<option value=""></option>
+							<option value="1">上旬</option>
+							<option value="2">中旬</option>
+							<option value="3">下旬</option>
+						</select> 的
+						  第 <input name="JYZQ_5_5" condition="day" /> 天
+						  第 <input name="JYZQ_5_6" condition="hours" id="JYZQ_5_6" /> 小时
+						第 <input name="JYZQ_5_7" condition="minutes" id="JYZQ_5_7" /> 分钟
+					</div>
+				</td>
+			</tr>
+		</table>
+
+	
+			<table  class='table1' cellpadding='0' cellspacing='0' width='100%' style="display:black">
+    		<tr>
+    			<td colspan='2' align='right' class='bttformoparea'>
+    				<table>
+    					<tr>
+    						<td>
+    							<a id="submitToObj"  class="button green" href="javascript:chakanshijianshijian();" ><span><div
+    									class='bttn_panel'
+    									style='background-image:url(images/eve/qd.png);'>确定</div> </span> </a>
+    						</td>
+    						<td width='50px'>&#160;</td>
+    					</tr>
+    				</table>
+    			</td>
+    		</tr>
+	    </table>
+	</body>
+    <script>
+        <ylt.v message="gs_upl_kc">
+        var gs_upl_kc="";
+        $value
+        var gs_upl_kc="$value";
+        </ylt.v>
+    </script>
+	<script>
+		var dateName=["每${day}天第${hours}小时第${minutes}分钟","每${week}周的周${weekday}第${hours}小时第${minutes}分钟","每${month}月的${3month}的第${day}天第${hours}小时第${minutes}分钟","每${qua}季度的第${month}月的${3month}的第${day}天第${hours}小时第${minutes}分钟","每${year}年的第${qua}的第${month}月的${3month}的第${day}天第${hours}小时第${minutes}分钟"];
+		var dateNameCode=["D:${day}|HO:${hours}|MI:${minutes}","W:${week}|WD:${weekday}|HO:${hours}|MI:${minutes}","M:${month}|D:${day}|HO:${hours}|MI:${minutes}","Q:${qua}|M:${month}|D:${day}|HO:${hours}|MI:${minutes}","Y:${year}|Q:${qua}|M:${month}|D:${day}|HO:${hours}|MI:${minutes}"];
+		function chakanshijianshijian() {
+			var returnName="";
+			var returnCode="";
+	        var tempDate=0;
+			var radioElement = returnRadioElement("JYZQ");
+			if(radioElement==null){
+				alert("没选");
+			}
+			var radioRowId = parseInt(radioElement.getAttribute("rowId"));
+			if(radioElement != null) {
+				returnName=dateName[radioRowId-1];
+				returnCode=dateNameCode[radioRowId-1];
+				var bool = true;
+				for(var i = 1; bool; i++) {
+					var z = document.getElementsByName("JYZQ_" + radioRowId + "_" + i)[0];
+					if(z == null) {
+						bool = false;
+						continue;
+					}
+					var condition=z.getAttribute("condition");
+					if(condition=="3month"){
+						returnName= returnName.replace("${"+condition+"}",z.options[z.selectedIndex].innerText);
+					}else{
+						returnName= returnName.replace("${"+condition+"}",z.value);
+					}
+					if(z.getAttribute("condition")=="3month"){
+						tempDate=parseInt(z.value);
+					}else if(z.getAttribute("condition")=="day"){
+						returnCode= returnCode.replace("${"+condition+"}",parseInt(z.value)+parseInt(tempDate));
+					}else{
+						returnCode= returnCode.replace("${"+condition+"}",z.value);
+					}
+				}
+			}
+			var objParent =  parent.getOpenPage(gs_upl_kc);
+            objParent.document.getElementById("T_SBKPZL$S_JYZQ").value=returnName;
+            parent.parent.parent.closeWinById(gs_upl_kc);
+		}
+
+		function returnRadioElement(_radioName) {
+			var radioArr = document.getElementsByName(_radioName);
+			for(var i = 0, j = radioArr.length; i < j; i++) {
+				if(radioArr[i].checked) {
+					return radioArr[i];
+				}
+			}
+			return null;
+		}
+
+
+	</script>
+
+</html>

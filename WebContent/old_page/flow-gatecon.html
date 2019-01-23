@@ -1,0 +1,235 @@
+<script type='text/javascript' src='js/evenfunction.js'></script>
+<script type='text/javascript' src='js/WdatePicker.js'></script>
+<script type='text/javascript' src='js/ylpub.js'></script>
+<script type='text/javascript' src='js/fc.js'></script>
+<script type='text/javascript' src='js/LodopFuncs.js'></script>
+<script type='text/javascript' src='js/print.js'></script>
+<script type='text/javascript' src='js/ylselect.js'></script>
+<script type='text/javascript' src='js/yltree.js'></script>
+<script type='text/javascript' src='js/check.js'></script>
+<link href='css/table.css' rel='stylesheet' type='text/css' />
+
+<ylt.fun fun="TheGateway2"/>
+
+ 
+<script>
+	<ylt.v message="gs_upl_kc">
+        var gs_upl_kc="";
+    $value
+        var gs_upl_kc="$value";
+    </ylt.v>
+    <ylt.v message="nodechild">
+        var nodechild="";
+    $value
+        var nodechild="$value"+":";
+    </ylt.v>
+    var objParent = parent.getOpenPage(gs_upl_kc);
+	var objParentFlow = objParent.ylt.flow;
+
+    var S_CONDITION =objParent.document.getElementById("S_CONDITION");
+    var nodeConditions = document.getElementsByName("nodeConditions");
+    var str_CONDITION = S_CONDITION.value;
+</script>
+<script>
+   
+function trim(str) {
+    if(str==null){
+        return "";
+    }
+			return str.replace(/(^\s*)|(\s*$)/g, "");　　
+		}
+
+    
+    function selectChenge(_obj) {
+        var PJ=_obj.getAttribute("PJ");
+        if(PJ!=undefined&&PJ!='undefined'&&PJ!=''&&PJ!=null&&PJ!="null"){
+	        if(_obj.value!=""&&_obj.value!=")"){
+	            tuTrGo();
+	        }
+	    }
+		_obj.parentNode.getElementsByTagName("input")[0].value = _obj.value;
+	}
+	
+	function delTr(_obj){
+	    var tr = _obj.parentNode.parentNode;
+	    tr.parentNode.removeChild(tr);
+	}
+	
+	function save() {
+	    
+		var strReturn = nodechild ;
+	
+		var indexLength = nodeConditions.length;
+	
+		for(var i = 0; i < indexLength; i++) {
+			var inputs = nodeConditions[i].getElementsByTagName('input');
+			strReturn += " " + inputs[0].value + " " ;
+		
+			strReturn += " " + inputs[1].value + " ";
+
+			strReturn += " " + inputs[2].value + " ";
+	
+			strReturn += " " + inputs[3].value + " ";
+		
+			strReturn += " " + inputs[4].value + " ";
+		
+		}
+		
+		strReturn += '$';
+	
+	    strReturn=strReturn.replace(/%/g,"^");
+	    strReturn=strReturn.replace(/"/g,"-*-");
+	    strReturn=strReturn.replace(/'/g,"-*-");
+    
+		if(str_CONDITION!=null&&str_CONDITION.indexOf(nodechild) >= 0) {
+
+		/*	var temp = str_CONDITION.substring(str_CONDITION.indexOf(nodechild + ':'));
+			temp = temp.substring(0, temp.indexOf('$') + 1);*/
+			var temp ="";
+			temp=str_CONDITION.substr(0,str_CONDITION.indexOf(nodechild));
+			str_CONDITION = str_CONDITION.substr(str_CONDITION.indexOf(nodechild)+nodechild.length);
+		    str_CONDITION = str_CONDITION.substr(str_CONDITION.indexOf("$")+1);
+		    str_CONDITION+=temp;
+		    str_CONDITION+=strReturn;
+			S_CONDITION.value = str_CONDITION
+		} else {
+			str_CONDITION += strReturn;
+			S_CONDITION.value = str_CONDITION;
+		}
+		parent.closeWinById(gs_upl_kc);
+	}
+</script>
+<script>
+var headBol = [
+			["", ""],
+			["(", "("]
+		];
+		var operationBol = [
+			["", ""],
+			["LIKE", "模糊等于"],
+			["=", "等于"],
+			[">", "大于"],
+			[">=", "大于等于"],
+			["<", "小于"],
+			["<=", "小于等于"],
+			["IN", "包含"],
+			["NOT IN", "不包含"],
+			["<>", "不等于"],
+			["NOT LIKE", "非模糊等于"]
+		];
+		var jovarBol = [
+			["", ""],
+			[")", ")"],
+			[")AND", ")并且"],
+			[")OR", ")或"],
+			["AND", "并且"],
+			["OR", "或"]
+		];
+
+
+		function genOptions(jsArr, defaultValue) {
+			var jsArrLength = jsArr.length;
+			var returnStr = "";
+			for(var i = 0; i < jsArrLength; i++) {
+				returnStr += "<option ";
+				returnStr += jsArr[i][0] == defaultValue ? "selected='selected' " : '';
+				returnStr += "value='";
+				returnStr += jsArr[i][0];
+				returnStr += "'>";
+				returnStr += jsArr[i][1];
+				returnStr += "</option>";
+			}
+			return returnStr;
+		}
+	function tuTrGo(headBolValue, tableCodValue, operationBolValue, codValue, jovarBolValue) {
+	    
+	        headBolValue=headBolValue==undefined?"":headBolValue;
+	        tableCodValue=tableCodValue==undefined?"":tableCodValue;
+	        operationBolValue=operationBolValue==undefined?"":operationBolValue;
+	        codValue=codValue==undefined?"":codValue;
+	        jovarBolValue=jovarBolValue==undefined?"":jovarBolValue;
+	    
+	    
+			var ElementCondTr=document.createElement('tr');
+        	ElementCondTr.setAttribute('name','nodeConditions');
+			var strCondTd = "<td class='td1'>";
+		
+			strCondTd += "<select onchange='selectChenge(this)'>";
+			strCondTd += genOptions(headBol, headBolValue);
+			
+			strCondTd += "</select><input type='hidden' value='" + headBolValue + "' /></td>";
+			strCondTd += "<td class='td1'>";
+			strCondTd += "<select onchange='selectChenge(this)'>";
+			strCondTd += genOptions(flowId, tableCodValue);
+			strCondTd += "</select><input type='hidden' value='" + tableCodValue + "' /></td>";
+			strCondTd += "<td class='td1'>";
+			strCondTd += "<select onchange='selectChenge(this)'>";
+			strCondTd += genOptions(operationBol, operationBolValue);
+			strCondTd += "</select><input type='hidden' value='" + operationBolValue + "' /></td>";
+		
+			
+			strCondTd += "<td class='td1'><input type='text' value=\"";
+			strCondTd += codValue;
+			strCondTd += "\" /></td>";
+			strCondTd += "<td class='td1'>";
+			strCondTd += "<select PJ='pj' onchange='selectChenge(this)'>";
+			strCondTd += genOptions(jovarBol, jovarBolValue);
+			strCondTd += "</select><input type='hidden' value='" + jovarBolValue + "' /></td>";
+			strCondTd += "<td class='td1'><span onclick='delTr(this)'>X</span></td>";
+			ElementCondTr.innerHTML=strCondTd;
+			document.getElementById("ConditionsTable").appendChild(ElementCondTr);
+		}
+	    
+	    
+        var strConditions =objParent.document.getElementById("S_CONDITION").value;/*变量*/
+        strConditions=strConditions.replace(/\^/g,"%");
+	    strConditions=strConditions.replace(/-\*-/g,"\'");
+        if(strConditions==""||strConditions.indexOf(nodechild)<0){
+            tuTrGo("","","","","");
+        }else{
+
+            strConditions = strConditions.substring(strConditions.indexOf(nodechild) + nodechild.length+1);
+    		strConditions = strConditions.substring(0, strConditions.indexOf("$"));
+    		var jovarBol1 = / \) | \)AND | \)OR | AND | OR /;
+    		var headBol1 = / \( /;
+    		var operationBol1 = / LIKE | = | > | >= | < | <= | IN | NOT IN | <> | NOT LIKE /;
+    		var splitJoin = strConditions.split(jovarBol1);
+    		var splitJoinLength = splitJoin.length;
+    		var returnStr1 = [];
+    	
+    		for(var i = 0; i < splitJoinLength; i++) {
+    	
+    			var returnStr2 = [];
+    			var splitOperation = splitJoin[i].split(operationBol1);
+    			var splitHead = splitOperation[0].split(headBol1);
+    			if(splitHead.length > 1) {
+    				returnStr2[0] = splitOperation[0].substring(splitHead[0].length, splitOperation[0].indexOf(splitHead[1]));
+    				returnStr2[1] = splitHead[1];
+    			} else {
+    				returnStr2[0] = "";
+    				returnStr2[1] = splitOperation[0];
+    			}
+    			returnStr2[2] = splitJoin[i].substring(splitOperation[0].length, splitJoin[i].indexOf(splitOperation[1]));
+    			returnStr2[3] = splitOperation[1];
+    
+    			var temp = strConditions.indexOf(splitJoin[i]) + splitJoin[i].length;
+    			if(i == (splitJoinLength - 1)) {
+    			 
+    				returnStr2[4] = strConditions.substring(temp);
+    			} else {
+    			   
+    				returnStr2[4] = strConditions.substring(temp, strConditions.indexOf(splitJoin[i + 1]));
+    			}
+    			returnStr1[i] = returnStr2;
+    		}
+    		for(var i = 0; i < returnStr1.length; i++) {
+   
+                tuTrGo(trim(returnStr1[i][0]),trim(returnStr1[i][1]),trim(returnStr1[i][2]),trim(returnStr1[i][3]),trim(returnStr1[i][4]));
+    		}
+        }
+		
+		
+
+		
+</script>
+

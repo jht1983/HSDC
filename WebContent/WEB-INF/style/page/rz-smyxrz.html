@@ -1,0 +1,537 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>主界面</title>
+<style>
+    	.Ttable,
+			.Ttable tr th,
+			.Ttable tr td {
+				border-top: 1px solid #000;
+				border-bottom: 1px solid #000;
+				border-right: 1px solid #000;
+				border-left: 1px solid #000;
+				text-align:center;
+			}
+			.Ttable {
+				width:100%;
+				min-height:35px;
+				line-height: 35px;
+				border-collapse: collapse;
+			}
+			.radioW{
+			    width: 20px;height: 20px;
+			}
+						.texIndt{
+			    word-wrap:break-word; 
+			    word-break:break-all;
+			    text-indent: 2em;
+			    text-align:left !important; 
+			}
+					body{
+			    padding:0;  /*去除内边距*/
+                border:0;   /*去除边框*/
+                margin:0;   /*去除外边距*/
+                height:100%;
+                width:100%
+			}
+			html{
+			    height:100%;
+                width:100%
+			}
+</style>
+</head>
+
+<body>
+    <div style="width: 100%;height: 100%;">
+        <table border="0" cellspacing="0" cellpadding="0" style="width: 100%; height:100%;text-align: center">
+            <col width="20%">
+            <col>
+            <col width="20%">
+            <tr style="height:5%">
+                <td colspan="3"></td>
+            </tr>
+            <tr id="widthValue" style="height:15%">
+                <td  colspan="2" style="border-bottom: 5px solid black;text-align: left">
+                    <img  id="pngV" src="res/images/qqqqq.png" style="height: 0px"/>
+                </td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <table style="width:100%;height: 100%;text-align: center">
+                        <tr>
+                            <td>
+                                <h1>
+                                    输煤主值值班记录
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3 id="SYS_RQ2">
+                                    年    月
+                                </h3>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+            <tr style="height:15%">
+                <td >
+
+                </td>
+                <td  style="border-top: 5px solid black">
+                    <h3>
+                        榆能横山煤电有限公司
+                    </h3>
+                </td>
+                <td  style="border-top: 5px solid black">
+                </td>
+            </tr>
+            <tr style="height:5%">
+                <td colspan="3"></td>
+            </tr>
+        </table>
+    </div>
+    
+    <script>
+        document.getElementById("pngV").style.height=document.getElementById("widthValue").offsetHeight+"px";
+    </script>
+    
+    <table class="Ttable">
+        <tr>
+            <th  style="text-align: left;">
+                输煤班长运行日志
+            </th>
+        </tr>
+    </table>
+    <ylt.for dataId="1517212454051">
+        <table  cellpadding="0" cellspacing="0" class="Ttable">
+            <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+            <tr>
+               <td>日期： </td>
+               <td id="SYS_RQ">$value </td>
+               <td>星期:</td>
+               <td>$value </td>
+               <td>班次： </td>
+               <td>$value </td>
+               <td>值别： </td>
+               <td>$value </td>
+               <td>天气： </td>
+               <td>$value </td>
+            </tr>
+        </table>
+ 
+
+
+	
+	<table cellpadding="0" cellspacing="0"   class="Ttable" style="width:100%">
+	    <col width="5%"/>
+	    <col width="10%"/>
+	    <col width=""/>
+	    <col width="10%"/>
+	    <col width=""/>
+	    <tr>
+	        <td rowspan="4">
+	            出<br />
+	            勤<br />
+	            人<br />
+	            员
+	        </td>
+	        <td>
+	            班  长
+	        </td>
+	        <td>
+	            
+	        </td>
+	        <td>
+	            主  值
+	        </td>
+	        <td>
+	            
+	        </td>
+	    </tr>
+	    <tr>
+
+	        <td>
+	            堆取料机
+	        </td>
+	        <td>
+	            
+	        </td>
+	        <td>
+	            副  值
+	        </td>
+	        <td>
+	            
+	        </td>
+	    </tr>
+	    <tr>
+
+	        <td>
+	            巡  检
+	        </td>
+	        <td colspan="3">
+	            
+	        </td>
+	    
+	    </tr>
+	    <tr>
+
+	        <td>
+	            请假人员
+	        </td>
+	        <td colspan="4">
+	            
+	        </td>
+	    
+	    </tr>
+	    <tr>
+	        <td>
+	         接接<br />班接<br />情接<br />况   
+	        </td>
+	        <td colspan="4">
+	                <div id="ppap" style="width:100%">
+		
+                	</div>
+	        </td>
+
+	    </tr>
+	    
+	    <tr>
+	        <td>
+	            接班煤仓煤位
+	        </td>
+	        <td colspan="4">
+	            <style>
+	                .mcjlw{
+	                     
+	                }
+	                .mcjlw td{
+	                    height:35px;
+	                }
+	            </style>
+	             <table cellpadding="0" cellspacing="0"  width="100%" class="mcjlw" height="100%">
+	                <colgroup>
+	                    <col width="16%">
+	                    <col width="16%">
+	                    <col width="16%">
+	                    <col width="16%">
+	                    <col width="16%">
+	                    <col width="">
+	               </colgroup>
+	                <tr>
+	                    <td>
+	                       1A原煤仓 
+	                    </td>
+	                    <td>
+	                        1B原煤仓
+	                    </td>
+	                    <td>
+	                        1C原煤仓
+	                    </td>
+	                    <td>
+	                        1D原煤仓
+	                    </td>
+	                    <td>
+	                        1E原煤仓
+	                    </td>
+	                    <td>
+	                        1F原煤仓
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>
+	                      $value
+	                    </td>
+	                    <td>
+	                         $value
+	                    </td>
+	                    <td>
+	                        $value
+	                    </td>
+	                    <td>
+	                      $value
+	                    </td>
+	                    <td>
+	                       $value
+	                    </td>
+	                    <td>
+	                        $value
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>
+	                       2A原煤仓
+	                    </td>
+	                    <td>
+	                        2B原煤仓
+	                    </td>
+	                    <td>
+	                        2C原煤仓
+	                    </td>
+	                    <td>
+	                        2D原煤仓
+	                    </td>
+	                    <td>
+	                        2E原煤仓
+	                    </td>
+	                    <td>
+	                       2F原煤仓
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>
+	                       $value
+	                    </td>
+	                    <td>
+	                       $value
+	                    </td>
+	                    <td>
+	                      $value
+	                    </td>
+	                    <td>
+	                        $value
+	                    </td>
+	                    <td>
+	                       $value
+	                    </td>
+	                    <td>
+	                        $value
+	                    </td>
+	                </tr>
+	                
+	                
+	            </table>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td colspan="5">
+	            交  班  情  况
+	        </td>
+	    </tr>
+	    <tr>
+	        <td>
+	            上<br />煤<br />量
+	        </td>
+	         <td colspan="4">
+	           <table cellpadding="0" cellspacing="0" width="100%" class="mcjlw" height="100%">
+	               <tr>
+	                   <td rowspan="2">甲皮带称底码（T）</td>
+	                   <td rowspan="2">乙皮带称底码（T）</td>
+	                   <td colspan="2">本班上煤量（T）</td>
+	                   
+	                   <td rowspan="2">汽车的数量（辆）</td>
+	                   <td rowspan="2">汽车来煤量（T）</td>
+	               </tr>
+	               <tr>
+	                   
+	                   <td>1#炉</td>
+	                   <td>2#炉</td>
+	              
+	               </tr>
+	               <tr>
+	                   <td>$value</td>
+	                   <td>$value</td>
+	                   <td>$value</td>
+	                   <td>$value</td>
+	                   <td>$value</td>
+	                   <td>$value</td>
+	               </tr>
+	           </table>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td>
+	            存<br />在<br />缺<br />陷
+	        </td>
+	         <td colspan="4" class="texIndt">
+	            $value
+	        </td>
+	    </tr>
+	    <tr>
+	        <td>
+	            接地刀及<br />地线位置
+	        </td>
+	         <td colspan="4" class="texIndt">
+	            $value
+	        </td>
+	    </tr>
+	    
+	</table>
+</ylt.for>
+<div style="	page-break-after: always;"></div>
+	<table width="100%" class="Ttable">
+
+		<col width='5%'/>
+		<col width='20%'/>
+		<col width=''/>
+		<tr>
+			<td colspan="">
+				序号
+			</td>
+			<td>
+				时间
+			</td>
+			<td>
+				记  事
+			</td>
+		</tr>
+        <ylt.for dataId="1509498331920">
+            <tr>
+			<td name = 'serialNumber'>
+		        $value
+			</td>
+			<td>
+				$value
+			</td>
+			<td class="texIndt">
+				$value
+			</td>
+		</tr>
+        </ylt.for>
+	</table>
+	
+	<ylt.for dataId="1517214863864">
+	
+	<table width="100%" class="Ttable">
+
+        <col width='10%'/>
+		<col width='10%'/>
+		<col width='80%'/>
+		<tr>
+		    <td>
+		        重要交待
+		    </td>
+		    <td  colspan="2"  class="texIndt">
+		        $value
+		    </td>
+		</tr>
+		<tr>
+		    <td>
+		        领导阅示
+		    </td>
+		    <td  colspan="2" class="texIndt">
+		        
+		    </td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="10" cellspacing="10" style="width:100%;min-height: 30px;line-height: 25px;border-collapse: collapse;">
+	    <col width='7%'/>
+		<col width='13%'/>
+		<col width='16%'/>
+		<col width='13%'/>
+		<col width='16%'/>
+		<col width='13%'/>
+		<col width='16%'/>
+		<col width=''/>
+	    <tr>
+	        <td></td>
+	        <td>
+	            交班值长：
+	        </td>
+	        <td style="border-bottom: 1px solid #000;">
+	          $value
+	        </td>
+	         <td>
+	            接班值长：
+	        </td>
+	         <td style="border-bottom: 1px solid #000;">
+	            $value
+	        </td>
+	         <td>
+	            交接时间：
+	        </td>
+	         <td style="border-bottom: 1px solid #000;">
+	           $value
+	        </td>
+            <td></td>
+	    </tr>
+	    
+	</table>
+	</ylt.for>
+	
+</body>
+<script>
+<ylt.v message="SBYXFS">/*一组几个*/
+    var SBYXFS="2";
+$value
+    var SBYXFS="$value";
+</ylt.v>
+<ylt.v message="indexName">/*一行几组*/
+    var indexName="1";
+$value
+    var indexName="$value";
+</ylt.v>
+
+    var SBYXFSStare="<td>设备名称 </td><td>运行 </td><td>备用 </td><td>检修 </td>";
+
+</script>
+<script>
+        var index = 0;
+		var bl = SBYXFS; /*一组几个*/
+
+    	var insertHtml="";
+        var S_ID="";
+        var S_SBMC="";
+        var P="";
+        var N="";
+        var X="";
+
+    <ylt.for dataId="1509498346632">
+
+            S_ID="$value";
+        	S_SBMC="$value";
+        	P="$value";
+        	N="$value";
+        	X="$value";
+			if(S_ID.length<4){
+				if(bl!=0){
+					insertHtml+="</table>";
+				}
+				insertHtml+="<table class='Ttable'  style='float: left;width:"+100/indexName+"%'>";
+				for(var z=0;z<bl;z++){
+					insertHtml+="<col width='"+100*(0.4/bl)+"%' /><col width='"+100*(0.2/bl)+"%'/><col width='"+100*(0.2/bl)+"%'/><col width='"+100*(0.2/bl)+"%'/>";
+				}
+				insertHtml+="<tr ><td colspan='"+4*bl+"'>"+S_SBMC+"</td></tr><tr>";
+				for(var z=0;z<bl;z++){
+					insertHtml+=SBYXFSStare;
+				}
+				insertHtml+="</tr>"
+			}else{
+				if(index < bl) {
+					insertHtml += "<td>"+S_SBMC+" </td><td>"+N+" </td><td>"+P+" </td><td>"+X+" </td>";
+					index++;
+				} else {
+					insertHtml += "</tr><tr>";
+				    insertHtml += "<td>"+S_SBMC+" </td><td>"+N+" </td><td>"+P+" </td><td>"+X+" </td>";
+    				index = 1;
+				}
+			}
+	
+		</ylt.for>
+      
+		insertHtml+="</table>";
+        document.getElementById("ppap").innerHTML=insertHtml;
+   document.getElementById('SYS_RQ2').innerHTML=document.getElementById('SYS_RQ').innerHTML;
+   var serialNumber = document.getElementsByName('serialNumber');
+    for(var i = 0 ; i < serialNumber.length ;i++){
+        serialNumber[i].innerHTML=i+1;
+    }
+    
+    
+    window.print();
+</script>
+</html>
+    

@@ -1,0 +1,27 @@
+<style> body{background:#f2f1f1;margin:0;padding:0;border:0;cursor:pointer;} div{width: 7px;height: 160px;margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;}</style>
+<script>
+
+	function hiddenFrameLeft(){
+		var strCols=parent.main.cols;
+		var reg=new RegExp("^0");  
+
+		if(reg.test(strCols)){
+			parent.main.cols="207,7,*";	
+			document.getElementById("lineImg").style.background="url(lineImg/line-left.png)";
+		}else{
+			parent.main.cols="0,7,*";
+			document.getElementById("lineImg").style.background="url(lineImg/line-right.png)";
+		}
+		parent.lxmain.SetGrid("100%",300);
+	}     
+
+</script>
+<body onclick="hiddenFrameLeft();">
+	<div id="lineImg" style="background: url(lineImg/line-left.png); ">
+		
+	</div>
+</body>

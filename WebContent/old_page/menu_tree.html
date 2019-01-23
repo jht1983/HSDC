@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		
+		<title>二级页</title>
+		
+		<link href="res/css/bootstrap.min.css?v=0.1" rel="stylesheet" type="text/css" />
+		<link href="res/css/font-awesome.min.css?v=0.1" rel="stylesheet" />
+		<link href="res/css/style.css?v=0.1" rel="stylesheet" type="text/css" />
+		<script src="res/js/jquery.js?v=0.1" type="text/javascript"></script>
+		<script src="res/js/bootstrap.min.js?v=0.1" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(function() {
+				var navLi = $(".menu .nav li");
+				navLi.mouseover(function() {
+					$(this).find("a").addClass("current");
+					$(this).find('.trig').show();
+					$(this).find(".box").stop().slideDown(200);
+				})
+				navLi.mouseleave(function() {
+					$(this).find("a").removeClass("current");
+					$(this).find('.trig').hide();
+					$(this).find(".box").stop().slideUp(200);
+				})
+			})
+		</script>
+		
+		<script type="text/javascript">
+			$(function() {
+				$(".subNav").click(function() {
+		
+					$(this).toggleClass("active").siblings(".subNav").removeClass("active");
+					$(this).toggleClass("currentDd").siblings(".subNav").removeClass("currentDd");
+					$(this).toggleClass("currentDt").siblings(".subNav").removeClass("currentDt");
+				
+					$(this).next(".navContent").slideToggle(500).siblings(".navContent").slideUp(500);
+				})
+			})
+		</script>
+		<style>
+		    .navContent2{display: none;}
+            .navContent2 li a:hover{ color: #0161b3;}
+            .navContent2 li{height: 45px; line-height: 45px; border-bottom: 1px solid #d8ebf8;}
+            .navContent2 li a {padding-left:40px; color: #767676;}
+		</style>
+	</head>
+
+	<body>
+
+        <ylt.treedata dataId="1508221748798" />
+    
+
+		<div class="content" id="menuLeft" style="overflow: auto;background:#fff;height:100%">
+
+		</div>
+		<!--<div class="left-box">
+				<h1>
+					<i class="fa fa-navicon"></i> 检修管理
+				</h1>
+				<div class="subNavBox">
+
+					<div class="subNav currentDd ">
+						<a href="#">
+							<i class="fa fa-file-o"></i> 检修策划与准备
+						</a>
+					</div>
+
+					<ul class="navContent">
+						<li>
+
+							<a href="#">
+								<i class="fa fa-file-o"></i> 标准工作包
+							</a>
+
+						</li>
+					</ul>
+
+				</div>
+			</div>-->
+
+	
+			<script>
+			
+                	var treeJson=objTreeData.children[0];
+                	var divInerValue = "";
+                    divInerValue += "<div class='left-box' style='width:100%;'><h1><i class='fa fa-navicon'></i> " + treeJson.text + "</h1>";
+                    divInerValue += "<div class='subNavBox'>";
+                    for(var i = 0, j = treeJson.children.length; i < j; i++) {
+                    	tempJsonObject = treeJson.children[i];
+                    	if(tempJsonObject.children.length > 0) {
+                    		divInerValue += '<div class="subNav currentDd"><a href="#"><i class="fa fa-file-o"></i> ' + tempJsonObject.text + '</a></div>';
+                    		divInerValue += '<ul class="navContent">';
+                    		for(var z = 0, m = tempJsonObject.children.length; z < m; z++) {
+                    			divInerValue += '<li><a href="javaScript:windowAction(\''+ tempJsonObject.children[z].SURL +'\');"><i class="fa fa-file-o"></i> ' + tempJsonObject.children[z].text + '</a></li>';
+                    		}
+                    	} else {
+                    		divInerValue += '<ul class="navContent2" style="display: block;">';
+                    		divInerValue += '<li><a href="javaScript:windowAction(\''+ tempJsonObject.SURL +'\');"><i class="fa fa-file-o"></i> ' + tempJsonObject.text + '</a></li>';
+                    		
+                    	}
+                    	divInerValue += '</ul>';
+                    }
+                    divInerValue += "</div></div>";
+                    document.getElementById("menuLeft").innerHTML = divInerValue;
+             
+                
+                function windowAction(_str) {
+                
+                parent.lxmain.location=_str;
+                				
+                }
+            </script>
+
+
+ <script src='res/js/data.js'></script>
+  <script src='res/js/tools.js'></script>
+  <script src='res/js/handledata.js'></script>
+  <script src='res/js/index.js'></script>
+
+	</body>
+
+</html>

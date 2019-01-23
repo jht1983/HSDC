@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+			<script type='text/javascript' src='js/evenfunction.js'></script>
+	<script type='text/javascript' src='js/ylselect.js'></script>
+	<script type='text/javascript' src='js/yltree.js'></script>
+	<script type='text/javascript' src='js/check.js'></script>
+	<link href='css/table.css' rel='stylesheet' type='text/css' />
+		<style>
+			
+			.div2121>div {
+				float: left;
+				margin-left: 20px;
+				text-align: center;
+				width: 50px;
+				background-color: #e9e9e9;
+			}
+			.Ttable,
+			.Ttable tr th,
+			.Ttable tr td {
+			    border-left: 1px solid #0094ff;
+				border-bottom: 1px solid #0094ff;
+			}
+			.Ttable {
+				width: 100%;
+				min-height: 25px;
+				line-height: 25px;
+				border-collapse: collapse;
+			}
+			.radioW{
+			    width: 20px;height: 20px;
+			}
+			input{
+			    width:100%;
+			}
+		</style>
+	</head>
+
+	<body>
+	    <!--<table class="Ttable">-->
+	    <!--    <tr>-->
+	    <!--        <td>-->
+	    <!--            <input type="radio" name="radioOb" trcz="0" />-->
+	    <!--        </td>-->
+	    <!--        <td>-->
+	    <!--            每班-->
+	    <!--            <input type="hidden" id="returnCod_0" cnCol="每班" trcz="myb" value="{everBan}" />-->
+	    <!--        </td>-->
+	    <!--    </tr>-->
+	    <!--    <tr>-->
+	    <!--        <td>-->
+	    <!--            <input type="radio" name="radioOb" trcz="1"/>-->
+	    <!--        </td>-->
+	    <!--        <td>-->
+	    <!--            每天-->
+	    <!--            <input type="hidden" id="returnCod_1" cnCol="每天" trcz="myt" value="{everDay}" />-->
+	    <!--        </td>-->
+	    <!--    </tr>-->
+	    <!--    <tr>-->
+	    <!--        <td>-->
+	    <!--            <input type="radio" name="radioOb" trcz="2"/>-->
+	    <!--        </td>-->
+	    <!--        <td>-->
+	    <!--            每个月的(,分割)-->
+	    <!--            <input type="text" id="returnCod_2" cnCol="每个月的$日" trcz="mgy" />-->
+	    <!--        </td>-->
+	    <!--    </tr>-->
+	    <!--    <tr>-->
+	    <!--        <td>-->
+	    <!--            <input type="radio" name="radioOb" trcz="3" />-->
+	    <!--        </td>-->
+	    <!--        <td>-->
+	    <!--            每周-->
+	    <!--            <select id="returnCod_3" cnCol="每个周的周$" trcz='mz' >-->
+	    <!--                <option value="1">周一</option>-->
+	    <!--                <option value="2">周二</option>-->
+	    <!--                <option value="3">周三</option>-->
+	    <!--                <option value="4">周四</option>-->
+	    <!--                <option value="5">周五</option>-->
+	    <!--                <option value="6">周六</option>-->
+	    <!--                <option value="7">周日</option>-->
+	    <!--            </select>-->
+	    <!--        </td>-->
+	    <!--    </tr>-->
+	    <!--</table>-->
+	    <textarea id="SYSDATEValue" style="display:none">
+    	            <td>
+    	                <select style="width:100%" name="type">
+    	                    <option value="mt:">每天</option>
+    	                    <option value="mb:">每班</option>
+    	                    <option value="my:">每月</option>
+    	                    <option value="mz:">每周</option>
+    	                    <option value="mfz:">每分钟</option>
+    	                    <option value="sjd:">时间段</option>
+    	                </select>
+    	            </td>
+    	            <td>
+    	                <input type="text" name="cond"/>
+    	            </td>
+    	            <td>
+    	                等于<input type="hidden" name="condSym" value="="/>
+    	            </td>
+    	            <td>
+    	                <input type="text" onclick="ZC(this);" name="category_view"/>
+    	                <input type="hidden" name="category"/>
+    	            </td>
+    
+    	            <td>
+    	                <input type="text" onclick="BC(this);" name="shift_view"/>
+    	                <input type="hidden" name="shift"/>
+    	            </td>
+    	            <td>
+    	                <span onclick="deleteCol(this);" style='color:#539ddd;font-weight:bold;font-size:20px;cursor:pointer;'>X</span>
+    	            </td>
+	        </textarea>
+	        
+	    <table id="SYSDATE" class="Ttable">
+	         <tr>
+	            <th>
+	                时间
+	                <span onclick="initTotable(this);" style="float:right;margin-right:5px;line-height:33px;color:#539ddd;font-weight:bold;font-size:20px;cursor:pointer;">+</span>
+	            </th>
+	            <th>
+	                条件
+	            </th>
+	            <th>
+	                等于
+	            </th>
+	            <th>
+	                班次
+	            </th>
+
+	            <th>
+	                班组
+	            </th>
+	             <th>
+	                操作
+	            </th>
+	        </tr>
+
+	    </table>
+		<table  class='table1' cellpadding='0' cellspacing='0' width='100%' style="display:black">
+    		<tr>
+    			<td colspan='2' align='right' class='bttformoparea'>
+    				<table>
+    					<tr>
+    						<td>
+    							<a id="submitToObj"  class="button green" href="javascript:saveAndReturn();" ><span><div
+    									class='bttn_panel'
+    									style='background-image:url(images/eve/qd.png);'>确定</div> </span> </a>
+    						</td>
+    						<td width='50px'>&#160;</td>
+    					</tr>
+    				</table>
+    			</td>
+    		</tr>
+	    </table>
+	    
+
+    
+	</body>
+    <script>
+        <ylt.v message="gs_upl_kc">
+        var gs_upl_kc="";
+        $value
+        var gs_upl_kc="$value";
+        </ylt.v>
+        <ylt.v message="bmid">
+        var bmid="";
+        $value
+        var bmid="$value";
+        </ylt.v>
+        <ylt.v message="tableCol">
+        var tableCod="";
+        $value
+        var tableCod="$value".replace(/`/g,"$");
+        </ylt.v>
+        <ylt.v message="zqbm">
+        var zqbm="";
+        $value
+        var zqbm="$value".replace(/`/g,"=");
+        </ylt.v>
+        var objParent =  parent.getOpenPage(gs_upl_kc);
+    </script>
+    <script> /* 可能作废 */
+        function radioCheckedReturn(_name){
+            var radioOb = document.getElementsByName(_name);
+            for(var i = 0,j=radioOb.length ;i<j;i++){
+                if(radioOb[i].checked){
+                    return radioOb[i];
+                }
+            }
+            return null;
+        }
+        
+        function chakanshijianshijian(){
+            var radioR = radioCheckedReturn("radioOb");
+            var ReturnValue="";
+            var ReturnValueName="";
+            if(radioR!=null){
+                var returnCod=document.getElementById("returnCod_"+radioR.getAttribute("trcz"));
+                ReturnValue=returnCod.getAttribute("trcz");
+                ReturnValue+=":";
+                ReturnValue+=returnCod.value;
+                ReturnValueName=returnCod.getAttribute("cnCol").replace("$",returnCod.value);
+                valuation(ReturnValue,ReturnValueName);
+            }else{
+                alert("请选择");
+            }
+            parent.closeWinById(gs_upl_kc);
+        }
+        
+        function valuation(_strValue,_strName){
+            var tableCodArr = tableCod.split(",");
+            objParent.document.getElementById(tableCodArr[0]).value=_strValue;
+            objParent.document.getElementById(tableCodArr[1]).value=_strName;
+        }
+    </script>
+    <script>
+        var fillEle=null;
+        var tableTrIndex=1;
+        function BC(_obj){
+            var zcCode=_obj.parentElement.previousElementSibling.getElementsByTagName("input")[1].value;
+            fillEle=_obj;
+            miniWin('班次','','View?SPAGECODE=1512350644349&bmid='+bmid+'&S_ID='+zcCode,2000,2000,'','');
+        }
+        function ZC(_obj){
+            fillEle=_obj;
+            miniWin('值次','','View?SPAGECODE=1512117955300&bmid='+bmid,2000,2000,'','');
+        }
+        function initTotable(){
+            var tr = document.createElement('tr');
+            tr.id="Sys_"+tableTrIndex;
+            tableTrIndex++;
+            tr.innerHTML=document.getElementById("SYSDATEValue").value;
+            document.getElementById('SYSDATE').appendChild(tr);
+        }
+        function fillIn(_strName,_strCode){
+            fillEle.parentNode.children[1].value=_strCode;
+            fillEle.value=_strName;
+        }
+        
+        var strSplit="|";
+        function saveAndReturn(){
+            var setConditionReturn="";
+            var SetConditionReturn_cn="";
+            var sp="";
+            var typeArr=document.getElementsByName("type");
+            var condArr=document.getElementsByName("cond");
+            var condSymArr=document.getElementsByName("condSym");
+            var categoryArr=document.getElementsByName("category");
+            var shiftArr=document.getElementsByName("shift");
+            var category_viewArr=document.getElementsByName("category_view");
+            var shift_viewArr=document.getElementsByName("shift_view");
+            for(var i = 0 ; i < tableTrIndex-1 ; i++){
+                /* 1:下拉 2条件 3 判断 4 值次 5 班次*/
+                setConditionReturn+=sp;
+                setConditionReturn+=typeArr[i].value;
+                setConditionReturn+=condArr[i].value;
+                setConditionReturn+=condSymArr[i].value;
+                setConditionReturn+=categoryArr[i].value;
+                setConditionReturn+="_";
+                setConditionReturn+=shiftArr[i].value;
+                SetConditionReturn_cn+=sp;
+                SetConditionReturn_cn+=typeArr[i].options[typeArr[i].selectedIndex].text;
+                SetConditionReturn_cn+=condArr[i].value;
+                SetConditionReturn_cn+="等于";
+                SetConditionReturn_cn+=category_viewArr[i].value;
+                SetConditionReturn_cn+=shift_viewArr[i].value;
+                sp=strSplit;
+            }
+            var tableCodArr = tableCod.split(",");
+            objParent.document.getElementById(tableCodArr[0]).value=setConditionReturn;
+            objParent.document.getElementById(tableCodArr[1]).value=SetConditionReturn_cn;
+            parent.closeWinById(gs_upl_kc);
+        }
+        function deleteCol(_obj){
+            var tr = _obj.parentNode.parentNode;	    
+            tr.parentNode.removeChild(tr);
+        }	
+    </script>
+
+</html>

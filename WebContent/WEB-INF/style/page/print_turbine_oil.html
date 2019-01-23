@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            padding: 0;
+            margin: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+        }
+        table{
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            letter-spacing: 10px;
+        }
+        span{
+            display: inline-block;
+            border-bottom: 1px solid #000;
+            letter-spacing: 5px;
+            width: 250px;
+        }
+        .brgzrw{
+            border: 0;
+            font-size: 20px;
+            letter-spacing: 0px;
+            text-align: left;
+        }
+        .brgzrw th{
+            text-align: center;
+        }
+        .table_cent{
+            text-align: center;
+        }
+        .table_left{
+            text-align:left;
+            letter-spacing: 0px;
+            vertical-align:top
+        }
+        .table_doiv{
+            border-collapse: collapse;
+        }
+        .table_doiv td,tr,th{
+            border-left: 1px solid black;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+
+    </style>
+</head>
+<body>
+<div style="width: 100%;height: 100%;">
+    <ylt.for dataId="1524882939450">
+        <table border="0" width="100%" height="100%" cellspacing="0" cellpadding="0">
+        <tr style="height: 10%;text-align: left;">
+            <td>
+
+                <img src="res/images/qqqqq.png" style="width: 100%"/>
+
+
+            </td>
+        </tr>
+        <tr style="height: 50%">
+            <td><div style="font-size: 40px;font-weight: bold;letter-spacing: 0px;">汽轮机油分析记录本</div></td>
+        </tr>
+        <tr>
+            <td>
+                <div style="font-size: 25px"> </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="font-size: 25px">$value</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="font-size: 25px">榆能榆神热电有限公司</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="font-size: 25px">发电运行部</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div style="width: 100%;height: 100%;">
+    <table class="table_doiv" width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+        <colgroup>
+            <col width="25%"/>
+            <col width="25%"/>
+            <col width="25%"/>
+            <col width="25%"/>
+        </colgroup>
+        <tr style="height: 5%;border: none">
+            <td colspan="4" style="border: none">
+                <span style="font-size: 35px;width: 100%;border: none">汽轮机油分析记录</span>
+            </td>
+        </tr>
+        <tr style="height: 5%">
+            <td>设备名称</td>
+            <td>$value</td>
+            <td>油质牌号</td>
+            <td>$value</td>
+        </tr>
+        <tr style="height: 5%">
+            <td>取样地点</td>
+            <td>$value</td>
+            <td>取样日期</td>
+            <td>$value</td>
+        </tr>
+        <tr style="height: 5%">
+            <td>分析日期</td>
+            <td>$value</td>
+            <td>取样人员</td>
+            <td>$value</td>
+        </tr>
+        </ylt.for>
+
+
+        <tr style="height: 50%">
+            <td colspan="4">
+                <table class="table_doiv"  cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td>分析项目</td>
+                        <td>分析结果</td>
+                        <td>运行指标</td>
+                    </tr>
+                    <ylt.for dataId="1524882947470">
+                    <tr>
+                        <td>$value</td>
+                        <td>$value</td>
+                        <td>$value</td>
+                    </tr>
+                    </ylt.for>
+                </table>
+            </td>
+        </tr>
+        <ylt.for dataId="1524882952440">
+        <tr class="table_left" style="height: 25%">
+            <td colspan="4">
+                备注:$value
+            </td>
+        </tr>
+
+        <tr style="height: 5%;border: none">
+            <td colspan="4"  style="border: none">
+                化验员：$value班长：$value专工：$value
+            </td>
+        </tr>
+        </ylt.for>
+    </table>
+</div>
+
+</body>
+<script>
+    window.print();
+</script>
+</html>

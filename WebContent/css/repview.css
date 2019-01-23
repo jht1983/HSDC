@@ -1,0 +1,111 @@
+font{
+	width:100%;
+	height:100%;
+	}
+.headtd{
+	border-left: 1px solid #dea86a;
+	border-top: 1px solid #dea86a;
+	border-bottom: 0px solid buttonshadow;
+	border-right: 0px solid buttonshadow;
+	
+	background-color: #f6e6d6;
+    padding-top: 0px;
+    padding-bottom: 0px;	
+}
+.cttd{
+	border-left: 0px solid #dea86a;
+	border-top: 0px solid #dea86a;
+	border-bottom: 0px solid buttonshadow;
+	border-right: 0px solid buttonshadow;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdlefttop{
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	border-bottom: 0px solid black;
+	border-right: 0px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+	word-wrap: break-word;  white-space:nowrap; word-break: normal;
+}
+.cttdrighttop{
+	border-left: 0px solid #dea86a;
+	border-top: 1px solid black;
+	border-bottom: 0px solid black;
+	border-right: 1px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdlefttopright{
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	border-bottom: 0px solid black;
+	border-right: 1px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdlefttopbottom{
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 0px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdrightbottom{
+	border-left: 0px solid #dea86a;
+	border-top: 0px solid #dea86a;
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdleftbottom{
+	border-left: 1px solid black;
+	border-top: 0px solid #dea86a;
+	border-bottom: 1px solid black;
+	border-right: 0px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdlefttoprightbottom{
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdtop{
+	border-left: 0px solid #dea86a;
+	border-top: 1px solid black;
+	border-bottom: 0px solid black;
+	border-right: 0px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdbottom{
+	border-left: 0px solid #dea86a;
+	border-top: 0px solid #dea86a;
+	border-bottom: 1px solid black;
+	border-right: 0px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdleft{
+	border-left: 1px solid black;
+	border-top: 0px solid #dea86a;
+	border-bottom: 0px solid black;
+	border-right: 0px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}
+.cttdright{
+	border-left: 0px solid #dea86a;
+	border-top: 0px solid #dea86a;
+	border-bottom: 0px solid black;
+	border-right: 1px solid black;
+	padding-top: 0px;
+    padding-bottom: 0px;
+}

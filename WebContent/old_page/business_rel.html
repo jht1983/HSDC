@@ -1,0 +1,321 @@
+<html style="height:100%;width:100%">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type='text/javascript' src='js/ylpub.js' charset="utf-8"></script>
+    <script type='text/javascript' src='js/pub.js' charset="utf-8"></script>
+    <script type='text/javascript' src='js/ylselect.js' charset="utf-8"></script>
+    <script type='text/javascript' src='js/yltree.js' charset="utf-8"></script>
+    <script type='text/javascript' src='js/checkform.js' charset="utf-8"></script>
+    <script type='text/javascript' src='js/evenfunction.js' charset="utf-8"></script>
+    <script type='text/javascript' src='js/fc.js' charset="utf-8"></script>
+    <script type='text/javascript' src='js/LodopFuncs.js' charset="utf-8"></script>
+    <script type='text/javascript' src='js/print.js' charset="utf-8"></script>
+    <script type='text/javascript' src='js/check.js' charset="utf-8"></script>
+    <style>
+        .btn{
+            border:none;
+            border-radius:5px;
+            font : normal 16px/35px "微软雅黑";
+            height:35px;
+            cursor: pointer;
+            color:white;
+            background-color: deepskyblue;
+            text-align: center;
+        }
+        .small{
+            color: #818181;
+            font-size: 10px;
+        }
+
+
+        .all_con {
+            width: 100%;
+        }
+
+        .Wdata {
+            height: 35px;
+        }
+
+        .tb_input {
+            height: 35px;
+        }
+        .tb {
+            width: 100%;
+            border: solid #ccc 1px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            -webkit-box-shadow: 0 1px 1px #ccc;
+            -moz-box-shadow: 0 1px 1px #ccc;
+            box-shadow: 0 1px 1px #ccc;
+        }
+
+        .tb tr:hover {
+            background: #fbf8e9;
+            -o-transition: all 0.1s ease-in-out;
+            -webkit-transition: all 0.1s ease-in-out;
+            -moz-transition: all 0.1s ease-in-out;
+            -ms-transition: all 0.1s ease-in-out;
+            transition: all 0.1s ease-in-out;
+        }
+
+        .tb td, .tb th {
+            text-align: center;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .tb th {
+            background-color: #dce9f9;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+            background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+            background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+            background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+            background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+            background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+            -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
+            box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            border-top: none;
+            text-shadow: 0 1px 0 rgba(255,255,255,.5);
+        }
+
+        .tb td:first-child, .tb th:first-child {
+            border-left: none;
+        }
+
+        .tb th:first-child {
+            -moz-border-radius: 6px 0 0 0;
+            -webkit-border-radius: 6px 0 0 0;
+            border-radius: 6px 0 0 0;
+        }
+
+        .tb th:last-child {
+            -moz-border-radius: 0 6px 0 0;
+            -webkit-border-radius: 0 6px 0 0;
+            border-radius: 0 6px 0 0;
+        }
+
+        .tb th:only-child{
+            -moz-border-radius: 6px 6px 0 0;
+            -webkit-border-radius: 6px 6px 0 0;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .tb tr:last-child td:first-child {
+            -moz-border-radius: 0 0 0 6px;
+            -webkit-border-radius: 0 0 0 6px;
+            border-radius: 0 0 0 6px;
+        }
+
+        .tb tr:last-child td:last-child {
+            -moz-border-radius: 0 0 6px 0;
+            -webkit-border-radius: 0 0 6px 0;
+            border-radius: 0 0 6px 0;
+        }
+
+    </style>
+</head>
+<body style="height:100%;widht:100%">
+
+<table id="conditions" class="tb">
+    <tr>
+        <td>
+            左名称:
+        </td>
+        <td>
+            <input readonly="readonly" id="leftName"/>
+        </td>
+        <td>
+            左条件:
+        </td>
+        <td>
+            <input readonly="readonly" id="leftCod"/>
+        </td>
+        <td>
+            右名称:
+        </td>
+        <td>
+            <input readonly="readonly" id="rightName"/>
+        </td>
+        <td>
+            右条件:
+        </td>
+        <td>
+            <input readonly="readonly" id="rightCod"/>
+        </td>
+    </tr>
+</table>
+
+<table id="" class="tb">
+    <tr>
+        <td>
+            拆分条件:
+        </td>
+        <td>
+            <select id="splitCod">
+
+            </select>
+        </td>
+    </tr>
+</table>
+
+
+
+
+<table id="column_titl"  class="tb">
+    <tr>
+        <td>
+            <div style="width:100%;height:100%" onclick='bus_insert();'>+</div>
+        </td>
+    </tr>
+</table>
+
+<table id="column"  class="tb">
+    <tr id="columnMod">
+        <td>
+            <select id="leftTableCod">
+                <optgroup label="变量" style="color:red">
+                    <option value="'<<UUID>>'">运行ID号</option>
+                    <option value="'<<SYS_FLOW_VER>>'">流程版本号</option>
+                    <option value="'<<SYS_AUTO_KEY>>'">流水号</option>
+                </optgroup>
+            </select>
+        </td>
+        <td>
+            <select id="rightTableCod">
+                <optgroup label="变量" style="color:red">
+                    <option value="S_RUN_ID">运行ID号</option>
+                    <option value="SYS_FLOW_VER">流程版本号</option>
+                </optgroup>
+            </select>
+        </td>
+        <td>
+            <div style="width:100%;height:100%" onclick='bus_del(this);'>X</div>
+        </td>
+    </tr>
+</table>
+
+
+
+<form id="add" method="post">
+    <ylt.form page="1519886507696" >
+        $value
+        $value
+        $value
+        $value
+        $value
+        $value
+        $value
+        $value
+        $value
+        $value
+    </ylt.form>
+    <table id="1"  class="tb">
+        <tr id="2">
+            <td>
+                <input class="btn" type="submit" onclick="return onsubmitToData ();" value="保存"/>
+            </td>
+        </tr>
+    </table>
+
+</form>
+
+
+<hr/>
+
+
+
+</body>
+
+<script>
+
+  var tmpor=<ylt.fun fun="pageFileData"/>;
+
+  <ylt.v message="pageCode">
+     var pageCode="";
+       $value
+  var pageCode="$value";
+          </ylt.v>
+</script>
+
+<script>
+    var leftTableCod = document.getElementById("leftTableCod");
+    var columnTab = document.getElementById("column");
+    var columnMod = document.getElementById("columnMod");
+    function bus_insert(){
+        var createEle = document.createElement("tr");
+        createEle.innerHTML=columnMod.innerHTML;
+        columnTab.appendChild(createEle);
+    }
+    function bus_del(_obj){
+        _obj.parentNode.parentNode.parentNode.removeChild(_obj.parentNode.parentNode);
+    }
+
+    function initFormat(_obj,_dir){
+        document.getElementById(_dir+"Name").value=_obj.SPAGENAME;
+        document.getElementById(_dir+"Cod").value=_obj.SFIELDSIZE;
+        var dirTableCod = document.getElementById(_dir+"TableCod");
+        for(var i = 0 , j = _obj.children.length ; i < j ;i++){
+            var opt = document.createElement("optgroup");
+            opt.style.color=i==1?"green":"blue";
+            opt.label=_obj.children[i].SPAGENAME;
+            var SFIELDCODE = _obj.children[i].SFIELDCODE.split(",");
+            var SFIELDNAME = _obj.children[i].SFIELDNAME.split(",");;
+            for(var z = 0 , m = SFIELDCODE.length ; z < m ; z++){
+                var opti = document.createElement("option");
+                opti.value=SFIELDCODE[z];
+                opti.innerHTML=SFIELDNAME[z];
+                opt.appendChild(opti);
+            }
+            dirTableCod.appendChild(opt);
+        }
+    }
+    initFormat(tmpor.left,"left");
+    initFormat(tmpor.right,"right");
+    document.getElementById("splitCod").innerHTML=leftTableCod.innerHTML;
+
+
+    function updataValueById(_change,_use){
+        document.getElementById(_change).value=document.getElementById(_use).value;
+    }
+
+    function onsubmitToData (){
+
+    
+        var leftField="",rightField="";
+        var columnRows = document.getElementById("column").rows;
+        for(var i = 0 ; i < columnRows.length ; i++){
+            var columnCell = columnRows[i].cells;
+            leftField+=columnCell[0].getElementsByTagName("select")[0].value+",";
+            rightField+=columnCell[1].getElementsByTagName("select")[0].value+",";
+        }
+
+        updataValueById("T_YWSJB$S_LEFT_TABLEASS","leftCod");
+        updataValueById("T_YWSJB$S_LEFT_TABLENAME","leftName");
+        updataValueById("T_YWSJB$S_RIGHT_TABLEASS","rightCod");
+        updataValueById("T_YWSJB$S_RIGHT_TABLENAME","leftName");
+        updataValueById("T_YWSJB$S_SPLIT_COD","splitCod");
+        document.getElementById("T_YWSJB$T_LEFT_FIELD").value=leftField;
+        document.getElementById("T_YWSJB$T_RIGHT_FIELD").value=rightField;
+
+
+
+
+        document.getElementById("T_YWSJB$S_LEFT_TABLECODE").value=pageCode.split(",")[0];
+        document.getElementById("T_YWSJB$S_RIGHT_TABLECODE").value=pageCode.split(",")[1];
+
+
+
+
+        return true;
+    }
+
+
+
+</script>
+</html>

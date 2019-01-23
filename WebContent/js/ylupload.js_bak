@@ -1,0 +1,219 @@
+function preLoad() {
+    if (!this.support.loading) {
+        alert("您需要安装Flash Player9或以上版本的Flash播放器!");
+        return false
+    }
+};
+
+function loadFailed() {
+    alert("加载flash错误！")
+};
+
+function fileQueueError(b, e, d) {
+    try {
+        var c = "";
+        if (e === SWFUpload.errorCode_QUEUE_LIMIT_EXCEEDED) {
+            c = "一次性选择的上传文件过多!"
+        };
+        switch (e) {
+            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+                c = b.name + "为空文件！";
+                break;
+            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+                c = b.name + "超过服务器允许的文件大小！";
+                break;
+            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+            default:
+                alert(d);
+                break
+        };
+        if (c !== "") {
+            alert(c);
+            return
+        }
+    } catch (a) {
+        this.debug(a)
+    }
+};
+
+function getFileIco(a) {
+    if (a == ".gif" || a == ".png" || a == ".jpg" || a == ".bmp" || a == ".jpeg") {
+        return "pic.png"
+    } else {
+        if (a == ".doc" || a == ".docx") {
+            return "doc.png'"
+        } else {
+            if (a == ".txt") {
+                return "txt.png"
+            } else {
+                if (a == ".html" || a == ".htm") {
+                    return "html.png"
+                } else {
+                    if (a == ".xls" || a == ".xlsx") {
+                        return "xls.png"
+                    } else {
+                        if (a == ".ppt" || a == ".pptx") {
+                            return "ppt.png"
+                        } else {
+                            if (a == ".exe") {
+                                return "exe.png"
+                            } else {
+                                if (a == ".rar" || a == ".zip") {
+                                    return "rar.png"
+                                } else {
+                                    if (a == ".rm" || a == ".rmvb" || a == ".avi" || a == ".mov" || a == ".asf" || a == ".wmv" || a == ".mpeg" || a == ".mp4" || a == ".fla") {
+                                        return "video.png"
+                                    } else {
+                                        return "other.png"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+
+function uploadStart(b) {
+    var a = getFileIco(b.type);
+    $(this.viewProgressDiv).innerHTML += "<div style='float:left; width:120px;'><table border='0'  width='100px' cellpadding='1' cellspacing='0'><tr><td align='center'  align='center'><img id='img" + b.id + "' src='images/file/" + a + "' width='22px' height='22px'></td></tr><tr><td height='10' ><div style='border:1px #554f4f solid;height:10px;'><div id='pro" + b.id + "' class='progrees' style='color:#0b0a0a;'></div></div></td></tr><tr><td align='center' height='10'><div style='width:100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;line-height:10px;'>" + b.name + "</div></td></tr></table></div>"
+};
+
+function fileDialogComplete(a, c) {
+    try {
+        if (c > 0) {
+            this.startUpload()
+        }
+    } catch (b) {
+        this.debug(b)
+    }
+};
+
+function uploadProgress(b, d) {
+    try {
+        var c = Math.ceil((d / b.size) * 100);
+        var f = document.getElementById("pro" + b.id);
+        f.style.width = c+"px";
+        var e = c + "%";
+        if (c > 100) {
+            e = "100%"
+        };
+        f.innerHTML = e
+    } catch (a) {
+        this.debug(a)
+    }
+};
+
+function uploadSuccess(d, b) {
+    try {
+        if (b.substring(0, 9) === "successed") {
+            var a = getFileIco(d.type);
+            if (a == "pic.png") {
+                document.getElementById("img" + d.id).src = fileSavePath + b.substring(10)
+            }
+        } else {
+            alert(b)
+        }
+    } catch (c) {
+        this.debug(c)
+    }
+};
+
+function uploadComplete(b) {
+    try {
+        if (this.getStats().files_queued > 0) {
+            this.startUpload();
+        }
+        else {}
+    } catch (a) {
+        this.debug(a)
+    }
+};
+
+function uploadError(c, h, g) {
+    var f = "error.gif";
+    alert(h);
+    var a;
+    try {
+        switch (h) {
+            case SWFUpload.UPLOAD_ERROR.FILE_CANCELLED:
+                try {
+                    a = new FileProgress(c, this.customSettings.upload_target);
+                    a.setCancelled();
+                    a.setStatus("Cancelled");
+                    a.toggleCancel(false)
+                } catch (e) {
+                    this.debug(e)
+                };
+                break;
+            case SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED:
+                try {
+                    a = new FileProgress(c, this.customSettings.upload_target);
+                    a.setCancelled();
+                    a.setStatus("Stopped");
+                    a.toggleCancel(true)
+                } catch (d) {
+                    this.debug(d)
+                };
+            case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+                f = "uploadlimit.gif";
+                break;
+            default:
+                alert(g);
+                break
+        };
+        addImage("images/" + f)
+    } catch (b) {
+        this.debug(b)
+    }
+};
+var swfu;
+var fileSaveName = "";
+var perMaxSize = "85120.0";
+var ext = "*.jpg;";
+function initMutFile(_strSavePath) {
+	addInitEvent(function(){
+    swfu = new SWFUpload({
+        upload_url: uploadUrl,
+        post_params: {
+            maxfilesize: perMaxSize,
+            filepath: "upload\\"+_strSavePath+"\\",
+            filetype: "",
+            filename: fileSaveName
+        },
+        file_size_limit: perMaxSize,
+        file_types: "*.*",
+        file_types_description: "JPG Images",
+        file_upload_limit: 0,
+        swfupload_preload_handler: preLoad,
+        swfupload_load_failed_handler: loadFailed,
+        file_queue_error_handler: fileQueueError,
+        file_dialog_complete_handler: fileDialogComplete,
+        upload_progress_handler: uploadProgress,
+        upload_error_handler: uploadError,
+        upload_success_handler: uploadSuccess,
+        upload_complete_handler: uploadComplete,
+        upload_start_handler: uploadStart,
+        button_image_url: "images/bt.png",
+        button_placeholder_id: "btn"+_strSavePath,
+        button_width: 28,
+        button_height: 28,
+        button_text: "",
+        button_text_style: ".button { font-family: Helvetica, Arial, sans-serif; font-size: 12pt; } .buttonSmall { font-size: 10pt; }",
+        button_text_top_padding: 0,
+        button_text_left_padding: 18,
+        button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+        button_cursor: SWFUpload.CURSOR.HAND,
+        flash_url: "js/swfupload.swf",
+        flash9_url: "js/swfupload_FP9.swf",
+        custom_settings: {
+            upload_target: "divFileProgressContainer"
+        },
+        debug: false
+    });
+	swfu.viewProgressDiv="view"+_strSavePath;
+	});
+};

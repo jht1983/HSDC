@@ -1,0 +1,10 @@
+.toolsstyle{
+	height:35px;
+	background:#fafafa;
+	border-bottom:1px solid #d0d7e5;
+}
+.toolstd{cursor:pointer;width:20px;height:20px;}
+.toolstd:hover{border:1px solid gray;}
+.toolsico{margin:2px;width:16px;height:16px;}
+select{height:24px;}
+input{height:24px;}

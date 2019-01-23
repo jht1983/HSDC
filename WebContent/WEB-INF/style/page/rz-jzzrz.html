@@ -1,0 +1,513 @@
+<html style="height:100%;width:100%" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>主界面</title>
+<style>
+    	.Ttable,
+			.Ttable tr th,
+			.Ttable tr td {
+				border-top: 1px solid #000;
+				border-bottom: 1px solid #000;
+				border-right: 1px solid #000;
+				border-left: 1px solid #000;
+				text-align:center;
+			}
+			.Ttable {
+				width:100%;
+				min-height: 35px;
+				line-height: 35px;
+				border-collapse: collapse;
+			}
+			.radioW{
+			    width: 20px;height: 20px;
+			}
+			.texIndt{
+			    word-wrap:break-word; 
+			    word-break:break-all;
+			    text-indent: 2em;
+			    text-align:left !important; 
+			}
+			body{
+			    padding:0;  /*去除内边距*/
+                border:0;   /*去除边框*/
+                margin:0;   /*去除外边距*/
+                height:100%;
+                width:100%
+			}
+			html{
+			    height:100%;
+                width:100%
+			}
+</style>
+</head>
+
+<body style="height:100%;width:100%">
+     <div style="width: 100%;height: 100%;">
+        <table border="0" cellspacing="0" cellpadding="0" style="width: 100%; height:100%;text-align: center">
+            <col width="20%">
+            <col>
+            <col width="20%">
+            <tr style="height:5%">
+                <td colspan="3"></td>
+            </tr>
+            <tr id="widthValue" style="height:15%">
+                <td  colspan="2" style="border-bottom: 5px solid black;text-align: left">
+                    <img  id="pngV" src="res/images/qqqqq.png" style="height: 0px"/>
+                </td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <table style="width:100%;height: 100%;text-align: center">
+                        <tr>
+                            <td>
+                                <h1>
+                                   1000MW  号机组运行日志
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3 id="SYS_RQ2">
+                                    年    月
+                                </h3>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+            <tr style="height:15%">
+                <td >
+
+                </td>
+                <td  style="border-top: 5px solid black">
+                    <h3>
+                        榆能横山煤电有限公司
+                    </h3>
+                </td>
+                <td  style="border-top: 5px solid black">
+                </td>
+            </tr>
+            <tr style="height:5%">
+                <td colspan="3"></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+
+        document.getElementById("pngV").style.height=document.getElementById("widthValue").offsetHeight+"px";
+    </script>
+    
+    
+    <table class="Ttable" >
+        <tr>
+            <th>
+                1000MW  号机组运行日志
+            </th>
+        </tr>
+    </table>
+    <ylt.for dataId="1509586590191">
+                <table class="Ttable">
+            <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+		    <col width='10%'/>
+            <tr>
+               <td>日期： </td>
+               <td id="SYS_RQ">$value </td>
+               <td>星期:</td>
+               <td>$value </td>
+               <td>班次： </td>
+               <td>$value </td>
+               <td>值别： </td>
+               <td>$value </td>
+               <td>天气： </td>
+               <td>$value </td>
+            </tr>
+        </table>
+    <table width="100%" class="Ttable">
+         <col width='12.5%'/>
+		    <col width='12.5%'/>
+		    <col width='12.5%'/>
+		    <col width='12.5%'/>
+		    <col width='12.5%'/>
+		    <col width='12.5%'/>
+		    <col width='12.5%'/>
+		    <col width='12.5%'/>
+		   
+        <tr>
+            <td colspan="8">
+                接班主要参数																										
+            </td>
+        </tr>
+        <tr>
+            <td >
+              机组运行方式	
+            </td>
+            <td >
+                $value		
+            </td>
+            <td >
+               有功负荷（MW）																										
+            </td>
+            <td >
+                $value																										
+            </td>
+            <td >
+                无功负荷（Mvar）																								
+            </td>
+            <td >
+                $value																							
+            </td>
+            <td >
+                主汽压力（MPa）																										
+            </td>
+            <td >
+                $value																										
+            </td>
+        </tr>
+        <tr>
+            <td >
+                主汽温度（℃）
+            </td>
+            <td >
+                $value		
+            </td>
+            <td >
+               再热汽压(MPa)																									
+            </td>
+            <td >
+                $value																											
+            </td>
+            <td >
+                再热汽温(℃)																								
+            </td>
+            <td >
+                $value																									
+            </td>
+            <td >
+                总煤量（t/h）																										
+            </td>
+            <td >
+                $value																											
+            </td>
+        </tr>
+        <tr>
+            <td >
+                真空(KPa)	
+            </td>
+            <td >
+                $value		
+            </td>
+            <td >
+               本班耗煤量(T)																										
+            </td>
+            <td >
+                $value																											
+            </td>
+            <td >
+                发电机机内压力(MPa)																								
+            </td>
+            <td >
+                $value																									
+            </td>
+            <td >
+               本班进煤量(T)																										
+            </td>
+            <td >
+                $value																											
+            </td>
+        </tr>
+        <tr>
+            <td >
+                主机油箱油位（mm)	
+            </td>
+            <td >
+                $value			
+            </td>
+            <td >
+               小机油箱油位（mm）																										
+            </td>
+            <td >
+                $value																											
+            </td>
+            <td >
+                本班耗水量(T）																								
+            </td>
+            <td >
+                $value																								
+            </td>
+            <td >
+               EH油箱油位（mm）																									
+            </td>
+            <td >
+                $value																											
+            </td>
+        </tr>
+        <tr>
+            <td >
+                凝汽器水位（mm）	
+            </td>
+            <td >
+                $value			
+            </td>
+            <td >
+              																										
+            </td>
+            <td >
+              																											
+            </td>
+            <td >
+            																									
+            </td>
+            <td >
+             																								
+            </td>
+            <td >
+               																										
+            </td>
+            <td >
+                																									
+            </td>
+        </tr>
+      
+    </table>
+    </ylt.for>
+
+    <div id="ppap" style="width:100%">
+		
+	</div>
+	<ylt.for dataId="1516852733795">
+	 <table width="100%" class="Ttable" style="display:none">
+	        <col width='5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+		    <col width='5.5%'/>
+        <tr>
+            <td colspan="18">
+                接班主要参数																										
+            </td>
+        </tr>
+        <tr>
+            <td>给水自动</td>
+            <td>$value</td>
+            <td>炉膛负压</td>
+            <td>$value</td>
+            <td>二次风压</td>
+            <td>$value</td>
+            <td>一次风压</td>
+            <td>$value</td>
+            <td>过热汽温</td>
+            <td>$value</td>
+            <td>再热汽温</td>
+            <td>$value</td>
+            <td>除氧器水位</td>
+            <td>$value</td>
+            <td>凝汽器背压</td>
+            <td>$value</td>
+            <td>润滑油温</td>
+            <td>$value</td>
+        </tr>
+    </table>
+	<table width="100%" class="Ttable" style="min-height: 40px;	line-height: 40px;">
+	    <col width='20%'/>
+		<col width=''/>
+	    <tr>
+	        <td>工作票</td>
+	        <td id="jddzvalue" class="texIndt">
+	            $value
+	        </td>
+	    </tr>
+	    <tr>
+	        <td>备注</td>
+	        <td id="zdqxvalue"class="texIndt">
+	            $value
+	        </td>
+	    </tr>
+	</table>
+	</ylt.for>
+	<div style="	page-break-after: always;"></div>
+	<table width="100%" cellpadding="10"  class="Ttable">
+
+		<col width='5%'/>
+		<col width='20%'/>
+		<col width=''/>
+
+		<tr>
+			<td colspan="">
+				序号
+			</td>
+			<td>
+				时 间 
+			</td>
+			<td>
+				工 作 内 容
+			</td>
+		</tr>
+        <ylt.for dataId="1509498331920">
+            <tr>
+                
+			<td name = 'serialNumber'>
+			    $value
+			</td>
+			<td>
+				$value
+			</td>
+			<td class="texIndt">
+				$value
+			</td>
+		</tr>
+        </ylt.for>
+	</table>
+	
+	<ylt.for dataId="1516858868257">
+	
+	<table width="100%" class="Ttable">
+	    <!--//1516845353122-->
+	   
+        <col width='5%'/>
+		<col width='20%'/>
+		<col width=''/>
+		<tr>
+		    <td>
+		        重要交待
+		    </td>
+		    <td  colspan="2"  class="texIndt">
+		        $value
+		    </td>
+		</tr>
+		<tr>
+		    <td>
+		        领导阅示
+		    </td>
+		    <td  colspan="2" class="texIndt">
+		        
+		    </td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="10" cellspacing="10" style="width:100%;min-height: 30px;line-height: 25px;border-collapse: collapse;">
+	    <col width='7%'/>
+		<col width='13%'/>
+		<col width='16%'/>
+		<col width='13%'/>
+		<col width='16%'/>
+		<col width='13%'/>
+		<col width=''/>
+		
+	    <tr>
+	        <td></td>
+	        <td>
+	            交班值长：
+	        </td>
+	        <td>
+	          $value
+	        </td>
+	         <td>
+	            接班值长：
+	        </td>
+	         <td>
+	            $value
+	        </td>
+	         <td>
+	            交接时间：
+	        </td>
+	         <td>
+	           $value
+	        </td>
+
+	    </tr>
+	    
+	</table>
+	</ylt.for>
+</body>
+<script>
+<ylt.v message="SBYXFS">/*一组几个*/
+    var SBYXFS="2";
+$value
+    var SBYXFS="$value";
+</ylt.v>
+<ylt.v message="indexName">/*一行几组*/
+    var indexName="1";
+$value
+    var indexName="$value";
+</ylt.v>
+
+    var SBYXFSStare="<td>设备名称 </td><td>运行 </td><td>备用 </td><td>检修 </td>";
+
+</script>
+<script>
+        var index = 0;
+		var bl = SBYXFS; /*一组几个*/
+
+    	var insertHtml="";
+        var S_ID="";
+        var S_SBMC="";
+        var P="";
+        var N="";
+        var X="";
+
+    <ylt.for dataId="1509498346632">
+
+            S_ID="$value";
+        	S_SBMC="$value";
+        	P="$value";
+        	N="$value";
+        	X="$value";
+			if(S_ID.length<4){
+				if(bl!=0){
+					insertHtml+="</table>";
+				}
+				insertHtml+="<table class='Ttable'  style='float: left;width:"+100/indexName+"%'>";
+				for(var z=0;z<bl;z++){
+					insertHtml+="<col width='"+100*(0.4/bl)+"%' /><col width='"+100*(0.2/bl)+"%'/><col width='"+100*(0.2/bl)+"%'/><col width='"+100*(0.2/bl)+"%'/>";
+				}
+				insertHtml+="<tr ><td colspan='"+4*bl+"'>"+S_SBMC+"</td></tr><tr>";
+				for(var z=0;z<bl;z++){
+					insertHtml+=SBYXFSStare;
+				}
+				insertHtml+="</tr>"
+			}else{
+				if(index < bl) {
+					insertHtml += "<td>"+S_SBMC+" </td><td>"+N+" </td><td>"+P+" </td><td>"+X+" </td>";
+					index++;
+				} else {
+					insertHtml += "</tr><tr>";
+				    insertHtml += "<td>"+S_SBMC+" </td><td>"+N+" </td><td>"+P+" </td><td>"+X+" </td>";
+    				index = 1;
+				}
+			}
+	
+		</ylt.for>
+        document.getElementById("ppap").innerHTML=insertHtml;
+        
+        window.print();
+      document.getElementById('SYS_RQ2').innerHTML=document.getElementById('SYS_RQ').innerHTML;
+      var serialNumber = document.getElementsByName('serialNumber');
+    for(var i = 0 ; i < serialNumber.length ;i++){
+        serialNumber[i].innerHTML=i+1;
+    }
+</script>
+</html>
+    

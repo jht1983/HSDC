@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href='css/table.css' rel='stylesheet' type='text/css' />
+		<script type='text/javascript' src='js/evenfunction.js'></script>
+	    <script type='text/javascript' src='js/ylselect.js'></script>
+	    <script type='text/javascript' src='js/yltree.js'></script>
+	    <script type='text/javascript' src='js/check.js'></script>
+		<style>
+			html {
+				height: 100%;
+				width: 100%;
+				
+			}
+			
+			body {
+				height: 100%;
+				width: 100%;
+				border: 0;
+				margin: 0;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				background-color: #f1f1f1;
+			
+			}
+			
+			.boxTable {
+				height: 100%;
+				width: 100%;
+			}
+			
+			iframe {
+	            height:100%;
+	            border:0;
+			}
+			
+			textarea {
+				width: 90%;
+				height: 90%;
+				border: 0;
+				margin-left:5px;
+			}
+			
+			hr {
+				cursor: pointer;
+			}
+			
+			.noneSpan {
+				text-align: center;
+				height: 100%;
+				margin-left: 5px;
+				border: 0.1px solid aliceblue;
+				box-sizing: border-box;
+				text-align: center;
+				
+				display: -moz-inline-box;
+				display: inline-block;
+				cursor: pointer;
+				overflow: hidden;
+			}
+			
+			.blockSpan {
+				text-align: center;
+				height: 100%;
+				margin-left: 5px;
+				border: 0.1px solid aliceblue;
+				box-sizing: border-box;
+				text-align: center;
+			
+				display: -moz-inline-box;
+				display: inline-block;
+				cursor: pointer;
+				background-color: #fff;
+				overflow: hidden;
+			}
+			#biaodan>div{
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				color:#000;
+				text-align: center;
+			}
+			#biaodan>div:hover{
+				background:#539ddd;
+				color:#fff;
+				font-weight:bold;
+			}
+            #biaodan{
+                position: fixed;
+                width: 200px;
+                height: 200px;
+                background-color:#fff;
+                border:1px solid #c3c3c3;
+                overflow: auto;
+                z-index:999;
+            }
+            .fudong{
+                top: 25%;left:25%;
+                 position: fixed;
+                width: 50%;
+                height: 50%;
+                background-color:#fff;
+                border:1px solid #c3c3c3;
+                overflow: auto;
+                z-index:999;
+            }
+		</style>
+	
+	</head>
+
+	<body >
+	    
+	    
+	    <div id="biaodan" style="display:none;top: 30%;left:30%;">
+
+	    </div>
+	    <div id="biaodan2" style="position: fixed;width:100%;height:100%; z-index:998;background-color:#e9e9e9;display:none;opacity:0.3;">
+
+	    </div>
+	   
+   <div  style="width:100%">
+        <table border="0" cellpadding="10" cellspacing="0" align="center" style="vertical-align: top;">
+	        <tr id="runCodP" style="display:none;">
+	            <td align=“left” valign="top" style='vertical-align:middle'><div>选择下一审批人:</div></td>
+	            <td align=“left” valign="top" id="runCod" ></td>
+	        </tr>
+	        <tr id="backCodP" style="display:none;">
+	            <td align=“left” valign="top"style='vertical-align:middle' ><div>选择指定退回人:</div></td>
+	            <td align=“left” valign="top" id="backCod" ></td>
+	        </tr>
+	        <tr id="audioCodP" style="display:none;">
+	            <td align=“left” valign="top" style='vertical-align:middle' ><div>选择下一节点:</div></td>
+	            <td  align=“left” valign="top" id="audioCod" ></td>
+	        </tr>
+	    </table>
+    </div>
+	    
+	    
+		<table class="boxTable" border="0" cellpadding="0" cellspacing="0">
+			<tr id="revBar" style="display:" height="100px">
+				<td>
+					<form action="flow_audit.v" id="form" name="form" method="post" accept-charset="utf-8">
+						<table border="0" cellpadding="0" cellspacing="0" style="width:94%;margin-left:3%" class="boxTable">
+							<tr>
+								<td rowspan="2" style="width: 80%;">
+									<textarea name="strAuditComment" id="strAuditComment" style="width: 100%;height: 100%;"></textarea>
+								</td>
+								<td>
+									<input type="button" class="button green" id="auditFlagGo" onclick="auditOpt('1');" style=" width:120px;height:40px;" value="通过" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="button" class="button red" id="auditFlagRu" onclick="auditOpt('0');" style=" width:120px;height:40px;" value="退回" />
+								</td>
+							</tr>
+	
+
+						</table>
+						<div id="userformdata" style="display:none;"></div>
+						<input name="NO_sys_flow_choicenode" id="NO_sys_flow_choicenode" type="hidden" value="" />
+						<!--选择下一节点-->
+						<input name="NO_custom_node_id" id="NO_custom_node_id" type="hidden" value="" />
+						<!--选择下一节点-->
+						<input name="NO_UPL_KC" id="NO_UPL_KC" type="hidden" value=<ylt.v message="gs_upl_kc">""$value"$value"</ylt.v>/>
+						<input name="NO_sys_flow_state" id="NO_sys_flow_state" type="hidden" value="" />
+						<input name="NO_sys_flow_id" id="NO_sys_flow_id" type="hidden" value=<ylt.v message="s_flow_id">""$value"$value"</ylt.v>/>
+						<input name="NO_sys_flow_Ver" id="NO_sys_flow_Ver" type="hidden" value=<ylt.v message="flow_ver">""$value"$value"</ylt.v>/>
+						<input name="NO_sys_S_RUN_ID" id="NO_sys_S_RUN_ID" type="hidden" value=<ylt.v message="sys_flow_run_id">""$value"$value"</ylt.v>/>
+						<input name="SPAGECODE" id="SPAGECODE" type="hidden" value=<ylt.v message="spagecode">""$value"$value"</ylt.v>/>
+						<input name="S_ID" id="S_ID" type="hidden" value=<ylt.v message="s_id">""$value"$value"</ylt.v>/>
+						<input name="_Bmid" id="_Bmid" type="hidden" value=<ylt.v message="bmid">""$value"$value"</ylt.v>/>
+						<input name="NO_sys_node_code" id="NO_sys_node_code" type="hidden" value=<ylt.v message="node_code">""$value"$value"</ylt.v>/>
+					
+					
+					</form>
+				</td>
+			</tr>
+			<tr height="28px">
+				<td valign="top" id="tabBut">
+					<span></span>
+					<span style="" class="noneSpan" id="lcb" onclick="toSpan(this,'bd')">表单</span>
+					<span style="" class="noneSpan" onclick="toSpan(this,'table')">审批日志</span>
+					<span style="" class="noneSpan" onclick="toSpan(this,'pic')">流程图</span>
+					<span id="createTableData" class="noneSpan" style="display:none" >创建工作票</span>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:100%" id="tabTable">
+					<iframe style="display:none;width:100%;height:100%;" id="sys_table" name="sys_table" src="about:blank"></iframe>
+
+					<iframe style="display:none;width:100%;height:100%;" id="sys_pic" name="sys_pic" src="about:blank"></iframe>
+<!--&NO_QDBTTN=no取消-->
+<!--NO_QXBTTN   保存-->
+					<iframe style="display:;width:100%;height:100%;" name="sys_bd" id="sys_bd" src="View?sys_bed=true&NO_QXBTTN=no&type<ylt.v message="type">=&$value=$value&</ylt.v>bmid<ylt.v message="bmid">=$value=$value&</ylt.v>sys_flow_run_id<ylt.v message="sys_flow_run_id">=$value=$value&</ylt.v>S_ID<ylt.v message="s_id">=$value=$value&</ylt.v>SPAGECODE<ylt.v message="spagecode">=$value=$value"</ylt.v>></iframe>
+				</td>
+			</tr>
+		</table>
+		
+	</body>
+	<script>
+	    <ylt.v message="s_flow_id">
+	        var flowId="";
+	     $value 
+	         var flowId="$value";
+	    </ylt.v>
+	    
+	    <ylt.v message="flow_ver">
+	        var strVer="";
+	     $value 
+	         var strVer="$value";
+	    </ylt.v>
+	    
+	    <ylt.v message="bmid">
+	        var bmid="";
+	     $value 
+	         var bmid="$value";
+	    </ylt.v>
+	    
+	    <ylt.v message="type">
+	        var type="";
+	     $value 
+	         var type="$value";
+	    </ylt.v>
+	    
+	    <ylt.v message="sys_flow_run_id">
+	        var strRunId="";
+	     $value 
+	         var strRunId="$value";
+	    </ylt.v>
+	    
+	    <ylt.v message="SYS_STRCURUSER">
+	        var SYS_STRCURUSER="";
+	     $value 
+	         var SYS_STRCURUSER="$value";
+	    </ylt.v>
+	    
+	</script>
+	<script>
+		function $(str) {
+			return document.getElementById(str);
+		}
+
+		function $N(str) {
+			return document.getElementsByName(str);
+		}
+		var buttonObj;
+		var viewObj;
+        var strPic="comp?viewtype=flow&sys_type=viewflow&type="+type+"&bmid="+bmid+"&flowid="+flowId+"&flowversion="+strVer+"&runid="+strRunId;
+	    var strTable="View?SPAGECODE=1502871394942&type="+type+"&bmid="+bmid+"&S_FLOW_ID="+flowId+"&S_AUDIT_VERSION="+strVer+"&S_RUN_ID="+strRunId;
+		function toSpan(_obj, str) {
+			if(buttonObj != null && buttonObj != "" && buttonObj != null && buttonObj != "") {
+				buttonObj.className = "noneSpan";
+				viewObj.style.display = "none";
+			}
+		    var objCurFrame=$("sys_" + str);
+			_obj.className = "blockSpan";
+			objCurFrame.style.display = "block";
+			buttonObj = _obj;
+			if(objCurFrame.src=="about:blank"){
+		    	if(str=="table")
+			        sys_table.location=strTable;
+			    else if(str=="pic")
+			        sys_pic.location=strPic;
+			    else
+			        $("sys_"+str).src=_obj.getAttribute("jiaSrc");
+			}
+			viewObj = objCurFrame;
+		}
+		function auditOpt(flag) { /*1通过  0退回      */
+			var run = null;
+			var isno=0;
+			
+			if(checkUserPower()==false){
+			    alert("该单据已通过，无法继续操作");
+			    var strwin=<ylt.v message="gs_upl_kc">""$value"$value"</ylt.v>;
+                 if(parent.mainhomeframe.location.pathname.indexOf("home.v")!=-1){
+                     parent.mainhomeframe.location.reload();
+                     parent.closeWinById(strwin);
+                 }else if(typeof(parent.mainhomeframe.lxmain)=="undefined"){
+        
+                       parent.location.reload(); 
+                 }else{
+        
+                     parent.getOpenPage(strwin).location.reload();
+                     parent.closeWinById(strwin);
+                     
+                     /*
+                    parent.mainhomeframe.lxmain.location.reload();
+                    
+                    parent.closeWinById(strwin);
+                    */
+                 }
+       
+			    return ;
+			}
+			
+			
+			$("NO_sys_flow_state").value = flag;
+			if(flag == "0") { /*驳回是否选择节点*/
+				run = confirm("是否退回");
+				if(run == false) {
+					return false;
+				}
+				if($("backCod").style.display === "none" && $("backCod").innerHTML.replace(/\s+/g, "") != "") {
+					alert("请选择退回节点");
+					$("backCod").style.display = "";
+				} else {
+					$("runCod").style.display = "none";
+					$("audioCod").style.display = "none";
+					$("NO_sys_flow_choicenode").value = radioValue("auditUserId");
+		/*			
+	 	if(document.getElementById('sys_bd').contentWindow.$('add').onsubmit()){
+         			    document.getElementById('sys_bd').contentWindow.$('bttnsysaddsubmit').click();
+        			}else{
+         			    return false;
+       			}
+        			*/
+					$("form").submit();
+				}
+			} else if(flag == "1") {
+				run = confirm("是否通过");
+				if(run == false) {
+					return false;
+				}
+				if($("runCod").style.display === "none" && $("runCod").innerHTML.replace(/\s+/g, "") != "") {
+					alert("请选择下一审批人");
+					$("tospan").style.display = "";
+					$("tospan2").style.display = "";
+					$("runCod").style.display = "";
+				} else if($("audioCod").style.display === "none" && $("audioCod").innerHTML.replace(/\s+/g, "") != "") {
+					alert("请选择下一流程节点");
+					$("tospan").style.display = "";
+					$("tospan2").style.display = "";
+					$("audioCod").style.display = "";
+				} else {
+					$("backCod").style.display = "none";
+					$("NO_sys_flow_choicenode").value = radioValue("auditUserId");
+					$("NO_custom_node_id").value = radioValue("auditNodeCod");
+					
+					if(document.getElementById('sys_bd').contentWindow.$('add').onsubmit()){
+					    $('sys_bd').onload=function(){
+					        $("form").submit();
+					    };
+        			    document.getElementById('sys_bd').contentWindow.$('bttnsysaddsubmit').click();
+        			}else{
+        			    return false;
+        			}
+        			
+					
+				}
+			}
+
+		}
+
+		$("lcb").click();
+
+		var runCod = "<ylt.fun fun="doFlowChoieNode_run"/>";
+		var backCod = "<ylt.fun fun="doFlowChoieNode_back"/>";
+		var audioCod = "<ylt.fun fun="doFlowChoieNode_audio"/>";
+		var nowNodeName = "<ylt.fun fun="doFlowChoieNode_nowNodeName"/>";
+        var S_AUDIT_FSPJ = "<ylt.fun fun="doFlowChoieNode_strFlowPj"/>";
+        var auditFlag = "<ylt.fun fun="doFlowChoieNode_auditFlag"/>";
+       
+        if(auditFlag==""||auditFlag=="7"||auditFlag=="0"){
+            $('auditFlagRu').style.visibility="hidden";
+        }
+       
+        parent.document.getElementById(document.getElementById('NO_UPL_KC').value).getElementsByTagName('table')[0].getElementsByTagName('table')[0].getElementsByTagName('td')[0].innerHTML=nowNodeName+"审核";
+		S_AUDIT_FSPJ=S_AUDIT_FSPJ.substr(0,S_AUDIT_FSPJ.length-1);
+		
+		runCod=runCod=="|"?"":runCod;
+		backCod=backCod=="|"?"":backCod;
+		audioCod=audioCod=="|"?"":audioCod;
+	
+        function addRadio(condition, EleId) {
+		    if(condition!=""){
+		        $(EleId+"P").style.display="";
+		    }
+			var RadioName = "auditUserId";
+			if(EleId == "audioCod") {
+				RadioName = "auditNodeCod";
+			}
+			if(condition != "") {
+				condition = condition.substr(0, condition.length - 1);
+				var radioCol = condition.split("\|");
+				var radioArrLength = radioCol.length;
+				var returnRadio = "";
+				for(var i = 0; i < radioArrLength; i++) {
+					var radioCent = radioCol[i].split(",");
+					returnRadio +=  "<div><input type='radio' style='vertical-align: middle;' name='" + RadioName + "' value='" + radioCent[0] + "'/>"+radioCent[1] ;
+					if(EleId=="backCod"){
+					   returnRadio +=":"+radioCent[2]; 
+					}
+					returnRadio +="</div>";
+				}
+				$(EleId).innerHTML = returnRadio;
+				/*document.getElementsByName(RadioName)[0].click();*/
+			}
+		}
+
+
+		function radioValue(_str) {
+			var obj = $N(_str);
+
+			var indexLength = $N(_str).length;
+			if(indexLength == 0) {
+				return "";
+			}
+			for(var i = 0; i < indexLength; i++) {
+				if(obj[i].checked) {
+					return obj[i].value;
+				}
+			}
+		}
+		addRadio(runCod, "runCod");
+		addRadio(backCod, "backCod");
+		addRadio(audioCod, "audioCod");
+        /*-------------------------2017/9/1--------------------------------*/
+
+		function splitFSPJ(_Str, _strSplitCod) {
+		    
+		    if(_Str.indexOf(_strSplitCod)<0){
+		        return "";
+		    }
+			var temp = _Str.substr(_Str.indexOf(_strSplitCod) + _strSplitCod.length);
+			if(temp.indexOf("$") >= 0) {
+				return temp.substr(0, temp.indexOf("$"));
+			} else {
+				return temp;
+			}
+
+		}
+		
+		var Element=null;
+		var arrStrAttrIds = ["$F:", "$Q:", "$C:"];
+	    
+	    if(S_AUDIT_FSPJ!=""){
+	       
+	        var arrStrAttrIdsLength = arrStrAttrIds.length;
+		for(var i = 0; i < arrStrAttrIdsLength; i++) {
+			var verticalSplit = splitFSPJ(S_AUDIT_FSPJ, arrStrAttrIds[i]).split("`");
+			
+			if(verticalSplit==""){
+			    continue;
+			}
+			var verticalSplitLength = verticalSplit.length;
+			for(var j = 0; j < verticalSplitLength; j++) {
+				var nameAndID = verticalSplit[j].split(",");
+				switch(arrStrAttrIds[i]) {
+					case "$F:":
+					    $("createTableData").style.display="";
+						Element=document.createElement("div");
+						Element.innerHTML=nameAndID[0];
+						Element.setAttribute("style","cursor: pointer");
+						
+						Element.setAttribute("onclick","chuangjianbiaodan("+nameAndID[1]+");");
+						$("biaodan").appendChild(Element);
+						Element=document.createElement("hr");
+						$("biaodan").appendChild(Element);
+						break;
+					case "$Q:":
+						Element=document.createElement("span");
+						Element.innerHTML=nameAndID[0];
+						Element.setAttribute("class","noneSpan");
+						Element.setAttribute("onclick","toSpan(this,'"+i+"')");
+						Element.setAttribute("jiaSrc","View?SPAGECODE="+nameAndID[i]+"&S_RUN_ID="+strRunId);
+						$('tabBut').appendChild(Element);
+						Element=document.createElement("iframe");
+						Element.setAttribute("src","about:blank");
+						Element.setAttribute("name","sys_"+i);
+						Element.setAttribute("id","sys_"+i);
+				        Element.setAttribute("style","display:none;width:100%;height:100%;");
+						$('tabTable').appendChild(Element);
+						break;
+					case "$C:":
+                        
+						break;
+				}
+
+			}
+		}
+	    }
+	     $("biaodan2").onclick=function(evt){
+            $("biaodan").style.display="none"; 
+		    $("biaodan2").style.display="none";
+        };
+	
+	
+		function chuangjianbiaodan(_str){
+		    /*
+		    miniWin('选择','','View?SPAGECODE='+_str+'&NO_sys_S_RUN_ID='+strRunId+'-S&bmid='+bmid,2000,2000,'','');
+		    */
+		    miniWin('选择','','View?SPAGECODE='+_str+'&bmid='+bmid,2000,2000,'','');
+			$("biaodan").style.display="none";
+			$("biaodan2").style.display="none";
+	
+		}
+		$("createTableData").onclick=function(evt){
+		    if($("biaodan").style.display=="none"){
+		        $("biaodan").style.top=(evt.clientY+10)+"px";
+    		    $("biaodan").style.left=evt.clientX+"px";
+    		    $("biaodan").style.display="";
+    		    $("biaodan2").style.display="";
+		    }else{
+		        $("biaodan").style.display="none"; 
+		        $("biaodan2").style.display="none";
+		    }
+		    
+		};
+       
+     
+      
+        
+	</script>
+	<script>
+	    function checkUserPower(){
+	        
+	        var NO_sys_node_code=$('NO_sys_node_code');
+	        var NO_sys_flow_id=$('NO_sys_flow_id');
+	        var NO_sys_flow_Ver=$('NO_sys_flow_Ver');
+	        var NO_sys_S_RUN_ID=$('NO_sys_S_RUN_ID');
+	
+	        var checkValue = getTx("S_FLOW_ID=" + NO_sys_flow_id.value + "&S_AUDIT_VERSION=" + NO_sys_flow_Ver.value + "&S_RUN_ID=" + NO_sys_S_RUN_ID.value,"ajax.v");
+	        
+	       
+	         var node = subGetTx(checkValue,"sys_check_flow_now_node");
+	         var user = subGetTx(checkValue,"sys_check_flow_now_user");
+	    
+	         if(node==NO_sys_node_code.value&&user.indexOf(SYS_STRCURUSER)>-1){
+	             return true;
+	         }else{
+	             return false;
+	         }
+	    }
+	    function subGetTx(_subStr,_vari){
+            var z = _subStr;
+            _vari ="var "+_vari+"='";
+            if(z.indexOf(_vari)==-1){
+                return "";
+            }
+            
+            z=z.substring(z.indexOf(_vari)+_vari.length);
+            return z.substring(0,z.indexOf("';"));
+        }
+	</script>
+
+</html>

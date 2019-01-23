@@ -1,0 +1,12 @@
+.tdlogotitle{height:100px;}
+.tdconsplit{height:50px;background:#2885d5;color:#fff;}
+.welcomefont{font-family:ºÚÌå;font-weight:bold;font-size:22px;letter-spacing:5px;}
+.tdcontent{}
+.menubttn{float:left;margin:10px;background:#2885d5;width:150px;height:150px;border-radius:10px;color:#fff;}
+.menubttn:hover{background:green;cursor:pointer;}
+.menuico{padding-bottom:10px;}
+.menutext{height:30%;color:#fff;}
+.topmenutab{float:left;height:50px;line-height:50px;margin-left:10px;margin-right:10px;cursor:pointer;}
+.topmenutab:hover{color:#0fc2ab;font-weight:bold;}
+.topmenuico{margin-top:10px;cursor:pointer;}
+.selMenutab{color:#0fc2ab;font-weight:bold;float:left;height:50px;line-height:50px;margin-left:10px;margin-right:10px;cursor:pointer;}

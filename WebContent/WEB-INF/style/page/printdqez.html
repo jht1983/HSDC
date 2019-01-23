@@ -1,0 +1,425 @@
+<style>.tb{
+            width: 100%;
+            /*border-collapse: collapse;*/
+        }
+    /*.tb td{*/
+    /*        height:20px;*/
+    /*        border:1px solid #000;*/
+    /*    }*/
+    
+        .tb td{
+            height:20px;
+           border-bottom:1px solid #000;
+             border-left:1px solid #000;
+             
+        }
+         .tb tr:first-child>td{
+          
+            border-top:1px solid #000;
+        }
+      .tb th{
+          
+           border-left:1px solid #000;
+           border-top:1px solid #000;
+            border-bottom:1px solid #000;
+        }
+        .tb th:last-child{
+          
+            border-right:1px solid #000;
+        }
+        .tb td:last-child{
+          
+            border-right:1px solid #000;
+        }
+        .show_base_span{
+            display: inline-block;border-bottom: 1px solid #000;min-width: 100px;
+        }
+</style>
+	<style>
+		@media print {
+			INPUT {
+				display: none
+			}
+		}
+		
+		.changePage {
+			page-break-after: always;
+		}
+		body{
+	font-size:13px;
+	color:#000000;
+}
+	</style>
+<script type='text/javascript' src='res/js/alertfField.js?v=1.0'></script>
+<body>
+	<!--startprint-->
+
+	<p algin="center" style="text-align:center;font-size:28px">电气二种工作票</p>
+
+	<br />
+	<ylt.for dataId="1508812159668">
+		<table class="" border='0' cellspacing='0' cellpadding='6' align='center' style="width : 100%">
+		 <!--   	<THEAD style="display:table-header-group;font-weight:bold">-->
+				<!--<TR><TD colspan="2" align="center" style="font-weight:bold;border:0">每页都有1的表头</TD></TR>-->
+			<!--</THEAD>-->
+			<tr>
+				<td colspan='3'>部门： <span class="show_base_span">&#160;&#160;$value&#160;&#160;</span>&#160;&#160;&#160;&#160;&#160;&#160;班组： <span class="show_base_span">&#160;&#160;$value&#160;&#160;</span>&#160;&#160;&#160;&#160;&#160;&#160;No： <span class="show_base_span" id="ma_gzpbh">&#160;&#160;$value&#160;&#160;</span></td>
+			</tr>
+
+			<tr>
+				<td colspan='2'>1.工作负责人（监护人）： <span class="show_base_span" id="ma_gzfzr">&#160;&#160;$value&#160;&#160;</span></td>
+				<td>附页： <span class="show_base_span">&#160;&#160;&#160;&#160;</span>张</td>
+			</tr>
+			<tr>
+				<td colspan='3'>2．工作班人员（不包括工作负责人）： <span class="show_base_span">&#160;&#160;$value&#160;&#160;</span>共<span class="show_base_span">&#160;&#160;$value&#160;&#160;</span>人</td>
+
+			</tr>
+
+			<tr>
+				<td colspan='3'>3．工作的变、配电站名称及设备名称 ： <span class="show_base_span">&#160;&#160;&#160;&#160;$value，&#160;&#160;&#160;&#160;$value&#160;&#160;&#160;&#160;</span></td>
+
+			</tr>
+			<tr>
+				<td colspan='3'>
+					4．工作任务<br />
+					<table class="tb" cellspacing='0' border='0' cellpadding='2' align='center' style="width : 100%;text-align:center">
+						<tr>
+							<td style="width:50%">
+								工作地点或地段
+							</td>
+							<td style="width:50%">
+								工作内容
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								$value
+							</td>
+							<td id="ma_gznr">
+								$value
+							</td>
+						</tr>
+					</table>
+				</td>
+
+			</tr>
+			<tr>
+				<td colspan='3'>5．计划工作时间：自<span class="show_base_span" >&#160;&#160;<span name="upDat">$value</span>&#160;&#160;</span>至<span class="show_base_span" >&#160;&#160;<span name="upDat">$value</span>&#160;&#160;</span></td>
+
+			</tr>
+
+			</tr>
+			<tr>
+				<td colspan='3'>6．工作条件（停电或不停电，或邻近及保留带电设备名称）：</td>
+
+			</tr>
+			<tr>
+				<td colspan='3'>
+					<table class="tb" cellspacing='0' cellpadding='2' border='0' align='center' style="width : 100%;text-align:center">
+						<tr>
+							<td>
+								$value
+							</td>
+						</tr>
+					</table>
+				</td>
+
+			</tr>
+		
+			<tr>
+				<td colspan='3' >
+				    7．注意事项（安全措施）
+
+					<div id="addtable1" class="changePage"></div>
+
+				</td>
+			</tr>
+			<tr style="display:none">
+				<td colspan='3' >
+				    8、危险点（源）辨识与预控
+			        <div id="addtable2" class="changePage"></div>
+				</td>
+			</tr>
+            <tr>
+				<td colspan='3'>
+					工作票签发人签名： <span class="show_base_span" id="ma_gzpxfr">&#160;&#160;$value&#160;&#160;&#160;&#160;</span> &#160;&#160;&#160;&#160; 签发日期： <span class="show_base_span" >&#160;&#160;<span name="upDat">$value</span>&#160;&#160;&#160;&#160;</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan='3'>8．补充安全措施（工作许可人填写）
+
+					<div id="addtable3" class="changePage"></div>
+
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan='3'>9.值长审批许可时间<br /> 自 <span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;<span name="upDat">$value</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 至 <span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;<span name="upDat">$value</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> <br/>值长签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;$value&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>
+
+				</td>
+			</tr>
+			<tr>
+				<td colspan='3'>10．确认本工作票1～8项：<br /> 许可开始工作时间： <span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span>年&#160;&#160;&#160;&#160;&#160;&#160;月&#160;&#160;&#160;&#160;&#160;&#160;日&#160;&#160;&#160;&#160;&#160;&#160;时&#160;&#160;&#160;&#160;&#160;&#160;分</span></span> <br /> 工作负责人签名： <span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> &#160;&#160;&#160;&#160; 工作许可人签名：<span class="show_base_span">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>
+
+				</td>
+			</tr>
+			<tr>
+				<td colspan='3'>11．确认工作负责人布置的工作任务、安全措施以及危险点告知。<br /> 工作班人员签名： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>
+
+				</td>
+			</tr>
+			<tr>
+				<td colspan='3'>12．工作票延期：有效期延长到 <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>
+				<br /> 
+				    工作负责人签名： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> &#160;&#160;&#160;&#160; <div style="display:none">签名时间： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></div>
+					<br /> 
+					工作许可人签名： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> &#160;&#160;&#160;&#160; <div style="display:none">签名时间： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></div>
+					<br /> 
+					值班负责人（值长）签名： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> &#160;&#160;&#160;&#160; <div style="display:none">签名时间： <span class="show_base_span"arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></div>
+
+				</td>
+			</tr>
+			<tr>
+				<td colspan='3'>13．工作票终结：<br /> 全部工作于 <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 结束，工作人员已全部撤离，材料工具已清理完毕。
+					<br /> 工作负责人签名： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> &#160;&#160;&#160;&#160; <div style="display:none">签名时间： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></div>
+					<br /> 工作许可人签名： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> &#160;&#160;&#160;&#160; <div style="display:none">签名时间： <span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span></div>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan='3'>14．备注：
+
+					<span class="show_base_span" arg="$value">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>
+
+				</td>
+			</tr>
+	  <!--      <TFOOT style="display:table-footer-group;font-weight:bold ">-->
+				<!--<TD colspan="2" align="center" style="font-weight:bold;border:0">每页都1有的表尾</TD>-->
+			<!--</TFOOT>-->
+		</table>
+	
+	
+	</ylt.for>
+
+	<div id="distable1" style="display:none">
+		<table class="tb " cellspacing='0' cellpadding='2' align='center' style="width : 100%">
+	<THEAD style="display:table-header-group;font-weight:bold">
+				<!--<TR><TD colspan="2" align="center" style="font-weight:bold;border:0">每页都有1的表头</TD></TR>-->
+			</THEAD>
+				<tr>
+				    <td style="width:5%">序号</td>
+					<td style="text-align:left">应注意的事项及采取的安全措施</td>
+					<td style="width:10%">执行情况</td>
+
+				</tr>
+				<ylt.for dataId="1508809400576">
+					<tr>
+                        <td name="distable1_1"></td>
+						<td style="text-align:left">$value</td>
+						<td></td>
+					</tr>
+				</ylt.for>
+				<TFOOT style="display:table-footer-group;font-weight:bold ">
+				<!--<TD colspan="2" align="center" style="font-weight:bold;border:0">每页都1有的表尾</TD>-->
+			</TFOOT>
+	    </table>
+	</div>
+	<div id="distable2" style="display: none">
+		
+		<table class="tb " cellspacing='0' cellpadding='2' border='0' align='center' style="width : 100%">
+		 <THEAD style="display:table-header-group;font-weight:bold">
+				<!--<TR><TD colspan="2" align="center" style="font-weight:bold;border:0">每页都有1的表头</TD></TR>-->
+			</THEAD>
+			<tr>
+				<td style="width:50%">危险点（源）</td>
+				<td style="width:50%">危险因素预控措施</td>
+
+			</tr>
+			<ylt.for dataId="1508809505758">
+				<tr>
+					<td>$value</td>
+					<td>$value</td>
+
+				</tr>
+			</ylt.for>
+			
+			
+		<TFOOT style="display:table-footer-group;font-weight:bold ">
+				<!--<TD colspan="2" align="center" style="font-weight:bold;border:0">每页都1有的表尾</TD>-->
+			</TFOOT>
+		</table>
+	</div>
+
+	<div id="distable3" style="display:none">
+		<table class="tb " cellspacing='0' cellpadding='2' border='0' align='center' style="width : 100%">
+			<THEAD style="display:table-header-group;font-weight:bold">
+				<!--<TR><TD colspan="2" align="center" style="font-weight:bold;border:0">每页都有1的表头</TD></TR>-->
+			</THEAD>
+			<tr>
+			     <td style="width:5%">序号</td>
+				    <td style="text-align:left">运行人员补充安全措施</td>
+		    	<td style="width:10%">执行情况</td>
+			</tr>
+			<ylt.for dataId="1508809559212">
+				<tr>
+                    <td name="distable3_1"></td>
+					<td>$value</td>
+					<td></td>
+
+				</tr>
+			</ylt.for>
+		<TFOOT style="display:table-footer-group;font-weight:bold ">
+				<!--<TD colspan="2" align="center" style="font-weight:bold;border:0">每页都1有的表尾</TD>-->
+			</TFOOT>
+	
+		</table>
+	</div>
+
+
+	<script>
+		document.getElementById("addtable1").innerHTML = document.getElementById("distable1").innerHTML;
+		document.getElementById("addtable2").innerHTML = document.getElementById("distable2").innerHTML;
+		document.getElementById("addtable3").innerHTML = document.getElementById("distable3").innerHTML;
+	</script>
+	
+	
+<style>
+	body html {
+		width: 100%;
+		height: 100%
+	}
+	
+	h2 {
+		text-align: center
+	}
+	
+	h3 {
+		text-align: center;
+		padding: 0;
+		margin: 0
+	}
+	
+	.fxyk {
+		width: 100%;
+		height: 100%;
+		font-size: 13px
+	}
+	
+	.fxyk td {
+		height: 30px;
+		line-height: 30px;
+		border-bottom: 1px solid black;
+	
+		border-left: 1px solid black
+	}
+	
+	.fxyk td:last-child {
+		border-right: 1px solid black;
+	}
+	.fxyk div {
+		float: left;
+		word-wrap: break-word;
+		height: 100%
+	}
+</style>
+	
+<script>
+	function ma_conversion(_get){
+		return document.getElementById(_get).innerHTML;
+	};
+	 function addNumber(_name){
+            var addEle = document.getElementsByName(_name);
+            if(addEle==null){
+                return
+            }
+            for(var i =0 ; i< addEle.length ;i++){
+                addEle[i].innerHTML=i+1;
+            }
+       };
+	var maxIndex = 11;
+	var runIndex = 1;
+	var height = 30;
+	var tableHead='<div style="page-break-after: always;"></div><table border="0" cellpadding="0" cellspacing="0" class="fxyk"><colgroup><col width="40%" /><col width="10%" /><col width="35%" /><col width="15%" /></colgroup><tr><td style="border-top: none;border-right: none;border-left: none" colspan="4"><h2>检修作业风险预控票</h2></td></tr>';
+	tableHead+='<tr><td colspan="4"><div style="width: 11%;">工作内容:</div><div style="width: 53%;" id="ma_gznr_show">'+ma_conversion("ma_gznr")+'</div><div style="width: 13%;">工作票编号:</div><div style="width: 23%;" id="ma_gzpbh_show">'+ma_conversion("ma_gzpbh")+'</div></td></tr>';
+	tableHead+='<tr><td colspan="4"><div style="width: 13%;">工作负责人:</div><div style="width: 37%;" id="ma_gzfzr_show">'+ma_conversion("ma_gzfzr")+'</div><div style="width: 16%;">工作票签发人:</div><div style="width: 34%;" id="ma_gzpxfr_show">'+ma_conversion("ma_gzpxfr")+'</div></td></tr>';
+	tableHead+='<tr><td colspan="4"><h3>危险辨识与风险分析</h3></td></tr><tr style="text-align: center;"><td>风险分析 </td><td>风险等级 </td><td>预控措施 </td><td>执行人签字 </td></tr>';
+
+	var tablefoot='<tr style="text-align: center;"><td colspan="2">运行人员补充风险分析(工作许可人填写) </td><td colspan="2">控制措施(工作负责人填写) </td></tr><tr><td colspan="2"></td><td colspan="2"></td></tr><tr><td colspan="2"></td><td colspan="2"></td></tr><tr><td colspan="2"></td><td colspan="2"></td></tr><tr><td colspan="2"></td><td colspan="2"></td></tr><tr><td colspan="2">工作许可人:</td><td colspan="2">工作负责人:</td></tr><tr><td colspan="4"><div style="width: 10%;">工作班成员安全交底 </div><div style="width: 89%;border-left: 1px solid black;"></div></td></tr><tr><td colspan="4" style="height: 120px;"><div style="width: 10%;text-align: center;line-height: 120px;">备注 </div><div style="width: 89%;border-left: 1px solid black;">1.预控措施是根据风险分析一栏中内容一一对应;<br />2.风险等级按照SEP法进行辨识,分为高风险,中风险,低风险;<br />3.运行人员补充风险分析,只允许一项;补充一项以上,工作负责人重写填写;<br />4.责任人为风险预控措施工作票负责人或工作班成员,签字必须手签写. </div></td></tr></table>';
+	var tableBody="";
+	var createDiv_m = document.createElement("div");
+	
+	function initFXYK(str_one,str_two,str_three,str_four){
+		var one_td=str_one;
+		var two_td=str_two;
+		var three_td=str_three;
+		var four_td=str_four;
+		var one_td_base = Math.ceil(one_td.length/20);
+		var three_td_base = Math.ceil(three_td.length/18);
+		base=one_td_base>three_td_base?one_td_base:three_td_base;
+	base=base===0?1:base;
+		if((runIndex+base)>maxIndex){
+			createDiv_m.innerHTML+=tableHead+tableBody+tablefoot;
+			tableBody="";
+			runIndex=1;
+		}
+		runIndex=runIndex+base;
+		tableBody+=" <tr style='height:"+height*base+"px'> ";
+		tableBody+="<td>"+one_td+"</td>";
+		tableBody+="<td>"+two_td+"</td>";
+		tableBody+="<td>"+three_td+"</td>";
+		tableBody+="<td>"+four_td+"</td>";
+		tableBody+=" </tr>";
+	}
+	
+	<ylt.for dataId="1508809505758">
+		initFXYK("$value","","$value","");
+	</ylt.for>
+	
+	console.log(runIndex);
+	
+	if(tableBody!=""){
+        if(runIndex!=1){
+            
+            var runId= maxIndex-runIndex ;
+            for(var i =0 ; i < runId ;i++){
+                initFXYK(" "," "," "," ");
+
+            }
+        }
+        createDiv_m.innerHTML+=tableHead+tableBody+tablefoot;
+	}
+	
+	document.body.appendChild(createDiv_m);
+	  addNumber("distable1_1");
+  
+         addNumber("distable3_1");
+	
+</script>
+	
+	
+	<script>
+	
+	 dataFormat("upDat","yyyy年MM月dd日 hh时mm分");
+	
+	
+	
+		function preview() {
+			var bdhtml = window.document.body.innerHTML;
+			var sprnstr = "<!--startprint-->";
+			var eprnstr = "<!--endprint-->";
+			var prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+			var prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+			window.document.body.innerHTML = prnhtml;
+			window.print();
+		}
+			window.print();
+	/*	window.print();*/
+	/*	preview();*/
+	
+	
+	
+	
+	</script>
+		<!--endprint-->
+		</body>

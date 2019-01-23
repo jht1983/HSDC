@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type='text/javascript' src='js/evenfunction.js'></script>
+		<script type='text/javascript' src='js/WdatePicker.js'></script>
+		<script type='text/javascript' src='js/ylpub.js'></script>
+		<script type='text/javascript' src='js/fc.js'></script>
+		<script type='text/javascript' src='js/LodopFuncs.js'></script>
+		<script type='text/javascript' src='js/print.js'></script>
+		<script type='text/javascript' src='js/ylselect.js'></script>
+		<script type='text/javascript' src='js/yltree.js'></script>
+		<script type='text/javascript' src='js/check.js'></script>
+		<link href='css/table.css' rel='stylesheet' type='text/css' />
+	</head>
+
+	<body>
+        <table id="sys_form_frame" width="100%" border="0" align="center" cellpadding="0" cellspacing="0" height="100%" style="width: 1894px;">
+            <tr>
+                <td>
+                    <iframe id="win15_frame_m" name="win15_frame_m" src="View?SPAGECODE=1516244844750&type=yes&tab=&bmid<ylt.v message="bmid">=&$value=$value&</ylt.v>sys_op_del_bttn=a&classUp=true" width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0">4
+                    
+                    </iframe>
+                </td>
+            </tr>
+            <tr>
+                <td height="29" valign="bottom">
+                    <table id="sys_form_opbttn" class="bttformoparea" width="680" border="0" style="width: 1894px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    已选<span id="choiceNumer" name="choiceNumer">0</span>个
+                                </td>
+                                <td>
+                                    <a href="javascript:submitToUpdate();" class="button red" onclick="this.blur();">
+                                        <span>
+                                            <div class="bttn_panel" style="background-image:url(images/eve/gb.png);">确认</div>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+    <script>
+        <ylt.v message="bmid">
+            var bmid = "";
+        $value
+            var bmid = "$value";
+        </ylt.v>
+        <ylt.v message="gs_upl_kc">
+            var gs_upl_kc="";
+        $value
+            var gs_upl_kc="$value";
+        </ylt.v>
+        
+        var objParent =  parent.getOpenPage(gs_upl_kc);
+    </script>
+
+	<script>
+	
+        /*
+        S_ID  暂时流水号   <tempConditions>
+        autoId  返回进行修改的值
+        */
+        
+        var choiceNumerElement = document.getElementById("choiceNumer");
+        
+        var inputJsonEle={};
+        var inputCATValue=",";
+        var choiceNumer=0;
+        
+        function choiceFun(number){
+            choiceNumer=choiceNumer+number;
+            choiceNumerElement.innerHTML=choiceNumer;
+        }
+
+        function setMeasuresCode(_id,_value){
+            if(inputJsonEle[_id]==null){
+                choiceFun(1);
+                inputJsonEle[_id]=_value;
+                inputCATValue+=_id+",";
+            }
+        }
+        function deleteMeasuresCode(_id,_value){
+            if(inputJsonEle[_id]==null){
+                
+            }else{
+                inputCATValue.replace(_id+",","");
+                choiceFun(-1);
+                delete inputJsonEle[_id];
+            }
+        }
+        function submitToUpdate(){
+           
+           	var index = 0;
+            for(var temp in inputJsonEle){
+                var valueArr = inputJsonEle[temp].split(",");
+                objParent.SYS_ADD_BATCH_ROW('1516153829654');
+                objParent.document.getElementsByName("T_LXJCFB$S_JCXM")[index].value=valueArr[0];
+                objParent.document.getElementsByName("T_LXJCFB$S_BZYQ")[index].value=valueArr[1];
+                objParent.document.getElementsByName("T_LXJCFB$S_ZCZRBM")[index].value=valueArr[2];
+                objParent.document.getElementsByName("T_LXJCFB$S_ZRBMBM")[index].value=valueArr[3];
+                objParent.document.getElementsByName("T_LXJCFB$S_BMFZRBM")[index].value=valueArr[4];
+                index++;
+            }
+             parent.closeWinById(gs_upl_kc);
+        }
+    </script>
+</html>

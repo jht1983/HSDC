@@ -1,0 +1,97 @@
+ <!--demoInwork-->
+<style>
+    .button{
+            display: inline-block;
+    position: relative;
+    margin-left: 20px;
+    padding: 0 10px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px rgba(255,255,255,.22);
+    font: 12px/25px 寰蒋闆呴粦;
+    height: 30px;
+    float: left;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    border: 1px solid #c9c9c9;
+    }
+    .bttn_panel{
+        background-position: left 9px;
+    background-repeat: no-repeat;
+    padding-left: 16px;
+    padding-top: 3px;
+    font-family: "寰蒋闆呴粦";
+    font-size: 12px;
+    }
+</style>
+<div>
+    <a href="debugtxt.v?value=TimingTask" class="button red" onclick="this.blur();">
+        <span>
+            <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">定时任务数据</div>
+        </span>
+    </a>
+    <a href="debugtxt.v?value=Err" class="button red" onclick="this.blur();">
+        <span>
+            <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">错误</div>
+        </span>
+    </a>
+    <a href="debugtxt.v?value=LogPro" class="button red" onclick="this.blur();">
+        <span>
+            <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">日志流程</div>
+        </span>
+    </a>
+     <a href="debugtxt.v?value=getSession" class="button red" onclick="this.blur();">
+        <span>
+            <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">当前登陆数据</div>
+        </span>
+    </a>
+    
+     <a href="debugtxt.v?value=startSisData" class="button red" onclick="this.blur();">
+        <span>
+            <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">开启SIS取数</div>
+        </span>
+    </a>
+    
+ <a href="debugtxt.v?value=endSisData" class="button red" onclick="this.blur();">
+        <span>
+            <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">关闭SIS取数</div>
+        </span>
+    </a>
+    
+    
+     <a href="debugtxt.v?value=startEvenlcData" class="button red" onclick="this.blur();">
+        <span>
+            <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">开启定期工作</div>
+        </span>
+    </a>
+    <a href="debugtxt.v?value=delete" class="button red" onclick="this.blur();">
+        <span>
+            <div class="bttn_panel" style="background-image:url(images/eve/add.png?v=6.72);">删除</div>
+        </span>
+    </a>
+</div>
+
+<table border="1" width="100%">
+    <ylt.fun fun="sevenGetString"/>
+</table>
+
+
+
+
+<hr/>
+<table border="1" width="100%" style="display:none">
+    <tr>
+        <td>
+            <ylt.fun fun="getLCJHBZCod"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ylt.fun fun="getFlowUid"/>
+        </td>
+    </tr>
+</table>
+<script>
+    
+</script>
+

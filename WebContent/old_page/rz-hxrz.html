@@ -1,0 +1,396 @@
+<style>     .Ttable,
+			.Ttable tr th,
+			.Ttable tr td {
+				border-top: 1px solid #000;
+				border-bottom: 1px solid #000;
+				border-right: 1px solid #000;
+				border-left: 1px solid #000;
+				text-align:center;
+				height :40px;
+			}
+			.Ttable {
+				width:100%;
+				min-height: 25px;
+				line-height: 25px;
+				border-collapse: collapse;
+			}
+			.texIndt{
+			    word-wrap:break-word; 
+			    word-break:break-all;
+			    text-indent: 2em;
+			    text-align:left !important; 
+			}
+			.radioW{
+			    width: 20px;height: 20px;
+			}
+			.show_base_span{
+            display: inline-block;border-bottom: 1px solid #000;min-width: 70px;
+        }
+           .out{
+            border-top:40px #FFFFFF solid;/*上边框宽度等于表格第一行行高*/
+            width:0px;/*让容器宽度为0*/
+            height:0px;/*让容器高度为0*/
+            border-left:100px #FFFFFF solid;/*左边框宽度等于表格第一行第一格宽度*/    
+            position:relative;/*让里面的两个子容器绝对定位*/
+        }
+            .sb{font-style:normal;display:block;position:absolute;top:-40px;left:-10px;width:35px;}
+            em{font-style:normal;display:block;position:absolute;top:-25px;left:-80px;width:55x;}
+</style>
+<body>
+    <!--startprint-->
+    <p algin="center" style="text-align:center;font-size:28px">启 动 炉 运 行 日 志</p>
+    <ylt.for dataId="1543807209338">
+       <span style="float:right;"><span class="show_base_span">&#160;&#160;$value</span><span class="show_base_span">&#160;&#160;$value&#160;&#160;</span></span>
+          
+       <table class="Ttable">
+        <tr>
+            <th colspan='6'>
+                启 动 炉 运 行 日 志
+            </th>
+        </tr>
+        <tr>
+            <td  colspan='6'>
+                #1启动锅炉
+            </td>
+        </tr>
+		<tr>
+			<td width="16%">
+				主汽压力(MPa)
+			</td>
+			<td width="17%">
+				$value
+			</td>
+			<td width="17%">
+				主汽温度(℃)
+			</td>
+			<td width="17%">
+				$value
+			</td>
+			<td width="16%">
+				蒸汽流量(t/h)
+			</td>
+			<td width="17%">
+				$value
+			</td>
+		</tr>
+		<tr>
+			<td>
+				汽包压力(MPa)
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+				汽包水位(mm)
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+				给水流量(t/h)
+			</td>
+			<td>
+				$value
+			</td>
+		</tr>
+		<tr>
+			<td>
+				炉膛温度(℃)
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+				排烟温度(℃)
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+				原煤仓料位(m)
+			</td>
+			<td>
+				$value
+			</td>
+		</tr>
+		<tr>
+            <td  colspan='6'>
+                #2启动锅炉
+            </td>
+        </tr>
+		<tr>
+			<td>
+				主汽压力(MPa)
+			</td>
+			<td>
+			    $value
+			</td>
+			<td>
+				主汽温度(℃)
+			</td>
+			<td>
+			    $value
+			</td>
+			<td>
+				蒸汽流量(t/h)
+			</td>
+			<td>
+			    $value
+			</td>
+		</tr>
+		<tr>
+			<td>
+				汽包压力(MPa)
+			</td>
+			<td>
+			    $value
+			</td>
+			<td>
+				汽包水位(mm)
+			</td>
+			<td>
+			    $value
+			</td>
+			<td>
+				给水流量(t/h)
+			</td>
+			<td>
+			    $value
+			</td>
+		</tr>
+		<tr>
+			<td>
+				炉膛温度(℃)
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+				排烟温度(℃)
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+				原煤仓料位(m)
+			</td>
+			<td>
+				$value
+			</td>
+		</tr>
+		<tr>
+            <td  colspan='6'>
+                环保指标
+            </td>
+        </tr>
+		<tr>
+			<td>
+				SO2(mg/Nm3)
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+				NOx(mg/Nm3)
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+				烟尘(mg/Nm3)
+			</td>
+			<td>
+				$value
+			</td>
+		</tr>
+		<tr>
+            <td  colspan='6'>
+                公用系统
+            </td>
+        </tr>
+		<tr>
+			<td>
+				石灰石粉仓料位（m）
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+			尿素溶液储罐液位（m）
+			</td>
+			<td>
+				$value
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+		</tr>
+    </table>
+    <div id="ppap" style="width:100%">
+    
+	</div>
+
+<table class="Ttable">
+		<tr>
+			<td width='20%'>
+             本班耗煤量
+			</td>
+			<td width='30%'>
+			    $value
+			    <span style="float:right;margin-right:50px;">t</span>
+			</td>
+			<td width='20%'>
+             运行工器具
+			</td>
+			<td width='10%'> 
+			齐全
+			</td>
+			<td width='10%'>
+			缺损
+			</td>
+			<td width='10%'>
+			    $value
+			</td>
+		</tr>
+    </table>
+    <div id="addtable1"></div>
+    <table class="Ttable">
+		<tr>
+			<td width="10%">
+			    工作票:
+			</td>
+			<td width="90%">
+			     $value
+			</td>
+		</tr>
+		<tr>
+			<td width="10%">
+			    备注:
+			</td>
+			<td width="90%">
+			     $value
+			</td>
+		</tr>
+    </table>
+        </ylt.for>
+
+<div id="distable1" style="display:none">
+<table  class="Ttable">
+
+		<col width='5%'/>
+		<col width='20%'/>
+		<col width=''/>
+
+		<tr>
+			<td colspan="">
+				序号
+			</td>
+			<td>
+				时 间 
+			</td>
+			<td>
+				工 作 内 容
+			</td>
+		</tr>
+        <ylt.for dataId="1509498331920">
+            <tr>
+                
+			<td name = 'serialNumber'>
+			    $value
+			</td>
+			<td>
+				$value
+			</td>
+			<td class="texIndt">
+				$value
+			</td>
+		</tr>
+        </ylt.for>
+	</table>
+    </div>
+        <script>
+     	document.getElementById("addtable1").innerHTML = document.getElementById("distable1").innerHTML;
+     	
+    	var serialNumber = document.getElementsByName('serialNumber');
+        for(var i = 0 ; i < serialNumber.length ;i++){
+            serialNumber[i].innerHTML=i+1;
+        }
+	</script>
+	<style>
+		@media print {
+			INPUT {
+				display: none
+			}
+		}
+		
+		.changePage {
+			page-break-after: always;
+		}
+	</style>
+
+</body>
+	<!--endprint-->
+<script>
+<ylt.v message="SBYXFS">/*一组几个*/
+    var SBYXFS="2";
+$value
+    var SBYXFS="$value";
+</ylt.v>
+<ylt.v message="indexName">/*一行几组*/
+    var indexName="1";
+$value
+    var indexName="$value";
+</ylt.v>
+
+    var SBYXFSStare="<td>设备名称 </td><td>运行 </td><td>备用 </td><td>检修 </td>";
+
+</script>
+<script>
+        var index = 0;
+		var bl = SBYXFS; /*一组几个*/
+
+    	var insertHtml="";
+        var S_ID="";
+        var S_SBMC="";
+        var P="";
+        var N="";
+        var X="";
+
+    <ylt.for dataId="1509498346632">
+
+            S_ID="$value";
+        	S_SBMC="$value";
+        	P="$value";
+        	N="$value";
+        	X="$value";
+			if(S_ID.length<4){
+				if(bl!=0){
+					insertHtml+="</table>";
+				}
+				insertHtml+="<table class='Ttable'  style='float: left;width:"+100/indexName+"%'>";
+				for(var z=0;z<bl;z++){
+					insertHtml+="<col width='"+100*(0.4/bl)+"%' /><col width='"+100*(0.2/bl)+"%'/><col width='"+100*(0.2/bl)+"%'/><col width='"+100*(0.2/bl)+"%'/>";
+				}
+				insertHtml+="<tr ><td colspan='"+4*bl+"'>"+S_SBMC+"</td></tr><tr>";
+				for(var z=0;z<bl;z++){
+					insertHtml+=SBYXFSStare;
+				}
+				insertHtml+="</tr>"
+			}else{
+				if(index < bl) {
+					insertHtml += "<td>"+S_SBMC+" </td><td>"+N+" </td><td>"+P+" </td><td>"+X+" </td>";
+					index++;
+				} else {
+					insertHtml += "</tr><tr>";
+				    insertHtml += "<td>"+S_SBMC+" </td><td>"+N+" </td><td>"+P+" </td><td>"+X+" </td>";
+    				index = 1;
+				}
+			}
+	
+		</ylt.for>
+        document.getElementById("ppap").innerHTML=insertHtml;
+        window.print();
+    
+    
+</script>
