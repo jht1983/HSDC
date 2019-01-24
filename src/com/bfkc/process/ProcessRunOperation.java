@@ -184,6 +184,7 @@
 							if (zy != null && !"".equals(zy)) {
 								strVal = zy.toUpperCase() + strVal;
 							}
+							//MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "the BH number is:" + strVal);
 						}else if(strVal.indexOf("{request:")>-1){
 							strVal = strVal.replace("{request:", "");//strAuditComment {request:strAuditComment}
 							strVal = strVal.replace("}", "");
@@ -221,6 +222,7 @@
     			    	}
     			    //	update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'
     				dbf.sqlExe("update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key), true);
+    				//MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key));
     				//dbf.sqlExe("update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'", true);
     			}
     			

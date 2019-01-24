@@ -68,9 +68,15 @@ ylt.Home = ylt.Home || {};
 	objCurLeafNode:null,
 	leafNodeMenuClick:function(_obj,_strUrl){
 		if(this.objCurLeafNode!=null){
-			this.objCurLeafNode.className="menunodeleaf";
+			if(this.objCurLeafNode.className != 'span_ico_right'){
+				this.objCurLeafNode.className="menunodeleaf";
+			}
 		}
-		_obj.className="menunodeleaf_sel";
+		if(_strUrl == 'home.v'){
+			_obj.className="span_ico_right";
+		}else{
+			_obj.className="menunodeleaf_sel";
+		}
 		this.objCurLeafNode=_obj;
 		window.frames["framehome"].location=_strUrl;
 	},
