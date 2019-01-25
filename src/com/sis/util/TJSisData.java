@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -184,6 +185,7 @@ public class TJSisData {
 		ResultSet rs = null;
 		Map<String, String> result = new HashMap<String, String>();
 		SimpleDateFormat sdf_ymd = new SimpleDateFormat("yyyy-MM-dd");
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 		try {
 			con = dbs.getSqlServerCon();
 		    if(con==null){
@@ -201,7 +203,7 @@ public class TJSisData {
 		    
 			rs = preStart.executeQuery();
 			while (rs.next()) {
-				result.put(rs.getString("TAGCODE"), String.valueOf(rs.getFloat("R_VAL")));
+				result.put(rs.getString("TAGCODE"), decimalFormat.format(rs.getDouble("R_VAL")/10.0));
 			}
 		} catch (Exception e) {
 			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,e.getMessage());

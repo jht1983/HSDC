@@ -72,7 +72,7 @@ ylt.Home = ylt.Home || {};
 				this.objCurLeafNode.className="menunodeleaf";
 			}
 		}
-		if(_strUrl == 'home.v'){
+		if(_strUrl.indexOf('home.v') != -1){
 			_obj.className="span_ico_right";
 		}else{
 			_obj.className="menunodeleaf_sel";
@@ -219,7 +219,7 @@ ylt.Home = ylt.Home || {};
 				this.expandLeftMenu(_obj);				
 				break;
 			case 2:
-				window.frames["framehome"].location="home.v";				
+				window.frames["framehome"].location="home.v?bmid=001017";				
 				break;
 			case 3:
 				window.frames["framehome"].location="dohome?hometype=init";			

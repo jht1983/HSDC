@@ -40,7 +40,7 @@ public class MisThreeItem extends ThreeItem {
     	        "<span class='span_ico_right' tip-data=\"\u9000\u51fa\" onclick=\"ylt.Home.bttnClick(this,7);\"" + 
     			strEvent + 
     			"><img src=\"new/images/exit-icon.png\" style=\"width: 20px;height:20px;vertical-align: middle;\"></span>" +
-				"<span class='span_ico_right' tip-data=\"\u8fd4\u56de\u9996\u9875\" onclick=\"ylt.Home.leafNodeMenuClick(this,'home.v');\" \"" + 
+				"<span class='span_ico_right' tip-data=\"\u8fd4\u56de\u9996\u9875\" onclick=\"ylt.Home.bttnClick(this,2);\" \"" + 
 				strEvent + 
 				"><span style='color:#fff;font-size:13px;font-family:\u5fae\u8f6f\u96c5\u9ed1;vertical-align: middle;'>\u8fd4\u56de\u9996\u9875</span></span>" +
     			"<span class='span_ico_right' tip-data=\"\u4fee\u6539\u5bc6\u7801\" onclick=\"ylt.Home.bttnClick(this,9);\"" + 

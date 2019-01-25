@@ -209,11 +209,12 @@
 					}
 					mapCon.put(strTabName, strWhere);
 					map.put(strTabName,(map.get(strTabName)==null?"":(map.get(strTabName).toString()+" , "))+strCou+" = '"+strVal+"' ");//字段名
-				
 				}
 			}
 			
-		
+
+//			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "mapCon: " + mapCon);
+//			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "map: " + map);
 			try {
 			
     			for (String key : map.keySet()) {
@@ -221,8 +222,9 @@
     			    	    dbf=new DBFactory();
     			    	}
     			    //	update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'
+    			    //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key));
     				dbf.sqlExe("update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key), true);
-    				//MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key));
+    				
     				//dbf.sqlExe("update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'", true);
     			}
     			
@@ -402,7 +404,7 @@
 				strVersion = request.getParameter("NO_sys_flow_Ver");//版本号
 				 strFlowRunId = request.getParameter("NO_sys_S_RUN_ID");//运行
 				String strFlowType = request.getParameter("NO_sys_S_flow_type");//0:子流程 1:主流程 默认主流程
-
+				
 				//删除通知消息
 				DelMsg( strFlowRunId);
 				

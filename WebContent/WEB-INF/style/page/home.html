@@ -62,24 +62,24 @@ $(function () {
 							<h2 class="blue">
 								<ylt.for dataId="1548146813403">
 									$value
-								</ylt.for> <span>Mwh</span>
+								</ylt.for> <span>万kW·h</span>
 							</h2>
 						</li>
 						<li class="ybsl">
 							<h1>月实际发电量</h1>
-							<h2 class="green"><font id="id_yfdl">989</font> <span>Mwh</span></h2>
+							<h2 class="green"><font id="id_yfdl">989</font> <span>万kW·h</span></h2>
 						</li>
 						<li class="jhfd">
 							<h1>年计划发电量</h1>
 							<h2 class="orange">
 								<ylt.for dataId="1548147298286">
 									$value
-								</ylt.for> <span>Mwh</span>
+								</ylt.for> <span>万kW·h</span>
 							</h2>
 						</li>
 						<li class="sjfd">
 							<h1>年实际发电量</h1>
-							<h2 class="red"><font id="id_nfdl">989</font> <span>Mwh</span></h2>
+							<h2 class="red"><font id="id_nfdl">989</font> <span>万kW·h</span></h2>
 						</li>
 						<li class="aqsc">
 							<h1>安全生产天</h1>
@@ -338,15 +338,15 @@ $(function () {
 	    var sisDataNfdl = subGetTx(sisData,"eleSISDataNfdl");
 	    
 	    try {
-		    realTime.innerHTML= parseFloat(sisDataDfdl).toFixed(1);
+		    realTime.innerHTML= parseFloat(sisDataDfdl).toFixed(2);
 	    } catch(err) {}
 	    
 	    try {
-		    yfdlId.innerHTML= parseFloat(sisDataYfdl).toFixed(1);
+		    yfdlId.innerHTML= parseFloat(sisDataYfdl).toFixed(2);
 	    } catch(err) {}
 	    
 	    try {
-		    nfdlId.innerHTML= parseFloat(sisDataNfdl).toFixed(1);
+		    nfdlId.innerHTML= parseFloat(sisDataNfdl).toFixed(2);
 	    } catch(err) {}
 	}
 	function sp(id) {
