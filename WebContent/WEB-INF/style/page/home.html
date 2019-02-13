@@ -59,7 +59,7 @@ $(function () {
 					<ul>
 						<li class="dbsx">
 							<h1>月计划发电量</h1>
-							<h2 class="blue">
+							<h2 class="blue" id="dbsxh2">
 								<ylt.for dataId="1548146813403">
 									$value
 								</ylt.for> <span>万kW·h</span>
@@ -67,11 +67,11 @@ $(function () {
 						</li>
 						<li class="ybsl">
 							<h1>月实际发电量</h1>
-							<h2 class="green"><font id="id_yfdl">989</font> <span>万kW·h</span></h2>
+							<h2 class="green" id="ybslh2"><font id="id_yfdl">989</font> <span>万kW·h</span></h2>
 						</li>
 						<li class="jhfd">
 							<h1>年计划发电量</h1>
-							<h2 class="orange">
+							<h2 class="orange" id="jhfdh2">
 								<ylt.for dataId="1548147298286">
 									$value
 								</ylt.for> <span>万kW·h</span>
@@ -79,11 +79,11 @@ $(function () {
 						</li>
 						<li class="sjfd">
 							<h1>年实际发电量</h1>
-							<h2 class="red"><font id="id_nfdl">989</font> <span>万kW·h</span></h2>
+							<h2 class="red" id="sjfdh2"><font id="id_nfdl">989</font> <span>万kW·h</span></h2>
 						</li>
 						<li class="aqsc">
 							<h1>安全生产天</h1>
-							<h2 class="purple">
+							<h2 class="purple"  id="aqsch2">
 								<ylt.for dataId="1534479850565">
 									$value
 								</ylt.for>
@@ -98,7 +98,7 @@ $(function () {
 							<a href="###" onclick="morehy()">MORE>></a>
 						</div>
 					</div>
-					<ul>
+					<ul id="hyxxul">
 						<ylt.for dataId="1548067419396">
 						<li><a href="###" onclick="hy('$value','$value');"
                                     style="text-align: left;text-indent:2em"><p>$value</p><span>$value</span></a></li>
@@ -435,6 +435,21 @@ if(usiParam.length>0){
     document.getElementById("NO_DBBZ").innerHTML=current._dutyPerName;				
 	document.getElementById("NO_JBBC").innerHTML=next._dutyTeamName;
 	document.getElementById("NO_JBBZ").innerHTML=next._dutyPerName;
+}
+window.onload = function(){
+	var screenHeight = window.screen.height;
+	var screenWidth = window.screen.width;
+	if(screenHeight <= 768 && screenWidth <= 1366){
+		document.getElementById('dbsxh2').style.fontSize ="17px";
+		document.getElementById('ybslh2').style.fontSize ="17px";
+		document.getElementById('jhfdh2').style.fontSize ="17px";
+		document.getElementById('sjfdh2').style.fontSize ="17px";
+		document.getElementById('aqsch2').style.fontSize ="17px";
+		var len = document.getElementById('hyxxul').getElementsByTagName('li').length;
+		for(var i = 0;i < len;i++){
+			document.getElementById('hyxxul').getElementsByTagName('li')[i].getElementsByTagName("a")[0].style.textIndent="0";
+		}
+	}
 }
 </script>
 </body>

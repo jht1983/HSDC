@@ -1,4 +1,3 @@
-
 function myfun(title,perNum){
 	//月缺陷统计
     var pieYqxtj = echarts.init(document.getElementById('piechartYqxtj'));
@@ -34,6 +33,8 @@ function myfun(title,perNum){
 
 
 function ygzptjfun(title,kpsum,jpsum,indexNum){
+	var screenHeight = window.screen.height;
+	var screenWidth = window.screen.width;
 	//月工作票统计
 	var barYgzptj = echarts.init(document.getElementById('barchartYgzptj'));
 	barYgzptj.setOption(optionYgzptj);
@@ -49,29 +50,61 @@ function ygzptjfun(title,kpsum,jpsum,indexNum){
 		jp.push(jpsum[i]);*/
 	}
 	
-	barYgzptj.setOption({
-		 xAxis: {
-	        type: 'category',
-	        data: ['\u7535\u6c14\u4e00\u79cd','\u7535\u6c14\u4e8c\u79cd','\u70ed\u529b\u673a\u68b0',
-	               '\u53d7\u9650\u7a7a\u95f4','\u7ee7\u4fdd','\u4e00\u7ea7\u52a8\u706b','\u4e8c\u7ea7\u52a8\u706b',
-	               '\u70ed\u63a7','\u5e94\u6025\u62a2\u4fee','\u52a8\u571f']
-		 },
-	    series: [
- 	        {
- 	            name: '\u5f00\u7968\u6570\u91cf',
- 	            type: 'bar',
- 	            barWidth : 12,
- 	            barColor : "red",
- 	            data: kp
- 	        },
- 	        {
- 	            name: '\u7ed3\u7968\u6570\u91cf',
- 	            type: 'bar',
- 	            barWidth : 12,
- 	            data: jp
- 	        }
- 	    ]
-	});
+	
+	if(screenHeight <= 768 && screenWidth <= 1366){
+		barYgzptj.setOption({
+			xAxis: {
+				axisLabel:{  
+					interval:0,//横轴信息全部显示  
+					rotate:-15,//-15度角倾斜显示  
+				},
+				type: 'category',
+				data: ['\u7535\u6c14\u4e00\u79cd','\u7535\u6c14\u4e8c\u79cd','\u70ed\u529b\u673a\u68b0',
+					   '\u53d7\u9650\u7a7a\u95f4','\u7ee7\u4fdd','\u4e00\u7ea7\u52a8\u706b','\u4e8c\u7ea7\u52a8\u706b',
+					   '\u70ed\u63a7','\u5e94\u6025\u62a2\u4fee','\u52a8\u571f']
+			 },
+			series: [
+				{
+					name: '\u5f00\u7968\u6570\u91cf',
+					type: 'bar',
+					barWidth : 12,
+					barColor : "red",
+					data: kp
+				},
+				{
+					name: '\u7ed3\u7968\u6570\u91cf',
+					type: 'bar',
+					barWidth : 12,
+					data: jp
+				}
+			]
+		});
+	}else{
+		barYgzptj.setOption({
+			xAxis: {
+				type: 'category',
+				data: ['\u7535\u6c14\u4e00\u79cd','\u7535\u6c14\u4e8c\u79cd','\u70ed\u529b\u673a\u68b0',
+					   '\u53d7\u9650\u7a7a\u95f4','\u7ee7\u4fdd','\u4e00\u7ea7\u52a8\u706b','\u4e8c\u7ea7\u52a8\u706b',
+					   '\u70ed\u63a7','\u5e94\u6025\u62a2\u4fee','\u52a8\u571f']
+			 },
+			series: [
+				{
+					name: '\u5f00\u7968\u6570\u91cf',
+					type: 'bar',
+					barWidth : 12,
+					barColor : "red",
+					data: kp
+				},
+				{
+					name: '\u7ed3\u7968\u6570\u91cf',
+					type: 'bar',
+					barWidth : 12,
+					data: jp
+				}
+			]
+		});
+	}
+	
 	
 	
 }
