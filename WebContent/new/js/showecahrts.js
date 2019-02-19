@@ -120,6 +120,8 @@ optionYqxtj = {
         orient : 'vertical',
         x : 'left',
         y : 'center',
+		top : '0%',
+		itemGap: 2,
         data:[]
     },
     calculable : true,
@@ -128,7 +130,7 @@ optionYqxtj = {
             name:'\u6708\u7f3a\u9677\u7edf\u8ba1',
             type:'pie',
             radius : '70%',
-            center: ['50%', '50%'],
+            center: ['60%', '45%'],
             data:[]
         }
     ]
@@ -151,7 +153,7 @@ optionYgzptj = {
 	    	top: '10%',
 	        left: '3%',
 	        right: '4%',
-	        bottom: '20%',
+	        bottom: '0%',
 	        containLabel: true
 	    },
 	    yAxis: {
