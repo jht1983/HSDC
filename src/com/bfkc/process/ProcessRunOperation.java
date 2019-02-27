@@ -96,6 +96,9 @@
 			String strField = getNodeReplaceVal(_request, _strkey, _strField);
 			Map<String,String> map = new HashMap<String, String>();
 			Map<String,String> mapCon = new HashMap<String, String>();
+			
+			//用户手动选择节点, 出现分支情况
+			String strCustomNodeId = _request.getParameter("NO_custom_node_id");
 
 			if("".equals(_strField)){return;}
 			String[] strArrayTable = strField.split("`");
@@ -150,6 +153,22 @@
 							if("".equals(strVal)){
 								continue;
 							}
+						}
+						
+						if (strCustomNodeId != null && !"".equals(strCustomNodeId)
+								&& strVal.indexOf("{branch:") > -1) {
+							//{branch:11-GZPZT053#12-GZPZT054#13-GZPZT055}
+							strVal = strVal.replace("{branch:", "");
+							strVal = strVal.replace("}", "");
+							
+							String[] branches = strVal.split("#");
+							Map<String, String> branchesMap = new HashMap<>();
+							for (int k = 0; k < branches.length; k++) {
+								String[] branchIds = branches[k].split("-");
+								branchesMap.put(branchIds[0], branchIds[1]);
+							}
+							
+							strVal = branchesMap.get(strCustomNodeId);
 						}
 						
 						if(strVal.indexOf("{number:")>-1){

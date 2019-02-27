@@ -234,7 +234,7 @@ public class TimingTaskTool {
 					
 					if("".equals(SYS_NEXTDATE) ) {
 					 
-					    MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,""+getStrByRecord(record, "SYS_PK"));
+					    //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,""+getStrByRecord(record, "SYS_PK"));
 					     
 					    if("".equals(SYS_START)){
     					    continue;
