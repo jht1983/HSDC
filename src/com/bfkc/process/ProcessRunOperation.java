@@ -2792,8 +2792,9 @@
 		 * @param _userCode
 		 * @return
 		 */
-		public boolean backFlowRun(String _strFlowId,String _strFlowRunId,String _strVersion,String _userCode){
+		public boolean backFlowRun(HttpServletRequest _request, String _strFlowId,String _strFlowRunId,String _strVersion,String _userCode){
 			TableEx exRun = null;
+			TableEx exRun1 = null;
 			boolean bFlag = false;
 			try {
 				exRun = queryFlowRun(_strFlowId, _strVersion, _strFlowRunId);
@@ -2803,12 +2804,21 @@
 				String strNexAuditUser = queryFlowLogBeforeNodeAuditUser(_strFlowId,_strVersion, _strFlowRunId, strNodes);
 				//2018-07-09 13:20:18  addcode
 				String strNexUserArr = exRun.getRecord(0).getFieldByName("S_AUDIT_ARRAY").value.toString().split("\\|",-1)[index-1];
+				String strNodeIdNow = exRun.getRecord(0).getFieldByName("S_NODE_CODE").value.toString();//当前节点
 				if(strNexAuditUser.equals(_userCode)){
 				    //String[] strArrayFlowRunVal = {_strFlowId,_strFlowRunId,strNexAuditUser,strNodes,(index-1)+""};
 				    //2018-07-09 13:20:18  addcode
 					String[] strArrayFlowRunVal = {_strFlowId,_strFlowRunId,strNexUserArr,strNodes,(index-1)+""};
 					updateFlowRun(strArrayFlowRunVal, "5");
 					bFlag = true;
+				}
+				
+				/**更新表单*/
+				exRun1 = queryFlowNodeInfo(_strFlowId, _strVersion, strNodeIdNow);
+				String strField = getColString("S_AUDIT_TABLECONTROL", exRun1.getRecord(0));
+	
+				if(strField!=null&&!"".equals(strField)){
+					updateTabByFlowSet(_request, "", strField, _strFlowRunId,new StringBuffer());//strNodeIdNow
 				}
 			} catch (NumberFormatException e) {
 			    MantraLog.fileCreateAndWrite(e);	

@@ -1038,7 +1038,7 @@
         MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"[backFlow]->FLOW_VERSION="+flowVersion);
         MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"[backFlow]->date="+EString.getCurDate());
         try{
-            boolean  results = pro.backFlowRun(flowId,flowRunCode,flowVersion,flowRunUserCode);
+            boolean  results = pro.backFlowRun(this.request, flowId,flowRunCode,flowVersion,flowRunUserCode);
             MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"[backFlow]->pro.backFlowRun:"+results);
             if(results==true){
                 ProcessUtillMantra pUm = new ProcessUtillMantra();
