@@ -133,7 +133,8 @@
 					}
 				
 					String strAuditState = _request.getParameter("NO_sys_flow_state");//0驳回1通过
-					if("0".equals(strAuditState)){//驳回取值
+					String strAuditState2 = (String) _request.getAttribute("NO_sys_flow_state");
+					if("0".equals(strAuditState) || "0".equals(strAuditState2)){//驳回取值
 						if(strVal.indexOf("{no:")>-1){
 							strVal = strVal.substring(strVal.indexOf("{no:")+4,strVal.indexOf(":end}"));
 						}else if(strVal.indexOf("{request:")>-1){
@@ -2818,6 +2819,7 @@
 				String strField = getColString("S_AUDIT_TABLECONTROL", exRun1.getRecord(0));
 	
 				if(strField!=null&&!"".equals(strField)){
+					_request.setAttribute("NO_sys_flow_state", "0");
 					updateTabByFlowSet(_request, "", strField, _strFlowRunId,new StringBuffer());//strNodeIdNow
 				}
 			} catch (NumberFormatException e) {
