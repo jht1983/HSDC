@@ -1,36 +1,40 @@
 	package com.bfkc.process;
 	
 	import java.io.PrintWriter;
-	import java.io.StringWriter;
-	import java.lang.reflect.InvocationTargetException;
-	import java.lang.reflect.Method;
-	import java.text.ParseException;
-	import java.text.SimpleDateFormat;
-	import java.util.Arrays;
-	import java.util.Calendar;
-	import java.util.Date;
-	import java.util.Enumeration;
-	import java.util.HashMap;
-	import java.util.HashSet;
-	import java.util.LinkedHashMap;
-	import java.util.Map;
-	import java.util.Set;
-	import java.util.UUID;
-	
-	import javax.script.ScriptEngine;
-	import javax.script.ScriptException;
-	import javax.servlet.http.HttpServletRequest;
-	import javax.servlet.http.HttpSession;
-	
-	import com.timing.impcl.MantraLog;
-	import com.yulongtao.db.DBFactory;
-	import com.yulongtao.db.FieldEx;
-	import com.yulongtao.db.Record;
-	import com.yulongtao.db.TableEx;
-	import com.yulongtao.util.EString;
-	import com.timing.impcl.MantraUtil;
+import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import com.timing.impcl.MantraLog;
+import com.yulongtao.db.DBFactory;
+import com.yulongtao.db.FieldEx;
+import com.yulongtao.db.Record;
+import com.yulongtao.db.TableEx;
+import com.yulongtao.util.EString;
+
 	
 	public class ProcessRunOperation {
+	    private static final String UPDATE_FIELD_START_TAG = "{updateFieldsStart:";
+	    private static final String UPDATE_FIELD_END_TAG = "updateFieldsEnd}";
 		
 		public static SimpleDateFormat strSdfYmd =  new SimpleDateFormat("yyyy-MM-dd");
 		public static SimpleDateFormat strSdfYmdHms =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -99,9 +103,33 @@
 			
 			//用户手动选择节点, 出现分支情况
 			String strCustomNodeId = _request.getParameter("NO_custom_node_id");
+			List<String> updateColumns = new ArrayList<String>();
+			Map<String, String> rollBackMap = new HashMap<>();
 
 			if("".equals(_strField)){return;}
 			String[] strArrayTable = strField.split("`");
+			
+			TableEx ex = null;
+			String rollBackStr = null;
+			try {
+				ex = new TableEx("s_rollback", "t_sys_flow_log"," S_RUN_ID='" + _strRunId + "' order by s_aud_date desc");
+				rollBackStr = getColString("s_rollback", ex.getRecord(0));
+				if (rollBackStr != null && rollBackStr.length() > 0) {
+					String rollBack = rollBackStr.substring(rollBackStr.indexOf(UPDATE_FIELD_START_TAG)+UPDATE_FIELD_START_TAG.length(),rollBackStr.indexOf(UPDATE_FIELD_END_TAG));
+					String[] rollBackArray = rollBack.split("#");
+					
+					for (int k = 0; k < rollBackArray.length; k++) {
+						String[] rollBackValue = rollBackArray[k].split("-");
+						rollBackMap.put(rollBackValue[0], rollBackValue[1]);
+					}
+				}
+			} catch (Exception e) {
+			    //do nothing if exception occurs
+			} finally {
+				if (ex != null) {
+					ex.close();
+				}
+			}
 			
 			for(int a=0,b=strArrayTable.length;a<b;a++){
 				String strTemp = strArrayTable[a];
@@ -132,9 +160,16 @@
 						continue;
 					}
 				
-					String strAuditState = _request.getParameter("NO_sys_flow_state");//0驳回1通过
+					String strAuditState = _request.getParameter("NO_sys_flow_state");//99撤回0驳回1通过
 					String strAuditState2 = (String) _request.getAttribute("NO_sys_flow_state");
-					if("0".equals(strAuditState) || "0".equals(strAuditState2)){//驳回取值
+					if ("99".equals(strAuditState2)) {
+						if(rollBackMap.containsKey(strCou)){
+							strVal = rollBackMap.get(strCou);
+						}else{
+							continue;
+						}
+					}
+					else if("0".equals(strAuditState)){//驳回取值
 						if(strVal.indexOf("{no:")>-1){
 							strVal = strVal.substring(strVal.indexOf("{no:")+4,strVal.indexOf(":end}"));
 						}else if(strVal.indexOf("{request:")>-1){
@@ -229,6 +264,7 @@
 					}
 					mapCon.put(strTabName, strWhere);
 					map.put(strTabName,(map.get(strTabName)==null?"":(map.get(strTabName).toString()+" , "))+strCou+" = '"+strVal+"' ");//字段名
+					updateColumns.add(strCou);
 				}
 			}
 			
@@ -236,18 +272,37 @@
 //			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "mapCon: " + mapCon);
 //			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "map: " + map);
 			try {
-			
+				_sr.append(UPDATE_FIELD_START_TAG);
     			for (String key : map.keySet()) {
     			    	if(dbf==null){
     			    	    dbf=new DBFactory();
     			    	}
+        			
+    			    //load the old data for the object table
+			    	TableEx ex2 = null;
+					try {
+						ex2 = new TableEx("*", key," S_RUN_ID='" + _strRunId + "' "+mapCon.get(key));
+						for (Iterator iterator = updateColumns.iterator(); iterator.hasNext();) {
+							String colName = (String) iterator.next();
+							String oldValue = getColString(colName, ex2.getRecord(0));
+							if (oldValue != null) {
+								_sr.append(colName + "-" + oldValue + "#");
+							}
+						}
+					} catch (Exception e) {
+					    //do nothing if exception occurs
+					} finally {
+						if (ex2 != null) {
+							ex2.close();
+						}
+					}
+    			    
     			    //	update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'
     			    //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key));
     				dbf.sqlExe("update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key), true);
-    				
     				//dbf.sqlExe("update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'", true);
     			}
-    			
+    			_sr.append(UPDATE_FIELD_END_TAG);
     		} catch (Exception e) {
     		    MantraLog.fileCreateAndWrite(e);
     // 			String[] strArrayFlowLog22 = {"333","","",new Date()+"","","","updateTabByFlowSet",getErrorInfoFromException(e)};
@@ -376,7 +431,7 @@
 						String strDate = strSdfYmdHms.format(new Date());
 						String  strAuditComment = "";
 						/**插入流程日志*/
-						String[] strArrayFlowLog = {strFlowId,strFlowRunId,strAuditNodes.split("\\|",-1)[0],strDate,strVersion,strStartUser,strAuditState,strAuditComment};
+						String[] strArrayFlowLog = {strFlowId,strFlowRunId,strAuditNodes.split("\\|",-1)[0],strDate,strVersion,strStartUser,strAuditState,strAuditComment,""};
 						insertFlowLog("1", strArrayFlowLog);
 						/**发送消息*/
 						sendMsg(strAuditMsgs.split("\\|",-1)[0],strNextAuditUser,strAuditState,strIsOver,strFlowId,strVersion,strFlowRunId,strNodeIdNext,null,strFlowType,strPageCode,strTab);
@@ -566,7 +621,8 @@
 						String strDate = strSdfYmdHms.format(new Date());
 						String  strAuditComment = "";
 						/**插入流程日志*/
-						String[] strArrayFlowLog = {strFlowId,strFlowRunId,strAuditNodes.split("\\|",-1)[0],strDate,strVersion,strStartUser,strAuditState,strAuditComment};
+						String updateMessage = _sb.substring(_sb.indexOf(UPDATE_FIELD_START_TAG), _sb.indexOf(UPDATE_FIELD_END_TAG) + UPDATE_FIELD_END_TAG.length());
+						String[] strArrayFlowLog = {strFlowId,strFlowRunId,strAuditNodes.split("\\|",-1)[0],strDate,strVersion,strStartUser,strAuditState,strAuditComment, updateMessage};
 						insertFlowLog("1", strArrayFlowLog);
 						/**发送消息*/
 						sendMsg(strAuditMsgs.split("\\|",-1)[0],strNextAuditUser,strAuditState,strIsOver,strFlowId,strVersion,strFlowRunId,strNodeIdNext,request,strFlowType,strPageCode,strTab);
@@ -1150,7 +1206,8 @@
 				if(bTranFlowSonFlag){
 					strAuditUser =request.getSession().getAttribute("SYS_STRCURUSER").toString();
 				}
-				String[] strArrayFlowLog = {strFlowId,strFlowRunId,strNodeIdNow,strNowDate,strVersion,strAuditUser,strAuditState,strAuditComment};
+				String updateMessage = _sb.substring(_sb.indexOf(UPDATE_FIELD_START_TAG), _sb.indexOf(UPDATE_FIELD_END_TAG) + UPDATE_FIELD_END_TAG.length());
+				String[] strArrayFlowLog = {strFlowId,strFlowRunId,strNodeIdNow,strNowDate,strVersion,strAuditUser,strAuditState,strAuditComment,updateMessage};
 				insertFlowLog("1", strArrayFlowLog);
 				/**更新当前审批日志为空*/
 				updateSendMsgZt(dbf,strFlowRunId,strAuditUser,strFlowId);
@@ -1361,7 +1418,7 @@
 						dbf.sqlExe(sql, true);
 					}
 				}
-				String[] strArrayFlowLog22 = {"333","333","",new Date()+"","运行ID"+strFlowRunId,"","updateFormSql",sql};
+				String[] strArrayFlowLog22 = {"333","333","",new Date()+"","运行ID"+strFlowRunId,"","updateFormSql",sql,""};
 				insertFlowLog("1", strArrayFlowLog22);
 				
 			} catch (Exception e) {
@@ -2725,7 +2782,7 @@
 				strWhere = strWhere+((_strNodeId==null||"".equals(_strNodeId))?" ":(" and I_NODE_ID='"+_strNodeId+"' "));
 				tableEx = new TableEx("*", "t_sys_flow_node", strWhere);
 			} catch (Exception e) {
-				String[] strArrayFlowLog22 = {"333","333","queryFlowNodeInfo","queryFlowNodeInfo","流程:"+_strFlowId,"节点:"+_strNodeId,"版本:"+_strVersion,getErrorInfoFromException(e)};
+				String[] strArrayFlowLog22 = {"333","333","queryFlowNodeInfo","queryFlowNodeInfo","流程:"+_strFlowId,"节点:"+_strNodeId,"版本:"+_strVersion,getErrorInfoFromException(e),""};
 				insertFlowLog("1", strArrayFlowLog22);
 				e.printStackTrace();
 			}
@@ -2819,7 +2876,7 @@
 				String strField = getColString("S_AUDIT_TABLECONTROL", exRun1.getRecord(0));
 	
 				if(strField!=null&&!"".equals(strField)){
-					_request.setAttribute("NO_sys_flow_state", "0");
+					_request.setAttribute("NO_sys_flow_state", "99");
 					updateTabByFlowSet(_request, "", strField, _strFlowRunId,new StringBuffer());//strNodeIdNow
 				}
 			} catch (NumberFormatException e) {
@@ -2946,7 +3003,7 @@
 			DBFactory dbf = new DBFactory();
 			try {
 				if("1".equals(_type)){
-					String strTabCol ="(S_FLOW_ID,S_RUN_ID,S_NODE_ID,S_AUD_DATE,S_AUDIT_VERSION,S_AUD_USER,S_AUD_STAUS,S_AUD_COMMENT)";
+					String strTabCol ="(S_FLOW_ID,S_RUN_ID,S_NODE_ID,S_AUD_DATE,S_AUDIT_VERSION,S_AUD_USER,S_AUD_STAUS,S_AUD_COMMENT,S_ROLLBACK)";
 					_strArrayValues = arrayAddSingleQuotes(_strArrayValues);
 					String strTabVal = Arrays.toString(_strArrayValues);
 					strTabVal = strTabVal.substring(1,strTabVal.length()-1);
@@ -3283,7 +3340,7 @@
 		}
 		public void getTest(HttpServletRequest req){
 			System.out.println("*****************");
-			String[] strArrayFlowLog22 = {"333","xx","xx",new Date()+"","xx","","start","xx"};
+			String[] strArrayFlowLog22 = {"333","xx","xx",new Date()+"","xx","","start","xx",""};
 			insertFlowLog("1", strArrayFlowLog22);
 		}
 		public void flowOverDelMsg( String S_RUN_ID, String S_FLOW_ID, String S_AUTO_VER) {
