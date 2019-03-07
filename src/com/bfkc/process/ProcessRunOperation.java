@@ -2858,6 +2858,7 @@ import com.yulongtao.util.EString;
 				exRun = queryFlowRun(_strFlowId, _strVersion, _strFlowRunId);
 				int index =Integer.parseInt(exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value.toString());
 				if(index==0)return bFlag;
+				
 				String strNodes=exRun.getRecord(0).getFieldByName("S_AUDIT_NODES").value.toString().split("\\|",-1)[index-1];
 				String strNexAuditUser = queryFlowLogBeforeNodeAuditUser(_strFlowId,_strVersion, _strFlowRunId, strNodes);
 				//2018-07-09 13:20:18  addcode
@@ -2869,15 +2870,15 @@ import com.yulongtao.util.EString;
 					String[] strArrayFlowRunVal = {_strFlowId,_strFlowRunId,strNexUserArr,strNodes,(index-1)+""};
 					updateFlowRun(strArrayFlowRunVal, "5");
 					bFlag = true;
-				}
-				
-				/**更新表单*/
-				exRun1 = queryFlowNodeInfo(_strFlowId, _strVersion, strNodeIdNow);
-				String strField = getColString("S_AUDIT_TABLECONTROL", exRun1.getRecord(0));
-	
-				if(strField!=null&&!"".equals(strField)){
-					_request.setAttribute("NO_sys_flow_state", "99");
-					updateTabByFlowSet(_request, "", strField, _strFlowRunId,new StringBuffer());//strNodeIdNow
+
+					/**更新表单*/
+					exRun1 = queryFlowNodeInfo(_strFlowId, _strVersion, strNodeIdNow);
+					String strField = getColString("S_AUDIT_TABLECONTROL", exRun1.getRecord(0));
+		
+					if(strField!=null&&!"".equals(strField)){
+						_request.setAttribute("NO_sys_flow_state", "99");
+						updateTabByFlowSet(_request, "", strField, _strFlowRunId,new StringBuffer());//strNodeIdNow
+					}
 				}
 			} catch (NumberFormatException e) {
 			    MantraLog.fileCreateAndWrite(e);	

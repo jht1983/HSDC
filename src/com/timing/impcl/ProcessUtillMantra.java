@@ -39,15 +39,15 @@ public class ProcessUtillMantra {
 			
 			if (_nowUserCode.equals(lastAuditUser)) {// 删除 数据 , 由于表中无独立主键, 故全条匹配
 				
-				doSql.append("DELETE FROM T_SYS_FLOW_LOG WHERE ");
+				doSql.append("DELETE FROM T_SYS_FLOW_LOG WHERE 1=1 ");
 				
 				for(int i = 1 ; i <= colCount ; i ++){ 
-					
-					doSql.append(record.getFieldName(i)+"='"+record.getFieldByName(record.getFieldName(i)).value.toString()+"' ");
-					if(i!=colCount) {
-						doSql.append("and ");
+					if (record.getFieldByName(record.getFieldName(i)) == null || record.getFieldByName(record.getFieldName(i)).value == null) {
+						continue;
 					}
 					
+					doSql.append("and ");
+					doSql.append(record.getFieldName(i)+"='"+record.getFieldByName(record.getFieldName(i)).value.toString()+"' ");
 				}
 
 				dbf.sqlExe(doSql.toString(), false);
