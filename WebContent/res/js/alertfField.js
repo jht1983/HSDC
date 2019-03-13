@@ -421,6 +421,20 @@ function personPut_new(_name,_code,_code_new,_bmid){
         console.log("err:personAndBranchPut"); 
     }
  }
+ 
+ function personAndBranchPut_new(_name,_code,_code_new,_bmName,_bmCode,_bmid){
+     try{
+    var general=_name+":0;"+_code+":6;"+_code_new+":1;"+_bmName+":4;"+_bmCode+":5";
+    general=general.replace(/\$/g,",");
+    $I(_name).setAttribute("class","sysselinput");
+    $I(_name).onclick=function (){
+        miniWin('人员选择','','View?SPAGECODE=155244942139110583&bmid='+_bmid+'&general='+general,1200,800,'','');
+    }
+ }catch(e){
+        console.log("err:personAndBranchPut"); 
+    }
+ }
+ 
   function personAllPut(_name,_code,_roleName,_roleCode,_bmName,_bmCode,_bmid){
         try{
     var general=_name+":0;"+_code+":1;"+_bmName+":4;"+_bmCode+":5"+_roleName+":2;"+_roleCode+":3";
