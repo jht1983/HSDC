@@ -394,6 +394,21 @@ function personPut(_name,_code,_bmid){
         console.log("err:personPut"); 
     }
  }
+
+function personPut_new(_name,_code,_code_new,_bmid){
+    try{
+       
+        var general=_name+":0;"+_code+":6;"+_code_new+":1";
+        general=general.replace(/\$/g,",");
+        $I(_name).setAttribute("class","sysselinput");
+        $I(_name).onclick=function (){
+            miniWin('人员选择','','View?SPAGECODE=155244942139110583&bmid='+_bmid+'&general='+general,1200,800,'','');
+        }
+    }catch(e){
+        console.log("err:personPut"); 
+    }
+ }
+
  function personAndBranchPut(_name,_code,_bmName,_bmCode,_bmid){
      try{
     var general=_name+":0;"+_code+":1;"+_bmName+":4;"+_bmCode+":5";
