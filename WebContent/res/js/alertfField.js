@@ -1213,7 +1213,7 @@ function powPersonPut(_name,_code,_bmid){
     try{
        
     
-        var general=_name+":0;"+_code+":1";
+        var general=_name+":0;"+_code+":6";
         general=general.replace(/\$/g,",");
         $I(_name).setAttribute("class","sysselinput");
         $I(_name).onclick=function (){
@@ -1225,7 +1225,7 @@ function powPersonPut(_name,_code,_bmid){
  }
  function powPersonAndBranchPut(_name,_code,_bmName,_bmCode,_bmid){
      try{
-    var general=_name+":0;"+_code+":1;"+_bmName+":4;"+_bmCode+":5";
+    var general=_name+":0;"+_code+":6;"+_bmName+":4;"+_bmCode+":5";
     general=general.replace(/\$/g,",");
     $I(_name).setAttribute("class","sysselinput");
     $I(_name).onclick=function (){
@@ -1237,7 +1237,7 @@ function powPersonPut(_name,_code,_bmid){
  }
   function powPersonAllPut(_name,_code,_roleName,_roleCode,_bmName,_bmCode,_bmid){
         try{
-    var general=_name+":0;"+_code+":1;"+_bmName+":4;"+_bmCode+":5"+_roleName+":2;"+_roleCode+":3";
+    var general=_name+":0;"+_code+":6;"+_bmName+":4;"+_bmCode+":5"+_roleName+":2;"+_roleCode+":3";
     general=general.replace(/\$/g,",");
     $I(_name).onclick=function (){
         miniWin('人员选择','','View?SPAGECODE=154183608275710113&bmid='+_bmid+'&general='+general,1200,800,'','');
