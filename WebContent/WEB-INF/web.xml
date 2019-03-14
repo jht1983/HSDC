@@ -165,7 +165,7 @@
 
 	<servlet>
 		<servlet-name>DicManager</servlet-name>
-		<servlet-class>com.yulongtao.sys.DicManager</servlet-class>
+		<servlet-class>com.yulongtao.sys.MisDicManager</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DicManager</servlet-name>
