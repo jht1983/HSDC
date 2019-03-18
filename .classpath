@@ -95,5 +95,6 @@
 	<classpathentry kind="lib" path="D:/work/榆林电厂/横山正式系统/lib/yltpdoc-ooxml-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="D:/work/榆林电厂/横山正式系统/lib/yltpdoc-ooxml-schemas-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="D:/work/榆林电厂/横山正式系统/lib/yltpdoc-scratchpad-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="D:/work/榆林电厂/榆神正式系统/server/lib/aliyun-java-sdk-dysmsapi-1.0.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

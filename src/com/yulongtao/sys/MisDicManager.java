@@ -3,16 +3,23 @@
  */
 package com.yulongtao.sys;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import com.yulongtao.pub.*;
-import java.io.*;
-import com.bfkc.hzp.*;
-import java.util.*;
-import com.yulongtao.util.*;
-import com.*;
-import com.yulongtao.db.*;
-import com.yulongtao.web.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.Debug;
+import com.bfkc.hzp.viewrcs;
+import com.yulongtao.db.Query;
+import com.yulongtao.db.TableEx;
+import com.yulongtao.pub.Pub;
+import com.yulongtao.util.EString;
+import com.yulongtao.web.WebQuery;
+import com.yulongtao.web.YLTree;
 
 /**
  * @author tianshisheng
@@ -175,30 +182,27 @@ public class MisDicManager extends HttpServlet {
     private void viewTree(final HttpServletRequest request, final PrintWriter out) {
         out.println("<body scroll='auto'>");
         TableEx tableEx = null;
-        Label_0137: {
-            try {
-                tableEx = new TableEx("*", "T_SYSDICTYPE", "1=1 order by SDICTYPENAME");
-                out.println("<div id='sys_dic_tree'></div>");
-                final YLTree ylTree = new YLTree(tableEx, "SDICTYPEID", "", "SDICTYPENAME");
-                ylTree.request = request;
-                ylTree.setRootName("sys_dic_tree", "\u5b57\u5178\u7ba1\u7406");
-                ylTree.setOnClick("reInvok(node);");
-                out.print("<script>function reInvok(_objNode){if(_objNode.attributes.nodeCode=='')parent.lxmain .location='DicManager?STROPTYPE=6'; else parent.lxmain .location='DicManager?STROPTYPE=2&SDICTYPEID='+_objNode.attributes.SDICTYPEID+'&SDICTYPENAME='+_objNode.attributes.SDICTYPENAME;}");
-                out.print(ylTree);
-                out.print("</script>");
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                break Label_0137;
-            }
-            finally {
-                if (tableEx != null) {
-                    tableEx.close();
-                }
-            }
+        try {
+            tableEx = new TableEx("*", "T_SYSDICTYPE", "1=1 order by SDICTYPENAME");
+            out.println("<div id='sys_dic_tree'></div>");
+            final YLTree ylTree = new YLTree(tableEx, "SDICTYPEID", "", "SDICTYPENAME");
+            ylTree.request = request;
+            ylTree.setRootName("sys_dic_tree", "\u5b57\u5178\u7ba1\u7406");
+            ylTree.setOnClick("reInvok(node);");
+            out.print("<script>function reInvok(_objNode){if(_objNode.attributes.nodeCode=='')parent.lxmain .location='DicManager?STROPTYPE=6'; else parent.lxmain .location='DicManager?STROPTYPE=2&SDICTYPEID='+_objNode.attributes.SDICTYPEID+'&SDICTYPENAME='+_objNode.attributes.SDICTYPENAME;}");
+            out.print(ylTree);
+            out.print("</script>");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
             if (tableEx != null) {
                 tableEx.close();
             }
+        }
+        if (tableEx != null) {
+            tableEx.close();
         }
         out.println("</body>");
     }

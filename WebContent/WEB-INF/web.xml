@@ -99,7 +99,7 @@
 	
 	<servlet>
 		<servlet-name>WebAction</servlet-name>
-		<servlet-class>com.yulongtao.web.WebAction</servlet-class>
+		<servlet-class>com.yulongtao.web.MisWebAction</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>WebAction</servlet-name>
@@ -147,7 +147,7 @@
 
 	<servlet>
 		<servlet-name>Menu</servlet-name>
-		<servlet-class>com.yulongtao.sys.Menu</servlet-class>
+		<servlet-class>com.yulongtao.sys.MisMenu</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Menu</servlet-name>
@@ -201,7 +201,7 @@
 
 	<servlet>
 		<servlet-name>YLWebAction</servlet-name>
-		<servlet-class>com.yulongtao.web.YLWebAction</servlet-class>
+		<servlet-class>com.yulongtao.web.MisWebAction</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>YLWebAction</servlet-name>
