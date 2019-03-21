@@ -20,7 +20,7 @@ public class CommissionBusiness {
 
 	/**
 	 * 
-	 * SecurityCheck:安全资质审查
+	 * SecurityCheck:瀹夊叏璧勮川瀹℃煡
 	 * 
 	 */
 	public boolean SecurityCheck(HttpServletRequest _request) {
@@ -59,7 +59,7 @@ public class CommissionBusiness {
 	
 		/**
 	 * 
-	 * EducationTraining:外委教育培训
+	 * EducationTraining:澶栧鏁欒偛鍩硅
 	 * 
 	 */
 
@@ -97,7 +97,7 @@ public class CommissionBusiness {
 
 	/**
 	 * 
-	 * SecurityClarificaiton:外委安全交底
+	 * SecurityClarificaiton:澶栧瀹夊叏浜ゅ簳
 	 * 
 	 */
 
@@ -135,7 +135,7 @@ public class CommissionBusiness {
 	
 	/**
 	 * 
-	 * WorkPermit:开工许可证
+	 * WorkPermit:寮�宸ヨ鍙瘉
 	 * 
 	 */
 
@@ -172,7 +172,7 @@ public class CommissionBusiness {
 	
 	/**
 	 * 
-	 * EducationAcceptance:外委竣工验收
+	 * EducationAcceptance:澶栧绔ｅ伐楠屾敹
 	 * 
 	 */
 

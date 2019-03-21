@@ -14,22 +14,22 @@ public class httpCon {
 	        try {
 	            String urlNameString = url + "?" + param;
 	            URL realUrl = new URL(urlNameString);
-	            // ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
+	            // æ‰“å¼€å’ŒURLä¹‹é—´çš„è¿æ¥
 	            URLConnection connection = realUrl.openConnection();
-	            // ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
+	            // è®¾ç½®é€šç”¨çš„è¯·æ±‚å±æ€§
 	            connection.setRequestProperty("accept", "*/*");
 	            connection.setRequestProperty("connection", "Keep-Alive");
 	            connection.setRequestProperty("user-agent",
 	                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-	            // ½¨Á¢Êµ¼ÊµÄÁ¬½Ó
+	            // å»ºç«‹å®é™…çš„è¿æ¥
 	            connection.connect();
-	            // »ñÈ¡ËùÓĞÏìÓ¦Í·×Ö¶Î
+	            // è·å–æ‰€æœ‰å“åº”å¤´å­—æ®µ
 	            Map<String, List<String>> map = connection.getHeaderFields();
-	            // ±éÀúËùÓĞµÄÏìÓ¦Í·×Ö¶Î
+	            // éå†æ‰€æœ‰çš„å“åº”å¤´å­—æ®µ
 //	            for (String key : map.keySet()) {
 //	                System.out.println(key + "--->" + map.get(key));
 //	            }
-	            // ¶¨Òå BufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
+	            // å®šä¹‰ BufferedReaderè¾“å…¥æµæ¥è¯»å–URLçš„å“åº”
 	            in = new BufferedReader(new InputStreamReader(
 	                    connection.getInputStream()));
 	            String line;
@@ -38,10 +38,10 @@ public class httpCon {
 	                result += line;
 	            }
 	        } catch (Exception e) {
-	            System.out.println("·¢ËÍGETÇëÇó³öÏÖÒì³££¡" + e);
+	            System.out.println("å‘é€GETè¯·æ±‚å‡ºç°å¼‚å¸¸ï¼" + e);
 	            e.printStackTrace();
 	        }
-	        // Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊäÈëÁ÷
+	        // ä½¿ç”¨finallyå—æ¥å…³é—­è¾“å…¥æµ
 	        finally {
 	            try {
 	                if (in != null) {

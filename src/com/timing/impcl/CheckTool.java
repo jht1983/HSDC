@@ -34,7 +34,7 @@ public class CheckTool {
 	}
 
 	/*
-	 * 字段对应
+	 * 瀛楁瀵瑰簲
 	 * 
 	 * 
 	 */
@@ -79,33 +79,33 @@ public class CheckTool {
 				// insert into T_LCJHBZ (S_ID,S_ZZ) values ("<<S_ID>>","<<bmid>>");
 				// update T_LC_GYZB set T_LC_GYZB.S_JHID="<<S_ID>>" where T_LC_GYZB.S_ID in
 				// (<<autoId>>);
-				// djtype = 1 日常
-				// djtype = 2专业and精密
-				//1505813981968   日常点检
-				//1505813861487   精密点检
+				// djtype = 1 鏃ュ父
+				// djtype = 2涓撲笟and绮惧瘑
+				//1505813981968   鏃ュ父鐐规
+				//1505813861487   绮惧瘑鐐规
 				//String runId="";
 		        //String runVersion="";
-		        //1506155869228   日常点检 表单
-                //1507393584583   精密点检 表单
+		        //1506155869228   鏃ュ父鐐规 琛ㄥ崟
+                //1507393584583   绮惧瘑鐐规 琛ㄥ崟
 				T_DJJH_BS__S_DJLB = getBillDataToString(record, "T_DJJH_BS__S_DJLB");
 				T_DJJH__S_ZZ = getBillDataToString(record, "T_DJJH__S_ZZ");
 				autoS_id = getBillDataToString(record, "autoS_id");
-				runId = mu.getShortUuid(); //得到  短版UUID  22
-				//S_RUN_ID 运行ID  	SYS_FLOW_VER  版本
-				//运行版本 getFlowVer(String _fromNum,String _bmid)
-				if("1505813981968".equals(T_DJJH_BS__S_DJLB)) {  //日常
+				runId = mu.getShortUuid(); //寰楀埌  鐭増UUID  22
+				//S_RUN_ID 杩愯ID  	SYS_FLOW_VER  鐗堟湰
+				//杩愯鐗堟湰 getFlowVer(String _fromNum,String _bmid)
+				if("1505813981968".equals(T_DJJH_BS__S_DJLB)) {  //鏃ュ父
 				    runVersion = mu.getFlowVer("1506155869228",T_DJJH__S_ZZ);
 					dbf.sqlExe("insert into T_ZYDJ (S_ID,S_ZZ,S_TYPE,S_RUN_ID,SYS_FLOW_VER) values (\"" + UuId + i+ "\",\"" + T_DJJH__S_ZZ + "\",1,'"+runId+"','"+runVersion+"');", false);
 				
 				mu.recordRel(T_DJJH__S_ZZ, "1505896107531",_planPk, "T_DJJH", "1506155869228",UuId +""+ i,
-						"T_ZYDJ");//创建关系
+						"T_ZYDJ");//鍒涘缓鍏崇郴
 				    
-				}else {//专业和精
+				}else {//涓撲笟鍜岀簿
 				    runVersion = mu.getFlowVer("1507393584583",T_DJJH__S_ZZ);
 					dbf.sqlExe("insert into T_ZYDJ (S_ID,S_ZZ,S_TYPE,S_RUN_ID,SYS_FLOW_VER) values (\"" + UuId + i +"\",\"" + T_DJJH__S_ZZ + "\",2,'"+runId+"','"+runVersion+"');", false);
 			
 				mu.recordRel(T_DJJH__S_ZZ, "1505896107531",_planPk, "T_DJJH", "1507393584583", UuId +""+ i,
-						"T_ZYDJ");//创建关系
+						"T_ZYDJ");//鍒涘缓鍏崇郴
 				    
 				}
 				//T_DJJH_BS

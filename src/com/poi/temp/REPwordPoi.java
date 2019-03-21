@@ -39,7 +39,7 @@ public class REPwordPoi {
         					if (run.get(i).getText(run.get(i).getTextPosition()) != null
         							&& run.get(i).getText(run.get(i).getTextPosition()).equals(key)) {
         						/**
-        						 * ²ÎÊı0±íÊ¾Éú³ÉµÄÎÄ×ÖÊÇÒª´ÓÄÄÒ»¸öµØ·½¿ªÊ¼·ÅÖÃ,ÉèÖÃÎÄ×Ö´ÓÎ»ÖÃ0¿ªÊ¼ ¾Í¿ÉÒÔ°ÑÔ­À´µÄÎÄ×ÖÈ«²¿Ìæ»»µôÁË
+        						 * å‚æ•°0è¡¨ç¤ºç”Ÿæˆçš„æ–‡å­—æ˜¯è¦ä»å“ªä¸€ä¸ªåœ°æ–¹å¼€å§‹æ”¾ç½®,è®¾ç½®æ–‡å­—ä»ä½ç½®0å¼€å§‹ å°±å¯ä»¥æŠŠåŸæ¥çš„æ–‡å­—å…¨éƒ¨æ›¿æ¢æ‰äº†
         						 */
         						run.get(i).setText(data.get(key), 0);
         					}
@@ -73,12 +73,12 @@ public class REPwordPoi {
         		                      for(int f = 0 , j = text.length ; f<j ; f++) {
         		                    	  run.setText(text[f]);
         		                    	  if(f+1!=j){
-        			                    		// run.addCarriageReturn();//Ó²»Ø³µ
+        			                    		// run.addCarriageReturn();//ç¡¬å›è½¦
         		                    		  run.addBreak();
         		                    	  }
         		                      }
         							 
-        							// run.setText("ÖĞ¹ú\n±ê\rÓï/r3/n33",0);
+        							// run.setText("ä¸­å›½\næ ‡\rè¯­/r3/n33",0);
         						}
         						
         					}
@@ -86,7 +86,7 @@ public class REPwordPoi {
         			}
         		}
         
-        		// ----------------------Ôö¼Ó¶àĞĞ--------------------
+        		// ----------------------å¢åŠ å¤šè¡Œ--------------------
         
          			List tables = document.getTables();
          		XWPFTable xTable = (XWPFTable) tables.get(0);
@@ -100,20 +100,20 @@ public class REPwordPoi {
          			
 		        //-------------------
          			XWPFTableRow targetRow = xTable.insertNewTableRow(index);
-         			//¸´ÖÆĞĞÊôĞÔ
+         			//å¤åˆ¶è¡Œå±æ€§
          			targetRow.getCtRow().setTrPr(tableTemp.getCtRow().getTrPr());
          			List<XWPFTableCell> cellList = tableTemp.getTableCells();
          			if (null == cellList) {
-         			   System.out.println("Ã»ÓĞ");
+         			   System.out.println("æ²¡æœ‰");
          			}
-         			//¸´ÖÆÁĞ¼°ÆäÊôĞÔºÍÄÚÈİ
+         			//å¤åˆ¶åˆ—åŠå…¶å±æ€§å’Œå†…å®¹
          			XWPFTableCell targetCell = null;
          			for(int t = 0 ; t<cellList.size();t++) {
          				XWPFTableCell sourceCell = cellList.get(t);
          				targetCell = targetRow.addNewTableCell();
-         			    //ÁĞÊôĞÔ
+         			    //åˆ—å±æ€§
          			    targetCell.getCTTc().setTcPr(sourceCell.getCTTc().getTcPr());
-         			    //¶ÎÂäÊôĞÔ
+         			    //æ®µè½å±æ€§
          			    if(sourceCell.getParagraphs()!=null&&sourceCell.getParagraphs().size()>0){                     
          			    	targetCell.getParagraphs().get(0).getCTP().setPPr(sourceCell.getParagraphs().get(0).getCTP().getPPr());
          		            if(sourceCell.getParagraphs().get(0).getRuns()!=null&&sourceCell.getParagraphs().get(0).getRuns().size()>0){
@@ -154,7 +154,7 @@ public class REPwordPoi {
 		}
 		return null;
 	}
-	//Ë®Æ½ºÏ²¢µ¥Ôª¸ñ
+	//æ°´å¹³åˆå¹¶å•å…ƒæ ¼
 	public static void mergeCellsHorizontal(XWPFTable table, int row, int fromCell, int toCell) {
 		for (int cellIndex = fromCell; cellIndex <= toCell; cellIndex++) {
 			XWPFTableCell cell = table.getRow(row).getCell(cellIndex);
@@ -167,7 +167,7 @@ public class REPwordPoi {
 			}
 		}
 	}
-	//´¹Ö±ºÏ²¢µ¥Ôª¸ñ
+	//å‚ç›´åˆå¹¶å•å…ƒæ ¼
 	public static void mergeCellsVertically(XWPFTable table, int col, int fromRow, int toRow) {
 		for (int rowIndex = fromRow; rowIndex <= toRow; rowIndex++) {
 			XWPFTableCell cell = table.getRow(rowIndex).getCell(col);

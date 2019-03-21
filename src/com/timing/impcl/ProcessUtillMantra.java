@@ -18,7 +18,7 @@ public class ProcessUtillMantra {
 	 */
 	public final boolean delRunLog(String _flowId, String _runId, String _flowVer, String _nowUserCode) {
 		Record record = null;
-		String lastAuditUser = ""; // ×îºó´¦ÀíÈË
+		String lastAuditUser = ""; // æœ€åå¤„ç†äºº
 		int rowCount = 0;
 		int colCount = 0;
 		StringBuffer doSql = new StringBuffer();
@@ -37,7 +37,7 @@ public class ProcessUtillMantra {
 			
 			lastAuditUser = record.getFieldByName("S_AUD_USER").value.toString();
 			
-			if (_nowUserCode.equals(lastAuditUser)) {// É¾³ı Êı¾İ , ÓÉÓÚ±íÖĞÎŞ¶ÀÁ¢Ö÷¼ü, ¹ÊÈ«ÌõÆ¥Åä
+			if (_nowUserCode.equals(lastAuditUser)) {// åˆ é™¤ æ•°æ® , ç”±äºè¡¨ä¸­æ— ç‹¬ç«‹ä¸»é”®, æ•…å…¨æ¡åŒ¹é…
 				
 				doSql.append("DELETE FROM T_SYS_FLOW_LOG WHERE 1=1 ");
 				

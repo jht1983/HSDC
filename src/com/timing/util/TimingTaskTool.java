@@ -41,7 +41,7 @@ public class TimingTaskTool {
 	}
 
 	public String[] nextTimeCompute(String _nextDate, String _type, String _cycles) {
-		String[] timeL = { "", "" }; // ∑µªÿ ±º‰º∆À„
+		String[] timeL = { "", "" }; // ËøîÂõûÊó∂Èó¥ËÆ°ÁÆó
 		Calendar nextDate = dateStrToCalObj(_nextDate, "yyyy-MM-dd HH:mm:ss"); // next Time Calendar
 		String[] cycleArr = null;
 		int cyclesL = 0;
@@ -52,7 +52,7 @@ public class TimingTaskTool {
 			nextDate.add(Calendar.MONTH, cyclesL);
 			timeL[1] = strSdfYmdHms.format(nextDate.getTime());
 			break;
-		case "mn": // 2018-07-08 13:32:34 ƒÍ
+		case "mn": // 2018-07-08 13:32:34 Âπ¥
 			cyclesL = Integer.parseInt(_cycles);
 			nextDate.add(Calendar.YEAR, cyclesL);
 			timeL[1] = strSdfYmdHms.format(nextDate.getTime());
@@ -80,14 +80,14 @@ public class TimingTaskTool {
 
 	/**
 	 * @param _startDate
-	 *            ø™ º ±º‰
+	 *            ÂºÄÂßãÊó∂Èó¥
 	 * @param _type
-	 *            ¿‡±
+	 *            Á±ªÂà´
 	 * @param _cycles
-	 *            º˚≥§
+	 *            ËßÅÈïø
 	 */
-	public Calendar defaultCalculation(String _startDate, String _type, String _cycles) { // ø™ º≥ı ºªØ
-		Calendar startDate = dateStrToCalObj(_startDate, "yyyy-MM-dd"); // ø™ º‘À–– ±º‰
+	public Calendar defaultCalculation(String _startDate, String _type, String _cycles) { // ÂºÄÂßãÂàùÂßãÂåñ
+		Calendar startDate = dateStrToCalObj(_startDate, "yyyy-MM-dd"); // ÂºÄÂßãËøêË°åÊó∂Èó¥
 		int cyclesL = 0;
 
 		switch (_type) {
@@ -98,7 +98,7 @@ public class TimingTaskTool {
 			startDate.set(Calendar.HOUR_OF_DAY, 0);
 			startDate.add(Calendar.MONTH, cyclesL);
 			break;
-		case "mn": // 2018-07-08 13:32:34 ƒÍ
+		case "mn": // 2018-07-08 13:32:34 Âπ¥
 			cyclesL = Integer.parseInt(_cycles);
 			startDate.set(Calendar.SECOND, 0);
 			startDate.set(Calendar.MINUTE, 0);
@@ -138,7 +138,7 @@ public class TimingTaskTool {
 	}
 
 	public void setEventClParameter(HttpServletRequest _request) {
-//		ProcessParameterVO proVo = new ProcessParameterVO(_request); // Ω‚Œˆ±Í◊º ˝æ›
+//		ProcessParameterVO proVo = new ProcessParameterVO(_request); // Ëß£ÊûêÊ†áÂáÜÊï∞ÊçÆ
 //		HashMap<String, String> setEventPar = new HashMap<String, String>();
 //		TableEx tableEx = null;
 //		Record record = null;
@@ -149,7 +149,7 @@ public class TimingTaskTool {
 //		if ("1500428508300".equals(proVo.getSpageCode())) {
 //			sql = "select T_WXDQGZJH.S_SJPL_ZQDW SYS_TYPE,T_WXDQGZJH.S_SJPL_KSRQ SYS_START,T_WXDQGZJH.S_SJPL_TJQ SYS_AHEADDay,T_WXDQGZJH.S_SJPL_XYZXMBRQ SYS_NEXTDATE,T_WXDQGZJH.S_SJPL_SYZXMBRQ SYS_LASTDATE,T_WXDQGZJH.S_SJPL_ZQ cycles,T_WXDQGZJH.S_QYZT S_QYZT from T_WXDQGZJH where S_ZJ='"
 //					+ proVo.getInpPkey() + "'";
-//		} else if ("1531376571473".equals(proVo.getSpageCode())) { //‘À––∂®∆⁄
+//		} else if ("1531376571473".equals(proVo.getSpageCode())) { //ËøêË°åÂÆöÊúü
 //			// editToSucces
 //			// 2018-07-08 18:32:56
 //			sql = "select T_YXDQGZJH_R.S_ZQDW SYS_TYPE,T_YXDQGZJH_R.S_KSRQ SYS_START,\"0\" SYS_AHEADDay,T_YXDQGZJH_R.S_XYZXRQ SYS_NEXTDATE,T_YXDQGZJH_R.S_SYZXRQ SYS_LASTDATE,T_YXDQGZJH_R.S_ZQ cycles,T_YXDQGZJH_R.S_QYZT S_QYZT from T_YXDQGZJH_R where S_ID='"
@@ -218,7 +218,7 @@ public class TimingTaskTool {
 		};
 		try {
 			for (int i = 0; i < pagecodeArr.length; i++) {
-				tableEx = dbf.query(sqlArr[i]); // ‘À––Sql
+				tableEx = dbf.query(sqlArr[i]); // ËøêË°åSql
 				recordIndex = tableEx.getRecordCount();
 			
 				for (int j = 0; j < recordIndex; j++) {
@@ -270,7 +270,7 @@ public class TimingTaskTool {
 	public void deleteEventClParameter(String spageCode, String id) {
 		Vector<HashMap<String, String>> vecGJStatus = com.timing.impcl.EventCl.getVecGJStatus();
 		HashMap<String, String> traMap = null;
-		for (int i = 0, j = vecGJStatus.size(); i < j; i++) { // ‘À––Ãı ˝
+		for (int i = 0, j = vecGJStatus.size(); i < j; i++) { // ËøêË°åÊù°Êï∞
 			traMap = vecGJStatus.get(i);
 			if (spageCode.equals(traMap.get("SYS_PAGECODE")) && id.equals(traMap.get("SYS_PK"))) {
 				vecGJStatus.remove(i);
@@ -289,7 +289,7 @@ public class TimingTaskTool {
 		DBFactory dbf = new DBFactory();
 		Vector<HashMap<String, String>> vecGJStatus = com.timing.impcl.EventCl.getVecGJStatus();
 		HashMap<String, String> traMap = null;
-		for (int i = 0, j = vecGJStatus.size(); i < j; i++) { // ‘À––Ãı ˝
+		for (int i = 0, j = vecGJStatus.size(); i < j; i++) { // ËøêË°åÊù°Êï∞
 			traMap = vecGJStatus.get(i);
 			if (_sPageCode.equals(traMap.get("SYS_PAGECODE")) && _id.equals(traMap.get("SYS_PK"))) {
 				// 01_YQY is on, 02_TY is off
@@ -325,7 +325,7 @@ public class TimingTaskTool {
 		Vector<HashMap<String, String>> vecGJStatus = com.timing.impcl.EventCl.getVecGJStatus();
 		HashMap<String, String> traMap = null;
 		String startDate, type, cycles, SYS_NEXTDATE;
-		for (int i = 0, j = vecGJStatus.size(); i < j; i++) { // ‘À––Ãı ˝
+		for (int i = 0, j = vecGJStatus.size(); i < j; i++) { // ËøêË°åÊù°Êï∞
 			traMap = vecGJStatus.get(i);
 			if (_sPageCode.equals(traMap.get("SYS_PAGECODE")) && _id.equals(traMap.get("SYS_PK"))) {
 				// 01_YQY is on, 02_TY is off
@@ -430,7 +430,7 @@ public class TimingTaskTool {
 			String sys_org = hmp.get("SYS_ORG");
 			String sql = "";
 			String people = "";
-			if ("1500428508300".equals(sys_pageCode)) { // Œ¨–ﬁ∂®∆⁄π§◊˜
+			if ("1500428508300".equals(sys_pageCode)) { // Áª¥‰øÆÂÆöÊúüÂ∑•‰Ωú
 				String plansToField = "T_WXDQGZJH.S_ZXXX_WWZXDW,T_WXDQGZJH.S_ZXXX_WWZXDW_BM,T_WXDQGZJH.S_JZ,T_WXDQGZJH.S_SBMC,T_WXDQGZJH.S_SBBM,T_WXDQGZJH.S_GZNR,T_WXDQGZJH.S_GZYQ,'"+hmp.get("SYS_LASTDATE")+"','"+hmp.get("SYS_LASTDATE")+"',T_WXDQGZJH.S_ZXXX_ZY,T_WXDQGZJH.S_ZXXX_DQGZFZR,T_WXDQGZJH.S_ZZ,<<SYS_GENER_ID>>,<<FLOW_ID>>,<<UUID>>";
 				String performField = "T_WXDQGZZX.S_ZXXX_WWZXDW,T_WXDQGZZX.S_ZXXX_WWZXDW_BM,T_WXDQGZZX.S_JZ,T_WXDQGZZX.S_SBMC,T_WXDQGZZX.S_SBBM,T_WXDQGZZX.S_GZNR,T_WXDQGZZX.S_GZYQ,T_WXDQGZZX.S_JHZXSJ,T_WXDQGZZX.S_JHZXSJ_E,T_WXDQGZZX.S_ZY,T_WXDQGZZX.S_DQGZFZR,T_WXDQGZZX.S_ZZ,T_WXDQGZZX.S_ZJ,T_WXDQGZZX.SYS_FLOW_VER,T_WXDQGZZX.S_RUN_ID";
 				sql = "insert into T_WXDQGZZX (" + performField + ") select " + plansToField
@@ -439,8 +439,8 @@ public class TimingTaskTool {
 				tableEx = new TableEx("S_ZXXX_WWZXDW_BM S_BZ,T_WXDQGZJH.S_GZNR S_GZNR", "T_WXDQGZJH", "S_ZJ='" + sys_pk + "'");
 
 				people = findPeopleByTeam(sys_org, getStrByRecord(tableEx.getRecord(0), "S_BZ"));
-				// ≤È’“‘À––∞‡◊ÈµƒÀ˘”–»À‘±
-				sql = tool.sqlDisCom(sql, "pageCode=1500428518499&bmid=" + sys_org); // ¥¶¿ÌSQL
+				// Êü•ÊâæËøêË°åÁè≠ÁªÑÁöÑÊâÄÊúâ‰∫∫Âëò
+				sql = tool.sqlDisCom(sql, "pageCode=1500428518499&bmid=" + sys_org); // Â§ÑÁêÜSQL
 				
 				dbf.sqlExe(sql.toString(), false);
 				tool.recordRel(sys_org, sys_pageCode, sys_pk, "T_WXDQGZJH", "1500428518499", tool.getOrdGreId(),
@@ -453,7 +453,7 @@ public class TimingTaskTool {
 						+ hmp.get("SYS_NEXTDATE") + "' where S_ZJ='" + sys_pk + "'";
 	
 				
-			}else if("1531376571473".equals(sys_pageCode)){//‘À––
+			}else if("1531376571473".equals(sys_pageCode)){//ËøêË°å
 
 				String plansToField = "T_YXDQGZJH_R.S_FZZY,T_YXDQGZJH_R.T_BC,T_YXDQGZJH_R.T_BCBM,T_YXDQGZJH_R.s_zz,<<SYS_GENER_ID>>,<<FLOW_ID>>,<<UUID>>,T_YXDQGZJH_R.S_DJH,T_YXDQGZJH_R.S_DQGZZXR,T_YXDQGZJH_R.S_DQGZZXR_BM,T_YXDQGZJH_R.S_LBZ,T_YXDQGZJH_R.S_LBZ_BM,T_YXDQGZJH_R.S_SBBM,T_YXDQGZJH_R.S_SBMC,T_YXDQGZJH_R.T_GZNR,'"+hmp.get("SYS_LASTDATE")+"'" ;
 				String performField = "T_YXDQGZZX_R.S_ZY,T_YXDQGZZX_R.S_BC,T_YXDQGZZX_R.S_BCBM,T_YXDQGZZX_R.s_zz,T_YXDQGZZX_R.S_ID,T_YXDQGZZX_R.SYS_FLOW_VER,T_YXDQGZZX_R.S_RUN_ID,T_YXDQGZZX_R.S_LYDJBM,T_YXDQGZZX_R.S_BG_DQGZFZR,T_YXDQGZZX_R.S_BG_DQGZZXR_BM,T_YXDQGZZX_R.S_LBZ,T_YXDQGZZX_R.S_LBZ_BM,T_YXDQGZZX_R.S_SBBM,T_YXDQGZZX_R.S_SBMC,T_YXDQGZZX_R.T_GZNR,T_YXDQGZZX_R.S_JHZXSJ";
@@ -466,10 +466,10 @@ public class TimingTaskTool {
 	
 				people = findPeopleByDuty(getStrByRecord(tableEx.getRecord(0), "LB"),strSdfYmdx.format(new Date()),getStrByRecord(tableEx.getRecord(0), "BC"));
 				
-				sql = tool.sqlDisCom(sql, "pageCode=1531366190826&bmid=" + sys_org); // ¥¶¿ÌSQL
+				sql = tool.sqlDisCom(sql, "pageCode=1531366190826&bmid=" + sys_org); // Â§ÑÁêÜSQL
 				
 				dbf.sqlExe(sql.toString(), false);
-				//πÿœµÕº
+				//ÂÖ≥Á≥ªÂõæ
 //				tool.recordRel(sys_org, sys_pageCode, sys_pk, "T_WXDQGZJH", "1500428518499", tool.getOrdGreId(),
 //						"T_WXDQGZZX");
 				

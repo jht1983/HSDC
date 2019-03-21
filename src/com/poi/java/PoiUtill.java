@@ -30,11 +30,11 @@ public class PoiUtill {
 		switch (i) {
 		case 0:
 			titleFont = wb.createFont();
-			titleFont.setFontName("ºÚÌå");
+			titleFont.setFontName("é»‘ä½“");
 			titleFont.setFontHeightInPoints((short)13);
 			
 			contentFont = wb.createFont();
-			contentFont.setFontName("ËÎÌå");
+			contentFont.setFontName("å®‹ä½“");
 			contentFont.setFontHeightInPoints((short)12);
 			
 			titleStyle = wb.createCellStyle();
@@ -64,25 +64,25 @@ public class PoiUtill {
 	public void createExcel() {
 
 		try {
-			String [] ExcelL = {"×éÖ¯","È±Ïİ±àºÅ","È±ÏİÀà±ğ","È±ÏİĞÔÖÊ","È±Ïİ×´Ì¬","Éè±¸±àÂë"};
-			String [] ExcelL2 = {"×éÖ¯12321321","È±111Ïİ±àºÅ","È±ÏİÀà±ğ","È±ÏİĞÔÖÊ","È±Ïİ×´Ì¬","Éè±¸±àÂë"};
-			HSSFWorkbook wb = new HSSFWorkbook();//´´½¨Ò»¸öÕûÌåµÄÎÄ¼ş¶ÔÏó
+			String [] ExcelL = {"ç»„ç»‡","ç¼ºé™·ç¼–å·","ç¼ºé™·ç±»åˆ«","ç¼ºé™·æ€§è´¨","ç¼ºé™·çŠ¶æ€","è®¾å¤‡ç¼–ç "};
+			String [] ExcelL2 = {"ç»„ç»‡12321321","ç¼º111é™·ç¼–å·","ç¼ºé™·ç±»åˆ«","ç¼ºé™·æ€§è´¨","ç¼ºé™·çŠ¶æ€","è®¾å¤‡ç¼–ç "};
+			HSSFWorkbook wb = new HSSFWorkbook();//åˆ›å»ºä¸€ä¸ªæ•´ä½“çš„æ–‡ä»¶å¯¹è±¡
 			init(0,wb);
-			HSSFSheet sheet = wb.createSheet("first sheet"); //´´½¨µÚÒ»¸öÒ³Ç©
-			sheet.setDefaultColumnWidth(30); //ÉèÖÃ¿í
+			HSSFSheet sheet = wb.createSheet("first sheet"); //åˆ›å»ºç¬¬ä¸€ä¸ªé¡µç­¾
+			sheet.setDefaultColumnWidth(30); //è®¾ç½®å®½
 			
-			HSSFRow row = sheet.createRow(0);   //µÃµ½µÚÒ»ĞĞ
+			HSSFRow row = sheet.createRow(0);   //å¾—åˆ°ç¬¬ä¸€è¡Œ
 			for(int i = 0 , j =  ExcelL.length ; i<j ; i ++) {
 				row.createCell(i).setCellValue(ExcelL[i]);
 				row.getCell(i).setCellStyle(titleStyle);
 			}
 			
-			row = sheet.createRow(1);   //µÃµ½µÚ¶şĞĞ
+			row = sheet.createRow(1);   //å¾—åˆ°ç¬¬äºŒè¡Œ
 			for(int i = 0 , j =  ExcelL2.length ; i<j ; i ++) {
 				row.createCell(i).setCellValue(ExcelL2[i]);
 				row.getCell(i).setCellStyle(contentStyle);
 			}
-			row = sheet.createRow(2);   //µÃµ½µÚ¶şĞĞ
+			row = sheet.createRow(2);   //å¾—åˆ°ç¬¬äºŒè¡Œ
 			for(int i = 0 , j =  ExcelL2.length ; i<j ; i ++) {
 				row.createCell(i).setCellValue(ExcelL2[i]);
 				row.getCell(i).setCellStyle(contentStyle);

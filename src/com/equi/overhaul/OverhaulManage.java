@@ -17,58 +17,58 @@ public class OverhaulManage {
 	ProcessParameterVO proVo = null;
 
 	/*
-	 * StandardOverHaul:¼ìĞŞ±ê×¼¹¤×÷°ü
+	 * StandardOverHaul:æ£€ä¿®æ ‡å‡†å·¥ä½œåŒ…
 	 * 
 	 */
 	public boolean StandardOverHaul(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 
 		return true;
 	}
 
 	/*
-	 * SummaryOverhaulPlan:»ã×Ü¼ìĞŞ¼Æ»®
+	 * SummaryOverhaulPlan:æ±‡æ€»æ£€ä¿®è®¡åˆ’
 	 * 
 	 */
 	public boolean SummaryOverhaulPlan(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
-		HashMap<String, String> breakUp = new HashMap<String, String>(); // ²ğ·ÖHash
-		MantraUtil tool = new MantraUtil(); // ¹¤¾ßÀà
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
+		HashMap<String, String> breakUp = new HashMap<String, String>(); // æ‹†åˆ†Hash
+		MantraUtil tool = new MantraUtil(); // å·¥å…·ç±»
 		TableEx tableEx = null;
 		Record record = null;
 		DBFactory dbf = new DBFactory();
-		String splitCon = "T_HZJXJH_F.S_BDHF Mantra_splitCondition"; // ²ğ·ÖÌõ¼ş
+		String splitCon = "T_HZJXJH_F.S_BDHF Mantra_splitCondition"; // æ‹†åˆ†æ¡ä»¶
 		String[] basicData = {
 				"T_HZJXJH.S_ZJ,T_HZJXJH.S_JHMC,T_HZJXJH.S_JZH,T_HZJXJH.S_JXLX,T_HZJXJH.S_JHLX,T_HZJXJH.S_JHZFY,<<FLOW_ID>>,<<UUID>>,<<SYS_GENER_ID>>,T_HZJXJH.S_ZZ",
 				"T_JXZJHFJ.S_GLID,T_JXZJHFJ.S_MC,T_JXZJHFJ.S_JZH,T_JXZJHFJ.S_JXLX,T_JXZJHFJ.S_JHLX,T_JXZJHFJ.S_JHZFY,T_JXZJHFJ.SYS_FLOW_VER,T_JXZJHFJ.S_RUN_ID,T_JXZJHFJ.S_ZJ,T_JXZJHFJ.S_ZZ",
 				"<<SYS_GENER_ID>>,<<S_FID>>,T_HZJXJH_F.S_BZ,T_HZJXJH_F.S_JHFY,T_HZJXJH_F.S_JXXM,T_HZJXJH_F.S_SBBM,T_HZJXJH_F.S_SBBJMC,T_HZJXJH_F.S_XMFZR,T_HZJXJH_F.S_XMFZR_BM,T_HZJXJH_F.S_ZLBZ,T_HZJXJH_F.S_ZY,T_HZJXJH_F.S_ID",
 				"T_JXZJHFJSB.S_ZJ,T_JXZJHFJSB.S_PID,T_JXZJHFJSB.S_BZ,T_JXZJHFJSB.S_JHFY,T_JXZJHFJSB.S_JXXM,T_JXZJHFJSB.S_SBBM,T_JXZJHFJSB.S_SBMC,T_JXZJHFJSB.S_XMFZR,T_JXZJHFJSB.S_XMFZR_BM,T_JXZJHFJSB.S_ZLBZHYQ,T_JXZJHFJSB.S_ZY,T_JXZJHFJSB.S_BM",
-				"T_HZJXJH.S_ZJ = T_HZJXJH_F.S_PID", "T_JXZJHFJ.S_ID = T_JXZJHFJSB.S_PID" }; // ¶ÔÓ¦Êı¾İ
+				"T_HZJXJH.S_ZJ = T_HZJXJH_F.S_PID", "T_JXZJHFJ.S_ID = T_JXZJHFJSB.S_PID" }; // å¯¹åº”æ•°æ®
 		try {
 
 			tableEx = new TableEx(splitCon + ",T_HZJXJH_F.S_ID Mantra_SON_S_ID ",
 					"T_HZJXJH left join T_HZJXJH_F on " + basicData[4],
 					" T_HZJXJH.S_ZJ='" + proVo.getInpPkey() + "' order by T_HZJXJH_F.S_ID;");
 
-			int recordIndex = tableEx.getRecordCount(); // »ñÈ¡Êı¾İ¿âÖĞ¶ÔÓ¦ÕâÌõ±íµ¥µÄËùÓĞ²ÎÊı
+			int recordIndex = tableEx.getRecordCount(); // è·å–æ•°æ®åº“ä¸­å¯¹åº”è¿™æ¡è¡¨å•çš„æ‰€æœ‰å‚æ•°
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				String splitCond = record.getFieldByName("Mantra_splitCondition").value.toString();
-				String insertSql = ""; // ÔËĞĞÌí¼ÓµÄSQL ±äÁ¿
+				String insertSql = ""; // è¿è¡Œæ·»åŠ çš„SQL å˜é‡
 				splitCond = "".equals(splitCond)?"sys_NULLBYdefault":splitCond;
-				if (breakUp.get(splitCond) == null) { // ÅĞ¶ÏÊÇ·ñĞèÒª²ğ·Ö
+				if (breakUp.get(splitCond) == null) { // åˆ¤æ–­æ˜¯å¦éœ€è¦æ‹†åˆ†
 
 					insertSql = "insert into T_JXZJHFJ (" + basicData[1] + ") select " + basicData[0]
 							+ " from  T_HZJXJH  where T_HZJXJH.S_ZJ='" + proVo.getInpPkey() + "'";
 
-					insertSql = tool.sqlDisCom(insertSql, "pageCode=1516168904786&bmid=" + proVo.getBranck());// ·­ÒëSQL
+					insertSql = tool.sqlDisCom(insertSql, "pageCode=1516168904786&bmid=" + proVo.getBranck());// ç¿»è¯‘SQL
 
-					dbf.sqlExe(insertSql, true);// ÔËĞĞSQL¿ªÆôÊÂÎñ
+					dbf.sqlExe(insertSql, true);// è¿è¡ŒSQLå¼€å¯äº‹åŠ¡
 
 					tool.recordRel(proVo.getBranck(), proVo.getSpageCode(), proVo.getInpPkey(), "T_HZJXJH",
-							"1516168904786", tool.getOrdGreId(), "T_JXZJHFJ"); // ´´½¨¹ØÏµ
+							"1516168904786", tool.getOrdGreId(), "T_JXZJHFJ"); // åˆ›å»ºå…³ç³»
 
-					breakUp.put(splitCond, tool.getOrdGreId()); // ÉèÖÃ²ğ·ÖÌõ¼ş
+					breakUp.put(splitCond, tool.getOrdGreId()); // è®¾ç½®æ‹†åˆ†æ¡ä»¶
 				}
 				String SPLITCONDID = breakUp.get(splitCond);
 
@@ -78,9 +78,9 @@ public class OverhaulManage {
 						+ " from  T_HZJXJH_F where T_HZJXJH_F.S_ID='" + sonId + "' and  T_HZJXJH_F.S_PID  = '"
 						+ proVo.getInpPkey() + "';";
 
-				insertSql = tool.sqlDisCom(insertSql, "S_FID=" + SPLITCONDID + "&pageCode=&bmid="); // ·­ÒëSQL
+				insertSql = tool.sqlDisCom(insertSql, "S_FID=" + SPLITCONDID + "&pageCode=&bmid="); // ç¿»è¯‘SQL
 
-				tool.recordRel(proVo.getBranck(), "", sonId, "T_HZJXJH_F", "", tool.getOrdGreId(), "T_JXZJHFJSB");// ´´½¨¹ØÏµ
+				tool.recordRel(proVo.getBranck(), "", sonId, "T_HZJXJH_F", "", tool.getOrdGreId(), "T_JXZJHFJSB");// åˆ›å»ºå…³ç³»
 
 				if (i + 1 == recordIndex) {
 					dbf.sqlExe(insertSql, false);
@@ -101,12 +101,12 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * ProfessionalOverhaulPlan:×¨Òµ¼ìĞŞ¼Æ»®
+	 * ProfessionalOverhaulPlan:ä¸“ä¸šæ£€ä¿®è®¡åˆ’
 	 * 
 	 */
 	public boolean ProfessionalOverhaulPlan(HttpServletRequest _request) {
 		MantraUtil tool = new MantraUtil();
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		TableEx tableEx = null;
 		Record record = null;
 		DBFactory dbf = new DBFactory();
@@ -155,11 +155,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * OverHaulTheReport:¼ìĞŞÇ°Éè±¸ÆÀ¼Û±¨¸æ
+	 * OverHaulTheReport:æ£€ä¿®å‰è®¾å¤‡è¯„ä»·æŠ¥å‘Š
 	 * 
 	 */
 	public boolean OverHaulTheReport(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -197,11 +197,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * Fileverification:[ÍâÎ¯]ÎÄ¼şºË²é
+	 * Fileverification:[å¤–å§”]æ–‡ä»¶æ ¸æŸ¥
 	 * 
 	 */
 	public boolean FileVerification(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -239,11 +239,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * SecurityClarificaiton:°²È«½»µ×
+	 * SecurityClarificaiton:å®‰å…¨äº¤åº•
 	 * 
 	 */
 	public boolean SecurityClarificaiton(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -284,11 +284,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * OverhaulStartReport:¼ìĞŞ¿ª¹¤±¨¸æ
+	 * OverhaulStartReport:æ£€ä¿®å¼€å·¥æŠ¥å‘Š
 	 * 
 	 */
 	public boolean OverhaulStartReport(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -321,7 +321,7 @@ public class OverhaulManage {
 						proVo.getInpPkey(), "T_JXKGBG");
 
 
-				RelationVO rel = tool.getDataByRel("RIGHT", sumOver, "T_JXZJHFJ", 2).get(0); // ²éÕÒ»ã×Ü¼ìĞŞ¼Æ»®,¼°±ê×¼»¯¼ìĞŞ
+				RelationVO rel = tool.getDataByRel("RIGHT", sumOver, "T_JXZJHFJ", 2).get(0); // æŸ¥æ‰¾æ±‡æ€»æ£€ä¿®è®¡åˆ’,åŠæ ‡å‡†åŒ–æ£€ä¿®
 
 				String RenoRepl = getRenovationReplyById(sumOver);
 				
@@ -344,7 +344,7 @@ public class OverhaulManage {
 
 	public String getRenovationReplyById(String _jgid) {
 		StringBuffer retStr = new StringBuffer();
-		proVo = new ProcessParameterVO(); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -376,11 +376,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * OverhaulPerform:¼ìĞŞÖ´ĞĞ
+	 * OverhaulPerform:æ£€ä¿®æ‰§è¡Œ
 	 * 
 	 */
 	public boolean OverhaulPerform(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -420,11 +420,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * OverhaulQualityCheckPerform:¼ìĞŞÖÊÁ¿ÑéÊÕ±¨¸æ
+	 * OverhaulQualityCheckPerform:æ£€ä¿®è´¨é‡éªŒæ”¶æŠ¥å‘Š
 	 * 
 	 */
 	public boolean OverhaulQualityCheckPerform(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -453,7 +453,7 @@ public class OverhaulManage {
 						proVo.getInpPkey(), "T_JXZLYSBG");
 
 				
-				RelationVO rel = tool.getDataByRel("RIGHT", sumOver, "T_JXKGBG", 3).get(0); // ²éÕÒ»ã×Ü¼ìĞŞ¼Æ»®,¼°±ê×¼»¯¼ìĞŞ
+				RelationVO rel = tool.getDataByRel("RIGHT", sumOver, "T_JXKGBG", 3).get(0); // æŸ¥æ‰¾æ±‡æ€»æ£€ä¿®è®¡åˆ’,åŠæ ‡å‡†åŒ–æ£€ä¿®
 
 				String RenoRepl = getRenovationReplyById(rel.getS_LEFT_ID());
 				
@@ -481,11 +481,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * ProjectAccPerform:ÏîÄ¿ÑéÊÕ
+	 * ProjectAccPerform:é¡¹ç›®éªŒæ”¶
 	 * 
 	 */
 	public boolean ProjectAccPerform(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -525,11 +525,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * OverhaulTestRunPerform:¼ìĞŞÊÔÔËÆÀ¼Û
+	 * OverhaulTestRunPerform:æ£€ä¿®è¯•è¿è¯„ä»·
 	 * 
 	 */
 	public boolean OverhaulTestRunPerform(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -569,11 +569,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * OverhaulCompletePerform:¼ìĞŞ¿¢¹¤×Ü½á±¨¸æ
+	 * OverhaulCompletePerform:æ£€ä¿®ç«£å·¥æ€»ç»“æŠ¥å‘Š
 	 * 
 	 */
 	public boolean OverhaulCompletePerform(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -614,11 +614,11 @@ public class OverhaulManage {
 	}
 
 	/*
-	 * OverhaulReviewPerform:¼ìĞŞ¹¤³ÌÈ«ÃæÖÊÁ¿ÆÀÉó±¨¸æ
+	 * OverhaulReviewPerform:æ£€ä¿®å·¥ç¨‹å…¨é¢è´¨é‡è¯„å®¡æŠ¥å‘Š
 	 * 
 	 */
 	public boolean OverhaulReviewPerform(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -660,11 +660,11 @@ public class OverhaulManage {
 	}
 	
 	/*
-	 * OverhaulDecomp:¼ìĞŞ·Ö½â
+	 * OverhaulDecomp:æ£€ä¿®åˆ†è§£
 	 * 
 	 */
 	public boolean OverhaulDecomp(HttpServletRequest _request) {
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		MantraUtil tool = new MantraUtil();
 		TableEx tableEx = null;
 		Record record = null;
@@ -681,11 +681,11 @@ public class OverhaulManage {
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
-				if("true".equals(tool.getStrByRecord(record, "S_SFWW"))){//ÍâÎ¯
+				if("true".equals(tool.getStrByRecord(record, "S_SFWW"))){//å¤–å§”
 					String generId = EString.generId();
-					String strJxlx =tool.getStrByRecord(record,"S_JXLX");//¼ìĞŞÀàĞÍ
+					String strJxlx =tool.getStrByRecord(record,"S_JXLX");//æ£€ä¿®ç±»å‹
 					StringBuffer sbr = new StringBuffer();
-					String strFlowVersion = tool.getFlowVer(proVo.getSpageCode(),tool.getStrByRecord(record,"S_ZZ")); //ÔËĞĞ°æ±¾
+					String strFlowVersion = tool.getFlowVer(proVo.getSpageCode(),tool.getStrByRecord(record,"S_ZZ")); //è¿è¡Œç‰ˆæœ¬
 					sbr.append("insert into T_WWXM (SYS_FLOW_VER,S_RUN_ID,S_HTH,S_XMMC,S_GQKSSJ,S_GQJSSJ,S_WWDW,S_WWDWID,S_YFFZR,S_JFFZR,S_JXJG,S_ZZ,S_BGRQ,S_ZDR,S_ZDSJ,S_XGR,S_XGSJ,S_BS_JD,S_ID,S_FJID) ");
 					sbr.append("select '"+strFlowVersion+"' AS 'SYS_FLOW_VER', '"+EString.generId()+"' AS 'S_RUN_ID','' AS 'S_HTH',S_MC  AS 'S_XMMC',S_KSSJ  AS 'S_GQKSSJ',S_JSSJ AS 'S_GQJSSJ',S_WWDW AS 'S_WWDW',S_WWDWID AS 'S_WWDWID',S_YFZR AS 'S_YFFZR',S_FZR AS 'S_JFFZR','true' AS 'S_JXJG',S_ZZ AS 'S_ZZ','"+EString.getCurDate()+"'  AS 'S_BGRQ',S_ZDR AS 'S_ZDR','"+EString.getCurDate()+"' AS 'S_ZDSJ',S_ZHXGR AS 'S_XGR','"+EString.getCurDate()+"' AS 'S_XGSJ','' AS 'S_BS_JD','"+generId+"' AS 'S_ID',S_ZJ AS 'S_FJID' from T_JXZJHFJ where T_JXZJHFJ.S_ZJ='");
 					sbr.append( proVo.getInpPkey());

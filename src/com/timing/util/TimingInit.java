@@ -23,25 +23,25 @@ public class TimingInit {
 	}
 
 	public HashMap<String, String> InsertAttr(HttpServletRequest request) {
-		HashMap<String, String> vecAddDate = new HashMap<String, String>(); // ·µ»ØµÄHashMap
-		Map inputDataMap = request.getParameterMap(); // »ñÈ¡´«½øÀ´µÄËùÓĞ²ÎÊı
-		Iterator entries = inputDataMap.entrySet().iterator(); // ´´½¨µü´úÆ÷
-		String _strSplitN = ",";// ÇĞ¸î·ûºÅ-±äÁ¿
+		HashMap<String, String> vecAddDate = new HashMap<String, String>(); // è¿”å›çš„HashMap
+		Map inputDataMap = request.getParameterMap(); // è·å–ä¼ è¿›æ¥çš„æ‰€æœ‰å‚æ•°
+		Iterator entries = inputDataMap.entrySet().iterator(); // åˆ›å»ºè¿­ä»£å™¨
+		String _strSplitN = ",";// åˆ‡å‰²ç¬¦å·-å˜é‡
 		try {
 			while (entries.hasNext()) {
-				Map.Entry entry = (Map.Entry) entries.next(); // µÃµ½µ±Ç°µÄ KEYVALUE entryĞÎÊ½
-				String sys_PageKey = (String) entry.getKey(); // µÃµ½KEY
+				Map.Entry entry = (Map.Entry) entries.next(); // å¾—åˆ°å½“å‰çš„ KEYVALUE entryå½¢å¼
+				String sys_PageKey = (String) entry.getKey(); // å¾—åˆ°KEY
 				sys_PageKey.substring(sys_PageKey.indexOf("$") + 1);
 				if (sys_PageKey.indexOf("NO_") == 0)
-					continue; // ¹ıÂËNO_¿ªÍ·µÄ
+					continue; // è¿‡æ»¤NO_å¼€å¤´çš„
 				if (sys_PageKey.indexOf("$") == 0)
-					continue; // ¹ıÂË$¿ªÍ·µÄ
+					continue; // è¿‡æ»¤$å¼€å¤´çš„
 				StringBuffer sys_PageValue = new StringBuffer();
-				for (String a : (String[]) entry.getValue()) { // Èç¹ûÊı¾İÖØ¸´ Æ´½Ó
+				for (String a : (String[]) entry.getValue()) { // å¦‚æœæ•°æ®é‡å¤ æ‹¼æ¥
 					sys_PageValue.append(new String(a.getBytes("iso8859-1"), "GBK"));
 					sys_PageValue.append(_strSplitN);
 				}
-				vecAddDate.put(sys_PageKey, sys_PageValue.substring(0, sys_PageValue.length() - _strSplitN.length())); // Ïò·µ»ØµÄHashMap
+				vecAddDate.put(sys_PageKey, sys_PageValue.substring(0, sys_PageValue.length() - _strSplitN.length())); // å‘è¿”å›çš„HashMap
 			}
 		} catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
@@ -55,10 +55,10 @@ public class TimingInit {
 //		switch (pageCode) {
 //		case "1500428508300":
 //			EventCl.vecGJStatus.add(getTabelAllData("T_WXDQGZJH", "T_WXDQGZJH.S_ZJ = '"+id+"'"));
-//			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "Î¬ĞŞ¶¨Ê±ÈÎÎñÌí¼Ó");
+//			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "ç»´ä¿®å®šæ—¶ä»»åŠ¡æ·»åŠ ");
 //			break;
 //		default:
-//			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "¶¨Ê±ÈÎÎñÈ±Ê¡²»Ìí¼Ó");
+//			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "å®šæ—¶ä»»åŠ¡ç¼ºçœä¸æ·»åŠ ");
 //			break;
 //		}
 		return true;

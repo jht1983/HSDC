@@ -10,13 +10,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
     /*
-    *   °²È«ĞÔ²éÆÀÏîÄ¿
+    *   å®‰å…¨æ€§æŸ¥è¯„é¡¹ç›®
     */
 public class SafetyInquireTool {
 	ProcessParameterVO proParVo = null;
 	MantraUtil tool = new MantraUtil();
 	//MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,primaryKey);
-    // »ã×ÜÉú³É²¿ÃÅ
+    // æ±‡æ€»ç”Ÿæˆéƒ¨é—¨
 	public void SafetyInquireSum(HttpServletRequest request) {
 		String primaryKey = request.getParameter("S_ID");
 		if(primaryKey == null && primaryKey.trim().length() > 0){
@@ -43,8 +43,8 @@ public class SafetyInquireTool {
 				sonId=record.getFieldByName("sonId").value.toString();
 				String [] sonIdArr = sonId.split(",");
 				String [] Leander = mu.getBranchLeader(S_FZBM_BM);
-				shortUUID = mu.getShortUuid();    // ¿É¸´ÖÆ
-				flowVer = mu.getFlowVer("151772091835710956",S_ZZ);  // ¿É¸´ÖÆ
+				shortUUID = mu.getShortUuid();    // å¯å¤åˆ¶
+				flowVer = mu.getFlowVer("151772091835710956",S_ZZ);  // å¯å¤åˆ¶
 				
 				dbf.sqlExe("insert into T_BMAQXCP "
 						+ "(T_BMAQXCP.S_WXZZ,T_BMAQXCP.S_BMCPDBM,T_BMAQXCP.S_CPYT,T_BMAQXCP.S_DJRQ,T_BMAQXCP.S_CPZFZR,T_BMAQXCP.S_CPZFZRBM,T_BMAQXCP.S_CPRQ,T_BMAQXCP.S_FZBM,T_BMAQXCP.S_FZBM_BM,T_BMAQXCP.S_FZR,T_BMAQXCP.S_FZR_BM,T_BMAQXCP.S_ID,T_BMAQXCP.SYS_FLOW_VER,T_BMAQXCP.S_RUN_ID)"
@@ -74,7 +74,7 @@ public class SafetyInquireTool {
 				tableEx.close();
 		}
 	}
-	// ²¿ÃÅÉú³É¸ºÔğÈË   °²È«ĞÔ²éÆÀ
+	// éƒ¨é—¨ç”Ÿæˆè´Ÿè´£äºº   å®‰å…¨æ€§æŸ¥è¯„
 	public void SafetyInquireBranch(HttpServletRequest request) {  
 		String primaryKey = request.getParameter("S_ID");
 		if(primaryKey == null && primaryKey.trim().length() > 0){
@@ -107,8 +107,8 @@ public class SafetyInquireTool {
 				sonId=record.getFieldByName("sonId").value.toString();
 				String [] sonIdArr = sonId.split(",");
 				
-				shortUUID = mu.getShortUuid();    // ¿É¸´ÖÆ
-				flowVer = mu.getFlowVer("151772214830210983",S_ZZ);  // ¿É¸´ÖÆ
+				shortUUID = mu.getShortUuid();    // å¯å¤åˆ¶
+				flowVer = mu.getFlowVer("151772214830210983",S_ZZ);  // å¯å¤åˆ¶
 				dbf.sqlExe("insert into T_FZRAQXCP "
 						+ "(T_FZRAQXCP.S_WXZZ,T_FZRAQXCP.S_DJRQ,T_FZRAQXCP.S_FZRPFBM,T_FZRAQXCP.S_CPYT,T_FZRAQXCP.S_CPZFZR,T_FZRAQXCP.S_CPZFZR_BM,T_FZRAQXCP.S_CPRQ,T_FZRAQXCP.S_FZBM,T_FZRAQXCP.S_FZBM_BM,T_FZRAQXCP.S_FZR,T_FZRAQXCP.S_FZR_BM,T_FZRAQXCP.S_CPXMFZR,T_FZRAQXCP.S_CPXMFZR_BM,T_FZRAQXCP.S_ID,T_FZRAQXCP.SYS_FLOW_VER,T_FZRAQXCP.S_RUN_ID) "
 						+ "select T_BMAQXCP.S_WXZZ,T_BMAQXCP.S_DJRQ,T_BMAQXCP.S_DJBM,T_BMAQXCP.S_CPYT,T_BMAQXCP.S_CPZFZR,T_BMAQXCP.S_CPZFZRBM,T_BMAQXCP.S_CPRQ,T_BMAQXCP.S_FZBM,T_BMAQXCP.S_FZBM_BM,T_BMAQXCP.S_FZR,T_BMAQXCP.S_FZR_BM,'"+FZR+"','"+FZR_BM+"','"+S_ID+"','"+flowVer+"','"+shortUUID+"' "
@@ -149,7 +149,7 @@ public class SafetyInquireTool {
 				tableEx.close();
 		}
 	}
-	//¸ºÔğÈË
+	//è´Ÿè´£äºº
 	public void SafetyInquireLeader(HttpServletRequest request) {  
 		String primaryKey = request.getParameter("S_ID");
 		if(primaryKey == null && primaryKey.trim().length() > 0){
@@ -188,7 +188,7 @@ public class SafetyInquireTool {
 				dbf.close();
 		}
 	}
-	// »ã×ÜÉú³ÉÕû¸Äµ¥
+	// æ±‡æ€»ç”Ÿæˆæ•´æ”¹å•
 	public void SafetyInquireToRect(HttpServletRequest request) {  
 		String [] basicData= {
 				"T_AQXCPXMHZ.S_DJRQ,T_AQXCPXMHZ.S_CPHZD,T_AQXCPXMHZ.S_CPRQ,T_AQXCPXMHZ.S_CPYT,T_AQXCPXMHZ.S_CPZFZR,T_AQXCPXMHZ.S_ZZ,<<SYS_GENER_ID>>,<<FLOW_ID>>,<<UUID>>",
@@ -262,7 +262,7 @@ public class SafetyInquireTool {
 				dbf.close();
 		}
 	}
-	//×Ô²éÕû¸Ä
+	//è‡ªæŸ¥æ•´æ”¹
 	public void SafetyInquireToSelf(HttpServletRequest request) {  
 		proParVo = new ProcessParameterVO(request);
 		TableEx tableEx = null;
@@ -292,7 +292,7 @@ public class SafetyInquireTool {
 		
 		//RelationVO leftData = (RelationVO)tool.getDataByRel("RIGHT",sonIdArr[j],"T_BMAQXCP_SON",1).get(0);
 	}
-	// »ã×ÜÉú³É×¨¼ÒÕû¸Ä
+	// æ±‡æ€»ç”Ÿæˆä¸“å®¶æ•´æ”¹
 	public void SafetyInquireToExperts(HttpServletRequest request) {  
 		String [] basicData= {
 				"T_AQXCPXMHZ.S_ZZ,T_AQXCPXMHZ.S_DJRQ,T_AQXCPXMHZ.S_CPYT,T_AQXCPXMHZ.S_CPZFZR,T_AQXCPXMHZ.S_CPZFZR_BM,T_AQXCPXMHZ.S_CPRQ,T_AQXCPXMHZ.S_CPHZD,<<SYS_GENER_ID>>,<<FLOW_ID>>,<<UUID>>",

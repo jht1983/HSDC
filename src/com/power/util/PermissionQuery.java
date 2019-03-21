@@ -20,14 +20,14 @@ public class PermissionQuery {
 	private static String _tableCol = "T_ASSFILED assFiled";
 
 	public StringBuffer ModPowerMeter(String _modId, HttpServletRequest _request) {
-		Pub pub = new Pub(); //pubÀà·½·¨
+		Pub pub = new Pub(); //pubç±»æ–¹æ³•
 		DBFactory dbFactory = new DBFactory();
 		TableEx tableEx = null;
 		Record record;
 		HttpSession sesion = _request.getSession();
-		StringBuffer retStrBuf = new StringBuffer(); //·µ»ØµÄÊı¾İ
-		JSONObject jsonObj = new JSONObject();  //×ÜJSONÊı¾İ
-		JSONArray jsonArray = new JSONArray();  //ËùÓĞ×ÓÒ³ÃæµÄ°´Å¥È¨ÏŞ
+		StringBuffer retStrBuf = new StringBuffer(); //è¿”å›çš„æ•°æ®
+		JSONObject jsonObj = new JSONObject();  //æ€»JSONæ•°æ®
+		JSONArray jsonArray = new JSONArray();  //æ‰€æœ‰å­é¡µé¢çš„æŒ‰é’®æƒé™
 		String pageCode = "";
 		String sql = " SELECT " + _tableCol + " FROM " + _tableName + " WHERE SMODCODE = '" + _modId + "' ";
 
@@ -36,47 +36,47 @@ public class PermissionQuery {
 
 			tableEx = dbFactory.query(sql);
 
-			if (tableEx.getRecordCount() == 0 || tableEx.getRecordCount() > 1) { // ÎŞ²Ëµ¥»ò²Ëµ¥³¬¹ı
+			if (tableEx.getRecordCount() == 0 || tableEx.getRecordCount() > 1) { // æ— èœå•æˆ–èœå•è¶…è¿‡
 				retStrBuf.append("<div class='errorCode'>error: check the menu code is " + _modId+"</div>");
-				retStrBuf.append("<div class='errorName'>ç®¡ç†å‘˜æœªé…ç½®å½“å‰èŠ‚ç‚¹æŒ‰é’®æƒé™</div>");
+				retStrBuf.append("<div class='errorName'>ç» ï¼„æ‚Šé›æ¨»æ¹­é–°å¶‡ç–†è¤°æ’³å¢ é‘ºå‚œå£é¸å¤æŒ³é‰å†®æªº</div>");
 				return retStrBuf;
 			}
 
 			record = tableEx.getRecord(0);
 			
-            if (record.getFieldByName("assFiled").value==null ) { // ÎŞ²Ëµ¥»ò²Ëµ¥³¬¹ı
+            if (record.getFieldByName("assFiled").value==null ) { // æ— èœå•æˆ–èœå•è¶…è¿‡
 			    retStrBuf.append("<div class='errorCode'>error: check the menu code is " + _modId+"</div>");
-				retStrBuf.append("<div class='errorName'>ç®¡ç†å‘˜æœªé…ç½®å½“å‰èŠ‚ç‚¹æŒ‰é’®æƒé™</div>");
+				retStrBuf.append("<div class='errorName'>ç» ï¼„æ‚Šé›æ¨»æ¹­é–°å¶‡ç–†è¤°æ’³å¢ é‘ºå‚œå£é¸å¤æŒ³é‰å†®æªº</div>");
 				return retStrBuf;
 			}
 			String assFiled = record.getFieldByName("assFiled").value.toString();
 
-            if (assFiled==null || assFiled.length() ==0 ) { // ÎŞ²Ëµ¥»ò²Ëµ¥³¬¹ı
+            if (assFiled==null || assFiled.length() ==0 ) { // æ— èœå•æˆ–èœå•è¶…è¿‡
 				retStrBuf.append("<div class='errorCode'>error: check the menu code is " + _modId+"</div>");
-				retStrBuf.append("<div class='errorName'>ç®¡ç†å‘˜æœªé…ç½®å½“å‰èŠ‚ç‚¹æŒ‰é’®æƒé™</div>");
+				retStrBuf.append("<div class='errorName'>ç» ï¼„æ‚Šé›æ¨»æ¹­é–°å¶‡ç–†è¤°æ’³å¢ é‘ºå‚œå£é¸å¤æŒ³é‰å†®æªº</div>");
 				return retStrBuf;
 			}
-			String[] assFiledPageArr = assFiled.split(","); // ¹¦ÄÜÒ³Ãæ
+			String[] assFiledPageArr = assFiled.split(","); // åŠŸèƒ½é¡µé¢
 
-			jsonObj.put("code", _modId);// µ±Ç°¹¦ÄÜ¶î±àºÅ
-			jsonObj.put("text", _modId);// µ±Ç°¹¦ÄÜ¶îÃû³Æ
+			jsonObj.put("code", _modId);// å½“å‰åŠŸèƒ½é¢ç¼–å·
+			jsonObj.put("text", _modId);// å½“å‰åŠŸèƒ½é¢åç§°
 
 			for (int i = 0, j = assFiledPageArr.length; i < j; i++) {
-				pageCode = assFiledPageArr[i];//Ò³Ãæ´úÂë
+				pageCode = assFiledPageArr[i];//é¡µé¢ä»£ç 
 				
 				JSONObject childJsonData = new JSONObject();
 				
-				childJsonData.put("text", pub.getPageName(pageCode));	// Ò³ÃæÃû³Æ
-				childJsonData.put("code", pageCode);					// Ò³Ãæ´úÂë
+				childJsonData.put("text", pub.getPageName(pageCode));	// é¡µé¢åç§°
+				childJsonData.put("code", pageCode);					// é¡µé¢ä»£ç 
 				
 				HashMap<String, Vector> map = pub._getPageMsgByPIdRights(pageCode, sesion);
 
-				Vector vec = map.get("FIELDCODES");// ×Ö¶Î´úÂë
-				Vector vecName = map.get("FIELDNAMES");// ×Ö¶ÎÃû³Æ
+				Vector vec = map.get("FIELDCODES");// å­—æ®µä»£ç 
+				Vector vecName = map.get("FIELDNAMES");// å­—æ®µåç§°
 				childJsonData.put("FIELD", pageMsg(vec,vecName));
 				
-				vec = map.get("BTTNCODES");// °´Å¥´úÂë
-				vecName = map.get("BTTNNAMES");// °´Å¥Ãû³Æ
+				vec = map.get("BTTNCODES");// æŒ‰é’®ä»£ç 
+				vecName = map.get("BTTNNAMES");// æŒ‰é’®åç§°
 				childJsonData.put("BTTN", pageMsg(vec,vecName));
 				
 				jsonArray.put(childJsonData);

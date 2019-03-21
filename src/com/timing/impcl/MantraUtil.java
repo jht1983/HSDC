@@ -13,14 +13,14 @@ import com.yulongtao.util.EString;
 import com.timing.impcl.RelationVO;
 
 /*
-*chars ×Ö·ûÊı×é
-*getShortUuid  µÃµ½22Î»UUID  <´ıÓÅ»¯>
-*getFlowVer  µÃµ½°àÇ°±íµ¥µÄ °æ±¾ºÅ    _formNum   ±íµ¥ºÅ    _bmid  ËùÊô×éÖ¯±àÂë
-*getBranchLeader  µÃµ½²¿ÃÅ¸ºÔğÈË   _bmid   ËùÊô×éÖ¯±àÂë
+*chars å­—ç¬¦æ•°ç»„
+*getShortUuid  å¾—åˆ°22ä½UUID  <å¾…ä¼˜åŒ–>
+*getFlowVer  å¾—åˆ°ç­å‰è¡¨å•çš„ ç‰ˆæœ¬å·    _formNum   è¡¨å•å·    _bmid  æ‰€å±ç»„ç»‡ç¼–ç 
+*getBranchLeader  å¾—åˆ°éƒ¨é—¨è´Ÿè´£äºº   _bmid   æ‰€å±ç»„ç»‡ç¼–ç 
 *
 *
 *
-*recordRel   ½¨Á¢×óÓÒ±í¹ØÏµ   LEFT_ID ×ó±íID    LEFT_NAME×ó±í±íÃ÷     RIGHT_IDÓÒ±íid     RIGHT_NAMEÓÒ±í±íÃ÷
+*recordRel   å»ºç«‹å·¦å³è¡¨å…³ç³»   LEFT_ID å·¦è¡¨ID    LEFT_NAMEå·¦è¡¨è¡¨æ˜     RIGHT_IDå³è¡¨id     RIGHT_NAMEå³è¡¨è¡¨æ˜
 *
 **/
 public class MantraUtil {
@@ -32,29 +32,29 @@ public class MantraUtil {
 	private String ordUUID = "";
 
 	/*
-	 * 36Î»UUIDÖĞÓĞ4¸ö- È¥µôºó µÃ32¸ö
+	 * 36ä½UUIDä¸­æœ‰4ä¸ª- å»æ‰å å¾—32ä¸ª
 	 * 
 	 * 32-22
 	 * 
-	 * Ë«ÏòÈ¥µôÁ½Î» 30-20 Ã¿3¸ö±ä³É2¸ö
+	 * åŒå‘å»æ‰ä¸¤ä½ 30-20 æ¯3ä¸ªå˜æˆ2ä¸ª
 	 * 
 	 */
 	public String getShortUuid() {
 		StringBuffer shortBuffer = new StringBuffer();
-		String uuid = UUID.randomUUID().toString().replace("-", ""); // 36Î»-4
+		String uuid = UUID.randomUUID().toString().replace("-", ""); // 36ä½-4
 		for (int i = 0; i < 10; i++) { // 3 *10 =30
 			String str = uuid.substring(i * 3, i * 3 + 3);
-			int x = Integer.parseInt(str, 16); // Ê®Áù½øÖÆ
-			shortBuffer.append(chars[x / 0x40]); // /64 È¡Õû
-			shortBuffer.append(chars[x % 0x40]); // 64È¡Óà
+			int x = Integer.parseInt(str, 16); // åå…­è¿›åˆ¶
+			shortBuffer.append(chars[x / 0x40]); // /64 å–æ•´
+			shortBuffer.append(chars[x % 0x40]); // 64å–ä½™
 		}
-		// ÁôÏÂ×îºóÁ½Î»²»±ä
+		// ç•™ä¸‹æœ€åä¸¤ä½ä¸å˜
 		shortBuffer.append(uuid.charAt(30));
 		shortBuffer.append(uuid.charAt(31));
 		return shortBuffer.toString();
 	}
 
-	// 2018-03-15 15:29:29 ĞŞ¸Ä
+	// 2018-03-15 15:29:29 ä¿®æ”¹
 	public String getFlowVer(String _fromNum, String _bmid) {
 		StringBuffer sr = new StringBuffer();
 		TableEx tableEx = null;
@@ -80,7 +80,7 @@ public class MantraUtil {
 		return sr.toString();
 	}
 
-	public String[] getBranchLeader(String _bmid) { // °ë³ÉÆ· ÖĞÎÄ Î´·­Òë
+	public String[] getBranchLeader(String _bmid) { // åŠæˆå“ ä¸­æ–‡ æœªç¿»è¯‘
 		if ("".equals(_bmid)) {
 			return null;
 		}
@@ -177,16 +177,16 @@ public class MantraUtil {
 	 */
 	public void recordRel(String S_ORGANISATION, String S_LEFT_PAGECODE, String LEFT_ID, String LEFT_NAME,
 			String S_RIGHT_PAGECODE, String RIGHT_ID, String RIGHT_NAME) {
-		// ¶ÀÁ¢Ö÷¼ü S_ID
-		// ×ó¹ØÏµID S_LEFT_ID
-		// ×ó±í×Ö¶Î S_LEFT_TABLE_COL
-		// ×ó±í S_LEFT_TABLE_NAME
-		// ÓÒ¹ØÏµID S_RIGHT_ID
-		// ÓÒ±í±í×Ö¶Î S_RIGHT_TABLE_COL
-		// ÓÒ±í S_RIGHT_TABLE_NAME
-		// ËùÊô×éÖ¯ S_ORGANISATION
-		// ×ó±í±íµ¥ºÅ S_LEFT_PAGECODE
-		// ÓÒ±í±íµ¥ºÅ S_RIGHT_PAGECODE
+		// ç‹¬ç«‹ä¸»é”® S_ID
+		// å·¦å…³ç³»ID S_LEFT_ID
+		// å·¦è¡¨å­—æ®µ S_LEFT_TABLE_COL
+		// å·¦è¡¨ S_LEFT_TABLE_NAME
+		// å³å…³ç³»ID S_RIGHT_ID
+		// å³è¡¨è¡¨å­—æ®µ S_RIGHT_TABLE_COL
+		// å³è¡¨ S_RIGHT_TABLE_NAME
+		// æ‰€å±ç»„ç»‡ S_ORGANISATION
+		// å·¦è¡¨è¡¨å•å· S_LEFT_PAGECODE
+		// å³è¡¨è¡¨å•å· S_RIGHT_PAGECODE
 
 		StringBuffer runSqlExe = new StringBuffer();
 		DBFactory dbf = new DBFactory();
@@ -218,9 +218,9 @@ public class MantraUtil {
 		}
 	}
 
-	// 2018-03-16 17:29:08 Êı¾İÕûÀí
-	public List<RelationVO> getDataByRel(String _direction, String _id, String _table, int layerNumber) { // ×óÕÒÓÒ »òÕß ÓÒÕÒ×ó
-																											// È»ºó×Ö¶Î¶ÔÓ¦ ĞŞ¸Ä
+	// 2018-03-16 17:29:08 æ•°æ®æ•´ç†
+	public List<RelationVO> getDataByRel(String _direction, String _id, String _table, int layerNumber) { // å·¦æ‰¾å³ æˆ–è€… å³æ‰¾å·¦
+																											// ç„¶åå­—æ®µå¯¹åº” ä¿®æ”¹
 		DBFactory dbf = new DBFactory();
 		TableEx tableEx = null;
 		Record record = null;
@@ -292,7 +292,7 @@ public class MantraUtil {
 		}
 	}
 
-	// 2018-03-15 15:29:29 ĞÂÔö
+	// 2018-03-15 15:29:29 æ–°å¢
 	public String sqlDisCom(String _str, String _term) {
 		int i = _str.indexOf("<<");
 		String prtn = "";

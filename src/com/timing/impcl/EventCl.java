@@ -7,28 +7,28 @@ import com.timing.util.TimingTaskTool;
 import com.yulongtao.web.event.Event;
 
 public class EventCl extends Event {
-	//1#·Û³¾
-//	public static final String TAG_1_FC = "FKGY:DUP36:10HTA20CQ104_C";//ÕÛËãÇ°
+	//1#ç²‰å°˜
+//	public static final String TAG_1_FC = "FKGY:DUP36:10HTA20CQ104_C";//æŠ˜ç®—å‰
 	public static final String TAG_1_FC = "FKGY:DUP36:10HTA20CQ105";
 	//1#SO2
-//	public static final String TAG_1_SO2 = "FKGY:DUP36:10HTA20CQ101_C";//ÕÛËãÇ°
+//	public static final String TAG_1_SO2 = "FKGY:DUP36:10HTA20CQ101_C";//æŠ˜ç®—å‰
 	public static final String TAG_1_SO2 = "FKGY:DUP36:10HTA20CQ101";
 	//1#NOX
-//	public static final String TAG_1_NOX = "FKGY:DUP36:10HTA20CQ102_C";//ÕÛËãÇ°
+//	public static final String TAG_1_NOX = "FKGY:DUP36:10HTA20CQ102_C";//æŠ˜ç®—å‰
 	public static final String TAG_1_NOX = "FKGY:DUP36:10HTA20CQ102";
-	//2#·Û³¾
-//	public static final String TAG_2_FC = "FKGY:DUP38:20HTA20CQ104_C";//ÕÛËãÇ°
+	//2#ç²‰å°˜
+//	public static final String TAG_2_FC = "FKGY:DUP38:20HTA20CQ104_C";//æŠ˜ç®—å‰
 	public static final String TAG_2_FC = "FKGY:DUP38:20HTA20CQ105";
 	//2#SO2
-//	public static final String TAG_2_SO2 = "FKGY:DUP38:20HTA20CQ101_C";//ÕÛËãÇ°
+//	public static final String TAG_2_SO2 = "FKGY:DUP38:20HTA20CQ101_C";//æŠ˜ç®—å‰
 	public static final String TAG_2_SO2 = "FKGY:DUP38:20HTA20CQ101";
 	//2#NOX
-//	public static final String TAG_2_NOX = "FKGY:DUP38:20HTA20CQ102_C";//ÕÛËãÇ°
+//	public static final String TAG_2_NOX = "FKGY:DUP38:20HTA20CQ102_C";//æŠ˜ç®—å‰
 	public static final String TAG_2_NOX = "FKGY:DUP38:20HTA20CQ102";
 	
-	//1#Êµ·¢¹¦ÂÊ
+	//1#å®å‘åŠŸç‡
 	public static final String TAG_1_GL = "DCS1:DUP9:10CRC01AO03";
-	//2#Êµ·¢¹¦ÂÊ
+	//2#å®å‘åŠŸç‡
 	public static final String TAG_2_GL = "DCS2:DUP9:20CRC01AO03";
 
 	public static Vector<HashMap<String, String>> vecGJStatus = new Vector<HashMap<String, String>>();
@@ -52,7 +52,7 @@ public class EventCl extends Event {
 
 	private int startCleanHour = 23;
 	private int startCleanMunite = 55;
-	private int startLoadDataPeriod = 6*10; //10ÃëX6X10
+	private int startLoadDataPeriod = 6*10; //10ç§’X6X10
 	
 	public boolean isRun() {
 		timer++;
@@ -101,7 +101,7 @@ public class EventCl extends Event {
 //							"," + TAG_1_GL +
 //							"," + TAG_2_GL);
 ////					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "EventCl->isRun:SIS Data: " + result);
-//					//tag1,ÊµÊ±Öµ 1,Ê±¼ä 1,ÃèÊö 1,µ¥Î» 1,|tag2,ÊµÊ±Öµ 2,Ê±¼ä 2,ÃèÊö 2,µ¥Î» 2, 
+//					//tag1,å®æ—¶å€¼ 1,æ—¶é—´ 1,æè¿° 1,å•ä½ 1,|tag2,å®æ—¶å€¼ 2,æ—¶é—´ 2,æè¿° 2,å•ä½ 2, 
 //					if (StringUtils.isNotEmpty(result)) {
 //						String[] data = result.split("\\|");
 //						
@@ -151,27 +151,27 @@ public class EventCl extends Event {
 //			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "EventCl->isRun:ERR");
 //			MantraLog.fileCreateAndWrite(e);
 //		}
-		// -----------»ñÈ¡SISÊı¾İ
+		// -----------è·å–SISæ•°æ®
 
-		// --------¶¨Ê±ÈÎÎñ
+		// --------å®šæ—¶ä»»åŠ¡
 		try {
 			synchronized(this) {
-				if (vecGJStatus.size() != 0) { // ·Ç¿ÕÔËĞĞ
+				if (vecGJStatus.size() != 0) { // éç©ºè¿è¡Œ
 					HashMap<String, String> runMap = null;
 
-					for (int i = 0, j = vecGJStatus.size(); i < j; i++) { // ÔËĞĞÌõÊı
+					for (int i = 0, j = vecGJStatus.size(); i < j; i++) { // è¿è¡Œæ¡æ•°
 
 						runMap = vecGJStatus.get(i);
-						String SYS_LASTDATE = runMap.get("SYS_LASTDATE"); // ÉÏÒ»ÔËĞĞÊ±¼ä
-						String SYS_NEXTDATE = runMap.get("SYS_NEXTDATE"); // ÏÂÒ»ÔËĞĞÊ±¼ä
-						String SYS_TYPE = runMap.get("SYS_TYPE"); // Àà±ğ
-						String SYS_START = runMap.get("SYS_START"); // ¿ªÊ¼Ê±¼ä
-						String SYS_AHEADDay = runMap.get("SYS_AHEADDay"); // ÌáÇ°ÌìÊı
-						String cycles = runMap.get("cycles"); // ÌáÇ°ÌìÊı
-						String S_QYZT = runMap.get("S_QYZT"); // ÆôÓÃ×´Ì¬
+						String SYS_LASTDATE = runMap.get("SYS_LASTDATE"); // ä¸Šä¸€è¿è¡Œæ—¶é—´
+						String SYS_NEXTDATE = runMap.get("SYS_NEXTDATE"); // ä¸‹ä¸€è¿è¡Œæ—¶é—´
+						String SYS_TYPE = runMap.get("SYS_TYPE"); // ç±»åˆ«
+						String SYS_START = runMap.get("SYS_START"); // å¼€å§‹æ—¶é—´
+						String SYS_AHEADDay = runMap.get("SYS_AHEADDay"); // æå‰å¤©æ•°
+						String cycles = runMap.get("cycles"); // æå‰å¤©æ•°
+						String S_QYZT = runMap.get("S_QYZT"); // å¯ç”¨çŠ¶æ€
 	                    
 						// 01_YQY is on, 02_TY is off
-						if ("01_YQY".equals(S_QYZT) && timTool.runTimeCheck(SYS_NEXTDATE, SYS_AHEADDay)) { // Èç¹ûµ±ÌìÊ±¼ä´óÓÚÔËĞĞÊ±¼ä
+						if ("01_YQY".equals(S_QYZT) && timTool.runTimeCheck(SYS_NEXTDATE, SYS_AHEADDay)) { // å¦‚æœå½“å¤©æ—¶é—´å¤§äºè¿è¡Œæ—¶é—´
 							String[] cdit = timTool.nextTimeCompute(SYS_NEXTDATE, SYS_TYPE, cycles);
 
 							runMap.put("SYS_LASTDATE", cdit[0]);

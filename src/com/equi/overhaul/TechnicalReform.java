@@ -13,15 +13,15 @@ import com.yulongtao.db.TableEx;
 import com.yulongtao.util.EString;
 
 public class TechnicalReform {
-	ProcessParameterVO proVo = null;//ÊµÌåÀà
+	ProcessParameterVO proVo = null;//å®ä½“ç±»
 	
 	
 	/**
-	 * ResearchReport ¿ÉĞĞĞÔÑĞ¾¿±¨¸æ
+	 * ResearchReport å¯è¡Œæ€§ç ”ç©¶æŠ¥å‘Š
 	 * */
 	public void ResearchReport(HttpServletRequest _request) {
 		MantraUtil tool = new MantraUtil();
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		TableEx tableEx = null;
 		Record record = null;
 		DBFactory dbf = new DBFactory();
@@ -59,11 +59,11 @@ public class TechnicalReform {
 	}
 	 
 	/**
-	 * ProjectSummary  ÏîÄ¿»ã×Ü
+	 * ProjectSummary  é¡¹ç›®æ±‡æ€»
 	 * */
 	public void ProjectSummary(HttpServletRequest _request) {
 		MantraUtil tool = new MantraUtil();
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		TableEx tableEx = null;
 		Record record = null;
 		DBFactory dbf = new DBFactory();
@@ -73,7 +73,7 @@ public class TechnicalReform {
 		String[] basicData = {
 				"T_JXXMPFQK.SYS_FLOW_VER,T_JXXMPFQK.S_RUN_ID,T_JXXMPFQK.S_ID,T_JXXMPFQK.S_CJR,T_JXXMPFQK.S_CJRBM,T_JXXMPFQK.S_CJSJ,T_JXXMPFQK.S_DJH,T_JXXMPFQK.S_DJRQ,T_JXXMPFQK.S_JZ,T_JXXMPFQK.S_ND,T_JXXMPFQK.S_ZZ",
 				"<<FLOW_ID>>,<<UUID>>,<<SYS_GENER_ID>>,T_XMZH.S_ZDR_NAME,T_XMZH.S_ZDR,T_XMZH.S_ZDSJ,<<SYS_GENER_ID>>,T_XMZH.S_DJRQ,T_XMZH.S_JZ,T_XMZH.S_ND,T_XMZH.S_ZZ",
-				 }; //¶ÔÓ¦Êı¾İ
+				 }; //å¯¹åº”æ•°æ®
 		
 		try {
 			dbf.sqlExe("update T_XMSB set S_FLAGBG='3' where S_DJH in(select S_XH from T_XMZH_F where S_FID='"+strSid+"')",true);
@@ -86,7 +86,7 @@ public class TechnicalReform {
 			sbr.append(strSid);
 			sbr.append("'");
 			
-			sbr =new StringBuffer(tool.sqlDisCom(sbr.toString(), "pageCode=1517262373552&bmid=" + proVo.getBranck())) ;//·­ÒëSQL
+			sbr =new StringBuffer(tool.sqlDisCom(sbr.toString(), "pageCode=1517262373552&bmid=" + proVo.getBranck())) ;//ç¿»è¯‘SQL
 			
 			dbf.sqlExe(sbr.toString(), true);
 
@@ -114,11 +114,11 @@ public class TechnicalReform {
 	}
 	
 	/**
-	 * TechnicalReformReply  ¼¼¸ÄÅú¸´->¼ìĞŞÏîÄ¿»ã×Ü
+	 * TechnicalReformReply  æŠ€æ”¹æ‰¹å¤->æ£€ä¿®é¡¹ç›®æ±‡æ€»
 	 * */
 	public void TechnicalReformReply(HttpServletRequest _request) {
 		MantraUtil tool = new MantraUtil();
-		proVo = new ProcessParameterVO(_request); // ½âÎö±ê×¼Êı¾İ
+		proVo = new ProcessParameterVO(_request); // è§£ææ ‡å‡†æ•°æ®
 		TableEx tableEx = null;
 		Record record = null;
 		DBFactory dbf = new DBFactory();
@@ -136,39 +136,39 @@ public class TechnicalReform {
 			Record rd = tableEx.getRecord(0);
 			
 			StringBuffer sbr = new StringBuffer();
-			sbr.append("insert into T_HZJXJH (S_RUN_ID,SYS_FLOW_VER,S_CJR,S_CJRQ,S_XGR,S_XGRQ,S_DJRQ,S_JXLX,S_JHMC,S_JHLX,S_ZDR,S_ZDRQ,S_DJH,S_JHBZBM,S_JHBZBMBM,S_JHBZR,S_JHBZRBM,S_JHBZSJ,S_JZH,S_JHZFY,S_JGDJH,S_JGID,S_ZJ,S_ZZ,S_TJR,S_TJR_NAME) ");//·ÖÏîID,×Ü·ÑÓÃ,Ãû³Æ,¼ìĞŞÀàĞÍ,¼Æ»®ÀàĞÍ,»ã×Ü¼Æ»®ID,»ã×Ü¼Æ»®µ¥¾İºÅ
+			sbr.append("insert into T_HZJXJH (S_RUN_ID,SYS_FLOW_VER,S_CJR,S_CJRQ,S_XGR,S_XGRQ,S_DJRQ,S_JXLX,S_JHMC,S_JHLX,S_ZDR,S_ZDRQ,S_DJH,S_JHBZBM,S_JHBZBMBM,S_JHBZR,S_JHBZRBM,S_JHBZSJ,S_JZH,S_JHZFY,S_JGDJH,S_JGID,S_ZJ,S_ZZ,S_TJR,S_TJR_NAME) ");//åˆ†é¡¹ID,æ€»è´¹ç”¨,åç§°,æ£€ä¿®ç±»å‹,è®¡åˆ’ç±»å‹,æ±‡æ€»è®¡åˆ’ID,æ±‡æ€»è®¡åˆ’å•æ®å·
 			sbr.append("values(");
-			sbr.append("'").append(tool.getShortUuid()).append("'").append(",");//ÔËĞĞºÅ
-			sbr.append("'").append(strFlowVersion).append("'").append(",");//°æ±¾ºÅ
-			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//´´½¨ÈË
-			sbr.append("'").append(CurDate).append("'").append(",");//´´½¨ÈÕÆÚ
-			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//ĞŞ¸ÄÈË
-			sbr.append("'").append(CurDate).append("'").append(",");//ĞŞ¸ÄÈÕÆÚ
-			sbr.append("'").append(CurDate).append("'").append(",");//¼ìĞŞÈÕÆÚ
-			sbr.append("'").append("06").append("'").append(",");//¼ìĞŞÀàĞÍ
-			sbr.append("'").append(getColString("S_ND", rd)+"_¼¼¸Ä").append("'").append(",");//¼Æ»®Ãû³Æ
-			sbr.append("'").append("NDJH").append("'").append(",");//¼Æ»®ÀàĞÍ
-			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//ÖÆµ¥ÈË
-			sbr.append("'").append(CurDate).append("'").append(",");//ÖÆµ¥ÈÕÆÚ
-			sbr.append("'").append(uuid).append("'").append(",");//µ¥¾İºÅ
-			sbr.append("'").append(session.getAttribute("SYS_STRBRANCHNAME")).append("'").append(",");//²¿ÃÅÃû³Æ
-			sbr.append("'").append(session.getAttribute("SYS_STRBRANCHID")).append("'").append(",");//²¿ÃÅ±àÂë
-			sbr.append("'").append(SYS_STRCURUSERNAME).append("'").append(",");//¼Æ»®±àÖÆÈËÃû³Æ
-			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//±àÖÆÈË´úÂë
-			sbr.append("'").append(CurDate).append("'").append(",");//±àÖÆÊ±¼ä
-			sbr.append("'").append(getColString("S_JZ", rd)).append("'").append(",");//»ú×éºÅ
-			sbr.append("'").append("").append("'").append(",");//¼Æ»®×Ü·ÑÓÃ
-			sbr.append("'").append(getColString("S_DJH", rd)).append("'").append(",");//Åú¸´µ¥¾İºÅ
-			sbr.append("'").append(getColString("S_ID", rd)).append("'").append(",");//Åú¸´ID
-			sbr.append("'").append(uuid).append("'").append(",");//Ö÷¼ü
-			sbr.append("'").append(getColString("S_ZZ", rd)).append("'").append(",");//×éÖ¯
-			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//Ìá½»ÈË
-			sbr.append("'").append(SYS_STRCURUSERNAME).append("'");//Ìá½»ÈËĞÕÃû
+			sbr.append("'").append(tool.getShortUuid()).append("'").append(",");//è¿è¡Œå·
+			sbr.append("'").append(strFlowVersion).append("'").append(",");//ç‰ˆæœ¬å·
+			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//åˆ›å»ºäºº
+			sbr.append("'").append(CurDate).append("'").append(",");//åˆ›å»ºæ—¥æœŸ
+			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//ä¿®æ”¹äºº
+			sbr.append("'").append(CurDate).append("'").append(",");//ä¿®æ”¹æ—¥æœŸ
+			sbr.append("'").append(CurDate).append("'").append(",");//æ£€ä¿®æ—¥æœŸ
+			sbr.append("'").append("06").append("'").append(",");//æ£€ä¿®ç±»å‹
+			sbr.append("'").append(getColString("S_ND", rd)+"_æŠ€æ”¹").append("'").append(",");//è®¡åˆ’åç§°
+			sbr.append("'").append("NDJH").append("'").append(",");//è®¡åˆ’ç±»å‹
+			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//åˆ¶å•äºº
+			sbr.append("'").append(CurDate).append("'").append(",");//åˆ¶å•æ—¥æœŸ
+			sbr.append("'").append(uuid).append("'").append(",");//å•æ®å·
+			sbr.append("'").append(session.getAttribute("SYS_STRBRANCHNAME")).append("'").append(",");//éƒ¨é—¨åç§°
+			sbr.append("'").append(session.getAttribute("SYS_STRBRANCHID")).append("'").append(",");//éƒ¨é—¨ç¼–ç 
+			sbr.append("'").append(SYS_STRCURUSERNAME).append("'").append(",");//è®¡åˆ’ç¼–åˆ¶äººåç§°
+			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//ç¼–åˆ¶äººä»£ç 
+			sbr.append("'").append(CurDate).append("'").append(",");//ç¼–åˆ¶æ—¶é—´
+			sbr.append("'").append(getColString("S_JZ", rd)).append("'").append(",");//æœºç»„å·
+			sbr.append("'").append("").append("'").append(",");//è®¡åˆ’æ€»è´¹ç”¨
+			sbr.append("'").append(getColString("S_DJH", rd)).append("'").append(",");//æ‰¹å¤å•æ®å·
+			sbr.append("'").append(getColString("S_ID", rd)).append("'").append(",");//æ‰¹å¤ID
+			sbr.append("'").append(uuid).append("'").append(",");//ä¸»é”®
+			sbr.append("'").append(getColString("S_ZZ", rd)).append("'").append(",");//ç»„ç»‡
+			sbr.append("'").append(SYS_STRCURUSER).append("'").append(",");//æäº¤äºº
+			sbr.append("'").append(SYS_STRCURUSERNAME).append("'");//æäº¤äººå§“å
 			sbr.append(");");
 			dbf.sqlExe(sbr.toString(), true);
 			
 			tool.recordRel(proVo.getBranck(), proVo.getSpageCode(), proVo.getInpPkey(), "T_JXXMPFQK",
-					"1510924423686", uuid, "T_HZJXJH"); //´´½¨¹ØÏµ
+					"1510924423686", uuid, "T_HZJXJH"); //åˆ›å»ºå…³ç³»
 			
 			sbr = new StringBuffer();
 			sbr.append("insert into T_HZJXJH_F (S_PID,S_BDHF,S_SBBM,S_SBBJMC,S_JHFY,S_ZY,S_JXXM,S_XMFZR_BM,S_XMFZR,S_ID) ");

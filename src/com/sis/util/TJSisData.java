@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,19 +17,19 @@ import com.yulongtao.db.DBFactory;
 public class TJSisData {
 // 	static String[] dayCondCode = { "rb1_fdl", "rb1_jhdl", "rb1_hbfc", "rb1_hbso", "rb1_hbno", "rb2_fdl", "rb2_jhdl",
 // 			"rb2_hbfc", "rb2_hbso", "rb2_hbno","DCS1:DUP9:10CRC01AO03","DCS2:DUP9:20CRC01AO03" };
-// 	static String[] dayCondName = { "#1 »ú×éÈÕ·¢µçÁ¿ ", "#1 »ú×éÈÕ¼Æ»®µçÁ¿ ", "#1 »ú·Û³¾Å¨¶ÈÈÕÆ½¾ù", "#1 »ú SO2 ÅÅ·ÅÅ¨¶ÈÈÕÆ½¾ù ",
-// 			"#1 »ú NOX ÅÅ·ÅÅ¨¶ÈÈÕÆ½¾ù ", "#2 »ú×éÈÕ·¢µçÁ¿", "#2 »ú×éÈÕ¼Æ»®µçÁ¿ ", "#2 »ú·Û³¾Å¨¶ÈÈÕÆ½¾ù ", "#2 »ú SO2 ÅÅ·ÅÅ¨¶ÈÈÕÆ½¾ù ", "#2 »ú NOX ÅÅ·ÅÅ¨¶ÈÈÕÆ½¾ù ", "#1 ", "#2 " };
+// 	static String[] dayCondName = { "#1 æœºç»„æ—¥å‘ç”µé‡ ", "#1 æœºç»„æ—¥è®¡åˆ’ç”µé‡ ", "#1 æœºç²‰å°˜æµ“åº¦æ—¥å¹³å‡", "#1 æœº SO2 æ’æ”¾æµ“åº¦æ—¥å¹³å‡ ",
+// 			"#1 æœº NOX æ’æ”¾æµ“åº¦æ—¥å¹³å‡ ", "#2 æœºç»„æ—¥å‘ç”µé‡", "#2 æœºç»„æ—¥è®¡åˆ’ç”µé‡ ", "#2 æœºç²‰å°˜æµ“åº¦æ—¥å¹³å‡ ", "#2 æœº SO2 æ’æ”¾æµ“åº¦æ—¥å¹³å‡ ", "#2 æœº NOX æ’æ”¾æµ“åº¦æ—¥å¹³å‡ ", "#1 ", "#2 " };
 
     static String[] dayCondCode = { "rb1_fdl", "rb1_jhdl", "rb1_hbfc", "rb1_hbso", "rb1_hbno", "rb2_fdl", "rb2_jhdl",
 			"rb2_hbfc", "rb2_hbso", "rb2_hbno","rb1_yxsj","rb2_yxsj"};
-	static String[] dayCondName = { "#1 »ú×éÈÕ·¢µçÁ¿ ", "#1 »ú×éÈÕ¼Æ»®µçÁ¿ ", "#1 »ú·Û³¾Å¨¶ÈÈÕÆ½¾ù", "#1 »ú SO2 ÅÅ·ÅÅ¨¶ÈÈÕÆ½¾ù ",
-			"#1 »ú NOX ÅÅ·ÅÅ¨¶ÈÈÕÆ½¾ù ", "#2 »ú×éÈÕ·¢µçÁ¿", "#2 »ú×éÈÕ¼Æ»®µçÁ¿ ", "#2 »ú·Û³¾Å¨¶ÈÈÕÆ½¾ù ", "#2 »ú SO2 ÅÅ·ÅÅ¨¶ÈÈÕÆ½¾ù ", "#2 »ú NOX ÅÅ·ÅÅ¨¶ÈÈÕÆ½¾ù ","rb1_yxsj","rb2_yxsj"  };
+	static String[] dayCondName = { "#1 æœºç»„æ—¥å‘ç”µé‡ ", "#1 æœºç»„æ—¥è®¡åˆ’ç”µé‡ ", "#1 æœºç²‰å°˜æµ“åº¦æ—¥å¹³å‡", "#1 æœº SO2 æ’æ”¾æµ“åº¦æ—¥å¹³å‡ ",
+			"#1 æœº NOX æ’æ”¾æµ“åº¦æ—¥å¹³å‡ ", "#2 æœºç»„æ—¥å‘ç”µé‡", "#2 æœºç»„æ—¥è®¡åˆ’ç”µé‡ ", "#2 æœºç²‰å°˜æµ“åº¦æ—¥å¹³å‡ ", "#2 æœº SO2 æ’æ”¾æµ“åº¦æ—¥å¹³å‡ ", "#2 æœº NOX æ’æ”¾æµ“åº¦æ—¥å¹³å‡ ","rb1_yxsj","rb2_yxsj"  };
 
-    //ÈÕ·¢µç md_fdl
+    //æ—¥å‘ç”µ md_fdl
     public static String MD_FDL = "md_fdl";
-    //ÔÂ·¢µç md_yfdl
+    //æœˆå‘ç”µ md_yfdl
     public static String MD_YFDL = "md_yfdl";
-    //Äê·¢µç md_nfdl
+    //å¹´å‘ç”µ md_nfdl
     public static String MD_NFDL = "md_nfdl";
 
 	public void init() {
@@ -185,7 +184,6 @@ public class TJSisData {
 		ResultSet rs = null;
 		Map<String, String> result = new HashMap<String, String>();
 		SimpleDateFormat sdf_ymd = new SimpleDateFormat("yyyy-MM-dd");
-		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 		try {
 			con = dbs.getSqlServerCon();
 		    if(con==null){
@@ -195,7 +193,7 @@ public class TJSisData {
 		    Calendar date = Calendar.getInstance();
 	        String year = String.valueOf(date.get(Calendar.YEAR));
 		    String sql = "select TAGCODE TAGCODE,R_VAL R_VAL from RPT_DAY" + year + " where DATETIME=? AND TAGCODE in ('" + MD_FDL + "','" + MD_YFDL + "','" + MD_NFDL + "') ";
-//			String sql = "select R_VAL R_VAL from RPT_DAY where DATETIME=? AND TAGCODE in ('md1_fdl','md2_fdl') "; //·Ö»ú×é
+//			String sql = "select R_VAL R_VAL from RPT_DAY where DATETIME=? AND TAGCODE in ('md1_fdl','md2_fdl') "; //åˆ†æœºç»„
 //			String sql = "select R_VAL R_VAL from RPT_DAY where DATETIME=? AND TAGCODE in ('rb1_fdl','rb2_fdl') ";
 		//	String sql = "select R_VAL R_VAL from RPT_DAY where DATETIME=? AND TAGCODE in ('DCS1:DUP9:10CRC01AO03','DCS2:DUP9:20CRC01AO03') ";
 			preStart = con.prepareStatement(sql);
@@ -203,7 +201,7 @@ public class TJSisData {
 		    
 			rs = preStart.executeQuery();
 			while (rs.next()) {
-				result.put(rs.getString("TAGCODE"), decimalFormat.format(rs.getDouble("R_VAL")/10.0));
+				result.put(rs.getString("TAGCODE"), String.valueOf(rs.getFloat("R_VAL")));
 			}
 		} catch (Exception e) {
 			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,e.getMessage());

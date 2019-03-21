@@ -16,17 +16,17 @@ public class SisDataTiming extends Event {
 	public boolean isRun() {
 	    	MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
 						"[:019]->SisDataTiming->isRun:");
-		boolean isRun = false; // ÅĞ¶ÏÊÇ·ñÔËĞĞ
+		boolean isRun = false; // åˆ¤æ–­æ˜¯å¦è¿è¡Œ
 		if (index == 60) {
-			tool = new MantraUtil(); // ¹¤¾ßÀà
-			String strNowDate = sdf_ymd.format(new Date()); // µ±Ç°Ê±¼ä
-			if("".equals(_getSisDate)) {  //³õÊ¼»¯
+			tool = new MantraUtil(); // å·¥å…·ç±»
+			String strNowDate = sdf_ymd.format(new Date()); // å½“å‰æ—¶é—´
+			if("".equals(_getSisDate)) {  //åˆå§‹åŒ–
 				_getSisDate=strNowDate;
-			}else if(strNowDate.equals(_getSisDate)){  //ÏàµÈ
+			}else if(strNowDate.equals(_getSisDate)){  //ç›¸ç­‰
 				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
 						"[:019]->SisDataTiming->isRun:"+strNowDate);
-			}else {	//²»ÏàµÈ
-				int dataRow = tool.getDateCont("t_sis_date_day", "DATETIME='" + _getSisDate + "'"); // ÅĞ¶ÏÊı¾İ¿âÊÇ·ñÓĞµ±ÌìµÃÊı¾İ
+			}else {	//ä¸ç›¸ç­‰
+				int dataRow = tool.getDateCont("t_sis_date_day", "DATETIME='" + _getSisDate + "'"); // åˆ¤æ–­æ•°æ®åº“æ˜¯å¦æœ‰å½“å¤©å¾—æ•°æ®
 				if (dataRow == 0) {
 					isRun = true;
 				}
@@ -42,7 +42,7 @@ public class SisDataTiming extends Event {
 	@Override
 	public void run() {
 		TJSisData sisTool = new TJSisData();
-		boolean retBool = sisTool.obtainData(_getSisDate); // ´¦Àíµ±ÌìÈÕÆÚÖĞµÃÄÚÈİ
+		boolean retBool = sisTool.obtainData(_getSisDate); // å¤„ç†å½“å¤©æ—¥æœŸä¸­å¾—å†…å®¹
 		if (retBool = true) {
 			_getSisDate = sdf_ymd.format(new Date());
 		}

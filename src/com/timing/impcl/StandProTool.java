@@ -11,14 +11,14 @@ import com.yulongtao.db.TableEx;
 import com.yulongtao.util.EString;
 import com.timing.impcl.RelationVO;
 /**
- * ±ê×¼»¯ÏîÄ¿
+ * æ ‡å‡†åŒ–é¡¹ç›®
  */
 public class StandProTool {
 	ProcessParameterVO proParVo = null;
 	MantraUtil tool = new MantraUtil();
 
 	/***
-	 * ±ê×¼»¯ÏîÄ¿»ã×Ü->²¿ÃÅ±ê×¼»¯ÏîÄ¿ÆÀ·Ö
+	 * æ ‡å‡†åŒ–é¡¹ç›®æ±‡æ€»->éƒ¨é—¨æ ‡å‡†åŒ–é¡¹ç›®è¯„åˆ†
 	 */
 	public void standProSumTobranck(HttpServletRequest request) {
 		proParVo = new ProcessParameterVO(request);
@@ -87,7 +87,7 @@ public class StandProTool {
 	}
 
 	/***
-	 * ²¿ÃÅ±ê×¼»¯ÏîÄ¿ÆÀ·Ö->¸ºÔğÈË±ê×¼»¯ÏîÄ¿
+	 * éƒ¨é—¨æ ‡å‡†åŒ–é¡¹ç›®è¯„åˆ†->è´Ÿè´£äººæ ‡å‡†åŒ–é¡¹ç›®
 	 */
 	public void branckStandProSumToleader(HttpServletRequest request) {
 		proParVo = new ProcessParameterVO(request);
@@ -96,10 +96,10 @@ public class StandProTool {
 		DBFactory dbf = new DBFactory();
 		
 		HashMap<String, String> breakUp = new HashMap<String, String>();
-		//ĞŞ¸Ä
+		//ä¿®æ”¹
 		String splitCondition = "T_BZHXMPFHZ_SON.S_CPXMFZR_BM" + " Mantra_splitCondition";
 		try {
-			//ĞŞ¸Ä
+			//ä¿®æ”¹
 			String sql = "select " + splitCondition + ",T_BZHXMPFHZ_SON.S_CPXMFZR Mantra_splitCondition_Name ,T_BZHXMPFHZ_SON.S_ID Mantra_SON_S_ID from T_BZHPFXMHZ "
 					+ "LEFT JOIN T_BZHXMPFHZ_SON ON " + "T_BZHPFXMHZ.S_ID = T_BZHXMPFHZ_SON.S_FID "
 					+ "where T_BZHPFXMHZ.S_ID = '" + proParVo.getInpPkey() + "'";
@@ -110,7 +110,7 @@ public class StandProTool {
 				String splitCond = record.getFieldByName("Mantra_splitCondition").value.toString();
 				String splitCondition_Name = record.getFieldByName("Mantra_splitCondition_Name").value.toString();
 				if (breakUp.get(splitCond) == null) {
-					//ĞŞ¸Ä
+					//ä¿®æ”¹
 					//T_FZRBZHXM$S_CPXMFZR  T_FZRBZHXM$S_CPXMFZR_BM
 					insertSql = "insert into" + " T_FZRBZHXM "
 							+ "(T_FZRBZHXM.S_DJRQ,T_FZRBZHXM.S_WXZZ,T_FZRBZHXM.S_BMCPDBM,T_FZRBZHXM.S_CPYT,T_FZRBZHXM.S_CPZFZR,T_FZRBZHXM.S_CPZFZR_BM,T_FZRBZHXM.S_CPRQ,T_FZRBZHXM.S_FZBM,T_FZRBZHXM.S_FZBM_BM,T_FZRBZHXM.S_FZR,T_FZRBZHXM.S_FZR_BM,T_FZRBZHXM.S_ID,T_FZRBZHXM.SYS_FLOW_VER,T_FZRBZHXM.S_RUN_ID,T_FZRBZHXM.S_CPXMFZR,T_FZRBZHXM.S_CPXMFZR_BM) "
@@ -121,7 +121,7 @@ public class StandProTool {
 							+ "where T_BZHPFXMHZ.S_ID='" + proParVo.getInpPkey() + "'";
 
 					insertSql = tool.sqlDisCom(insertSql,"pageCode=151969803022610006&bmid=" + proParVo.getBranck()+"&S_FZR="+splitCondition_Name+"&S_FZR_BM="+splitCond);
-					//ĞŞ¸Ä
+					//ä¿®æ”¹
 					//tool.recordRel(proParVo.getInpPkey(),"T_BZHPFXMHZ",tool.getOrdGreId(),"T_FZRBZHXM");
 					
 					tool.recordRel(proParVo.getBranck(),proParVo.getSpageCode(),proParVo.getInpPkey(),"T_BZHPFXMHZ","151969803022610006",tool.getOrdGreId(),"T_FZRBZHXM");
@@ -136,7 +136,7 @@ public class StandProTool {
 				String sonId = record.getFieldByName("Mantra_SON_S_ID").value.toString();
 				
 				
-					//ĞŞ¸Ä
+					//ä¿®æ”¹
 				insertSql = "insert into" 
 						+ " T_FZRBZHXM_SON "
 						+ " (T_FZRBZHXM_SON.S_CPXMFZR,T_FZRBZHXM_SON.S_CPXMFZRBM,T_FZRBZHXM_SON.S_XMXH,T_FZRBZHXM_SON.S_XMMC,T_FZRBZHXM_SON.T_NR,T_FZRBZHXM_SON.S_BZF,T_FZRBZHXM_SON.T_PFBZ,T_FZRBZHXM_SON.S_BCP,T_FZRBZHXM_SON.S_SPF,T_FZRBZHXM_SON.S_SDF,T_FZRBZHXM_SON.S_FMJJD,T_FZRBZHXM_SON.S_SJXMXH,T_FZRBZHXM_SON.S_ID,T_FZRBZHXM_SON.S_FID)  "
@@ -146,7 +146,7 @@ public class StandProTool {
 						+ " T_BZHXMPFHZ_SON " 
 						+ " where T_BZHXMPFHZ_SON.S_ID='" + sonId + "'";
 				
-				//ĞŞ¸Ä
+				//ä¿®æ”¹
 				insertSql = tool.sqlDisCom(insertSql, "FID=" + SPLITCONDID + "&pageCode=&bmid=");
 
 				//tool.recordRel(sonId,"T_BZHXMPFHZ_SON",tool.getOrdGreId(),"T_FZRBZHXM_SON");
@@ -157,7 +157,7 @@ public class StandProTool {
 				
 				dbf.sqlExe(insertSql, false);
 				
-				//ĞŞ¸Ä»ã×Ü
+				//ä¿®æ”¹æ±‡æ€»
 				RelationVO leftData = (RelationVO)tool.getDataByRel("RIGHT",sonId,"T_BZHXMPFHZ_SON",1).get(0);
 				sql = "update T_BMBZHXMPF_SON,T_BZHXMPFHZ_SON set T_BMBZHXMPF_SON.S_CPXMFZR=T_BZHXMPFHZ_SON.S_CPXMFZR,T_BMBZHXMPF_SON.S_CPXMFZR_BM=T_BZHXMPFHZ_SON.S_CPXMFZR_BM "
 						+ "where T_BMBZHXMPF_SON.S_ID = '"+leftData.getS_LEFT_ID()+"' and T_BZHXMPFHZ_SON.S_ID='" + sonId + "'";
@@ -176,7 +176,7 @@ public class StandProTool {
 	}
 
 	/***
-	 * ¸ºÔğÈË±ê×¼»¯ÏîÄ¿
+	 * è´Ÿè´£äººæ ‡å‡†åŒ–é¡¹ç›®
 	 */
 	public void leaderStandProSum(HttpServletRequest request) {
 		proParVo = new ProcessParameterVO(request);
@@ -213,7 +213,7 @@ public class StandProTool {
 	}
 
 	/***
-	 * ±ê×¼»¯ÏîÄ¿»ã×Ü->±ê×¼»¯ÏîÄ¿Õû¸Äµ¥
+	 * æ ‡å‡†åŒ–é¡¹ç›®æ±‡æ€»->æ ‡å‡†åŒ–é¡¹ç›®æ•´æ”¹å•
 	 */
 	public void standProSumToAlter(HttpServletRequest request) {
 		String [] basicData= {
