@@ -32,6 +32,7 @@ import com.Debug;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.page.method.Fun;
+import com.timing.impcl.MantraLog;
 import com.yulongtao.InitFactory;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.FieldEx;
@@ -47,6 +48,7 @@ import com.yulongtao.util.EFile;
 import com.yulongtao.util.EString;
 import com.yulongtao.util.EncryptString;
 import com.yulongtao.util.HttpUtil;
+import com.yulongtao.util.MisUser;
 import com.yulongtao.util.User;
 import com.yulongtao.util.excel.ParseInitModel;
 import com.yulongtao.web.ABSElement;
@@ -2306,6 +2308,7 @@ public class MisMenu extends HttpServlet
     private void doChangePass(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
         final PrintWriter out = response.getWriter();
         final Object objUserId = request.getSession().getAttribute("TEMP_SYS_USER");
+        
         if (objUserId == null) {
             out.println("<table width='100%' height='100%'><tr><td align='center' valign='middle'>\u6ca1\u6709\u8fd9\u4e2a\u7528\u6237\uff01</td></tr></table>");
             return;
@@ -2624,7 +2627,7 @@ public class MisMenu extends HttpServlet
     }
     
     private void login(final HttpServletRequest request, final HttpServletResponse response) {
-        final User user = new User(request);
+        final MisUser user = new MisUser(request);
         try {
             final PrintWriter out = response.getWriter();
             final int iResult = user.login();
