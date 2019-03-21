@@ -32,7 +32,6 @@ import com.Debug;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.page.method.Fun;
-import com.timing.impcl.MantraLog;
 import com.yulongtao.InitFactory;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.FieldEx;
@@ -48,7 +47,6 @@ import com.yulongtao.util.EFile;
 import com.yulongtao.util.EString;
 import com.yulongtao.util.EncryptString;
 import com.yulongtao.util.HttpUtil;
-import com.yulongtao.util.MisUser;
 import com.yulongtao.util.User;
 import com.yulongtao.util.excel.ParseInitModel;
 import com.yulongtao.web.ABSElement;
@@ -2519,7 +2517,26 @@ public class MisMenu extends HttpServlet
     private void changePassByLogin(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
         final PrintWriter out = response.getWriter();
         final HttpSession session = request.getSession();
-        session.setAttribute("TEMP_SYS_USER", session.getAttribute("SYS_STRCURUSER"));
+        
+        //load the new login ID by the old one
+        TableEx tableEx = null;
+        try {
+        	tableEx = new TableEx("*", "T_RGXX", "SYGZW='" + session.getAttribute("SYS_STRCURUSER") + "'");
+            final int iRecordCount = tableEx.getRecordCount();
+            if (iRecordCount > 0) {
+                final Record record = tableEx.getRecord(0);
+                session.setAttribute("TEMP_SYS_USER", record.getFieldByName("SYGZW_NEW").value.toString());
+            }
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (tableEx != null) {
+                tableEx.close();
+            }
+        }
+        
+        //session.setAttribute("TEMP_SYS_USER", session.getAttribute("SYS_STRCURUSER"));
         out.println("<!DOCTYPE html><HTML style='height:100%;'><HEAD><TITLE>\u4fee\u6539\u5bc6\u7801</TITLE>");
         out.println("<link href=\"css/menuchild.css\" rel=\"stylesheet\" type=\"text/css\">");
         out.println("<link href=\"css/win.css\" rel=\"stylesheet\" type=\"text/css\">");
@@ -2627,7 +2644,7 @@ public class MisMenu extends HttpServlet
     }
     
     private void login(final HttpServletRequest request, final HttpServletResponse response) {
-        final MisUser user = new MisUser(request);
+        final User user = new User(request);
         try {
             final PrintWriter out = response.getWriter();
             final int iResult = user.login();
