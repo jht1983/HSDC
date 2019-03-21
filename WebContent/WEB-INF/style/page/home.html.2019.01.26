@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -48,7 +48,7 @@ $(function () {
 <body>	
 	<div class="main" style="width: 99%;height: 99%;overflow: auto;">
 		<!--<div class="col-xs-10 pad-l0">-->
-			<div style="height:33%">
+			<div>
 				<div class="zhxx">
 					<div class="title">
 						<h1><i class="iconfont">&#xe638</i> 综合信息</h1>
@@ -59,7 +59,7 @@ $(function () {
 					<ul>
 						<li class="dbsx">
 							<h1>月计划发电量</h1>
-							<h2 class="blue" id="dbsxh2">
+							<h2 class="blue">
 								<ylt.for dataId="1548146813403">
 									$value
 								</ylt.for> <span>万kW·h</span>
@@ -67,11 +67,11 @@ $(function () {
 						</li>
 						<li class="ybsl">
 							<h1>月实际发电量</h1>
-							<h2 class="green" id="ybslh2"><font id="id_yfdl">989</font> <span>万kW·h</span></h2>
+							<h2 class="green"><font id="id_yfdl">989</font> <span>万kW·h</span></h2>
 						</li>
 						<li class="jhfd">
 							<h1>年计划发电量</h1>
-							<h2 class="orange" id="jhfdh2">
+							<h2 class="orange">
 								<ylt.for dataId="1548147298286">
 									$value
 								</ylt.for> <span>万kW·h</span>
@@ -79,11 +79,11 @@ $(function () {
 						</li>
 						<li class="sjfd">
 							<h1>年实际发电量</h1>
-							<h2 class="red" id="sjfdh2"><font id="id_nfdl">989</font> <span>万kW·h</span></h2>
+							<h2 class="red"><font id="id_nfdl">989</font> <span>万kW·h</span></h2>
 						</li>
 						<li class="aqsc">
-							<h1>安全生产天数</h1>
-							<h2 class="purple"  id="aqsch2">
+							<h1>安全生产天</h1>
+							<h2 class="purple">
 								<ylt.for dataId="1534479850565">
 									$value
 								</ylt.for>
@@ -93,15 +93,15 @@ $(function () {
 				</div>
 				<div class="hyxx">
 					<div class="title">
-						<h1><i class="iconfont">&#xe638</i> 生产例会</h1>
+						<h1><i class="iconfont">&#xe638</i> 生产早例会</h1>
 						<div class="more">
 							<a href="###" onclick="morehy()">MORE>></a>
 						</div>
 					</div>
-					<ul id="hyxxul">
+					<ul>
 						<ylt.for dataId="1548067419396">
 						<li><a href="###" onclick="hy('$value','$value');"
-                                    style="text-align: left;"><p>$value $value</p><span>$value</span></a></li>
+                                    style="text-align: left;text-indent:2em"><p>$value</p><span>$value</span></a></li>
 						</ylt.for>	
 					</ul>
 					<!--<ul>
@@ -115,7 +115,7 @@ $(function () {
 			
 			<div class="clearfix"></div>
 				
-			<div class="middle" style="height:33%">
+			<div class="middle">
 				<div class="dbrw">
 					<div class="title">
 						<h1><i class="iconfont">&#xe638</i> 待办任务</h1>
@@ -125,7 +125,7 @@ $(function () {
 					</div>
 					<ul>
 						<ylt.for dataId="1548072031853">
-						<li><a href="###" onclick="sp('$value&$value&$value&$value&$value&$value&$value&$value&$value');"><p>事件:$value,内容:$value</p><span>$value</span></a></li>
+						<li><a href="###" onclick="sp('$value&$value&$value&$value&$value&$value&$value&$value&$value');"><p>内容:$value</p><span>$value</span></a></li>
 						</ylt.for>
 						
 					</ul>	
@@ -138,7 +138,7 @@ $(function () {
 						</div>-->
 					</div>
 					
-					<div class="charts" style="width: 100%;height:90%;float: top; " id="piechartYqxtj">
+					<div class="charts" style="width: 400px;height:200px;float: center; " id="piechartYqxtj">
 						<script>
 							var title = new Array();
 							var perNum = new Array();
@@ -183,7 +183,7 @@ $(function () {
 			</div>
 			<div class="clearfix"></div>
 			
-			<div class="bottom" style="height:33%">
+			<div class="bottom">
 				<div class="cygn">
 					<div class="title">
 						<h1><i class="iconfont">&#xe638</i> 常用功能</h1>
@@ -215,7 +215,7 @@ $(function () {
 							<a href="###">MORE>></a>
 						</div>-->
 					</div>
-					<div class="charts" style="width: 100%;height:75%;float: left; " id="barchartYgzptj">
+					<div class="charts" style="width: 100%;height:200px;float: left; " id="barchartYgzptj">
 						<!--<img src="new/images/charts2.png" class="center-block img-responsive">-->
 						<script>
 							var title = new Array();
@@ -234,7 +234,7 @@ $(function () {
 					</div>					
 				</div>
 			</div>
-		</div>
+
 	<!-- 待办事项 -->
 	<div class="md-modal md-effect-1" id="todo" style="height:80%;width:900px;top:50%">
     <table class="md-content" cellpadding="0" border="0" cellspacing="0" style="width:100%;height:100%">
@@ -267,7 +267,7 @@ $(function () {
                             <col width="">
                         </colgroup>
 
-                        <tr bgcolor="$value">
+                        <tr>
                                 <td onclick="sp('$value&$value&$value&$value&$value&$value&$value&$value$value');"
                                     style="text-align: left;text-indent:2em">事件:$value,内容:$value
                                 </td>
@@ -435,21 +435,6 @@ if(usiParam.length>0){
     document.getElementById("NO_DBBZ").innerHTML=current._dutyPerName;				
 	document.getElementById("NO_JBBC").innerHTML=next._dutyTeamName;
 	document.getElementById("NO_JBBZ").innerHTML=next._dutyPerName;
-}
-window.onload = function(){
-	var screenHeight = window.screen.height;
-	var screenWidth = window.screen.width;
-	if(screenHeight <= 768 && screenWidth <= 1366){
-		document.getElementById('dbsxh2').style.fontSize ="17px";
-		document.getElementById('ybslh2').style.fontSize ="17px";
-		document.getElementById('jhfdh2').style.fontSize ="17px";
-		document.getElementById('sjfdh2').style.fontSize ="17px";
-		document.getElementById('aqsch2').style.fontSize ="17px";
-		var len = document.getElementById('hyxxul').getElementsByTagName('li').length;
-		for(var i = 0;i < len;i++){
-			document.getElementById('hyxxul').getElementsByTagName('li')[i].getElementsByTagName("a")[0].style.textIndent="0";
-		}
-	}
 }
 </script>
 </body>

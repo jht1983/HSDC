@@ -4,10 +4,11 @@
     if(temp=="true"){
   
          var strwin=<ylt.v message="NO_UPL_KC">""$value"$value"</ylt.v>;
-         if(parent.mainhomeframe.location.pathname.indexOf("home.v")!=-1){
-             parent.mainhomeframe.location.reload();
+		 console.log(parent);
+         if(parent.framehome.location.pathname.indexOf("home.v")!=-1){
+             parent.framehome.location.reload();
              parent.closeWinById(strwin);
-         }else if(typeof(parent.mainhomeframe.lxmain)=="undefined"){
+         }else if(typeof(parent.framehome.lxmain)=="undefined"){
 
                parent.location.reload(); 
          }else{
@@ -16,7 +17,7 @@
              parent.closeWinById(strwin);
              
              /*
-            parent.mainhomeframe.lxmain.location.reload();
+            parent.framehome.lxmain.location.reload();
             
             parent.closeWinById(strwin);
             */
@@ -24,7 +25,7 @@
        
     }else{
         alert("Á÷×ªÊ§°Ü");
-       parent.mainhomeframe.lxmain.location.reload();
+       parent.framehome.lxmain.location.reload();
         parent.closeWinById(<ylt.v message="NO_UPL_KC">""$value"$value"</ylt.v>);
        
     }

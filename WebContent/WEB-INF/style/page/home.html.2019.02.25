@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -93,7 +93,7 @@ $(function () {
 				</div>
 				<div class="hyxx">
 					<div class="title">
-						<h1><i class="iconfont">&#xe638</i> 生产例会</h1>
+						<h1><i class="iconfont">&#xe638</i> 生产早例会</h1>
 						<div class="more">
 							<a href="###" onclick="morehy()">MORE>></a>
 						</div>
@@ -101,7 +101,7 @@ $(function () {
 					<ul id="hyxxul">
 						<ylt.for dataId="1548067419396">
 						<li><a href="###" onclick="hy('$value','$value');"
-                                    style="text-align: left;"><p>$value $value</p><span>$value</span></a></li>
+                                    style="text-align: left;text-indent:2em"><p>$value</p><span>$value</span></a></li>
 						</ylt.for>	
 					</ul>
 					<!--<ul>
@@ -267,7 +267,7 @@ $(function () {
                             <col width="">
                         </colgroup>
 
-                        <tr bgcolor="$value">
+                        <tr>
                                 <td onclick="sp('$value&$value&$value&$value&$value&$value&$value&$value$value');"
                                     style="text-align: left;text-indent:2em">事件:$value,内容:$value
                                 </td>

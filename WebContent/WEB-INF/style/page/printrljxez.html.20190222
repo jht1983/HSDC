@@ -1,0 +1,1137 @@
+<style>.tb{
+            width: 100%;
+            /*border-collapse: collapse;*/
+        }
+       .tb td{
+            height:20px;
+           border-bottom:1px solid #000;
+             border-left:1px solid #000;
+             
+        }
+         .tb tr:first-child>td{
+          
+            border-top:1px solid #000;
+        }
+     
+.tb th{
+          
+           border-left:1px solid #000;
+           border-top:1px solid #000;
+            border-bottom:1px solid #000;
+        }
+        .tb th:last-child{
+          
+            border-right:1px solid #000;
+        }
+        .tb td:last-child{
+          
+            border-right:1px solid #000;
+        }
+        body{
+	font-size:13px;
+	color:#000000;
+}
+</style>
+<script type='text/javascript' src='res/js/alertfField.js?v=1.0'></script>
+<body>
+<!--startprint-->
+
+<p algin="center" style="text-align:center;font-size:28px">受限空间作业许可单</p>
+<table class="tb" cellspacing='0' border='0' cellpadding='2' align='center' style="width : 100%;text-align:center" width="573">
+<tbody>
+<tr>
+<td colspan="4" width="106">
+<p>部门</p>
+</td>
+<td colspan="10" width="257">
+<p>&#160;</p>
+</td>
+<td colspan="8" width="210">
+<p style="text-align:left">工单编号:</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>作业项目</p>
+</td>
+<td colspan="5" width="105">
+<p>&#160;</p>
+</td>
+<td colspan="5" width="152">
+<p>工作内容</p>
+</td>
+<td colspan="8" width="210">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>计划开始时间</p>
+</td>
+<td colspan="5" width="105">
+<p>&#160;</p>
+</td>
+<td colspan="5" width="152">
+<p>计划结束时间</p>
+</td>
+<td colspan="8" width="210">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>项目风险等级</p>
+</td>
+<td colspan="18" width="467">
+<p>□&#160; 重大&#160;&#160;&#160;&#160;&#160;&#160; □&#160; 较大&#160;&#160;&#160;&#160;&#160; □&#160; 一般</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>部&#160;&#160;&#160; 门</p>
+</td>
+<td colspan="3" width="81">
+<p>&#160;</p>
+</td>
+<td colspan="5" width="101">
+<p>工作负责人</p>
+</td>
+<td colspan="2" width="75">
+<p>&#160;</p>
+</td>
+<td colspan="3" width="66">
+<p>日&#160;&#160; 期</p>
+</td>
+<td colspan="5" width="144">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>受限空间场所</p>
+</td>
+<td colspan="18" width="467">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td rowspan="3" width="35">
+<p>介质采样分析</p>
+</td>
+<td colspan="3" rowspan="2" width="71">
+<p>检测项目</p>
+</td>
+<td rowspan="2" width="48">
+<p>氧含量</p>
+</td>
+<td colspan="4" rowspan="2" width="57">
+<p>可燃气体浓度</p>
+</td>
+<td colspan="8" width="219">
+<p>有毒有害气体或粉尘浓度</p>
+</td>
+<td colspan="3" width="78">
+<p>监护人员</p>
+</td>
+<td colspan="2" width="65">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="53">
+<p>&#160;</p>
+</td>
+<td colspan="3" width="57">
+<p>&#160;</p>
+</td>
+<td colspan="2" width="54">
+<p>&#160;</p>
+</td>
+<td colspan="2" width="55">
+<p>&#160;</p>
+</td>
+<td colspan="3" width="78">
+<p>检测人员</p>
+</td>
+<td colspan="2" width="65">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="3" width="71">
+<p>检测结果</p>
+</td>
+<td width="48">
+<p>&#160;</p>
+</td>
+<td colspan="4" width="57">
+<p>&#160;</p>
+</td>
+<td width="53">
+<p>&#160;</p>
+</td>
+<td colspan="3" width="57">
+<p>&#160;</p>
+</td>
+<td colspan="2" width="54">
+<p>&#160;</p>
+</td>
+<td colspan="2" width="55">
+<p>&#160;</p>
+</td>
+<td colspan="3" width="78">
+<p>检测时间</p>
+</td>
+<td colspan="2" width="65">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="3" width="95">
+<p>所在部门安全主管</p>
+</td>
+<td colspan="5" width="95">
+<p>&#160;</p>
+</td>
+<td colspan="3" width="95">
+<p>部门负责人</p>
+</td>
+<td colspan="5" width="104">
+<p>&#160;</p>
+</td>
+<td colspan="3" width="82">
+<p>核准工作时间</p>
+</td>
+<td colspan="3" width="101">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" width="62">
+<p>序号</p>
+</td>
+<td colspan="4" width="111">
+<p>作业步骤</p>
+</td>
+<td colspan="6" width="114">
+<p>可能面临的风险</p>
+</td>
+<td colspan="9" width="228">
+<p>消除或减少风险控制措施</p>
+</td>
+<td width="58">
+<p>执行人</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" width="62">
+<p>1</p>
+</td>
+<td colspan="4" width="111">
+<p>&#160;</p>
+</td>
+<td colspan="6" width="114">
+<p>&#160;</p>
+</td>
+<td colspan="9" width="228">
+<p>&#160;</p>
+</td>
+<td width="58">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" width="62">
+<p>2</p>
+</td>
+<td colspan="4" width="111">
+<p>&#160;</p>
+</td>
+<td colspan="6" width="114">
+<p>&#160;</p>
+</td>
+<td colspan="9" width="228">
+<p>&#160;</p>
+</td>
+<td width="58">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" width="62">
+<p>3</p>
+</td>
+<td colspan="4" width="111">
+<p>&#160;</p>
+</td>
+<td colspan="6" width="114">
+<p>&#160;</p>
+</td>
+<td colspan="9" width="228">
+<p>&#160;</p>
+</td>
+<td width="58">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" width="62">
+<p>4</p>
+</td>
+<td colspan="4" width="111">
+<p>&#160;</p>
+</td>
+<td colspan="6" width="114">
+<p>&#160;</p>
+</td>
+<td colspan="9" width="228">
+<p>&#160;</p>
+</td>
+<td width="58">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" width="62">
+<p>5</p>
+</td>
+<td colspan="4" width="111">
+<p>&#160;</p>
+</td>
+<td colspan="6" width="114">
+<p>&#160;</p>
+</td>
+<td colspan="9" width="228">
+<p>&#160;</p>
+</td>
+<td width="58">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" width="62">
+<p>6</p>
+</td>
+<td colspan="4" width="111">
+<p>&#160;</p>
+</td>
+<td colspan="6" width="114">
+<p>&#160;</p>
+</td>
+<td colspan="9" width="228">
+<p>&#160;</p>
+</td>
+<td width="58">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" width="62">
+<p>7</p>
+</td>
+<td colspan="4" width="111">
+<p>&#160;</p>
+</td>
+<td colspan="6" width="114">
+<p>&#160;</p>
+</td>
+<td colspan="9" width="228">
+<p>&#160;</p>
+</td>
+<td width="58">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="22" width="573">
+<p style="text-align:left">其他作业风险与措施：</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&#160;</p>
+<table class="tb" cellspacing='0' border='0' cellpadding='2' align='center' style="width : 100%;text-align:center" width="573">
+<tbody>
+<tr>
+<td colspan="9" width="210">
+<p>做这项工作需要的安全设备</p>
+</td>
+<td colspan="4" width="110">
+<p>其他安全设备</p>
+</td>
+<td colspan="5" width="139">
+<p>监督检查</p>
+</td>
+<td colspan="4" width="113">
+<p>工作票</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>安全帽&#160;&#160;&#160; □</p>
+</td>
+<td colspan="5" width="105">
+<p>焊接手套&#160; □</p>
+</td>
+<td colspan="4" width="110">
+<p>接地措施&#160;&#160; □</p>
+</td>
+<td colspan="5" width="139">
+<p>&#160;闭锁/标示牌&#160; □</p>
+</td>
+<td colspan="4" width="113">
+<p>&#160;电气一种 □</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>安全鞋&#160;&#160;&#160; □</p>
+</td>
+<td colspan="5" width="105">
+<p>防护眼镜&#160; □</p>
+</td>
+<td colspan="4" width="110">
+<p>泄压措施&#160;&#160; □</p>
+</td>
+<td colspan="5" width="139">
+<p>&#160;脚手架检查&#160; □</p>
+</td>
+<td colspan="4" width="113">
+<p>&#160;电气二种 □</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>反光背心&#160; □</p>
+</td>
+<td colspan="5" width="105">
+<p>护脸设备&#160; □</p>
+</td>
+<td colspan="4" width="110">
+<p>&#160;&#160;</p>
+</td>
+<td colspan="5" width="139">
+<p>&#160;升降机检查&#160; □</p>
+</td>
+<td colspan="4" width="113">
+<p>&#160;机械&#160;&#160; □</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>手套(皮革) □</p>
+</td>
+<td colspan="5" width="105">
+<p>焊接眼镜&#160; □</p>
+</td>
+<td colspan="4" width="110">
+<p>&#160;&#160;</p>
+</td>
+<td colspan="5" width="139">
+<p>&#160;沟渠检查&#160;&#160;&#160; □</p>
+</td>
+<td colspan="4" width="113">
+<p>&#160;仪控&#160;&#160; □</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>安全绳/带&#160; □</p>
+</td>
+<td colspan="5" width="105">
+<p>遮栏&#160;&#160;&#160;&#160;&#160; □</p>
+</td>
+<td colspan="4" width="110">
+<p>&#160;&#160;</p>
+</td>
+<td colspan="5" width="139">
+<p>&#160;气体测试&#160;&#160;&#160; □</p>
+</td>
+<td colspan="4" width="113">
+<p>&#160;动火&#160;&#160; □</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" width="106">
+<p>灭火器&#160;&#160; □</p>
+</td>
+<td colspan="5" width="105">
+<p>呼吸器&#160;&#160;&#160; □</p>
+</td>
+<td colspan="4" width="110">
+<p>注：在需要的项目方框内 “√”</p>
+</td>
+<td colspan="5" width="139">
+<p>&#160;手机/对讲机&#160; □</p>
+</td>
+<td colspan="4" width="113">
+<p>&#160;其他&#160;&#160; □</p>
+</td>
+</tr>
+<tr>
+<td colspan="22" width="573">
+<p style="width : 100%;text-align:left">审批意见：　　</p>
+<p style="width : 100%;text-align:left">分管生产领导：&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;批准日期：&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="22" width="573">
+<p style="width : 100%;text-align:left">工作班成员签字栏：</p>
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="35">&#160;</td>
+<td width="27">&#160;</td>
+<td width="33">&#160;</td>
+<td width="10">&#160;</td>
+<td width="48">&#160;</td>
+<td width="20">&#160;</td>
+<td width="13">&#160;</td>
+<td width="4">&#160;</td>
+<td width="19">&#160;</td>
+<td width="53">&#160;</td>
+<td width="23">&#160;</td>
+<td width="1">&#160;</td>
+<td width="33">&#160;</td>
+<td width="42">&#160;</td>
+<td width="11">&#160;</td>
+<td width="16">&#160;</td>
+<td width="39">&#160;</td>
+<td width="31">&#160;</td>
+<td width="12">&#160;</td>
+<td width="36">&#160;</td>
+<td width="8">&#160;</td>
+<td width="58">&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>
+<p algin="center" style="text-align:center;font-size:28px">受限空间内有毒有害气体检测记录</p>
+<table class="tb" cellspacing='0' border='0' cellpadding='2' align='center' style="width : 100%;text-align:center" width="595">
+<tbody>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>检测项目</p>
+</td>
+<td width="108">
+<p>检测时间</p>
+</td>
+<td width="72">
+<p>检测值</p>
+</td>
+<td width="72">
+<p>分析结果</p>
+</td>
+<td width="108">
+<p>检测人/监护人</p>
+</td>
+</tr>
+<tr>
+<td rowspan="5" width="91">
+<p>首</p>
+<p>次</p>
+<p>进</p>
+<p>入</p>
+<p>前</p>
+<p>检</p>
+<p>测</p>
+</td>
+<td width="144">
+<p>O<sub>2</sub>含量</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="144">
+<p>CO含量</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="144">
+<p>H<sub>2</sub>S含量</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="144">
+<p>NH<sub>4</sub>含量</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="144">
+<p>其它（根据工作环境可能存在的有毒有害气体检测）</p>
+<p><u>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; </u>含量</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="91">
+<p>&#160;</p>
+</td>
+<td width="144">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="72">
+<p>&#160;</p>
+</td>
+<td width="108">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td colspan="6" width="595">
+<p>指标参考值：</p>
+<p>氧气浓度应保持在19.5%～21%内，最低不低于18%，富氧环境不得大于23.5%；</p>
+<p>一氧化碳≤30mg/m<sup>3</sup>；硫化氢≤10mg/m<sup>3</sup>；氯气≤1mg/m<sup>3</sup>；</p>
+<p>要求：首次进入前进行一次全面检测，每天开工前要进行一次全面检测，工作期间每隔2小时要进行一次检测，检测人员和监护人要签字确认。</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&#160;</p>
+<p algin="center" style="text-align:center;font-size:28px">受限空间进出登记表</p>
+<p algin="center" style="text-align:left;font-size:18px">部门：&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 班组：&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+<p algin="center" style="text-align:left;font-size:18px">受限作业地点：</p>
+<table class="tb" cellspacing='0' border='0' cellpadding='2' align='center' style="width : 100%;text-align:center" width="608">
+<tbody>
+<tr>
+<td width="94">
+<p>进入人员</p>
+</td>
+<td width="94">
+<p>进入时间</p>
+</td>
+<td width="147">
+<p>携带物品</p>
+</td>
+<td width="80">
+<p>离开时间</p>
+</td>
+<td width="112">
+<p>带出物品</p>
+</td>
+<td width="80">
+<p>确认签字</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+<tr>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="94">
+<p>&#160;</p>
+</td>
+<td width="147">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+<td width="112">
+<p>&#160;</p>
+</td>
+<td width="80">
+<p>&#160;</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&#160;</p>
+
+
+<script>
+if(document.getElementById("xian").innerHTML==''){
+    document.getElementById("yuan").innerHTML='';
+}
+document.getElementById("addtable1").innerHTML=document.getElementById("distable1").innerHTML;
+document.getElementById("addtable2").innerHTML=document.getElementById("distable2").innerHTML;
+document.getElementById("addtable3").innerHTML=document.getElementById("distable3").innerHTML;
+</script>
+
+
+<script>
+    dataFormat("upDat","yyyy年MM月dd日 hh时mm分");
+	function preview() {
+		var bdhtml = window.document.body.innerHTML;
+		var sprnstr = "<!--startprint-->";
+		var eprnstr = "<!--endprint-->";
+		var prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+		var prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+		window.document.body.innerHTML = prnhtml;
+		window.print();
+	}
+	preview();
+</script>
+	<style>
+		@media print {
+			INPUT {
+				display: none
+			}
+		}
+		
+		.changePage {
+			page-break-after: always;
+		}
+	</style>
+	
+</body>
