@@ -1641,7 +1641,7 @@ if(strCustomNodeId.equals(getColString("I_NODE_ID", exRun2.getRecord(0)))&&"2".e
 						strAuditArrayyq =(icount==0?"":(strAuditArrayyq+"|")) +getColString("S_AUDIT_YQTS", rd)+","+getColString("S_AUDIT_YQTSCL", rd);//所有逾期  所有逾期操作
 						strAuditMsgs =(icount==0?"":(strAuditMsgs+"|"))+getColString("S_AUDIT_TZXX", rd);//所有消息模版
 						strAuditNodes = (icount==0?"":(strAuditNodes+"|"))+getColString("I_NODE_ID", rd);
-						strAuditOther =(icount==0?"":(strAuditOther+"|")) +getColString("S_AUDIT_TG", rd)+","+getColString("S_AUDIT_THJD", rd)+","+getColString("S_AUDIT_THJDZD", rd)+","+getColString("S_TZLC", rd)+","+getColString("S_AUDIT_PREEMPTION", rd)+","+getColString("S_AUD_VAL", rd)+","+",";;
+						strAuditOther =(icount==0?"":(strAuditOther+"|")) +getColString("S_AUDIT_TG", rd)+","+getColString("S_AUDIT_THJD", rd)+","+getColString("S_AUDIT_THJDZD", rd)+","+getColString("S_TZLC", rd)+","+getColString("S_AUDIT_PREEMPTION", rd)+","+getColString("S_AUD_VAL", rd)+","+",";
 						strStartNode = getColString("S_CHILD_ID", rd);
 						strAudFlowPj =(icount==0?"":(strAudFlowPj+"|"))+getColString("S_AUDIT_FSPJ", rd);//附加票据
 						//是否跳过 所有审批驳回 所有审批驳回处理 子流程
