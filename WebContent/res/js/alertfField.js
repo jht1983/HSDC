@@ -1199,6 +1199,7 @@ function dataFormat(_name,_formatStr){
 		    let obj = upDat[i];
 		    let objStr = obj.innerHTML;
     		objStr = objStr.replace(/ /g,"");
+    		objStr = objStr.replace(new RegExp("-","g"),"\/");
     		if(objStr=="") continue;
     		datOn = new Date(objStr);
     		obj.innerHTML = datOn.Format(_formatStr);
