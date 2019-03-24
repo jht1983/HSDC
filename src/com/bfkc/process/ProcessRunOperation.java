@@ -520,7 +520,7 @@ public class ProcessRunOperation {
             _sb.append("replay init");
 			String strIsOver = "0";
 			/**查询流程运行信息*/
-			exRun = helper.queryFlowRun(strFlowId,strVersion,strFlowRunId);
+			exRun = helper.queryFlowRun(strFlowId,strFlowRunId);
 			//_sb.append(strFlowId+"    "+strVersion+"    "+strFlowRunId);
 			Record record = exRun.getRecord(0);
 			String strMsgs=helper.getColString("S_AUDIT_MSG",record);
@@ -560,7 +560,7 @@ public class ProcessRunOperation {
 				helper.updateTabByFlowSet(request, "", strField, strFlowRunId,_sb);//strNodeIdNow
 				if(strCustomNodeId==null||"".equals(strCustomNodeId)){
 	            	processSave(request);
-	            	TableEx exRunGet =helper.queryFlowRun(strFlowId,strVersion,strFlowRunId);
+	            	TableEx exRunGet =helper.queryFlowRun(strFlowId,strFlowRunId);
 	            	strAuditUsers=exRunGet.getRecord(0).getFieldByName("S_AUDIT_ARRAY").value.toString();
 	            	if(exRunGet!=null){
 	            	    exRunGet.close();
@@ -1269,7 +1269,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			strFlowRunId = request.getParameter("NO_sys_S_RUN_ID");//运行
 			
 				/**2查询运行表*/
-				exRun = helper.queryFlowRun(strFlowId,strVersion,strFlowRunId);
+				exRun = helper.queryFlowRun(strFlowId,strFlowRunId);
 				String strIsOverRun = exRun.getRecord(0).getFieldByName("I_ISOVER").value.toString();//是否完成
 				if("1".equals(strIsOverRun)){//判断完成返回
 					return b;
@@ -1466,7 +1466,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		
 		/**查询流程运行信息*/
 		try {
-			exRun = helper.queryFlowRun(strFlowId==null?"":strFlowId,strVersion==null?"":strVersion,strFlowRunId==null?"":strFlowRunId);
+			exRun = helper.queryFlowRun(strFlowId,strFlowRunId);
 			processAudCustomNodeIds = processAudCustomNodeIds(request, exRun);
 			processAuditSelectNode = processAuditSelectNode(request, exRun);
 			processNodeAudit = processNodeAudit(request, exRun);
@@ -1739,7 +1739,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
     
    
 
-		TableEx exRun = helper.queryFlowRun(_strFlowId, _strVersion, _strFlowRunId);
+		TableEx exRun = helper.queryFlowRun(_strFlowId, _strFlowRunId);
 		exRun.close();
 		
 //		String[] strArrayUserIds = _strArrayUserIds.split(",");
@@ -2548,7 +2548,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		TableEx exRun1 = null;
 		boolean bFlag = false;
 		try {
-			exRun = helper.queryFlowRun(_strFlowId, _strVersion, _strFlowRunId);
+			exRun = helper.queryFlowRun(_strFlowId, _strFlowRunId);
 			int index =Integer.parseInt(exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value.toString());
 			if(index==0)return bFlag;
 			

@@ -1365,7 +1365,7 @@ import com.timing.impcl.EventCl;
     
           String str2 = paramHttpServletRequest.getParameter("NO_OPTYPE");
           if ("1".equals(str2)){
-              ex = localProcessRunOperationHelper.queryFlowRun(paramHttpServletRequest.getParameter("NO_sys_flow_id"),paramHttpServletRequest.getParameter("NO_sys_flow_Ver"),paramHttpServletRequest.getParameter("NO_sys_S_RUN_ID"));
+              ex = localProcessRunOperationHelper.queryFlowRun(paramHttpServletRequest.getParameter("NO_sys_flow_id"),paramHttpServletRequest.getParameter("NO_sys_S_RUN_ID"));
               if(ex.getRecordCount()>0){
                     localProcessRunOperation.processSave(paramHttpServletRequest);
               }else{

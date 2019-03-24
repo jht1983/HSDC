@@ -25,11 +25,11 @@ public final class ProcessRunOperationDao {
 	 * @param _strType 1:挂起 0:启用 3:作废
 	 * @return
 	 */
-	public final static boolean processFlowHand(String _strFlowId,String _strFlowRunId,String _strVersion,String _strType){
+	public final static boolean processFlowHand(String _strFlowId,String _strFlowRunId,String _strType){
 		DBFactory dbf = new DBFactory();
 		TableEx exRun = null;
 		try {
-			exRun = queryFlowRun(_strFlowId,_strVersion,_strFlowRunId);
+			exRun = queryFlowRun(_strFlowId,_strFlowRunId);
 			String strAuditUsers=exRun.getRecord(0).getFieldByName("S_AUDIT_ARRAY").value.toString();
 			int index = Integer.parseInt(exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value.toString());//索引
 			if("1".equals(_strType)){//挂起 更新人为空,状态为2
@@ -154,13 +154,12 @@ public final class ProcessRunOperationDao {
 	 * @param _strFlowRunId
 	 * @return
 	 */
-	public final static TableEx queryFlowRun(String _strFlowId,String _strVersion,String _strFlowRunId){
+	public final static TableEx queryFlowRun(String _strFlowId,String _strFlowRunId){
 		TableEx ex = null;
 		try {
 			StringBuffer sr = new StringBuffer();
 			sr.append(" 1=1");
 			sr.append((_strFlowId==null||"".equals(_strFlowId))?"":(" and S_FLOW_ID='"+_strFlowId+"'"));
-			sr.append((_strVersion==null||"".equals(_strVersion))?"":(" and S_AUDIT_VERSION ='"+_strVersion+"'"));
 			sr.append((_strFlowRunId==null||"".equals(_strFlowRunId))?"":(" and S_RUN_ID ='"+_strFlowRunId+"'"));
 			ex = new TableEx("*", "T_SYS_FLOW_RUN", sr.toString());
 		} catch (Exception e) {

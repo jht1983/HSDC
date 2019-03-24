@@ -268,8 +268,8 @@ public class ProcessRunOperationHelper {
 	 * @param _strType 1:挂起 0:启用 3:作废
 	 * @return
 	 */
-	public final static boolean processFlowHand(String _strFlowId,String _strFlowRunId,String _strVersion,String _strType){
-		return ProcessRunOperationDao.processFlowHand(_strFlowId, _strFlowRunId, _strVersion, _strType);
+	public boolean processFlowHand(String _strFlowId,String _strFlowRunId,String _strVersion,String _strType){
+		return ProcessRunOperationDao.processFlowHand(_strFlowId, _strFlowRunId, _strType);
 	}
 	
 	/**
@@ -277,7 +277,7 @@ public class ProcessRunOperationHelper {
 	 * @param _strArrayFlowRun
 	 * @param _strType 1:插入 2:更新 3:更新 4:更新父
 	 */
-	public final static void updateFlowRun(String[] _strArrayFlowRunVal,String _strType){
+	public void updateFlowRun(String[] _strArrayFlowRunVal,String _strType){
 		ProcessRunOperationDao.updateFlowRun(_strArrayFlowRunVal, _strType);
 	}
 	
@@ -298,8 +298,8 @@ public class ProcessRunOperationHelper {
 	 * @param _strFlowRunId
 	 * @return
 	 */
-	public final static TableEx queryFlowRun(String _strFlowId,String _strVersion,String _strFlowRunId){
-		return ProcessRunOperationDao.queryFlowRun(_strFlowId, _strVersion, _strFlowRunId);
+	public TableEx queryFlowRun(String _strFlowId,String _strFlowRunId){
+		return ProcessRunOperationDao.queryFlowRun(_strFlowId, _strFlowRunId);
 	}
 	
 	/**
@@ -308,7 +308,7 @@ public class ProcessRunOperationHelper {
 	 * @param strFlowParentId
 	 * @return
 	 */
-	public final static boolean queryFlowRunIsOverSameLevel(String strFlowRunId, String strFlowParentId) {
+	public boolean queryFlowRunIsOverSameLevel(String strFlowRunId, String strFlowParentId) {
 		return ProcessRunOperationDao.queryFlowRunIsOverSameLevel(strFlowRunId, strFlowParentId);
 	}
 	

@@ -3,20 +3,12 @@ package com.bfkc.process;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
-
-import com.yulongtao.db.DBFactory;
-import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
 
 /**
@@ -50,7 +42,7 @@ public class ProcessAuditSelectNode extends HttpServlet {
 			String strFlowRunId = request.getParameter("S_RUN_ID");//运行ID
 			
 			/**查询流程运行信息*/
-			TableEx exRun = localProcessRunOperationHelper.queryFlowRun(strFlowId,strVersion,strFlowRunId);
+			TableEx exRun = localProcessRunOperationHelper.queryFlowRun(strFlowId,strFlowRunId);
 			String[] strNodes=exRun.getRecord(0).getFieldByName("S_AUDIT_NODES").value.toString().split("\\|");
 			int index = Integer.parseInt(exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value.toString());//索引
 			String strNodesBefore ="";
