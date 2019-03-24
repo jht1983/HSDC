@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import com.timing.impcl.MantraLog;
 import com.yulongtao.db.DBFactory;
-import com.yulongtao.db.FieldEx;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
 import com.yulongtao.util.EString;
@@ -99,8 +98,13 @@ public class ProcessRunOperationHelper {
 //				String strTabName =strArrayItem[0].substring(0, strArrayItem[0].indexOf("."));//表名
 //				String strCou = strArrayItem[0].substring(strArrayItem[0].indexOf("."),strArrayItem[0].length());//字段名称
 				String strVal = strArrayItem[4];
+				boolean once = false;
+				
 				if(strVal==null||"".equals(strVal)){
 					continue;
+				}
+				if (strArrayItem.length > 5) {
+					once = Boolean.parseBoolean(strArrayItem[5]);
 				}
 			
 				String strAuditState = _request.getParameter("NO_sys_flow_state");//99撤回0驳回1通过
