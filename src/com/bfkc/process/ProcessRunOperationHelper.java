@@ -81,7 +81,7 @@ public class ProcessRunOperationHelper {
 		
 		TableEx exRun = null;
 		try {
-			queryFlowRun(_strFlowId, _strRunId);
+			exRun = queryFlowRun(_strFlowId, _strRunId);
 			Record record = exRun.getRecord(0);
 			updateValueColumnStr = record.getFieldByName("S_UPVALUE_COLS").value.toString();
 			if (StringUtils.isNotEmpty(updateValueColumnStr)) {
