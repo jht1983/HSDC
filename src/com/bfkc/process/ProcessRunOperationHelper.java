@@ -5,12 +5,16 @@ package com.bfkc.process;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.timing.impcl.MantraLog;
 import com.yulongtao.db.DBFactory;
@@ -37,7 +41,7 @@ public class ProcessRunOperationHelper {
 	 * @param _strRunId
 	 */
 //	1500260373394$true$T_DQYZGZP.S_GLYQM,true,false,{user}|T_DQYZGZP.S_GLYQMSJ,true,false,{date}|T_DQYZGZP.S_ZHXGSJ,true,false,{date}|T_DQYZGZP.S_ZHXGR,true,false,{user}
-	public void updateTabByFlowSet(HttpServletRequest _request,String _strkey,String _strField,String _strRunId,StringBuffer _sr){
+	public void updateTabByFlowSet(HttpServletRequest _request,String _strkey,String _strField,String _strFlowId,String _strRunId,StringBuffer _sr){
 		DBFactory dbf = new DBFactory();
 		String strField = getNodeReplaceVal(_request, _strkey, _strField);
 		Map<String,String> map = new HashMap<String, String>();
@@ -46,6 +50,8 @@ public class ProcessRunOperationHelper {
 		//用户手动选择节点, 出现分支情况
 		String strCustomNodeId = _request.getParameter("NO_custom_node_id");
 		List<String> updateColumns = new ArrayList<String>();
+		Set<String> updateValueColumns = new HashSet<String>();
+		String updateValueColumnStr = null;
 		Map<String, String> rollBackMap = new HashMap<>();
 
 		if("".equals(_strField)){return;}
@@ -70,6 +76,28 @@ public class ProcessRunOperationHelper {
 		} finally {
 			if (ex != null) {
 				ex.close();
+			}
+		}
+		
+		TableEx exRun = null;
+		try {
+			queryFlowRun(_strFlowId, _strRunId);
+			Record record = exRun.getRecord(0);
+			updateValueColumnStr = record.getFieldByName("S_UPVALUE_COLS").value.toString();
+			if (StringUtils.isNotEmpty(updateValueColumnStr)) {
+				String[] columns = updateValueColumnStr.split("\\|");
+				for (int k = 0; k < columns.length; k++) {
+					updateValueColumns.add(columns[k]);
+				}
+			}
+			else {
+				updateValueColumnStr = "";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			if (exRun != null) {
+				exRun.close();
 			}
 		}
 		
@@ -103,8 +131,14 @@ public class ProcessRunOperationHelper {
 				if(strVal==null||"".equals(strVal)){
 					continue;
 				}
+				
 				if (strArrayItem.length > 5) {
 					once = Boolean.parseBoolean(strArrayItem[5]);
+				}
+				
+				//only set the value to the column one time
+				if (once && updateValueColumns.contains(strCou)) {
+					continue;
 				}
 			
 				String strAuditState = _request.getParameter("NO_sys_flow_state");//99撤回0驳回1通过
@@ -212,6 +246,7 @@ public class ProcessRunOperationHelper {
 				mapCon.put(strTabName, strWhere);
 				map.put(strTabName,(map.get(strTabName)==null?"":(map.get(strTabName).toString()+" , "))+strCou+" = '"+strVal+"' ");//字段名
 				updateColumns.add(strCou);
+				updateValueColumnStr += "|" + strCou;
 			}
 		}
 		
@@ -247,6 +282,7 @@ public class ProcessRunOperationHelper {
 			    //	update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'
 			    //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key));
 				dbf.sqlExe("update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key), true);
+				dbf.sqlExe("update T_SYS_FLOW_RUN set S_UPVALUE_COLS='" + updateValueColumnStr + "' where S_RUN_ID='" + _strRunId + "' and S_FLOW_ID='" +_strFlowId + "'", true);
 				//dbf.sqlExe("update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'", true);
 			}
 			_sr.append(UPDATE_FIELD_END_TAG);

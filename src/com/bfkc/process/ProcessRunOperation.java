@@ -296,7 +296,7 @@ public class ProcessRunOperation {
 				String strField = helper.getColString("S_AUDIT_TABLECONTROL", tableEx1.getRecord(0));
 				 _sb.append(strField);
 				if(strField!=null&&!"".equals(strField)){
-					helper.updateTabByFlowSet(request, "", strField, strFlowRunId,_sb);//strNodeIdNow
+					helper.updateTabByFlowSet(request, "", strField, strFlowId, strFlowRunId,_sb);//strNodeIdNow
 				}
 				
 				/**2 开始节点赋值*/
@@ -373,20 +373,13 @@ public class ProcessRunOperation {
 						//启动子流程
 //						processStart(request, _sb,strSonFlow.split("\\|",-1)[strNextAuditUserIndex+1],strFlowId);
 					}
-					//修改值
-//					String strField1 = helper.getColString("S_AUDIT_TABLECONTROL", queryFlowNodeInfo(strFlowId, strVersion, strNodeIdNow).getRecord(0));
-//					if(strField1!=null&&!"".equals(strField1)){
-//						updateTabByFlowSet(request, "", strField1, strFlowRunId,_sb);//strNodeIdNow
-//						processSave(request);
-//					}
+
 					if(strClassName!=null&&strMethodName!=null&&!"".equals(strMethodName)&&!"".equals(strClassName)){
 						reflectMothedInvoke(strClassName, strMethodName, request);
 					}
 		}catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
 			b=false;
-			// String[] strArrayFlowLog22 = {"333",strFlowRunId,strFlowId,new Date()+"",strVersion,"","start",getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
 			_sb.append(e);
 			e.printStackTrace();
 		}finally{
@@ -541,8 +534,6 @@ public class ProcessRunOperation {
 			String strTab = helper.getColString("S_TAB", record);//表名
 			boolean bTranFlowSonFlag=false;
 			
-	
-			
 			if("1".equals(strIsOverRun)){//判断完成返回
 				return b;
 			}
@@ -557,7 +548,7 @@ public class ProcessRunOperation {
 //			insertFlowLog("1", strArrayFlowLog1);
 
 			if(strField!=null&&!"".equals(strField)){
-				helper.updateTabByFlowSet(request, "", strField, strFlowRunId,_sb);//strNodeIdNow
+				helper.updateTabByFlowSet(request, "", strField, strFlowId, strFlowRunId,_sb);//strNodeIdNow
 				if(strCustomNodeId==null||"".equals(strCustomNodeId)){
 	            	processSave(request);
 	            	TableEx exRunGet =helper.queryFlowRun(strFlowId,strFlowRunId);
@@ -2570,7 +2561,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 	
 				if(strField!=null&&!"".equals(strField)){
 					_request.setAttribute("NO_sys_flow_state", "99");
-					helper.updateTabByFlowSet(_request, "", strField, _strFlowRunId,new StringBuffer());//strNodeIdNow
+					helper.updateTabByFlowSet(_request, "", strField, _strFlowId, _strFlowRunId,new StringBuffer());//strNodeIdNow
 				}
 			}
 		} catch (NumberFormatException e) {
