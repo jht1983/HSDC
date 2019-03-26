@@ -211,10 +211,10 @@ public class ProcessRunOperationHelper {
 //							T_DQYZGZP.S_GZPBH,true,false,{number:1504603191000:待定:待定}
 //							{number:1504603191000:待定:待定}
 							strWhere =strWhere+ " and "+strCou +"=''";
-							strVal = com.yulongtao.util.SerialUtil.getSerialNum(xlhId,_request);//TODO  序列号
+							strVal = com.yulongtao.util.MisSerialUtil.getSerialNum(xlhId,_request);//TODO  序列号
 						}else{//{number:143214235:待定:}
 							strWhere =strWhere+  "and "+strCou+" like '%" +strArrayNum[2]+"'";
-							strVal = com.yulongtao.util.SerialUtil.getSerialNum(xlhId,_request);//TODO  序列号
+							strVal = com.yulongtao.util.MisSerialUtil.getSerialNum(xlhId,_request);//TODO  序列号
 						}
 						
 						if (zy != null && !"".equals(zy)) {
