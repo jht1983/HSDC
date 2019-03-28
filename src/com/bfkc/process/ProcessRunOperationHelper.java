@@ -3,7 +3,12 @@
  */
 package com.bfkc.process;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 
 import com.timing.impcl.MantraLog;
+import com.yonyou.mis.util.ApplicationUtils;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
@@ -27,6 +33,9 @@ import com.yulongtao.util.EString;
  *
  */
 public class ProcessRunOperationHelper {
+	public static SimpleDateFormat strSdfYmd =  new SimpleDateFormat("yyyy-MM-dd");
+	public static SimpleDateFormat strSdfYmdHms =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
     public static final String UPDATE_FIELD_START_TAG = "{updateFieldsStart:";
     public static final String UPDATE_FIELD_END_TAG = "updateFieldsEnd}";
 	
@@ -297,6 +306,105 @@ public class ProcessRunOperationHelper {
 	}
 	
 	/**
+	 * 发送消息
+	 * @param _strArrayMsgIds
+	 * @param _strArrayUserIds
+	 * @param _strType
+	 * @param _strIsOver
+	 * @param _strFlowId
+	 * @param _strVersion
+	 * @param _strFlowRunId
+	 * @param _strNodeId
+	 * @param request
+	 * @param _strFlowType
+	 */
+	public String sendMsg(String _strArrayMsgIds,String _strArrayUserIds,String _strType,String _strIsOver,String _strFlowId,String _strVersion,String _strFlowRunId,String _strNodeId,HttpServletRequest request,String _strFlowType,String _strPageCode,String _strTab){
+		
+		DBFactory dbf = new DBFactory();
+		String strLoginUserName ="";
+		String strPageCode  ="";
+		Object strLoginBranchName  ="";
+	
+		if(request==null){
+			strPageCode =_strPageCode;
+			strLoginUserName="system";
+			strLoginBranchName="系统";
+		}else{
+			strLoginUserName = request.getSession().getAttribute("SYS_STRCURUSERNAME").toString();//登录人名称
+			strPageCode = request.getParameter("SPAGECODE");//页面代码
+			strLoginBranchName = request.getSession().getAttribute("SYS_STRBRANCHNAME");//登录人部门名称
+		}
+		
+	    //SYS_STRBRANCHID机构ＩＤ
+		switch (_strType) {// 审核状态:0否1是2作废3提交4逾期5逾期作废6逾期退回7跳岗
+			case "0":
+				_strType="驳回";
+				break;
+			case "1":	
+				_strType="审核通过";
+				break;
+			case "2":
+				_strType="作废";
+				break;
+			case "3":
+				_strType="提交";
+				break;
+			case "4":
+				_strType="逾期审批";
+				break;
+			case "5":
+				_strType="逾期作废";
+				break;
+			case "6":
+				_strType="逾期退回";
+				break;
+			case "7":
+				_strType="跳岗";
+				break;
+			case "8":
+				_strType="结束";
+				break;
+		}
+		if("1".equals(_strIsOver)){
+			_strType="流程结束";
+		}
+	
+	    
+		String strMsgContent = queryMsgTemplet(_strArrayMsgIds);
+
+		TableEx exRun = queryFlowRun(_strFlowId, _strFlowRunId);
+		exRun.close();
+
+		String sid  = ""; // request.getParameter("S_ID");
+		String bmid  = ""; // request.getParameter("BMID");
+		String stype  = ""; // request.getParameter("STYPE");
+		String djh = ""; //request.getParameter("DJH");
+		String strNumberId = System.currentTimeMillis()+"";
+		
+		strMsgContent = strMsgContent.replace("${username}", strLoginUserName);//${username} ${active}单据,单据运行号:${numberid} ${branchname}
+		strMsgContent = strMsgContent.replace("${active}", _strType);
+		strMsgContent = strMsgContent.replace("${numberid}", _strFlowRunId);
+		strMsgContent = strMsgContent.replace("${branchname}", (strLoginBranchName==null||"".equals(strLoginBranchName))?"":strLoginBranchName.toString());
+		strPageCode = strPageCode==null?_strPageCode:strPageCode;
+		if(strPageCode==null||"".equals(strPageCode)){
+
+			String[] strArraySon = queryFlowMaiByFlowId(_strFlowId,"").split(",",-1);
+			strPageCode=strArraySon[1];
+		}
+		String[] strArray = setMsgParVal(sid, bmid, stype, djh, strPageCode, _strFlowRunId,dbf,request,_strIsOver);
+		sid = strArray[0];
+		bmid = strArray[1];
+		djh = strArray[2];
+
+		String[] strArrayValues={strPageCode,_strVersion,"system",strSdfYmdHms.format(new Date()),strNumberId,_strNodeId,_strArrayUserIds,_strFlowId,"0",_strArrayMsgIds,"system",strMsgContent,_strFlowRunId,"0",_strFlowType,sid,bmid,stype,djh};
+
+		updateMsgs("1",strArrayValues);
+
+		dbf.close();
+		return strPageCode;
+	}
+	
+	/**
 	 * 操作流程
 	 * @param _strFlowId 流程号
 	 * @param _strFlowRunId 节点号
@@ -363,5 +471,198 @@ public class ProcessRunOperationHelper {
 			_strField=_strField.replace("{"+arrVarNames[i]+"}",strValue.toString());
 		}
 		return _strField;
+	}
+	
+	/**
+	 * 查询消息模版
+	 * @param _strMsgIds
+	 * @return
+	 */
+	public String queryMsgTemplet(String _strMsgIds){
+		TableEx ex = null;
+		String strMsgTem = "";
+		try {
+			ex = new TableEx("S_MBNR", "T_XXGL"," 1=1 and S_ID ='"+_strMsgIds+"'");
+			if(ex.getRecordCount()>0){
+				strMsgTem= ex.getRecord(0).getFieldByName("S_MBNR").value.toString();
+			}
+		} catch (Exception e) {
+		    MantraLog.fileCreateAndWrite(e);
+			e.printStackTrace();
+		}finally{
+			ex.close();
+		}
+		return strMsgTem;
+	}
+	
+	/**
+	 * 根据流程ID查询流程主表最大流程版本
+	 * @param _strFlowId
+	 * @param _strOrgId
+	 * @return
+	 */
+	public String queryFlowMaiByFlowId(String _strFlowId,String _strOrgId){
+		String strVersion = "";
+		TableEx exFlowMain =null;
+		try {
+			exFlowMain = queryFlowMainTableEx(_strFlowId, _strOrgId);
+			Record rd = exFlowMain.getRecord(0);
+			strVersion = getColString("S_AUDIT_VERSION", rd)+","+getColString("S_FORMS", rd);
+		} catch (Exception e) {
+		    MantraLog.fileCreateAndWrite(e);
+			e.printStackTrace();
+		}finally{
+			exFlowMain.close();
+		}
+		return strVersion;
+	}
+	
+	public TableEx queryFlowMainTableEx(String _strFlowId,String _strOrgId){
+		TableEx exFlowMain =null;
+		try {
+			exFlowMain = new TableEx("S_AUDIT_VERSION,S_FORMS", "T_SYS_FLOW_MAIN", "S_FLOWID='"+_strFlowId+"' and I_FLOWSTATUS='0' "+((_strOrgId==null||"".equals(_strOrgId))?"":(" and S_ORG_ID='"+_strOrgId+"'"))+" ORDER BY S_AUDIT_VERSION DESC");
+		} catch (Exception e) {
+		    MantraLog.fileCreateAndWrite(e);
+			if(exFlowMain!=null){exFlowMain.close();}
+			e.printStackTrace();
+		}
+		return exFlowMain;
+	}
+	
+	public void updateMsgs(String _strType,String[] _strArrayValues){
+		DBFactory dbf = new DBFactory();
+		try {
+			if("1".equals(_strType)){
+				
+				String strTabCol ="(S_PAGECODE,S_BBH,S_FSR,S_FSSJ,S_ID,S_JDID,S_JSR,S_LCID,S_SCBS,S_XXID,S_XXLX,S_XXNR,S_YXID,S_ZT,S_FLOW_TYPE,S_SID,S_BMID,S_TYPE,S_DJH)";
+				_strArrayValues = ApplicationUtils.arrayAddSingleQuotes(_strArrayValues);
+				String strTabVal = Arrays.toString(_strArrayValues);
+				strTabVal = strTabVal.substring(1,strTabVal.length()-1);
+				//2018-04-19 16:26:04   注释
+				//MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"insert into T_MSG_RECORDS "+strTabCol+" values("+strTabVal+")");
+				dbf.sqlExe("insert into T_MSG_RECORDS "+strTabCol+" values("+strTabVal+")", true);
+			}else{
+			}
+		} catch (Exception e) {
+			MantraLog.fileCreateAndWrite(e);
+			// String[] strArrayFlowLog22 = {"333",_strType,_strType,new Date()+"",_strType,"","updateMsgs",getErrorInfoFromException(e)};
+			// insertFlowLog("1", strArrayFlowLog22);
+			e.printStackTrace();
+		} finally {
+			dbf.close();
+		}
+	}
+	
+	private String[] setMsgParVal(String _strSid,String _strBmid,String _strType,String _strDjh,String _strPageCode,String _strRunId,DBFactory _dbf,HttpServletRequest request,String _strIsOver){
+		TableEx ex = null;
+		TableEx exForm = null;
+		String strTableName = "";
+		String[] strArray=new String[3];
+		try{
+//			ex = _dbf.query("select S_SID,S_ZZ,S_TYPE,S_DJH,S_TABLE from T_SYS_FLOW_PAR where S_SPAGECODE='"+_strPageCode+"'");
+			ex = _dbf.query("select * from T_SYS_FLOW_PAR where S_SPAGECODE='"+_strPageCode+"'");
+//			ex = new TableEx("S_SID,S_ZZ,S_TYPE,S_DJH,S_TABLE", "T_SYS_FLOW_PAR", "S_SPAGECODE='"+_strPageCode+"'");
+			Record rd = null;
+			String strSidF = "";
+			String strTableNameF="";
+			String strDjhF="";
+			String strBz="";
+			String strBzF="";
+			String strClass="";
+			String strMethod="";
+			String strRelation="";
+			if(ex.getRecordCount()>0){
+				rd = ex.getRecord(0);
+				_strSid = getColString("S_SID", rd);
+				_strBmid = getColString("S_ZZ", rd);
+//				_strType = helper.getColString("S_TYPE", rd);
+				_strDjh = getColString("S_DJH", rd);
+				strTableName = getColString("S_TABLE", rd);
+				strSidF = getColString("S_IDF", rd);
+				strTableNameF = getColString("S_TABLEF", rd);
+				strDjhF = getColString("S_DJHF", rd);
+				strBz = getColString("S_BZ", rd);
+				strBzF = getColString("S_BZF", rd);
+				strClass = getColString("S_CLASSPATH", rd);
+				strMethod = getColString("S_METHOD", rd);
+				strRelation = getColString("S_OTHER", rd);
+			}
+			String strAuditState = "1";//审核状态 审核状态:0驳回1通过2作废3提交4逾期5逾期作废6逾期退回
+			if(request!=null){
+				strAuditState = request.getParameter("NO_sys_flow_state");//审核状态 审核状态:0驳回1通过2作废3提交4逾期5逾期作废6逾期退回
+			}
+//				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"--------"+request+"---------"+request.getParameter("NO_sys_flow_state"));
+			if(!"".equals(strTableName)){
+				if(!"".equals(strTableNameF)){
+					String strCol = _strSid+","+_strBmid+","+_strDjh+","+strTableNameF+"."+strSidF+" AS 'sidf',"+strTableNameF+"."+strDjhF+" AS 'djhf' ";
+//						MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"--------"+strCol+"---------");
+					exForm = _dbf.query("select "+strCol+" from "+ strTableName+","+strTableNameF+" where S_RUN_ID='"+_strRunId+"' and "+strRelation);
+				}else{
+//						MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"--------"+strTableName+"---------"+_strRunId+"---");
+					exForm = new TableEx("*",strTableName, "S_RUN_ID='"+_strRunId+"'");
+				}
+//				exForm = _dbf.query("select * from "+ strTableName+" where S_RUN_ID='"+_strRunId+"'");
+				if(exForm.getRecordCount()>0){
+					Record rd1 = exForm.getRecord(0);
+					strArray[0] = getColString(_strSid, rd1);
+					strArray[1] = getColString(_strBmid, rd1);
+//					_strType = helper.getColString(_strType, rd);
+					strArray[2] = getColString(_strDjh, rd1);
+//						MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"--------"+strArray[0] +"---------"+strArray[1]+"---"+strArray[2]);
+					if("1".equals(_strIsOver)){
+					    //recordRel(String S_ORGANISATION,String S_LEFT_PAGECODE,String LEFT_ID,String LEFT_NAME,String S_RIGHT_PAGECODE,String RIGHT_ID,String RIGHT_NAME)
+						//new com.timing.impcl.MantraUtil().recordRel(strArray[0],strTableName,"".equals(strSidF)?"":helper.getColString("sidf", rd1),"".equals(strTableNameF)?"":helper.getColString(strTableNameF, rd1));
+					}
+				}
+			}
+			if(!"".equals(strMethod)&&!"".equals(strClass)&&"1".equals(_strIsOver)&&request!=null){
+				reflectMothedInvoke(strClass, strMethod, request);
+			}
+		}catch (Exception e) {
+			MantraLog.fileCreateAndWrite(e);
+			// String[] strArrayFlowLog22 = {"333",_strRunId,_strSid,new Date()+"",_strPageCode,"","setMsgParVal",getErrorInfoFromException(e)};
+			// insertFlowLog("1", strArrayFlowLog22);
+			if(ex!=null){ex.close();}
+			if(exForm!=null){exForm.close();}
+			e.printStackTrace();
+		}finally{
+			if(ex!=null){ex.close();}
+			if(exForm!=null){exForm.close();}
+			return strArray;
+		}
+	}
+	
+	public static void reflectMothedInvoke(String strClassName,String strMethodName,Object... obj){
+        try {
+			Class<?> class1 = null;
+			class1 = Class.forName(strClassName);
+			Method[] methods = class1.getDeclaredMethods();  
+			Class<?>[] class2 =null;
+			for (int i = 0; i < methods.length; i++) {  
+				if(strMethodName.equals(methods[i].getName())){
+					int l = methods[i].getParameterTypes().length;
+					class2 = new Class<?>[l] ;
+					for(int j=0;j<l;j++){
+						class2[j] = methods[i].getParameterTypes()[j];
+					}
+				}
+			} 
+			Method method = class1.getMethod(strMethodName,class2); 
+			method.invoke(class1.newInstance(),obj);  
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		}  
 	}
 }
