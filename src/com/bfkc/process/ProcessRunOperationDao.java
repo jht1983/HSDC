@@ -25,7 +25,7 @@ public final class ProcessRunOperationDao {
 	 * @param _strType 1:挂起 0:启用 3:作废
 	 * @return
 	 */
-	public final static boolean processFlowHand(String _strFlowId,String _strFlowRunId,String _strType){
+	public static boolean processFlowHand(String _strFlowId,String _strFlowRunId,String _strType){
 		DBFactory dbf = new DBFactory();
 		TableEx exRun = null;
 		try {
@@ -56,7 +56,7 @@ public final class ProcessRunOperationDao {
 	 * @param _strArrayFlowRun
 	 * @param _strType 1:插入 2:更新 3:更新 4:更新父
 	 */
-	public final static void updateFlowRun(String[] _strArrayFlowRunVal,String _strType){
+	public static void updateFlowRun(String[] _strArrayFlowRunVal,String _strType){
 		DBFactory dbf = new DBFactory();
 		try {
 			if("1".equals(_strType)){
@@ -123,7 +123,7 @@ public final class ProcessRunOperationDao {
 	 * @param strFlowParentId
 	 * @return
 	 */
-	public final static boolean queryFlowRunIsOverSameLevel(String strFlowRunId, String strFlowParentId) {
+	public static boolean queryFlowRunIsOverSameLevel(String strFlowRunId, String strFlowParentId) {
 		TableEx exParent = null;
 		boolean bIsOver = true;
 		try {
@@ -145,13 +145,36 @@ public final class ProcessRunOperationDao {
 	}
 	
 	/**
+	 * 某表中的一列的值.
+	 * 
+	 * @param strFlowRunId
+	 * @param strFlowParentId
+	 * @return
+	 */
+	public static String queryTableValue(String tableName, String columnName, String id) {
+		TableEx exParent = null;
+		String value = null;
+		try {
+			exParent = new TableEx(columnName, tableName, " S_ID='" + id + "'");
+			value = getColString(columnName, exParent.getRecord(0));
+		} catch (Exception e) {
+		    MantraLog.fileCreateAndWrite(e);
+		    value = "";
+		}finally{
+			if(exParent!=null)
+				exParent.close();
+		}
+		return value;
+	}
+	
+	/**
 	 * 查询运行表T_SYS_FLOW_RUN
 	 * @param _strFlowId
 	 * @param _strVersion
 	 * @param _strFlowRunId
 	 * @return
 	 */
-	public final static TableEx queryFlowRun(String _strFlowId,String _strFlowRunId){
+	public static TableEx queryFlowRun(String _strFlowId,String _strFlowRunId){
 		TableEx ex = null;
 		try {
 			StringBuffer sr = new StringBuffer();
@@ -173,7 +196,7 @@ public final class ProcessRunOperationDao {
 	 * @param rd
 	 * @return
 	 */
-	public static final String getColString(String _strCol,Record rd){
+	public static String getColString(String _strCol,Record rd){
 		String strReturn = "";
 		try {
 			FieldEx ex = rd.getFieldByName(_strCol);

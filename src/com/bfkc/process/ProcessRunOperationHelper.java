@@ -15,6 +15,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -369,6 +371,7 @@ public class ProcessRunOperationHelper {
 		strMsgContent = strMsgContent.replace("${active}", _strType);
 		strMsgContent = strMsgContent.replace("${numberid}", _strFlowRunId);
 		strMsgContent = strMsgContent.replace("${branchname}", (strLoginBranchName==null||"".equals(strLoginBranchName))?"":strLoginBranchName.toString());
+		
 		strPageCode = strPageCode==null?_strPageCode:strPageCode;
 		if(strPageCode==null||"".equals(strPageCode)){
 			String[] strArraySon = queryFlowMaiByFlowId(_strFlowId,"").split(",",-1);
@@ -379,6 +382,24 @@ public class ProcessRunOperationHelper {
 		sid = strArray[0];
 		bmid = strArray[1];
 		djh = strArray[2];
+		
+		//replace the message content with the TABLE.COLUMN
+		try {
+			String regexStr = "\\$\\{[A-Za-z0-9\\._-]*\\}";
+			Pattern pattern = Pattern.compile(regexStr);
+			Matcher matcher = pattern.matcher(strMsgContent);
+			
+			while(matcher.find()) {
+				String group = matcher.group();
+				String tab = group.substring(2, group.length() - 1);
+
+				String[] tabs = tab.split("\\.");
+				String value = ProcessRunOperationDao.queryTableValue(tabs[0], tabs[1], sid);
+				strMsgContent = strMsgContent.replace(group, value);
+			}
+		} catch (Exception e) {
+			//do nothing
+		}
 
 		String[] strArrayValues={strPageCode,_strVersion,"system",strSdfYmdHms.format(new Date()),strNumberId,_strNodeId,_strArrayUserIds,_strFlowId,"0",_strArrayMsgIds,"system",strMsgContent,_strFlowRunId,"0",_strFlowType,sid,bmid,stype,djh};
 		updateMsgs("1",strArrayValues);
@@ -657,5 +678,11 @@ public class ProcessRunOperationHelper {
 	 */
 	public void delMsg( String S_RUN_ID) {
 		ProcessRunOperationDao.DelMsg(S_RUN_ID);
+	}
+    
+	public static void main(String[] args) {
+		HttpServletRequest req = null;
+		ProcessRunOperationHelper helper = new ProcessRunOperationHelper();
+		helper.reflectMothedInvoke("com.bfkc.process.ProcessRunOperation","getTest",req);
 	}
 }

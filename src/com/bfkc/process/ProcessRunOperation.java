@@ -2380,10 +2380,4 @@ public class ProcessRunOperation {
 		}
 		return retStr;
 	}
-    
-	public static void main(String[] args) {
-		HttpServletRequest req = null;
-		ProcessRunOperationHelper helper = new ProcessRunOperationHelper();
-		helper.reflectMothedInvoke("com.bfkc.process.ProcessRunOperation","getTest",req);
-	}	
 }
