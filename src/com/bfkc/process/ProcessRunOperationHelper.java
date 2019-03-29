@@ -112,7 +112,6 @@ public class ProcessRunOperationHelper {
 		
 		for(int a=0,b=strArrayTable.length;a<b;a++){
 			String strTemp = strArrayTable[a];
-//			strTemp = strTemp.substring(strTemp.lastIndexOf("$")+1,strTemp.length());
 			strTemp = strTemp.substring(strTemp.indexOf("e$")+2,strTemp.length());
 			if("".equals(strTemp))
 			{
@@ -132,8 +131,6 @@ public class ProcessRunOperationHelper {
 				String strCou = strTemp1.substring(ind+1,strTemp1.length());//字段名称
 				String strTabName =strTemp1.substring(0, ind);//表名
 				
-//				String strTabName =strArrayItem[0].substring(0, strArrayItem[0].indexOf("."));//表名
-//				String strCou = strArrayItem[0].substring(strArrayItem[0].indexOf("."),strArrayItem[0].length());//字段名称
 				String strVal = strArrayItem[4];
 				boolean once = false;
 				
@@ -216,12 +213,14 @@ public class ProcessRunOperationHelper {
 							xlhId = czpZyIdMap.get(zy);
 						}
 						
-						if(!"".equals(strArrayNum[3])){//{number:143214235:待定:待定}
-//							T_DQYZGZP.S_GZPBH,true,false,{number:1504603191000:待定:待定}
-//							{number:1504603191000:待定:待定}
+						if(!"".equals(strArrayNum[3])){
+							//{number:143214235:待定:待定}
+							//T_DQYZGZP.S_GZPBH,true,false,{number:1504603191000:待定:待定}
+							//{number:1504603191000:待定:待定}
 							strWhere =strWhere+ " and "+strCou +"=''";
 							strVal = com.yulongtao.util.MisSerialUtil.getSerialNum(xlhId,_request);//TODO  序列号
-						}else{//{number:143214235:待定:}
+						}else{
+							//{number:143214235:待定:}
 							strWhere =strWhere+  "and "+strCou+" like '%" +strArrayNum[2]+"'";
 							strVal = com.yulongtao.util.MisSerialUtil.getSerialNum(xlhId,_request);//TODO  序列号
 						}
@@ -246,10 +245,6 @@ public class ProcessRunOperationHelper {
 						strVal = strVal.replace("{dataset:", "");
 						strVal = strVal.replace("}", "");
 						String[] strValArry = strVal.split("\\|");
-						for(int a1=0,b1=strValArry.length;a1<b1;a1++){
-//							strValArry[a1];
-						}
-						//执行数据集
 					}
 				}
 				mapCon.put(strTabName, strWhere);
@@ -259,15 +254,12 @@ public class ProcessRunOperationHelper {
 			}
 		}
 		
-
-//			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "mapCon: " + mapCon);
-//			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "map: " + map);
 		try {
 			_sr.append(UPDATE_FIELD_START_TAG);
 			for (String key : map.keySet()) {
-			    	if(dbf==null){
-			    	    dbf=new DBFactory();
-			    	}
+		    	if(dbf==null){
+		    	    dbf=new DBFactory();
+		    	}
     			
 			    //load the old data for the object table
 		    	TableEx ex2 = null;
@@ -288,17 +280,12 @@ public class ProcessRunOperationHelper {
 					}
 				}
 			    
-			    //	update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'
-			    //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key));
 				dbf.sqlExe("update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key), true);
 				dbf.sqlExe("update T_SYS_FLOW_RUN set S_UPVALUE_COLS='" + updateValueColumnStr + "' where S_RUN_ID='" + _strRunId + "' and S_FLOW_ID='" +_strFlowId + "'", true);
-				//dbf.sqlExe("update T_DQYZGZP set S_GZPZT = 'GZPZT022' , S_GZXKRQM_NAME = '刘小锋' , S_GZXKRQM = 'liuxiaofeng' where S_RUN_ID='5NwQQiikQlq7Dk4PVReLoQ'", true);
 			}
 			_sr.append(UPDATE_FIELD_END_TAG);
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
-// 			String[] strArrayFlowLog22 = {"333","","",new Date()+"","","","updateTabByFlowSet",getErrorInfoFromException(e)};
-// 			insertFlowLog("1", strArrayFlowLog22);
 			e.printStackTrace();
 		}finally{
 			if(dbf!=null){dbf.close();}
@@ -319,7 +306,6 @@ public class ProcessRunOperationHelper {
 	 * @param _strFlowType
 	 */
 	public String sendMsg(String _strArrayMsgIds,String _strArrayUserIds,String _strType,String _strIsOver,String _strFlowId,String _strVersion,String _strFlowRunId,String _strNodeId,HttpServletRequest request,String _strFlowType,String _strPageCode,String _strTab){
-		
 		DBFactory dbf = new DBFactory();
 		String strLoginUserName ="";
 		String strPageCode  ="";
@@ -369,9 +355,7 @@ public class ProcessRunOperationHelper {
 			_strType="流程结束";
 		}
 	
-	    
 		String strMsgContent = queryMsgTemplet(_strArrayMsgIds);
-
 		TableEx exRun = queryFlowRun(_strFlowId, _strFlowRunId);
 		exRun.close();
 
@@ -387,17 +371,16 @@ public class ProcessRunOperationHelper {
 		strMsgContent = strMsgContent.replace("${branchname}", (strLoginBranchName==null||"".equals(strLoginBranchName))?"":strLoginBranchName.toString());
 		strPageCode = strPageCode==null?_strPageCode:strPageCode;
 		if(strPageCode==null||"".equals(strPageCode)){
-
 			String[] strArraySon = queryFlowMaiByFlowId(_strFlowId,"").split(",",-1);
 			strPageCode=strArraySon[1];
 		}
+		
 		String[] strArray = setMsgParVal(sid, bmid, stype, djh, strPageCode, _strFlowRunId,dbf,request,_strIsOver);
 		sid = strArray[0];
 		bmid = strArray[1];
 		djh = strArray[2];
 
 		String[] strArrayValues={strPageCode,_strVersion,"system",strSdfYmdHms.format(new Date()),strNumberId,_strNodeId,_strArrayUserIds,_strFlowId,"0",_strArrayMsgIds,"system",strMsgContent,_strFlowRunId,"0",_strFlowType,sid,bmid,stype,djh};
-
 		updateMsgs("1",strArrayValues);
 
 		dbf.close();
@@ -538,30 +521,38 @@ public class ProcessRunOperationHelper {
 				_strArrayValues = ApplicationUtils.arrayAddSingleQuotes(_strArrayValues);
 				String strTabVal = Arrays.toString(_strArrayValues);
 				strTabVal = strTabVal.substring(1,strTabVal.length()-1);
-				//2018-04-19 16:26:04   注释
-				//MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"insert into T_MSG_RECORDS "+strTabCol+" values("+strTabVal+")");
+				
 				dbf.sqlExe("insert into T_MSG_RECORDS "+strTabCol+" values("+strTabVal+")", true);
 			}else{
 			}
 		} catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
-			// String[] strArrayFlowLog22 = {"333",_strType,_strType,new Date()+"",_strType,"","updateMsgs",getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
 			e.printStackTrace();
 		} finally {
 			dbf.close();
 		}
 	}
 	
+	/**
+	 * 
+	 * @param _strSid
+	 * @param _strBmid
+	 * @param _strType
+	 * @param _strDjh
+	 * @param _strPageCode
+	 * @param _strRunId
+	 * @param _dbf
+	 * @param request
+	 * @param _strIsOver
+	 * @return
+	 */
 	private String[] setMsgParVal(String _strSid,String _strBmid,String _strType,String _strDjh,String _strPageCode,String _strRunId,DBFactory _dbf,HttpServletRequest request,String _strIsOver){
 		TableEx ex = null;
 		TableEx exForm = null;
 		String strTableName = "";
 		String[] strArray=new String[3];
 		try{
-//			ex = _dbf.query("select S_SID,S_ZZ,S_TYPE,S_DJH,S_TABLE from T_SYS_FLOW_PAR where S_SPAGECODE='"+_strPageCode+"'");
 			ex = _dbf.query("select * from T_SYS_FLOW_PAR where S_SPAGECODE='"+_strPageCode+"'");
-//			ex = new TableEx("S_SID,S_ZZ,S_TYPE,S_DJH,S_TABLE", "T_SYS_FLOW_PAR", "S_SPAGECODE='"+_strPageCode+"'");
 			Record rd = null;
 			String strSidF = "";
 			String strTableNameF="";
@@ -575,7 +566,6 @@ public class ProcessRunOperationHelper {
 				rd = ex.getRecord(0);
 				_strSid = getColString("S_SID", rd);
 				_strBmid = getColString("S_ZZ", rd);
-//				_strType = helper.getColString("S_TYPE", rd);
 				_strDjh = getColString("S_DJH", rd);
 				strTableName = getColString("S_TABLE", rd);
 				strSidF = getColString("S_IDF", rd);
@@ -591,28 +581,19 @@ public class ProcessRunOperationHelper {
 			if(request!=null){
 				strAuditState = request.getParameter("NO_sys_flow_state");//审核状态 审核状态:0驳回1通过2作废3提交4逾期5逾期作废6逾期退回
 			}
-//				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"--------"+request+"---------"+request.getParameter("NO_sys_flow_state"));
+			
 			if(!"".equals(strTableName)){
 				if(!"".equals(strTableNameF)){
 					String strCol = _strSid+","+_strBmid+","+_strDjh+","+strTableNameF+"."+strSidF+" AS 'sidf',"+strTableNameF+"."+strDjhF+" AS 'djhf' ";
-//						MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"--------"+strCol+"---------");
 					exForm = _dbf.query("select "+strCol+" from "+ strTableName+","+strTableNameF+" where S_RUN_ID='"+_strRunId+"' and "+strRelation);
 				}else{
-//						MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"--------"+strTableName+"---------"+_strRunId+"---");
 					exForm = new TableEx("*",strTableName, "S_RUN_ID='"+_strRunId+"'");
 				}
-//				exForm = _dbf.query("select * from "+ strTableName+" where S_RUN_ID='"+_strRunId+"'");
 				if(exForm.getRecordCount()>0){
 					Record rd1 = exForm.getRecord(0);
 					strArray[0] = getColString(_strSid, rd1);
 					strArray[1] = getColString(_strBmid, rd1);
-//					_strType = helper.getColString(_strType, rd);
 					strArray[2] = getColString(_strDjh, rd1);
-//						MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"--------"+strArray[0] +"---------"+strArray[1]+"---"+strArray[2]);
-					if("1".equals(_strIsOver)){
-					    //recordRel(String S_ORGANISATION,String S_LEFT_PAGECODE,String LEFT_ID,String LEFT_NAME,String S_RIGHT_PAGECODE,String RIGHT_ID,String RIGHT_NAME)
-						//new com.timing.impcl.MantraUtil().recordRel(strArray[0],strTableName,"".equals(strSidF)?"":helper.getColString("sidf", rd1),"".equals(strTableNameF)?"":helper.getColString(strTableNameF, rd1));
-					}
 				}
 			}
 			if(!"".equals(strMethod)&&!"".equals(strClass)&&"1".equals(_strIsOver)&&request!=null){
@@ -620,8 +601,6 @@ public class ProcessRunOperationHelper {
 			}
 		}catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
-			// String[] strArrayFlowLog22 = {"333",_strRunId,_strSid,new Date()+"",_strPageCode,"","setMsgParVal",getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
 			if(ex!=null){ex.close();}
 			if(exForm!=null){exForm.close();}
 			e.printStackTrace();
@@ -632,7 +611,13 @@ public class ProcessRunOperationHelper {
 		}
 	}
 	
-	public static void reflectMothedInvoke(String strClassName,String strMethodName,Object... obj){
+	/**
+	 * 
+	 * @param strClassName
+	 * @param strMethodName
+	 * @param obj
+	 */
+	public void reflectMothedInvoke(String strClassName,String strMethodName,Object... obj){
         try {
 			Class<?> class1 = null;
 			class1 = Class.forName(strClassName);
@@ -664,5 +649,13 @@ public class ProcessRunOperationHelper {
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		}  
+	}
+	
+	/**
+	 * 
+	 * @param S_RUN_ID
+	 */
+	public void delMsg( String S_RUN_ID) {
+		ProcessRunOperationDao.DelMsg(S_RUN_ID);
 	}
 }

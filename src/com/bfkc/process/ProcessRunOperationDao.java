@@ -111,9 +111,6 @@ public final class ProcessRunOperationDao {
 			}
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
-			// String[] strArrayFlowLog22 = {"333","333","flowrun","flowrun","flowrun","flowrun",_strType,getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
-			
 			e.printStackTrace();
 		} finally {
 			if(dbf!=null){dbf.close();}
@@ -185,11 +182,26 @@ public final class ProcessRunOperationDao {
 		} catch (Exception e) {
 			strReturn = "";
 			MantraLog.fileCreateAndWrite(e);
-			// String[] strArrayFlowLog22 = {"333","","",new Date()+"",_strCol,_strCol,"getColString",getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
 			e.printStackTrace();
 		}finally{
 			return strReturn ;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param S_RUN_ID
+	 */
+	public static void DelMsg( String S_RUN_ID) {
+		DBFactory dbf = new DBFactory();
+		try {
+			dbf.sqlExe("delete from T_MSG_RECORDS where S_YXID='"+S_RUN_ID+"' ;", false);
+		}catch (Exception e) {
+			MantraLog.fileCreateAndWrite(e);
+		}finally {
+			if(dbf!=null) {
+				dbf.close();
+			}
 		}
 	}
 }

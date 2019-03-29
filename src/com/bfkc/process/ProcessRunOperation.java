@@ -2,8 +2,6 @@ package com.bfkc.process;
 	
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -73,125 +71,119 @@ public class ProcessRunOperation {
 			
 			strFlowId = _strFlowId;//流程ID
 			strVersion = _strVersion;//版本号
-			 strFlowRunId = _strRunId;//运行
+			strFlowRunId = _strRunId;//运行
 			String strFlowType = "1";//0:子流程 1:主流程 默认主流程
 			
-				/**0 查询流程节点*/
-				String strStartNode = "";//发起节点NODE
-				String strStartNodeBak = "";//发起节点NODE
-				String strEndNodes = ",";//所有结束节点
-				String strAuditMsgs = "";//所有消息模版
-				String strTab="";//表名
-				tableEx = queryFlowNodeInfo(strFlowId,strVersion,"");
-				int iCount = tableEx.getRecordCount();
-				if(iCount<1){
-					return false;
-				}
-				/**1 查找开始节点*/
-				Record record = null;
-				for(int i=0;i<iCount;i++){
-					record =  tableEx.getRecord(i);//1 动作 3 开始   2网关  4结束
-					if("3".equals(helper.getColString("I_TYPE", record))){//开始数量
-						strAuditMsgs = helper.getColString("S_AUDIT_TZXX", record);
-						strStartNodeBak = helper.getColString("I_NODE_ID", record);
-						//多个开始节点判断是否发节点
-						if(queryFlowStartPerson(strStartUser,strStartUserRole,strStartUserBranch,helper.getColString("S_AUDIT_BRANCH", record),helper.getColString("S_AUDIT_ROLE", record),helper.getColString("S_AUDIT_USER", record))==true){
-							strStartNode = strStartNodeBak;
-							strTab = helper.getColString("S_TAB", record);
-						}else if(querySqRole(helper.getColString("S_AUDIT_SQRYATTR", record),helper.getColString("S_AUDIT_SQRY", record), null, strFlowRunId,strStartUserRole)){
-							strStartNode = strStartNodeBak;
-							strTab = helper.getColString("S_TAB", record);
-						}
-					}else if("4".equals(helper.getColString("I_TYPE", record))){
-						strEndNodes=strEndNodes+helper.getColString("I_NODE_ID", record)+",";
+			/**0 查询流程节点*/
+			String strStartNode = "";//发起节点NODE
+			String strStartNodeBak = "";//发起节点NODE
+			String strEndNodes = ",";//所有结束节点
+			String strAuditMsgs = "";//所有消息模版
+			String strTab="";//表名
+			tableEx = queryFlowNodeInfo(strFlowId,strVersion,"");
+			int iCount = tableEx.getRecordCount();
+			if(iCount<1){
+				return false;
+			}
+			
+			/**1 查找开始节点*/
+			Record record = null;
+			for(int i=0;i<iCount;i++){
+				record =  tableEx.getRecord(i);//1 动作 3 开始   2网关  4结束
+				if("3".equals(helper.getColString("I_TYPE", record))){//开始数量
+					strAuditMsgs = helper.getColString("S_AUDIT_TZXX", record);
+					strStartNodeBak = helper.getColString("I_NODE_ID", record);
+					//多个开始节点判断是否发节点
+					if(queryFlowStartPerson(strStartUser,strStartUserRole,strStartUserBranch,helper.getColString("S_AUDIT_BRANCH", record),helper.getColString("S_AUDIT_ROLE", record),helper.getColString("S_AUDIT_USER", record))==true){
+						strStartNode = strStartNodeBak;
+						strTab = helper.getColString("S_TAB", record);
+					}else if(querySqRole(helper.getColString("S_AUDIT_SQRYATTR", record),helper.getColString("S_AUDIT_SQRY", record), null, strFlowRunId,strStartUserRole)){
+						strStartNode = strStartNodeBak;
+						strTab = helper.getColString("S_TAB", record);
 					}
+				}else if("4".equals(helper.getColString("I_TYPE", record))){
+					strEndNodes=strEndNodes+helper.getColString("I_NODE_ID", record)+",";
 				}
-				strStartNode= ("".equals(strStartNode)?strStartNodeBak:strStartNode);//找不到开始节点则任意一个
-				if("".equals(strStartNode)){
-					return false;
+			}
+			strStartNode= ("".equals(strStartNode)?strStartNodeBak:strStartNode);//找不到开始节点则任意一个
+			if("".equals(strStartNode)){
+				return false;
+			}
+			String strNodeIdNow = strStartNode;//找不到节点,跑出异常
+			
+			/**2 开始节点赋值*/
+			String strAuditArrayyq=",";//逾期
+			String strAuditNodes=strStartNode;//所有节点
+			String strAuditState="3";//运行状态 3：提交
+			String strNodeIdNext="";//运行节点
+			String strNextAuditUser="";//节点审批人
+			String strAuditOther =",,,,,,,";//其他
+			String strNownewDate = strSdfYmdHms.format(new Date());//发起日期
+			int strNextAuditUserIndex =1;//下一审批节点索引,发起人默认为1
+			String strAuditUsers = strStartUser;//所有审批人
+			String strSonFlow = "";
+			String strIsOver = "0";//是否结束
+			Record rd = null;//获取下一节点对象
+			String strEndFlag = "";
+			String strAudSel = "";//自选流程节点
+			String strFlowPj = "";//附加票据
+			/**3 循环拼接参数*/
+			while(!"4".equals(strEndFlag)){
+				rd = getNextNodeByCondition(null,strStartNode,tableEx,"2",strFlowRunId);
+				if(rd==null){break;}
+				strEndFlag = helper.getColString("I_TYPE", rd);
+				String strCustomNodeIds = helper.getColString("S_AUDIT_SEL", rd);//手动选择节点
+				if("2".equals(strEndFlag)&&strCustomNodeIds!=null&&!"".equals(strCustomNodeIds)){//网关判断是否手动选择节点
+					strAudSel = strAudSel+strCustomNodeIds;
+					break;					
 				}
-				String strNodeIdNow = strStartNode;//找不到节点,跑出异常
-				
-				/**2 开始节点赋值*/
-				String strAuditArrayyq=",";//逾期
-				String strAuditNodes=strStartNode;//所有节点
-				String strAuditState="3";//运行状态 3：提交
-				String strNodeIdNext="";//运行节点
-				String strNextAuditUser="";//节点审批人
-				String strAuditOther =",,,,,,,";//其他
-				String strNownewDate = strSdfYmdHms.format(new Date());//发起日期
-				int strNextAuditUserIndex =1;//下一审批节点索引,发起人默认为1
-				String strAuditUsers = strStartUser;//所有审批人
-				String strSonFlow = "";
-//				String strAuditTg = "";//是否跳过
-				String strIsOver = "0";//是否结束
-				Record rd = null;//获取下一节点对象
-				String strEndFlag = "";
-				String strAudSel = "";//自选流程节点
-				String strFlowPj = "";//附加票据
-				/**3 循环拼接参数*/
-				while(!"4".equals(strEndFlag)){
-						rd = getNextNodeByCondition(null,strStartNode,tableEx,"2",strFlowRunId);
-						if(rd==null){break;}
-						strEndFlag = helper.getColString("I_TYPE", rd);
-						String strCustomNodeIds = helper.getColString("S_AUDIT_SEL", rd);//手动选择节点
-						if("2".equals(strEndFlag)&&strCustomNodeIds!=null&&!"".equals(strCustomNodeIds)){//网关判断是否手动选择节点
-							strAudSel = strAudSel+strCustomNodeIds;
-							break;					
-						}
-						strAudSel = strAudSel+"|"+"";
-						String strNodeAudit = queryAuditPerson(strStartUser,strStartUserBranch,helper.getColString("S_AUDIT_BRANCH", rd),helper.getColString("S_AUDIT_ROLE", rd),helper.getColString("S_AUDIT_USER", rd),helper.getColString("S_AUDIT_SQRYATTR", rd),helper.getColString("S_AUDIT_SQRY", rd),null,rd,strFlowRunId);
-						if("5".equals(strEndFlag)){//子流程,存储子流程流程号/版本号运行号/表单ID
-							strNodeAudit = "S";
-						}
-						strSonFlow = (strSonFlow+"|")+helper.getColString("S_FLOW_SON", rd);
-						strAuditArrayyq =(strAuditArrayyq+"|") +helper.getColString("S_AUDIT_YQTS", rd)+","+helper.getColString("S_AUDIT_YQTSCL", rd);//所有逾期  所有逾期操作
-						strAuditMsgs =(strAuditMsgs+"|")+helper.getColString("S_AUDIT_TZXX", rd);//所有消息模版
-						strAuditNodes = (strAuditNodes+"|")+helper.getColString("I_NODE_ID", rd);
-						strFlowPj =(strFlowPj+"|")+helper.getColString("S_AUDIT_FSPJ", rd);//附加票据
-						//是否跳过 所有审批驳回 所有审批驳回处理 子流程
-						//类型,值5,通过人数6,驳回人数7|
-						strAuditOther =(strAuditOther+"|") +helper.getColString("S_AUDIT_TG", rd)+","+helper.getColString("S_AUDIT_THJD", rd)+","+helper.getColString("S_AUDIT_THJDZD", rd)+","+helper.getColString("S_TZLC", rd)+","+helper.getColString("S_AUDIT_PREEMPTION", rd)+","+helper.getColString("S_AUD_VAL", rd)+","+",";
-						strStartNode = helper.getColString("S_CHILD_ID", rd);
-						if("".equals(strNodeAudit)){
-							strNodeAudit = ("1".equals(helper.getColString("S_AUDIT_TG", rd)))?"T":strNodeAudit;//是否跳岗
-						}
-						strAuditUsers = (strAuditUsers+"|")+strNodeAudit;
-
+				strAudSel = strAudSel+"|"+"";
+				String strNodeAudit = queryAuditPerson(strStartUser,strStartUserBranch,helper.getColString("S_AUDIT_BRANCH", rd),helper.getColString("S_AUDIT_ROLE", rd),helper.getColString("S_AUDIT_USER", rd),helper.getColString("S_AUDIT_SQRYATTR", rd),helper.getColString("S_AUDIT_SQRY", rd),null,rd,strFlowRunId);
+				if("5".equals(strEndFlag)){//子流程,存储子流程流程号/版本号运行号/表单ID
+					strNodeAudit = "S";
 				}
-					/**4 跳岗 1:是*/
-					strNextAuditUserIndex = getNodesInfoRun(strAuditUsers,strAuditOther,strNextAuditUserIndex,strStartUser,strAuditMsgs.split("\\|",-1),strFlowId,strVersion,strFlowRunId,strAuditNodes.split("\\|",-1)[strNextAuditUserIndex]);
-					strNextAuditUser =strAuditUsers.split("\\|",-1)[strNextAuditUserIndex];
-					strNodeIdNext =strAuditNodes.split("\\|",-1)[strNextAuditUserIndex];
-					/**判断当前节点审批人是否表单取值*/
-					strNextAuditUser = queryAuditPersonIsColumn(strNextAuditUser, strFlowRunId, strFlowId, strVersion, strNodeIdNext);
-					
-					String[] strArryAuditUsers = strAuditUsers.split("\\|",-1);
-					strArryAuditUsers[strNextAuditUserIndex]=strNextAuditUser;
-					strAuditUsers = getStringArryToString(strArryAuditUsers);
-					/**5 插入运行表*/
-					String[] strArrayFlowRun = {strFlowId,strFlowRunId,strNodeIdNext,strVersion,strNownewDate,strStartUser,strNextAuditUser,strNextAuditUserIndex+"",strAuditMsgs,strStartUserBranch,strAuditArrayyq,strAuditUsers,strAuditNodes,strIsOver,strAuditOther,strAudSel,strEndNodes,strSonFlow,strFlowType,"",strFlowPj,strTab};
-					helper.updateFlowRun(strArrayFlowRun,"1");
-				
-					String strDate = strSdfYmdHms.format(new Date());
-					String  strAuditComment = "";
-					/**插入流程日志*/
-					String[] strArrayFlowLog = {strFlowId,strFlowRunId,strAuditNodes.split("\\|",-1)[0],strDate,strVersion,strStartUser,strAuditState,strAuditComment,""};
-					insertFlowLog("1", strArrayFlowLog);
-					/**发送消息*/
-					helper.sendMsg(strAuditMsgs.split("\\|",-1)[0],strNextAuditUser,strAuditState,strIsOver,strFlowId,strVersion,strFlowRunId,strNodeIdNext,null,strFlowType,strPageCode,strTab);
-//					if(strClassName!=null&&strMethodName!=null&&!"".equals(strMethodName)&&!"".equals(strClassName)){
-//						reflectMothedInvoke(strClassName, strMethodName, request);
-//					}
+				strSonFlow = (strSonFlow+"|")+helper.getColString("S_FLOW_SON", rd);
+				strAuditArrayyq =(strAuditArrayyq+"|") +helper.getColString("S_AUDIT_YQTS", rd)+","+helper.getColString("S_AUDIT_YQTSCL", rd);//所有逾期  所有逾期操作
+				strAuditMsgs =(strAuditMsgs+"|")+helper.getColString("S_AUDIT_TZXX", rd);//所有消息模版
+				strAuditNodes = (strAuditNodes+"|")+helper.getColString("I_NODE_ID", rd);
+				strFlowPj =(strFlowPj+"|")+helper.getColString("S_AUDIT_FSPJ", rd);//附加票据
+				//是否跳过 所有审批驳回 所有审批驳回处理 子流程
+				//类型,值5,通过人数6,驳回人数7|
+				strAuditOther =(strAuditOther+"|") +helper.getColString("S_AUDIT_TG", rd)+","+helper.getColString("S_AUDIT_THJD", rd)+","+helper.getColString("S_AUDIT_THJDZD", rd)+","+helper.getColString("S_TZLC", rd)+","+helper.getColString("S_AUDIT_PREEMPTION", rd)+","+helper.getColString("S_AUD_VAL", rd)+","+",";
+				strStartNode = helper.getColString("S_CHILD_ID", rd);
+				if("".equals(strNodeAudit)){
+					strNodeAudit = ("1".equals(helper.getColString("S_AUDIT_TG", rd)))?"T":strNodeAudit;//是否跳岗
+				}
+				strAuditUsers = (strAuditUsers+"|")+strNodeAudit;
+			}
+			
+			/**4 跳岗 1:是*/
+			strNextAuditUserIndex = getNodesInfoRun(strAuditUsers,strAuditOther,strNextAuditUserIndex,strStartUser,strAuditMsgs.split("\\|",-1),strFlowId,strVersion,strFlowRunId,strAuditNodes.split("\\|",-1)[strNextAuditUserIndex]);
+			strNextAuditUser =strAuditUsers.split("\\|",-1)[strNextAuditUserIndex];
+			strNodeIdNext =strAuditNodes.split("\\|",-1)[strNextAuditUserIndex];
+			/**判断当前节点审批人是否表单取值*/
+			strNextAuditUser = queryAuditPersonIsColumn(strNextAuditUser, strFlowRunId, strFlowId, strVersion, strNodeIdNext);
+			
+			String[] strArryAuditUsers = strAuditUsers.split("\\|",-1);
+			strArryAuditUsers[strNextAuditUserIndex]=strNextAuditUser;
+			strAuditUsers = getStringArryToString(strArryAuditUsers);
+			/**5 插入运行表*/
+			String[] strArrayFlowRun = {strFlowId,strFlowRunId,strNodeIdNext,strVersion,strNownewDate,strStartUser,strNextAuditUser,strNextAuditUserIndex+"",strAuditMsgs,strStartUserBranch,strAuditArrayyq,strAuditUsers,strAuditNodes,strIsOver,strAuditOther,strAudSel,strEndNodes,strSonFlow,strFlowType,"",strFlowPj,strTab};
+			helper.updateFlowRun(strArrayFlowRun,"1");
+		
+			String strDate = strSdfYmdHms.format(new Date());
+			String  strAuditComment = "";
+			/**插入流程日志*/
+			String[] strArrayFlowLog = {strFlowId,strFlowRunId,strAuditNodes.split("\\|",-1)[0],strDate,strVersion,strStartUser,strAuditState,strAuditComment,""};
+			insertFlowLog("1", strArrayFlowLog);
+			/**发送消息*/
+			helper.sendMsg(strAuditMsgs.split("\\|",-1)[0],strNextAuditUser,strAuditState,strIsOver,strFlowId,strVersion,strFlowRunId,strNodeIdNext,null,strFlowType,strPageCode,strTab);
 		}catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
 			b=false;
-			// String[] strArrayFlowLog22 = {"333",strFlowRunId,strFlowId,new Date()+"",strVersion,"","start",getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
 			e.printStackTrace();
 		}finally{
 			tableEx.close();
-			tableEx1.close();
 		}
 		return b;
 	}
@@ -202,7 +194,6 @@ public class ProcessRunOperation {
 	 * @return
 	 */
 	public Boolean processStart(HttpServletRequest request,StringBuffer _sb,String _strSonFlowId,String _strFlowParentId){
-
 		TableEx tableEx =null;
 		TableEx tableEx1 =null;
 		Boolean b = true;
@@ -210,11 +201,6 @@ public class ProcessRunOperation {
 		String strFlowId ="";
 		String strVersion="";
 		try{
-			/*
-			insertFlowLog("1", strArrayFlowLog1);
-			*/
-//			DBFactory dbf = new DBFactory("orcl","extop.tpddns.cn" , "gnnczs", 2, "gnnczs", "1521");
-//			DBFactory db = new DBFactory(aStrDBName, aStrDBIP, aDBUser, iDBTypeTemp, aStrPassword, aStrDBPort);
 			/**接收数据*/
 			String strStartUser = request.getSession().getAttribute("SYS_STRCURUSER").toString();//发起人
 			String strStartUserRole = request.getSession().getAttribute("SYS_STRROLECODE").toString();//发起人角色
@@ -226,7 +212,7 @@ public class ProcessRunOperation {
 			String strFlowType = request.getParameter("NO_sys_S_flow_type");//0:子流程 1:主流程 默认主流程
 			
 			//删除通知消息
-			DelMsg( strFlowRunId);
+			helper.delMsg( strFlowRunId);
 			
 			/**子流程*/
 			strFlowType = "1";
@@ -240,149 +226,138 @@ public class ProcessRunOperation {
 				strFlowType = "0";
 			}
 
+			/**0 查询流程节点*/
+			String strStartNode = "";//发起节点NODE
+			String strStartNodeBak = "";//发起节点NODE
+			String strEndNodes = ",";//所有结束节点
+			String strAuditMsgs = "";//所有消息模版
+			String strTab="";//表名
+			tableEx = queryFlowNodeInfo(strFlowId,strVersion,"");
+			int iCount = tableEx.getRecordCount();
+			if(iCount<1){
+				return false;
+			}
+			/**1 查找开始节点*/
+			Record record = null;
+			for(int i=0;i<iCount;i++){
+				record =  tableEx.getRecord(i);//1 动作 3 开始   2网关  4结束
+				if("3".equals(helper.getColString("I_TYPE", record))){//开始数量
+					strAuditMsgs = helper.getColString("S_AUDIT_TZXX", record);
+					strStartNodeBak = helper.getColString("I_NODE_ID", record);
+					//多个开始节点判断是否发节点
+					if(queryFlowStartPerson(strStartUser,strStartUserRole,strStartUserBranch,helper.getColString("S_AUDIT_BRANCH", record),helper.getColString("S_AUDIT_ROLE", record),helper.getColString("S_AUDIT_USER", record))==true){
+						strStartNode = strStartNodeBak;
+						strTab = helper.getColString("S_TAB", record);
+						if(strPageCode==null||"".equals(strPageCode)){
+							strPageCode = helper.getColString("S_PAGECODE", record);
+						}
+					}else if(querySqRole(helper.getColString("S_AUDIT_SQRYATTR", record),helper.getColString("S_AUDIT_SQRY", record), request, strFlowRunId,strStartUserRole)){
+						strStartNode = strStartNodeBak;
+						strTab = helper.getColString("S_TAB", record);
+						if(strPageCode==null||"".equals(strPageCode)){
+							strPageCode = helper.getColString("S_PAGECODE", record);
+						}
+					}
+				}else if("4".equals(helper.getColString("I_TYPE", record))){
+					strEndNodes=strEndNodes+helper.getColString("I_NODE_ID", record)+",";
+				}
+			}
+			strStartNode= ("".equals(strStartNode)?strStartNodeBak:strStartNode);//找不到开始节点则任意一个
+			if("".equals(strStartNode)){
+				_sb.append("当前角色无权限发起流程");
+				return false;
+			}
+			String strNodeIdNow = strStartNode;//找不到节点,跑出异常
 			
-				/**0 查询流程节点*/
-				String strStartNode = "";//发起节点NODE
-				String strStartNodeBak = "";//发起节点NODE
-				String strEndNodes = ",";//所有结束节点
-				String strAuditMsgs = "";//所有消息模版
-				String strTab="";//表名
-				tableEx = queryFlowNodeInfo(strFlowId,strVersion,"");
-				int iCount = tableEx.getRecordCount();
-				//_sb.append(" iCount: "+iCount);
-				//_sb.append("sql:"+sb.toString());
-				if(iCount<1){
-					return false;
+			/**提交表单更新数据*/
+			tableEx1 = queryFlowNodeInfo(strFlowId, strVersion, strNodeIdNow);
+			String strClassName = helper.getColString("S_AUDIT_PAGENAME", tableEx1.getRecord(0));
+			String strMethodName = helper.getColString("S_AUDIT_CLASSNAME", tableEx1.getRecord(0));
+			String strField = helper.getColString("S_AUDIT_TABLECONTROL", tableEx1.getRecord(0));
+			 _sb.append(strField);
+			if(strField!=null&&!"".equals(strField)){
+				helper.updateTabByFlowSet(request, "", strField, strFlowId, strFlowRunId,_sb);//strNodeIdNow
+			}
+			
+			/**2 开始节点赋值*/
+			String strAuditArrayyq=",";//逾期
+			String strAuditNodes=strStartNode;//所有节点
+			String strAuditState="3";//运行状态 3：提交
+			String strNodeIdNext="";//运行节点
+			String strNextAuditUser="";//节点审批人
+			String strAuditOther =",,,,,,,";//其他
+			String strNownewDate = strSdfYmdHms.format(new Date());//发起日期
+			int strNextAuditUserIndex =1;//下一审批节点索引,发起人默认为1
+			String strAuditUsers = strStartUser;//所有审批人
+			String strSonFlow = "";
+			String strIsOver = "0";//是否结束
+			Record rd = null;//获取下一节点对象
+			String strEndFlag = "";
+			String strAudSel = "";//自选流程节点
+			String strFlowPj = "";//附加票据
+			/**3 循环拼接参数*/
+			while(!"4".equals(strEndFlag)){
+				rd = getNextNodeByCondition(request,strStartNode,tableEx,"1",strFlowRunId);
+				if(rd==null){break;}
+				strEndFlag = helper.getColString("I_TYPE", rd);
+				String strCustomNodeIds = helper.getColString("S_AUDIT_SEL", rd);//手动选择节点
+				if("2".equals(strEndFlag)&&strCustomNodeIds!=null&&!"".equals(strCustomNodeIds)){//网关判断是否手动选择节点
+					strAudSel = strAudSel+strCustomNodeIds;
+					break;					
 				}
-				/**1 查找开始节点*/
-				Record record = null;
-				for(int i=0;i<iCount;i++){
-					record =  tableEx.getRecord(i);//1 动作 3 开始   2网关  4结束
-					if("3".equals(helper.getColString("I_TYPE", record))){//开始数量
-						strAuditMsgs = helper.getColString("S_AUDIT_TZXX", record);
-						strStartNodeBak = helper.getColString("I_NODE_ID", record);
-						//多个开始节点判断是否发节点
-						if(queryFlowStartPerson(strStartUser,strStartUserRole,strStartUserBranch,helper.getColString("S_AUDIT_BRANCH", record),helper.getColString("S_AUDIT_ROLE", record),helper.getColString("S_AUDIT_USER", record))==true){
-							strStartNode = strStartNodeBak;
-							strTab = helper.getColString("S_TAB", record);
-							if(strPageCode==null||"".equals(strPageCode)){
-								strPageCode = helper.getColString("S_PAGECODE", record);
-							}
-						}else if(querySqRole(helper.getColString("S_AUDIT_SQRYATTR", record),helper.getColString("S_AUDIT_SQRY", record), request, strFlowRunId,strStartUserRole)){
-							strStartNode = strStartNodeBak;
-							strTab = helper.getColString("S_TAB", record);
-							if(strPageCode==null||"".equals(strPageCode)){
-								strPageCode = helper.getColString("S_PAGECODE", record);
-							}
-						}
-//						if("".equals(strStartNode)||strStartNode==null){
-//							strStartNodeBak = helper.getColString("I_NODE_ID", record);
-//						}
-					}else if("4".equals(helper.getColString("I_TYPE", record))){
-						strEndNodes=strEndNodes+helper.getColString("I_NODE_ID", record)+",";
-					}
+				strAudSel = strAudSel+"|"+"";
+				String strNodeAudit = queryAuditPerson(strStartUser,strStartUserBranch,helper.getColString("S_AUDIT_BRANCH", rd),helper.getColString("S_AUDIT_ROLE", rd),helper.getColString("S_AUDIT_USER", rd),helper.getColString("S_AUDIT_SQRYATTR", rd),helper.getColString("S_AUDIT_SQRY", rd),request,rd,strFlowRunId);
+				if("5".equals(strEndFlag)){//子流程,存储子流程流程号/版本号运行号/表单ID
+					strNodeAudit = "S";
 				}
-				strStartNode= ("".equals(strStartNode)?strStartNodeBak:strStartNode);//找不到开始节点则任意一个
-				if("".equals(strStartNode)){
-					_sb.append("当前角色无权限发起流程");
-					return false;
+				strSonFlow = (strSonFlow+"|")+helper.getColString("S_FLOW_SON", rd);
+				strAuditArrayyq =(strAuditArrayyq+"|") +helper.getColString("S_AUDIT_YQTS", rd)+","+helper.getColString("S_AUDIT_YQTSCL", rd);//所有逾期  所有逾期操作
+				strAuditMsgs =(strAuditMsgs+"|")+helper.getColString("S_AUDIT_TZXX", rd);//所有消息模版
+				strAuditNodes = (strAuditNodes+"|")+helper.getColString("I_NODE_ID", rd);
+				strFlowPj =(strFlowPj+"|")+helper.getColString("S_AUDIT_FSPJ", rd);//附加票据
+				//是否跳过 所有审批驳回 所有审批驳回处理 子流程
+				//类型,值5,通过人数6,驳回人数7|
+				strAuditOther =(strAuditOther+"|") +helper.getColString("S_AUDIT_TG", rd)+","+helper.getColString("S_AUDIT_THJD", rd)+","+helper.getColString("S_AUDIT_THJDZD", rd)+","+helper.getColString("S_TZLC", rd)+","+helper.getColString("S_AUDIT_PREEMPTION", rd)+","+helper.getColString("S_AUD_VAL", rd)+","+",";
+				strStartNode = helper.getColString("S_CHILD_ID", rd);
+				if("".equals(strNodeAudit)){
+					strNodeAudit = ("1".equals(helper.getColString("S_AUDIT_TG", rd)))?"T":strNodeAudit;//是否跳岗
 				}
-				String strNodeIdNow = strStartNode;//找不到节点,跑出异常
-				
-				/**提交表单更新数据*/
-				tableEx1 = queryFlowNodeInfo(strFlowId, strVersion, strNodeIdNow);
-				String strClassName = helper.getColString("S_AUDIT_PAGENAME", tableEx1.getRecord(0));
-				String strMethodName = helper.getColString("S_AUDIT_CLASSNAME", tableEx1.getRecord(0));
-				String strField = helper.getColString("S_AUDIT_TABLECONTROL", tableEx1.getRecord(0));
-				 _sb.append(strField);
-				if(strField!=null&&!"".equals(strField)){
-					helper.updateTabByFlowSet(request, "", strField, strFlowId, strFlowRunId,_sb);//strNodeIdNow
-				}
-				
-				/**2 开始节点赋值*/
-				String strAuditArrayyq=",";//逾期
-				String strAuditNodes=strStartNode;//所有节点
-				String strAuditState="3";//运行状态 3：提交
-				String strNodeIdNext="";//运行节点
-				String strNextAuditUser="";//节点审批人
-				String strAuditOther =",,,,,,,";//其他
-				String strNownewDate = strSdfYmdHms.format(new Date());//发起日期
-				int strNextAuditUserIndex =1;//下一审批节点索引,发起人默认为1
-				String strAuditUsers = strStartUser;//所有审批人
-				String strSonFlow = "";
-//				String strAuditTg = "";//是否跳过
-				String strIsOver = "0";//是否结束
-				Record rd = null;//获取下一节点对象
-				String strEndFlag = "";
-				String strAudSel = "";//自选流程节点
-				String strFlowPj = "";//附加票据
-				/**3 循环拼接参数*/
-				while(!"4".equals(strEndFlag)){
-						rd = getNextNodeByCondition(request,strStartNode,tableEx,"1",strFlowRunId);
-						if(rd==null){break;}
-						strEndFlag = helper.getColString("I_TYPE", rd);
-						String strCustomNodeIds = helper.getColString("S_AUDIT_SEL", rd);//手动选择节点
-						if("2".equals(strEndFlag)&&strCustomNodeIds!=null&&!"".equals(strCustomNodeIds)){//网关判断是否手动选择节点
-							strAudSel = strAudSel+strCustomNodeIds;
-							break;					
-						}
-						strAudSel = strAudSel+"|"+"";
-						String strNodeAudit = queryAuditPerson(strStartUser,strStartUserBranch,helper.getColString("S_AUDIT_BRANCH", rd),helper.getColString("S_AUDIT_ROLE", rd),helper.getColString("S_AUDIT_USER", rd),helper.getColString("S_AUDIT_SQRYATTR", rd),helper.getColString("S_AUDIT_SQRY", rd),request,rd,strFlowRunId);
-						if("5".equals(strEndFlag)){//子流程,存储子流程流程号/版本号运行号/表单ID
-							strNodeAudit = "S";
-						}
-						strSonFlow = (strSonFlow+"|")+helper.getColString("S_FLOW_SON", rd);
-						strAuditArrayyq =(strAuditArrayyq+"|") +helper.getColString("S_AUDIT_YQTS", rd)+","+helper.getColString("S_AUDIT_YQTSCL", rd);//所有逾期  所有逾期操作
-						strAuditMsgs =(strAuditMsgs+"|")+helper.getColString("S_AUDIT_TZXX", rd);//所有消息模版
-						strAuditNodes = (strAuditNodes+"|")+helper.getColString("I_NODE_ID", rd);
-						strFlowPj =(strFlowPj+"|")+helper.getColString("S_AUDIT_FSPJ", rd);//附加票据
-						//是否跳过 所有审批驳回 所有审批驳回处理 子流程
-						//类型,值5,通过人数6,驳回人数7|
-						strAuditOther =(strAuditOther+"|") +helper.getColString("S_AUDIT_TG", rd)+","+helper.getColString("S_AUDIT_THJD", rd)+","+helper.getColString("S_AUDIT_THJDZD", rd)+","+helper.getColString("S_TZLC", rd)+","+helper.getColString("S_AUDIT_PREEMPTION", rd)+","+helper.getColString("S_AUD_VAL", rd)+","+",";
-						strStartNode = helper.getColString("S_CHILD_ID", rd);
-						if("".equals(strNodeAudit)){
-							strNodeAudit = ("1".equals(helper.getColString("S_AUDIT_TG", rd)))?"T":strNodeAudit;//是否跳岗
-						}
-						strAuditUsers = (strAuditUsers+"|")+strNodeAudit;
+				strAuditUsers = (strAuditUsers+"|")+strNodeAudit;
+			}
+			
+			_sb.append("sql:"+sb.toString());
+			/**4 跳岗 1:是*/
+			strNextAuditUserIndex = getNodesInfoRun(strAuditUsers,strAuditOther,strNextAuditUserIndex,strStartUser,strAuditMsgs.split("\\|",-1),strFlowId,strVersion,strFlowRunId,strAuditNodes.split("\\|",-1)[strNextAuditUserIndex]);
+			strNextAuditUser =strAuditUsers.split("\\|",-1)[strNextAuditUserIndex];
+			strNodeIdNext =strAuditNodes.split("\\|",-1)[strNextAuditUserIndex];
+			/**判断当前节点审批人是否表单取值*/
+			strNextAuditUser = queryAuditPersonIsColumn(strNextAuditUser, strFlowRunId, strFlowId, strVersion, strNodeIdNext);
+			
+			String[] strArryAuditUsers = strAuditUsers.split("\\|",-1);
+			strArryAuditUsers[strNextAuditUserIndex]=strNextAuditUser;
+			strAuditUsers = getStringArryToString(strArryAuditUsers);
+			/**5 插入运行表*/
+			String[] strArrayFlowRun = {strFlowId,strFlowRunId,strNodeIdNext,strVersion,strNownewDate,strStartUser,strNextAuditUser,strNextAuditUserIndex+"",strAuditMsgs,strStartUserBranch,strAuditArrayyq,strAuditUsers,strAuditNodes,strIsOver,strAuditOther,strAudSel,strEndNodes,strSonFlow,strFlowType,_strFlowParentId,strFlowPj,strTab};
+			helper.updateFlowRun(strArrayFlowRun,"1");
+		
+			String strDate = strSdfYmdHms.format(new Date());
+			String  strAuditComment = "";
+			/**插入流程日志*/
+			String updateMessage = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_START_TAG), _sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_END_TAG) + ProcessRunOperationHelper.UPDATE_FIELD_END_TAG.length());
+			String[] strArrayFlowLog = {strFlowId,strFlowRunId,strAuditNodes.split("\\|",-1)[0],strDate,strVersion,strStartUser,strAuditState,strAuditComment, updateMessage};
+			insertFlowLog("1", strArrayFlowLog);
+			/**发送消息*/
+			helper.sendMsg(strAuditMsgs.split("\\|",-1)[0],strNextAuditUser,strAuditState,strIsOver,strFlowId,strVersion,strFlowRunId,strNodeIdNext,request,strFlowType,strPageCode,strTab);
 
-				}
-								_sb.append("sql:"+sb.toString());
-					/**4 跳岗 1:是*/
-					strNextAuditUserIndex = getNodesInfoRun(strAuditUsers,strAuditOther,strNextAuditUserIndex,strStartUser,strAuditMsgs.split("\\|",-1),strFlowId,strVersion,strFlowRunId,strAuditNodes.split("\\|",-1)[strNextAuditUserIndex]);
-					strNextAuditUser =strAuditUsers.split("\\|",-1)[strNextAuditUserIndex];
-					strNodeIdNext =strAuditNodes.split("\\|",-1)[strNextAuditUserIndex];
-					/**判断当前节点审批人是否表单取值*/
-					strNextAuditUser = queryAuditPersonIsColumn(strNextAuditUser, strFlowRunId, strFlowId, strVersion, strNodeIdNext);
-					
-					String[] strArryAuditUsers = strAuditUsers.split("\\|",-1);
-					strArryAuditUsers[strNextAuditUserIndex]=strNextAuditUser;
-					strAuditUsers = getStringArryToString(strArryAuditUsers);
-					/**5 插入运行表*/
-					String[] strArrayFlowRun = {strFlowId,strFlowRunId,strNodeIdNext,strVersion,strNownewDate,strStartUser,strNextAuditUser,strNextAuditUserIndex+"",strAuditMsgs,strStartUserBranch,strAuditArrayyq,strAuditUsers,strAuditNodes,strIsOver,strAuditOther,strAudSel,strEndNodes,strSonFlow,strFlowType,_strFlowParentId,strFlowPj,strTab};
-					helper.updateFlowRun(strArrayFlowRun,"1");
-				
-					String strDate = strSdfYmdHms.format(new Date());
-					String  strAuditComment = "";
-					/**插入流程日志*/
-					String updateMessage = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_START_TAG), _sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_END_TAG) + ProcessRunOperationHelper.UPDATE_FIELD_END_TAG.length());
-					String[] strArrayFlowLog = {strFlowId,strFlowRunId,strAuditNodes.split("\\|",-1)[0],strDate,strVersion,strStartUser,strAuditState,strAuditComment, updateMessage};
-					insertFlowLog("1", strArrayFlowLog);
-					/**发送消息*/
-					helper.sendMsg(strAuditMsgs.split("\\|",-1)[0],strNextAuditUser,strAuditState,strIsOver,strFlowId,strVersion,strFlowRunId,strNodeIdNext,request,strFlowType,strPageCode,strTab);
-					if("S".equals(strNextAuditUser)){//判断是否子流程---当前节点审批人是否S
-						//启动子流程
-//						processStart(request, _sb,strSonFlow.split("\\|",-1)[strNextAuditUserIndex+1],strFlowId);
-					}
-
-					if(strClassName!=null&&strMethodName!=null&&!"".equals(strMethodName)&&!"".equals(strClassName)){
-						helper.reflectMothedInvoke(strClassName, strMethodName, request);
-					}
+			if(strClassName!=null&&strMethodName!=null&&!"".equals(strMethodName)&&!"".equals(strClassName)){
+				helper.reflectMothedInvoke(strClassName, strMethodName, request);
+			}
 		}catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
 			b=false;
 			_sb.append(e);
 			e.printStackTrace();
-		}finally{
+	    }finally{
 			if (tableEx != null) {
 				tableEx.close();
 			}
@@ -391,7 +366,7 @@ public class ProcessRunOperation {
 			}
 		}
 
-		return b;
+	    return b;
 	}
 	
 	/**
@@ -406,25 +381,23 @@ public class ProcessRunOperation {
 	private String queryAuditPersonIsColumn(String _strNextAuditUser,String _strFlowRunId,String _strFlowId,String _strVersion,String _strNodeIdNext){
 		TableEx exFlowNode = null;
 		String strAuditEx = "";
-//		if("".equals(_strNextAuditUser)||_strNextAuditUser==null){
-			try {
-				exFlowNode = queryFlowNodeInfo(_strFlowId, _strVersion, _strNodeIdNext);
-				String strExCon="";
-				strExCon = helper.getColString("S_AUDIT_THDJR", exFlowNode.getRecord(0));
-				if(strExCon!=null&&!"".equals(strExCon)){
-					strAuditEx = queryBusinessDataByCon(strExCon, "",_strFlowRunId);
-				}
-				if(strAuditEx!=null&&!"".equals(strAuditEx)){
-					_strNextAuditUser = strAuditEx;
-				}
-			} catch (Exception e) {
-			    MantraLog.fileCreateAndWrite(e);
-			    
-				e.printStackTrace();
-			}finally{
-				exFlowNode.close();
+		try {
+			exFlowNode = queryFlowNodeInfo(_strFlowId, _strVersion, _strNodeIdNext);
+			String strExCon="";
+			strExCon = helper.getColString("S_AUDIT_THDJR", exFlowNode.getRecord(0));
+			if(strExCon!=null&&!"".equals(strExCon)){
+				strAuditEx = queryBusinessDataByCon(strExCon, "",_strFlowRunId);
 			}
-//		}
+			if(strAuditEx!=null&&!"".equals(strAuditEx)){
+				_strNextAuditUser = strAuditEx;
+			}
+		} catch (Exception e) {
+		    MantraLog.fileCreateAndWrite(e);
+		    
+			e.printStackTrace();
+		}finally{
+			exFlowNode.close();
+		}
 		return _strNextAuditUser;
 	}
 	
@@ -440,7 +413,7 @@ public class ProcessRunOperation {
 		TableEx ex = null;
 		String strRole= "";
 		try {
-//			strRolePd 表名|字段名|主键名称
+			//strRolePd 表名|字段名|主键名称
 			String[] strArrayPd = strRolePd.split("\\|",-1);
 			ex = dbf.query(new StringBuffer().append(" select ").append(strArrayPd[1]).append(" from ").append(strArrayPd[0]).append(" where 1=1 and ").append("S_RUN_ID").append("='").append(_strFlowRunId).append("'").toString());
 			strRole = helper.getColString(strArrayPd[1], ex.getRecord(0));
@@ -455,18 +428,12 @@ public class ProcessRunOperation {
 	}
 
 	/**
-	 * 节点运行
-	 * @param request
-	 * @return
-	 */
-	/**
 	 * @param request
 	 * @param _sb
 	 * @return
 	 */
 	@SuppressWarnings("finally")
 	public Boolean processRun(HttpServletRequest request,StringBuffer _sb){
-
 		TableEx exRun =null;
 		TableEx exRun1 =null;
 		TableEx exRun2 =null;
@@ -498,23 +465,20 @@ public class ProcessRunOperation {
             strFlowRunId = request.getParameter("NO_sys_S_RUN_ID");
             strVersion = request.getParameter("NO_sys_flow_Ver");
             
-			
             _sb.append("---审批人指定退回节点:"+strAuditChoiceNode);
             String strAuditUserId = request.getParameter("auditUserId");//多个审核人,指定审核人
             _sb.append("---指定下一节点审批人:"+strAuditUserId);
             strCustomNodeId = request.getParameter("NO_custom_node_id");//用户手动选择节点
             _sb.append("---用户选择节点:"+strCustomNodeId);
             
-          
             if(strCustomNodeId!=null&&!"".equals(strCustomNodeId)){
-                
             	processSave(request);
             }
+            
             _sb.append("replay init");
 			String strIsOver = "0";
 			/**查询流程运行信息*/
 			exRun = helper.queryFlowRun(strFlowId,strFlowRunId);
-			//_sb.append(strFlowId+"    "+strVersion+"    "+strFlowRunId);
 			Record record = exRun.getRecord(0);
 			String strMsgs=helper.getColString("S_AUDIT_MSG",record);
 			String strYqs=record.getFieldByName("S_AUDIT_ARRAYYQ").value.toString();
@@ -522,7 +486,6 @@ public class ProcessRunOperation {
 			String strNodes=record.getFieldByName("S_AUDIT_NODES").value.toString();
 			int index = Integer.parseInt(record.getFieldByName("S_AUDIT_INDEX").value.toString());//索引
 			String strLaunchUser = record.getFieldByName("S_LAUNCH_USER").value.toString();
-//			String strLaunchBranch = record.getFieldByName("S_LAUNCH_BRANCH").value.toString();
 			String strLaunchDate = record.getFieldByName("S_LAUNCH_DATE").value.toString();
 			String strNodeIdNow = record.getFieldByName("S_NODE_CODE").value.toString();//当前节点
 			String strOther = record.getFieldByName("S_AUDIT_OTHER").value.toString();//其他
@@ -544,8 +507,6 @@ public class ProcessRunOperation {
 			String strMethodName = helper.getColString("S_AUDIT_CLASSNAME", exRun1.getRecord(0));
 			String strAuditStateBak = request.getParameter("NO_sys_flow_state");
 			String strField = helper.getColString("S_AUDIT_TABLECONTROL", exRun1.getRecord(0));
-//			String[] strArrayFlowLog1 = {"333","333","1","1","1","1","1",strField};
-//			insertFlowLog("1", strArrayFlowLog1);
 
 			if(strField!=null&&!"".equals(strField)){
 				helper.updateTabByFlowSet(request, "", strField, strFlowId, strFlowRunId,_sb);//strNodeIdNow
@@ -562,8 +523,8 @@ public class ProcessRunOperation {
 			
 			if(strCustomNodeId!=null&&!"".equals(strCustomNodeId)){
 				exRun2 = queryFlowNodeInfo(strFlowId, strVersion, strCustomNodeId);
-           	 //节点名称相同-类型为2,手动选择节点
-if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))&&"2".equals(helper.getColString("I_TYPE", exRun2.getRecord(0)))&&!"".equals(helper.getColString("S_AUDIT_SEL", exRun2.getRecord(0)))){
+           	    //节点名称相同-类型为2,手动选择节点
+				if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))&&"2".equals(helper.getColString("I_TYPE", exRun2.getRecord(0)))&&!"".equals(helper.getColString("S_AUDIT_SEL", exRun2.getRecord(0)))){
 					 //更新运行表
 					 String strDef = helper.getColString("S_AUDIT_SEL",exRun2.getRecord(0));
 					 String[] strRunAudSelArry = strAudSel.split("\\|",-1);
@@ -571,7 +532,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 					 String[] strArrayFlowRunVal = {strFlowId,strFlowRunId,getStringArryToString(strRunAudSelArry)};
 					 helper.updateFlowRun(strArrayFlowRunVal, "6");
 					 return true;
-			 }
+			    }
            }            
 			
 			 _sb.append("form end");
@@ -627,26 +588,17 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 				}
 			}else{
 				 _sb.append("当前审批人长度:"+strArrayAuditUsersNow.length+"---strAuditState---"+strAuditState);
-			
 				/**判断是否审核通过*/
-
 				switch (strAuditState) {
 					case "1"://审核通过
 						if("S".equals(strArrayAuditUsers[index+1])){//判断是否子流程---当前节点审批人是否S
 							if(exRun1!=null){exRun1.close();}
 							exNode = queryFlowNodeInfo(strFlowId, strVersion, strArrayNodes[index+1]);
 							Record rd = exNode.getRecord(0);
-//							String strType ="T";
-//							String strSql ="update T_DQEZGZP set T_DQEZGZP.S_SPJG = -*-BHG-*- where T_DQEZGZP.S_ID=-*-<<T_DQEZGZP.S_ID>>-*- ";
-//							String strCon ="T_DQEZGZP.S_ID";
 							String strType =helper.getColString("S_CHILD_TYPE", rd).trim();
 							String strSql =helper.getColString("S_CHILD_TRANSQL", rd).trim();
 							String strCon =helper.getColString("S_CHILD_TRANCON", rd).trim();
-							
-//							strSql = strSql.replace("-*-", "'");
-//							dbf = new DBFactory();
-//							dbf.sqlExe("update T_DQEZGZP set T_DQEZGZP.S_SPJG = 'BHG' where T_DQEZGZP.S_RUN_ID='"+strFlowRunId+"'", true);
-							
+
 							if("T".equals(strType)){//事物
 								bTranFlowSonFlag = true;
 								index = index+1;
@@ -667,7 +619,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 								iNextAuditUserIndex = index;
 								strAuditUser = "子流程启动";
 								//启动子流程
-//							processStart(request, _sb,strFlowSon.split("\\|",-1)[index],strFlowId);
 								//是否有子流程-无子流程iNextAuditUserIndex++,没有子流程进行下一节点
 								if(!queryFlowRunSon(strFlowId, "",strFlowRunId)){
 									index++;
@@ -752,8 +703,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 										iNextAuditUserIndex=0;
 										break;
 									case "3"://指定节点
-//										strAuditOther =(strAuditOther+"|") +helper.getColString("S_AUDIT_TG", rd)+","+helper.getColString("S_AUDIT_THJD", rd)+","+helper.getColString("S_AUDIT_THJDZD", rd)+","+helper.getColString("S_TZLC", rd)+","+helper.getColString("S_AUDIT_PREEMPTION", rd)+","+helper.getColString("S_AUD_VAL", rd)+","+",";
-
 										String strAuditRejectChoiceNode = strOtherArrayNow[2];//驳回节点
 										index = getChoiceNode(strArrayNodes,strAuditRejectChoiceNode);
 										/**跳岗*///TODO
@@ -819,7 +768,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 									//通过人数5--驳回人数6,会签值1,通过比例0.4,
 									if(((iRejectcount+1)*100/iHQCount)>=(100-dHQ)){//驳回比例>=1-录入值,执行驳回操作
 										/**查询当前节点信息*/
-//										String strAuditReject = strOtherArrayNow[1];//驳回
 										switch (strAuditReject) {
 										case "1"://上一节点
 											String strBeforeNodeId = queryFlowLogBeforeNodeId(strFlowId,strVersion, strFlowRunId, strNodeIdNow);
@@ -915,11 +863,9 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			if(strAudOver.indexOf(","+strNodeIdNext+",")>-1){
 				strIsOver = "1";
 			}
+			
 			/**判断当前节点审批人是否表单取值*/
 			strNextAuditUser = queryAuditPersonIsColumn(strNextAuditUser, strFlowRunId, strFlowId, strVersion, strNodeIdNext);
-			
-		
-			
 			String[] strArryAuditUsers = strAuditUsers.split("\\|",-1);
 			strArryAuditUsers[iNextAuditUserIndex]=strNextAuditUser;
 			strAuditUsers = getStringArryToString(strArryAuditUsers);
@@ -928,9 +874,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			if(bFlag){
 				strNextAuditUser = queryFlowLogBeforeNodeAuditUser(strFlowId,strVersion, strFlowRunId, strNodeIdNext);
 			}
-			
-		
-           
 			
 			/**更新流程运行信息*/
 			String[] strArrayFlowRun = {strFlowId,strFlowRunId,strVersion,strNodeIdNext,"2".equals(strAuditState)?"":strNextAuditUser,iNextAuditUserIndex+"",strIsOver,strOther,strAuditUsers};
@@ -975,7 +918,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 						//更新父流程
 						String[] strArrayFlowRunParent ={strFlowParentId,strFlowRunId,strNextAuditUser,strNodesParent[indexParent],indexParent+"",strIsOverParent,getStringArryToString(strAuditUsersParent)};
 						helper.updateFlowRun(strArrayFlowRunParent,"4");
-//						发送父流程消息
+						//发送父流程消息
 						strPageCode  = helper.sendMsg(strMsgId,strNextAuditUser,strAuditState,strIsOverParent,strFlowId,strVersion,strFlowRunId,strNodesParent[indexParent],request,strFlowtype,"",strTab);
 					}else{
 						//子流程完成,并列子流程未完成
@@ -1023,31 +966,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 				}else if("1516166904515".equals(strPageCode)){
 					new com.page.method.Fun().MeasuresToolEntr(request);
 				}
-// else if("1516168904786".equals(strPageCode)){//检修计划分解-外委
-// 						String strSid = request.getParameter("S_ID");
-// 						DBFactory df = new DBFactory();
-// 						TableEx wwEx = df.query("select * from T_JXZJHFJ  where S_ZJ='"+strSid+"'");
-// 						Record rd = wwEx.getRecord(0);
-// 						if("true".equals(helper.getColString("S_SFWW", rd))){//外委
-// 							String uuid = EString.generId();
-// 							String strJxlx =helper.getColString("S_JXLX", rd);//检修类型
-// 							StringBuffer sbr = new StringBuffer();
-// 							String strFlowVersion = new com.timing.impcl.MantraUtil().getFlowVer(strPageCode,helper.getColString("S_ZZ", rd));
-// 	sbr.append("insert into T_WWXM (SYS_FLOW_VER,S_RUN_ID,S_HTH,S_XMMC,S_GQKSSJ,S_GQJSSJ,S_WWDW,S_WWDWID,S_YFFZR,S_JFFZR,S_JXJG,S_ZZ,S_BGRQ,S_ZDR,S_ZDSJ,S_XGR,S_XGSJ,S_BS_JD,S_ID,S_FJID) ");
-// 	sbr.append("select '"+strFlowVersion+"' AS 'SYS_FLOW_VER', '"+EString.generId()+"' AS 'S_RUN_ID','' AS 'S_HTH',S_MC  AS 'S_XMMC',S_KSSJ  AS 'S_GQKSSJ',S_JSSJ AS 'S_GQJSSJ',S_WWDW AS 'S_WWDW',S_WWDWID AS 'S_WWDWID',S_YFZR AS 'S_YFFZR',S_FZR AS 'S_JFFZR','true' AS 'S_JXJG',S_ZZ AS 'S_ZZ','"+EString.getCurDate()+"'  AS 'S_BGRQ',S_ZDR AS 'S_ZDR','"+EString.getCurDate()+"' AS 'S_ZDSJ',S_ZHXGR AS 'S_XGR','"+EString.getCurDate()+"' AS 'S_XGSJ','' AS 'S_BS_JD','"+uuid+"' AS 'S_ID',S_ZJ AS 'S_FJID' from T_JXZJHFJ where T_JXZJHFJ.S_ZJ='");
-// 	sbr.append(strSid);
-// 	sbr.append("';");
-// 	df.sqlExe(sbr.toString(), true);
-// 	sbr = new StringBuffer();
-// 	sbr.append("insert into T_WWXMFB (S_CBXM,S_SGSD,S_Z,S_ID,S_RID,S_CBDW,S_LXFS,S_XTLL) ");
-// 	sbr.append("select S_JXXM AS 'S_CBXM',S_KSRQ AS 'S_SGSD',S_JSQR AS 'S_Z',S_ID AS 'S_ID','"+uuid+"' AS 'S_RID','"+helper.getColString("S_WWDW", rd)+"' AS 'S_CBDW','"+helper.getColString("S_LXFS", rd)+"' AS 'S_LXFS','"+helper.getColString("S_XTLXT", rd)+"' AS 'S_XTLL' from T_ZYJXJHF where T_ZYJXJHF.S_FIDHZFJ='");
-// 	sbr.append(strSid);
-// 	sbr.append("';");
-// 							df.sqlExe(sbr.toString(), true);
-// 							wwEx.close();
-// 							df.close();
-// 						}
-// 					}
                 else if("1516587805543".equals(strPageCode)){
 					new com.page.method.Fun().MeasuresToolEntr(request);
 				}else if("1516167932917".equals(strPageCode)){
@@ -1071,9 +989,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 				}else if("1506310525794".equals(strPageCode)){
 					new com.page.method.Fun().MeasuresToolEntr(request);
 				}
-			// 	else if("1515723789958".equals(strPageCode)){
-			// 		new com.page.method.Fun().MeasuresToolEntr(request);
-			// 	}
 				else if("1522727526758".equals(strPageCode)){//技术创新突出贡献上报
 					new com.page.method.Fun().MeasuresToolEntr(request);
 				}else if("1522732741869".equals(strPageCode)){//优秀技改创新成果上报
@@ -1082,17 +997,11 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 					new com.page.method.Fun().MeasuresToolEntr(request);
 				}
 
-
 				if(db!=null){db.close();}
 			}
-			
 		}catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
-
 			b = false;
-			
-			// String[] strArrayFlowLog22 = {"333",strFlowRunId,strFlowId,new Date()+"",strVersion,strAuditUser,"run",getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
 			e.printStackTrace();
 		}finally{
 			if(exRun!=null){exRun.close();}
@@ -1106,8 +1015,8 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		
 			return b;
 		}
-         
 	}
+	
 	/**
 	 * 更新消息状态
 	 * @param _dbf
@@ -1118,12 +1027,8 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		try {
 			//删除消息表:条件流程ID,运行ID,版本号
 			_dbf.sqlExe("delete from t_msg_records where S_YXID='"+_strFlowRunId+"'", true);
-//			_dbf.sqlExe("update t_msg_records set S_ZT=1 where S_YXID='"+_strFlowRunId+"'", true);
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
-//			if(_dbf!=null){_dbf.close();}
-			// String[] strArrayFlowLog22 = {"333","333","updateSendMsgZt","updateSendMsgZt","updateSendMsgZt","_strFlowRunId",_strFlowRunId,getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
 			e.printStackTrace();
 		}
 	}
@@ -1134,7 +1039,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		TableEx exForm = null;
 		String sql = "";
 		try {
-//			T_DQEZGZP.S_ID
 			strCon = strCon.trim();
 			String strTable = strCon.substring(0, strCon.indexOf("."));
 			String strConTem = strCon.replace(strTable+".", "");
@@ -1157,8 +1061,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
-			// String[] strArrayFlowLog22 = {"333","333","",new Date()+"","运行ID"+strFlowRunId,"","updateFormSql",getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
 			e.printStackTrace();
 		}finally{
 			if(exForm!=null){exForm.close();}
@@ -1181,6 +1083,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
         	return sr;
         }
     }
+	
 	public String getStringArryToString(String[] _arry){
 		StringBuffer sr = new StringBuffer();
 		for(int i=0,j=_arry.length;i<j;i++){
@@ -1259,142 +1162,110 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			strVersion = request.getParameter("NO_sys_flow_Ver");//版本号
 			strFlowRunId = request.getParameter("NO_sys_S_RUN_ID");//运行
 			
-				/**2查询运行表*/
-				exRun = helper.queryFlowRun(strFlowId,strFlowRunId);
-				String strIsOverRun = exRun.getRecord(0).getFieldByName("I_ISOVER").value.toString();//是否完成
-				if("1".equals(strIsOverRun)){//判断完成返回
-					return b;
+			/**2查询运行表*/
+			exRun = helper.queryFlowRun(strFlowId,strFlowRunId);
+			String strIsOverRun = exRun.getRecord(0).getFieldByName("I_ISOVER").value.toString();//是否完成
+			if("1".equals(strIsOverRun)){//判断完成返回
+				return b;
+			}
+			
+			String strMsgs=exRun.getRecord(0).getFieldByName("S_AUDIT_MSG").value.toString();
+			String strYqs=exRun.getRecord(0).getFieldByName("S_AUDIT_ARRAYYQ").value.toString();
+			String strAuditUsersRun=exRun.getRecord(0).getFieldByName("S_AUDIT_ARRAY").value.toString();
+			String strNodes=exRun.getRecord(0).getFieldByName("S_AUDIT_NODES").value.toString();
+			String strLaunchUser = exRun.getRecord(0).getFieldByName("S_LAUNCH_USER").value.toString();
+			String strLaunchBranch = exRun.getRecord(0).getFieldByName("S_LAUNCH_BRANCH").value.toString();
+			String strStartNode = exRun.getRecord(0).getFieldByName("S_NODE_CODE").value.toString();//当前节点
+			String strOther = exRun.getRecord(0).getFieldByName("S_AUDIT_OTHER").value.toString();//其他
+			int index = Integer.parseInt(exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value.toString());//索引
+			String strRunAudSel = exRun.getRecord(0).getFieldByName("S_AUDIT_SEL").value.toString();//手动选择子节点
+			String strSonFlow =  exRun.getRecord(0).getFieldByName("S_FLOW_SON").value.toString();//子流程
+			String strFlowPj =  exRun.getRecord(0).getFieldByName("S_AUDIT_FSPJ").value.toString();//附加票据
+			/**3 查询流程节点*/
+			tableEx = queryFlowNodeInfo(strFlowId,strVersion,"");
+			
+			/**4 循环拼接参数*/
+			String strAuditArrayyq="";//逾期
+			String strAuditNodes="";//所有节点
+			String strAuditOther ="";//其他
+			String strAuditUsers = "";//所有审批人
+			String strAuditMsgs = "";//所有消息模版
+			String strIsOver = "0";//是否结束
+			Record rd = null;//获取下一节点对象
+			String strEndFlag = "";
+			String strAudSel = "";//自定义节点
+			String strAudFlowPj = "";
+			int icount = 0;
+			String strAudSonFlow ="";//子流程
+			String[] strNodesArray = strNodes.split("\\|",-1);
+			String strCustomNodeId = request.getParameter("NO_custom_node_id");//用户手动选择节点
+			
+			if(strCustomNodeId!=null&&!"".equals(strCustomNodeId)){//
+				 strStartNode =strCustomNodeId;
+			}else{
+		         strStartNode = strNodesArray[index+1];
+			}
+
+			 //第一次选择节点,没问题 |||7,6,8||||12,13,14,15
+			 //第一次选择完了节点,出现了问题
+			 //|||
+			while(!"4".equals(strEndFlag)){
+				rd = getNextNodeByCondition(request,strStartNode,tableEx,"2",strFlowRunId);
+				if(rd==null){break;}
+
+				strEndFlag = helper.getColString("I_TYPE", rd);
+				String strCustomNodeIds = helper.getColString("S_AUDIT_SEL", rd);//手动选择节点
+				if("2".equals(strEndFlag)&&strCustomNodeIds!=null&&!"".equals(strCustomNodeIds)){//网关判断是否手动选择节点
+					strAudSel = strAudSel+strCustomNodeIds;
+					break;
 				}
-				
-				String strMsgs=exRun.getRecord(0).getFieldByName("S_AUDIT_MSG").value.toString();
-				String strYqs=exRun.getRecord(0).getFieldByName("S_AUDIT_ARRAYYQ").value.toString();
-				String strAuditUsersRun=exRun.getRecord(0).getFieldByName("S_AUDIT_ARRAY").value.toString();
-				String strNodes=exRun.getRecord(0).getFieldByName("S_AUDIT_NODES").value.toString();
-				String strLaunchUser = exRun.getRecord(0).getFieldByName("S_LAUNCH_USER").value.toString();
-				String strLaunchBranch = exRun.getRecord(0).getFieldByName("S_LAUNCH_BRANCH").value.toString();
-				String strStartNode = exRun.getRecord(0).getFieldByName("S_NODE_CODE").value.toString();//当前节点
-				String strOther = exRun.getRecord(0).getFieldByName("S_AUDIT_OTHER").value.toString();//其他
-				int index = Integer.parseInt(exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value.toString());//索引
-				String strRunAudSel = exRun.getRecord(0).getFieldByName("S_AUDIT_SEL").value.toString();//手动选择子节点
-				String strSonFlow =  exRun.getRecord(0).getFieldByName("S_FLOW_SON").value.toString();//子流程
-				String strFlowPj =  exRun.getRecord(0).getFieldByName("S_AUDIT_FSPJ").value.toString();//附加票据
-				/**3 查询流程节点*/
-				tableEx = queryFlowNodeInfo(strFlowId,strVersion,"");
-				
-				/**4 循环拼接参数*/
-				String strAuditArrayyq="";//逾期
-				String strAuditNodes="";//所有节点
-				String strAuditOther ="";//其他
-				int strNextAuditUserIndex = index+1;//下一审批节点索引,发起人默认为1
-				String strAuditUsers = "";//所有审批人
-				String strAuditMsgs = "";//所有消息模版
-				String strIsOver = "0";//是否结束
-				Record rd = null;//获取下一节点对象
-				String strEndFlag = "";
-				String strAudSel = "";//自定义节点
-				String strAudFlowPj = "";
-				int icount = 0;
-				String strAudSonFlow ="";//子流程
-				String[] strNodesArray = strNodes.split("\\|",-1);
-				String strCustomNodeId = request.getParameter("NO_custom_node_id");//用户手动选择节点
-				boolean bFlag = true;
-				 if(strCustomNodeId!=null&&!"".equals(strCustomNodeId)){//
-					 strStartNode =strCustomNodeId;
-					 //当前节点是网关且手动选择
-					 //查询流程节点
-//					 int iCount = tableEx.getRecordCount();
-//					 Record rd1 = null;
-//					 for(int i=0;i<iCount;i++){
-//						 rd1 = tableEx.getRecord(i);
-//						 //节点名称相同-类型为2,手动选择节点
-//						 if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", rd1))&&"2".equals(helper.getColString("I_TYPE", rd1))&&!"".equals(helper.getColString("S_AUDIT_SEL", rd1))){
-//							 //更新运行表
-//							 String strDef = helper.getColString("S_AUDIT_SEL",rd1);
-//							 String[] strRunAudSelArry = strRunAudSel.split("\\|",-1);
-//							 strRunAudSelArry[index]=strDef;
-//							 String[] strArrayFlowRunVal = {strFlowId,strFlowRunId,getStringArryToString(strRunAudSelArry)};
-//							 exRun.close();
-//							 updateFlowRun(strArrayFlowRunVal, "6");
-//							 bFlag = false;
-//							 break;
-//						 }
-//					 }
-				 }else{
-			            strStartNode = strNodesArray[index+1];
-				 }
-//				 if(!bFlag){
-//					 return false;
-//				 }
-				 //第一次选择节点,没问题 |||7,6,8||||12,13,14,15
-				 //第一次选择完了节点,出现了问题
-				 //|||
-				while(!"4".equals(strEndFlag)){
-						rd = getNextNodeByCondition(request,strStartNode,tableEx,"2",strFlowRunId);
-						if(rd==null){break;}
+				String strNodeAudit = queryAuditPerson(strLaunchUser,strLaunchBranch,helper.getColString("S_AUDIT_BRANCH", rd),helper.getColString("S_AUDIT_ROLE", rd),helper.getColString("S_AUDIT_USER", rd),helper.getColString("S_AUDIT_SQRYATTR", rd),helper.getColString("S_AUDIT_SQRY", rd),request,rd,strFlowRunId);
 
-						strEndFlag = helper.getColString("I_TYPE", rd);
-						String strCustomNodeIds = helper.getColString("S_AUDIT_SEL", rd);//手动选择节点
-						if("2".equals(strEndFlag)&&strCustomNodeIds!=null&&!"".equals(strCustomNodeIds)){//网关判断是否手动选择节点
-							strAudSel = strAudSel+strCustomNodeIds;
-							break;
-						}
-						String strNodeAudit = queryAuditPerson(strLaunchUser,strLaunchBranch,helper.getColString("S_AUDIT_BRANCH", rd),helper.getColString("S_AUDIT_ROLE", rd),helper.getColString("S_AUDIT_USER", rd),helper.getColString("S_AUDIT_SQRYATTR", rd),helper.getColString("S_AUDIT_SQRY", rd),request,rd,strFlowRunId);
-
-						if("5".equals(strEndFlag)){//子流程,存储子流程流程号/版本号运行号/表单ID
-							strNodeAudit = "S";
-						}
-						strAudSonFlow = (icount==0?"":(strAudSonFlow+"|"))+helper.getColString("S_FLOW_SON", rd);
-						strAudSel = (icount==0?"":(strAudSel+"|"))+strCustomNodeIds;
-						strAuditArrayyq =(icount==0?"":(strAuditArrayyq+"|")) +helper.getColString("S_AUDIT_YQTS", rd)+","+helper.getColString("S_AUDIT_YQTSCL", rd);//所有逾期  所有逾期操作
-						strAuditMsgs =(icount==0?"":(strAuditMsgs+"|"))+helper.getColString("S_AUDIT_TZXX", rd);//所有消息模版
-						strAuditNodes = (icount==0?"":(strAuditNodes+"|"))+helper.getColString("I_NODE_ID", rd);
-						strAuditOther =(icount==0?"":(strAuditOther+"|")) +helper.getColString("S_AUDIT_TG", rd)+","+helper.getColString("S_AUDIT_THJD", rd)+","+helper.getColString("S_AUDIT_THJDZD", rd)+","+helper.getColString("S_TZLC", rd)+","+helper.getColString("S_AUDIT_PREEMPTION", rd)+","+helper.getColString("S_AUD_VAL", rd)+","+",";
-						strStartNode = helper.getColString("S_CHILD_ID", rd);
-						strAudFlowPj =(icount==0?"":(strAudFlowPj+"|"))+helper.getColString("S_AUDIT_FSPJ", rd);//附加票据
-						//是否跳过 所有审批驳回 所有审批驳回处理 子流程
-						if("".equals(strNodeAudit)){
-							strNodeAudit = ("1".equals(helper.getColString("S_AUDIT_TG", rd)))?"T":strNodeAudit;//跳岗
-						}
-						strAuditUsers = (icount==0?"":(strAuditUsers+"|"))+strNodeAudit;
-
-						icount=1;
+				if("5".equals(strEndFlag)){//子流程,存储子流程流程号/版本号运行号/表单ID
+					strNodeAudit = "S";
 				}
-				/**5组装参数,中间保存从当前节点修改审批信息*/
-				strAuditUsersRun = getAuditStrArrySave(strAuditUsersRun,strAuditUsers,index);//0,1,2,3,4,5  运行index:2 ,传入index3,当前节点之前值(包含当前)+ 当前节点之后值(包含当前)
-					
-				strYqs = getAuditStrArrySave(strYqs,strAuditArrayyq,index);
-				strMsgs = getAuditStrArrySave(strMsgs,strAuditMsgs,index);
-				strSonFlow = getAuditStrArrySave(strSonFlow,strAudSonFlow,index);
-				strNodes = getAuditStrArrySave(strNodes,strAuditNodes,index);
-				strOther= getAuditStrArrySave(strOther,strAuditOther,index);
-				strRunAudSel = getAuditStrArrySave(strRunAudSel,strAudSel,index);
-				strFlowPj = getAuditStrArrySave(strFlowPj,strAudFlowPj,index);
-				System.out.println(strRunAudSel);
-					/**6 跳岗 1:是*/
-//					strNextAuditUserIndex = getNodesInfo(strAuditUsersRun,strOther,strNextAuditUserIndex);
-//					strNextAuditUser =strAuditUsersRun.split("\\|",-1)[strNextAuditUserIndex];
-//					strNodeIdNext =strNodes.split("\\|")[strNextAuditUserIndex];
-					/**流程是否结束*/
-//					if("".equals(strAudSel.split("\\|",-1)[index])){//非子节点停滞,判断是否结束
-//						strIsOver = ((strNextAuditUserIndex+1) == strNodesArray.length)?"1":strIsOver;
-//					}
-				/**判断当前节点审批人是否表单取值*/
-				String strNextAuditUser = queryAuditPersonIsColumn(strAuditUsersRun.split("\\|",-1)[index+1], strFlowRunId, strFlowId, strVersion, strNodes.split("\\|",-1)[index+1]);
-				String[] strArryAuditUsers = strAuditUsersRun.split("\\|",-1);
+				strAudSonFlow = (icount==0?"":(strAudSonFlow+"|"))+helper.getColString("S_FLOW_SON", rd);
+				strAudSel = (icount==0?"":(strAudSel+"|"))+strCustomNodeIds;
+				strAuditArrayyq =(icount==0?"":(strAuditArrayyq+"|")) +helper.getColString("S_AUDIT_YQTS", rd)+","+helper.getColString("S_AUDIT_YQTSCL", rd);//所有逾期  所有逾期操作
+				strAuditMsgs =(icount==0?"":(strAuditMsgs+"|"))+helper.getColString("S_AUDIT_TZXX", rd);//所有消息模版
+				strAuditNodes = (icount==0?"":(strAuditNodes+"|"))+helper.getColString("I_NODE_ID", rd);
+				strAuditOther =(icount==0?"":(strAuditOther+"|")) +helper.getColString("S_AUDIT_TG", rd)+","+helper.getColString("S_AUDIT_THJD", rd)+","+helper.getColString("S_AUDIT_THJDZD", rd)+","+helper.getColString("S_TZLC", rd)+","+helper.getColString("S_AUDIT_PREEMPTION", rd)+","+helper.getColString("S_AUD_VAL", rd)+","+",";
+				strStartNode = helper.getColString("S_CHILD_ID", rd);
+				strAudFlowPj =(icount==0?"":(strAudFlowPj+"|"))+helper.getColString("S_AUDIT_FSPJ", rd);//附加票据
+				//是否跳过 所有审批驳回 所有审批驳回处理 子流程
+				if("".equals(strNodeAudit)){
+					strNodeAudit = ("1".equals(helper.getColString("S_AUDIT_TG", rd)))?"T":strNodeAudit;//跳岗
+				}
+				strAuditUsers = (icount==0?"":(strAuditUsers+"|"))+strNodeAudit;
+
+				icount=1;
+			}
+			
+			/**5组装参数,中间保存从当前节点修改审批信息*/
+			strAuditUsersRun = getAuditStrArrySave(strAuditUsersRun,strAuditUsers,index);//0,1,2,3,4,5  运行index:2 ,传入index3,当前节点之前值(包含当前)+ 当前节点之后值(包含当前)
 				
+			strYqs = getAuditStrArrySave(strYqs,strAuditArrayyq,index);
+			strMsgs = getAuditStrArrySave(strMsgs,strAuditMsgs,index);
+			strSonFlow = getAuditStrArrySave(strSonFlow,strAudSonFlow,index);
+			strNodes = getAuditStrArrySave(strNodes,strAuditNodes,index);
+			strOther= getAuditStrArrySave(strOther,strAuditOther,index);
+			strRunAudSel = getAuditStrArrySave(strRunAudSel,strAudSel,index);
+			strFlowPj = getAuditStrArrySave(strFlowPj,strAudFlowPj,index);
+			
+			/**判断当前节点审批人是否表单取值*/
+			String strNextAuditUser = queryAuditPersonIsColumn(strAuditUsersRun.split("\\|",-1)[index+1], strFlowRunId, strFlowId, strVersion, strNodes.split("\\|",-1)[index+1]);
+			String[] strArryAuditUsers = strAuditUsersRun.split("\\|",-1);
+			
 
-				strArryAuditUsers[index+1]=strNextAuditUser;
-				strAuditUsersRun = getStringArryToString(strArryAuditUsers);
+			strArryAuditUsers[index+1]=strNextAuditUser;
+			strAuditUsersRun = getStringArryToString(strArryAuditUsers);
 
-					/**7 更新运行表 4个数组*/
-					String[] strArrayFlowRun = {strFlowId,strFlowRunId,strVersion,strMsgs,strYqs,strAuditUsersRun,strNodes,strOther,strIsOver,strRunAudSel,strSonFlow,strFlowPj};
-					helper.updateFlowRun(strArrayFlowRun,"3");
+			/**7 更新运行表 4个数组*/
+			String[] strArrayFlowRun = {strFlowId,strFlowRunId,strVersion,strMsgs,strYqs,strAuditUsersRun,strNodes,strOther,strIsOver,strRunAudSel,strSonFlow,strFlowPj};
+			helper.updateFlowRun(strArrayFlowRun,"3");
 		}catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
 			b = false;
-			// String[] strArrayFlowLog22 = {"333",strFlowRunId,strFlowId,new Date()+"",strVersion,"","save",getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
-			
 			e.printStackTrace();
 		}finally{
 			exRun.close();
@@ -1404,7 +1275,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 	}
 	
 	public Map<String,String> processAudAll(HttpServletRequest request){
-		
 		Map<String,String> map = new HashMap<String, String>();
 		String processAudCustomNodeIds = "";
 		String processAuditSelectNode = "";
@@ -1441,7 +1311,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			exRunNowNode.close();
 		}
 		
-//		("\r|\n", "");
 		map.put("processAudCustomNodeIds", processAudCustomNodeIds.replaceAll("\r|\n", ""));
 		map.put("processAuditSelectNode", processAuditSelectNode.replaceAll("\r|\n", ""));
 		map.put("processNodeAudit", processNodeAudit.replaceAll("\r|\n", ""));
@@ -1466,7 +1335,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
             String strVersion = request.getParameter("flow_ver");
 			
 			/**查询流程运行信息*/
-//			exRun = queryFlowRun(strFlowId==null?"":strFlowId,strVersion==null?"":strVersion,strFlowRunId==null?"":strFlowRunId);
 			if(exRun.getRecordCount()>0){
 				String strCustomNodes = helper.getColString("S_AUDIT_SEL", exRun.getRecord(0));
 				String strNodeIds = helper.getColString("S_AUDIT_NODES", exRun.getRecord(0));
@@ -1480,11 +1348,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 						strResult = ("".equals(strResult)?"":(strResult+"|"))+helper.getColString("I_NODE_ID", rd)+","+helper.getColString("S_NODE_NAME", rd)+","+helper.getColString("I_TYPE", rd);
 					}
 				}
-//				else if("S".equals(strNodeIds.split("\\|",-1)[index+1])){
-//					String[] strFlowSonArray = helper.getColString("S_FLOW_SON", exRun.getRecord(0)).split("\\|",-1);
-//					index++;
-//					strResult = "SON"+"|"+strFlowSonArray[index]+"|"+strFlowRunId+"|"+queryFlowMaiByFlowId(strFlowSonArray[index],request.getParameter("strOrgId"));
-//				}
 			}
 		}catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
@@ -1494,6 +1357,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			return strResult+"|";
 		}
 	}
+	
 	/**
 	 * 审批驳回选择节点
 	 * @param request
@@ -1509,9 +1373,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
             String strVersion = request.getParameter("flow_ver");
 			
 			/**查询流程运行信息*/
-//			exRun = queryFlowRun(strFlowId==null?"":strFlowId,strVersion==null?"":strVersion,strFlowRunId==null?"":strFlowRunId);
 			if(exRun.getRecordCount()>0){
-			    
 			    if (exRun.getRecord(0).getFieldByName("S_NODE_CODE").value==null ||exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value==null) { // 过滤空指针
 
     				return strResult;
@@ -1528,7 +1390,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
     				if (temp != null && temp.length > 1) {
     					strReject = temp[1];
 					}
-//        			    strReject = exRun.getRecord(0).getFieldByName("S_AUDIT_OTHER").value.toString().split("\\|",-1)[index].split(",")[1];
     			}
 				if("4".equals(strReject)){
 					strResult = queryFlowLogBeforeAll(strFlowId, strVersion, strFlowRunId,strRunNode);
@@ -1557,17 +1418,14 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
             String strFlowRunId = request.getParameter("sys_flow_run_id");
             String strVersion = request.getParameter("flow_ver");
 			/**查询流程运行信息*/
-//			exRun = queryFlowRun(strFlowId==null?"":strFlowId,strVersion==null?"":strVersion,strFlowRunId==null?"":strFlowRunId);
 			if(exRun.getRecordCount()>0){
 				//S_AUDIT_OTHER S_AUDIT_ARRAYYQ S_AUDIT_INDEX
 				int index = Integer.parseInt(exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value.toString());
 				String strMsgs=exRun.getRecord(0).getFieldByName("S_AUDIT_MSG").value.toString();
 				String strAuditUsers=exRun.getRecord(0).getFieldByName("S_AUDIT_ARRAY").value.toString();
 				String strLaunchUser = exRun.getRecord(0).getFieldByName("S_LAUNCH_USER").value.toString();
-//				String strLaunchBranch = exRun.getRecord(0).getFieldByName("S_LAUNCH_BRANCH").value.toString();
 				String strNodeIdNow = exRun.getRecord(0).getFieldByName("S_NODE_CODE").value.toString();//当前节点
 				String strOther = exRun.getRecord(0).getFieldByName("S_AUDIT_OTHER").value.toString();//其他
-//				strFlowPj = exRun.getRecord(0).getFieldByName("S_AUDIT_FSPJ").value.toString();//附属票据
 				String[] strArrayAud = strAuditUsers.split("\\|",-1);
 				
 				int iNextAuditUserIndex = getNodesInfoRun(strAuditUsers,strOther,index,strLaunchUser,strMsgs.split("\\|",-1),strFlowId,strVersion,strFlowRunId,strNodeIdNow);
@@ -1643,8 +1501,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 				} catch (Exception e) {
 				    MantraLog.fileCreateAndWrite(e);
 					e.printStackTrace();
-			// 		String[] strArrayFlowLog22 = {"333","333","appendConditionSql","appendConditionSql",_strCon,"appendConditionSql",_strType,st+"----"+getErrorInfoFromException(e)};
-			// 		insertFlowLog("1", strArrayFlowLog22);
 					if(ex!=null){ex.close();}
 				}finally{
 					if(ex!=null){ex.close();}
@@ -1663,6 +1519,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		dbf.close();
 		return strNode;
 	}
+	
 	private String queryConditionSql(String _sql){
 		String strResult = "";
 		TableEx ex = null;
@@ -1677,6 +1534,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 		return strResult;
 	}
+	
 	/**
 	 * true:正常 false:逾期
 	 * @param strLaunchDate
@@ -1694,6 +1552,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 		return b;
 	}
+	
 	//2017-08-18 15:06:44 ,|1,TGJD|1,TGJD|1,ZDTH|1,TGJD|,TGJD|,  2
 	/**
 	 * 开始节点判断是否发起人
@@ -1727,28 +1586,16 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		//选择了人------------直接返回人
 		String strGw = "";
 		strGw = helper.getColString("S_AUDIT_GW", rd);
-//		String strGw = helper.getColString("S_AUDIT_YHZ", rd);
 		if(!"".equals(_strUserIds)){
 			strAuditIds =_strUserIds;
 		}
-//		else if(strGw!=null&&!"".equals(strGw)){
-//			strAuditIds = queryUserByGw(strGw);
-//		}
 		else if(_strAttr!=null&&!"".equals(_strAttr)){
 			//选择了三权人员
 			//查询人所在部门，_strLanuchBranchId, 根据发起人所在部门ID，依次向上查询部门下有此角色的人
-//			t_SYS_ROLE SROLECODE(角色代码)
-//			t_SYS_BRANCH S_CODE(部门编号)
-//			t_RGXX SYGZW(账号) SROLECODE（角色代码） SROLEBH（角色编号） SBRANCHID(组织编号)
-         
 			strAuditIds = queryUserIdBySqRoles(_strAttr,_strLanuchBranchId,_strZj,_request,_strFlowRunId);
-	
 		}else if(("".equals(_strBranchIds))&&("".equals(_strUserIds))&&(_strRoleIds!=null&&!"".equals(_strRoleIds))){
 			//选择了角色（可能多个）,机构、人为空
 			//查询人所在部门，_strLanuchBranchId, 根据发起人所在部门ID，依次向上查询部门下有此角色的人
-//			t_SYS_ROLE SROLECODE(角色代码)
-//			t_SYS_BRANCH S_CODE(部门编号)
-//			t_RGXX SYGZW(账号) SROLECODE（角色代码） SROLEBH（角色编号） SBRANCHID(组织编号)
 			strAuditIds = queryUserIdByRoles(_strRoleIds,_strLanuchBranchId);
 		}else if((!"".equals(_strBranchIds))&&("".equals(_strUserIds))&&(_strRoleIds!=null&&!"".equals(_strRoleIds))){
 			//选择了机构(可能多个）  角色   人为空,根据机构和角色查询所在人
@@ -1794,6 +1641,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 		return sr.deleteCharAt(sr.length()-1).toString();
 	}
+	
 	/**
 	 * 流程启动判断开始节点
 	 * @param _strAttr
@@ -1879,12 +1727,11 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}else if(_strAttr.indexOf("AL:")>-1){
 			_strAttr = _strAttr.replace("AL:", "");
 			String[] strArryAttr = _strAttr.split("-");
-//			CBL:XKR-T_DQYZGZP|S_BPDD|S_ID
+			//CBL:XKR-T_DQYZGZP|S_BPDD|S_ID
 			String strSttr = strArryAttr[0];
 			String strFormVal = queryBusinessDataByCon(strArryAttr[1],"",_strFlowRunId);
 			sql = "select S_JSDM,S_BMID from T_JSYHZ left join T_JSYHZRIGHT on T_JSYHZRIGHT.S_FID=T_JSYHZ.S_ID where S_ATTR='"+strSttr+"' and S_ATTR2='"+strFormVal+"' and T_JSYHZ.S_ID='"+_strZj+"'";
 		}
-		
 		
 		/**添加表单字段与配置对应 end*/
 		StringBuffer _strRoleIds = new StringBuffer();
@@ -1892,7 +1739,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		TableEx exSq = null;
 		try {
 			exSq = dbf.query(sql);
-//			exSq = dbf.query("select S_JSDM,S_BMID from T_JSYHZ left join T_JSYHZRIGHT on T_JSYHZRIGHT.S_FID=T_JSYHZ.S_ID where S_ATTR='"+_strSqRole+"' and S_BMID='"+_strLanuchBranchId+"'");
 			Record rd = null;
 			for(int i=0,j=exSq.getRecordCount();i<j;i++){
 				rd = exSq.getRecord(i);
@@ -1916,21 +1762,13 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 		
 		String strRole = _strRoleIds.toString();
-		
 		Map<String,String> map = new LinkedHashMap<String, String>();
 		String strAuditIds= "";//001001001---001,001001,001001001
-//		String strBranchCodes = _strLanuchBranchId;
 		String strBranchCodes = getParentBranchCode(_strLanuchBranchId);
 		TableEx exTRGXX = null;
 		//查询人所在父级部门的所有人,并通过角色筛选得到map< 角色代码，人ID>
 		try {
-//			exTRGXX = new TableEx("SROLECODE,SYGZW,SBRANCHID","t_RGXX","1=1 and SROLECODE!='' and SBRANCHID like '"+strBranchCodes+"%'  order by length(SBRANCHID) desc");//and SROLECODE in("+_strRoles+")
-			
-			//old Code  2018-07-08 15:44:34
-			//sanquanrenyuan
-			//exTRGXX = new TableEx("SROLECODE,SYGZW,SBRANCHID","t_RGXX","1=1 and SROLECODE!='' and SBRANCHID like '"+strBranchCodes.substring(0,3)+"%' ");//and SROLECODE in("+_strRoles+")
             String Sqyy = selDAteRet("S_TSSX","T_JSYHZ","S_ID='"+_strZj+"'");
-            
             MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---Sqyy---"+Sqyy);
             MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---Sqyy---"+strRole);
             
@@ -1963,15 +1801,8 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		 for (Map.Entry<String, String> entry : map.entrySet()) {
 			 String strAuditIds1 = entry.getValue();
 			 sr.append(strAuditIds1).append(",");
-			if(strAuditIds!=null&&!"".equals(strAuditIds)){
-//				break;
-			}
 		}
 		
-
-		
-			
-//		 return strAuditIds;
 		 if(sr.length()==0){
 			 strAuditIds = "";
 		 }else{
@@ -1981,6 +1812,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		 MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---strAuditIds---"+strAuditIds);
 		return strAuditIds;
 	}
+	
 	/**
 	 * 查询用户组织树角色
 	 * @param _strRoleIds
@@ -1995,11 +1827,8 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		TableEx exTRGXX = null;
 		//查询人所在父级部门的所有人,并通过角色筛选得到map< 角色代码，人ID>
 		try {
-			/**流程定义,下级部门不能审批*/
-			//exTRGXX = new TableEx("SROLECODE,SYGZW,SBRANCHID","t_RGXX","1=1 and SROLECODE!='' and SBRANCHID in("+strBranchCodes+")  order by length(SBRANCHID) desc");//and SROLECODE in("+_strRoles+")
 			/**流程定义本组织全部可以审批*/
 			exTRGXX = new TableEx("SROLECODE,SYGZW,SBRANCHID","t_RGXX","1=1 and SROLECODE!='' and SBRANCHID like '"+strBranchCodes.substring(0,3)+"%'  order by length(SBRANCHID) desc");//and SROLECODE in("+_strRoles+")
-//			exTRGXX = new TableEx("SROLECODE,SYGZW,SBRANCHID","t_RGXX","1=1 and SROLECODE!='' and ( SBRANCHID like '"+_strLanuchBranchId+"%' or SBRANCHID in("+strBranchCodes+"))  order by length(SBRANCHID) desc");//and SROLECODE in("+_strRoles+")
 			int iCount = exTRGXX.getRecordCount();
 			Record rd = null;
 			for(int i=0;i<iCount;i++){
@@ -2021,9 +1850,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		 for (Map.Entry<String, String> entry : map.entrySet()) {
 			 String strAuditIds1 = entry.getValue();
 			 sr.append(strAuditIds1).append(",");
-			if(strAuditIds!=null&&!"".equals(strAuditIds)){
-//				break;
-			}
 		}
 		 if(sr.length()==0){
 			 strAuditIds = "";
@@ -2046,42 +1872,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 		return str;
 	}
-	
-	/**
-	 * 查询所有节点审批人
-	 * @param _strFlowId
-	 * @param _strVersion
-	 * @param _strFlowRunId
-	 * @param _strNodeId
-	 * @param _strStartUser
-	 * @param _strStartRole
-	 * @param _strStartBranch
-	 * @return
-	 */
-//	public Map<String,String> queryAllNodesAudit(String _strFlowId,String _strVersion,String _strFlowRunId,String _strNodeId,String _strLaunchhUser,String _strLaunchRole,String _strLaunchBranch){
-//		Map<String,String> mapNodes = new HashMap<String, String>();//节点ID，审批人
-//		TableEx tableEx =null;
-//		try {
-//			tableEx =queryFlowNodeInfo(_strFlowId,_strVersion,"");
-//			int iCount = tableEx.getRecordCount();
-//			//判断开始节点数量
-//			for(int i=0;i<iCount;i++){
-//				Record rd = tableEx.getRecord(i);//1 动作 3 开始   2网关  4结束
-//				String strNodeId = rd.getFieldByName("I_NODE_ID").value.toString();
-//				if("1".equals(rd.getFieldByName("I_TYPE").value.toString())){//动作
-//					String strNodeAudit = queryAuditPerson(_strLaunchhUser,_strLaunchBranch,rd.getFieldByName("S_AUDIT_BRANCH").value.toString(),rd.getFieldByName("S_AUDIT_ROLE").value.toString(),rd.getFieldByName("S_AUDIT_USER").value.toString(),helper.getColString("S_AUDIT_SQRYATTR", rd),helper.getColString("S_AUDIT_SQRY", rd),request);
-//					mapNodes.put(strNodeId, strNodeAudit);
-//				}
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}finally{
-//			tableEx.close();
-//		}
-//		return mapNodes;
-//	}
-
 
 	/**
 	 * 运行-跳岗
@@ -2126,7 +1916,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 				record = objNowRd;
 			}else if("5".equals(strNodeType)){//子流程
 				record = objNowRd;
-//				helper.getColString("S_FLOW_TYPE", objNowRd);//
 			}else if("2".equals(strNodeType)){//网关-根据网关条件判断获取下一节点-自调用
 				String strCustomNodeIds = helper.getColString("S_AUDIT_SEL", objNowRd);//手动选择节点
 				if("".equals(strCustomNodeIds)){
@@ -2145,8 +1934,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			}
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
-			// String[] strArrayFlowLog22 = {"333",_strNowNode,"",new Date()+"",_strNowNode,"","getNextNodeByCondition",getErrorInfoFromException(e)};
-			// insertFlowLog("1", strArrayFlowLog22);
 			e.printStackTrace();
 		}
 		return record;
@@ -2169,8 +1956,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 		return rd;
 	}
-
-
 
 	/**
 	 * 查询流程节点信息
@@ -2244,12 +2029,9 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			
 			String strNodes=exRun.getRecord(0).getFieldByName("S_AUDIT_NODES").value.toString().split("\\|",-1)[index-1];
 			String strNexAuditUser = queryFlowLogBeforeNodeAuditUser(_strFlowId,_strVersion, _strFlowRunId, strNodes);
-			//2018-07-09 13:20:18  addcode
 			String strNexUserArr = exRun.getRecord(0).getFieldByName("S_AUDIT_ARRAY").value.toString().split("\\|",-1)[index-1];
 			String strNodeIdNow = exRun.getRecord(0).getFieldByName("S_NODE_CODE").value.toString();//当前节点
 			if(strNexAuditUser.equals(_userCode)){
-			    //String[] strArrayFlowRunVal = {_strFlowId,_strFlowRunId,strNexAuditUser,strNodes,(index-1)+""};
-			    //2018-07-09 13:20:18  addcode
 				String[] strArrayFlowRunVal = {_strFlowId,_strFlowRunId,strNexUserArr,strNodes,(index-1)+""};
 				helper.updateFlowRun(strArrayFlowRunVal, "5");
 				bFlag = true;
@@ -2274,7 +2056,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			return bFlag;
 		}
 	}
-
 	
 	/**
 	 * 插入运行日志表T_SYS_FLOW_LOG
@@ -2320,7 +2101,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			sb.append(" and T_SYS_FLOW_LOG.S_RUN_ID='"+_strFlowRunId+"'");
 			sb.append(" and (T_SYS_FLOW_LOG.S_AUD_STAUS='1' or T_SYS_FLOW_LOG.S_AUD_STAUS='3')");
 			sb.append(" GROUP BY S_NODE_ID");
-//			sb.append(" order by T_SYS_FLOW_LOG.S_AUD_DATE desc");//审批节点可能重复,不影响功能,放开则审批人节点可能丢失
 			ex = new TableEx("T_SYS_FLOW_LOG.S_NODE_ID,t_rgxx.SYGMC,T_SYS_FLOW_NODE.S_NODE_NAME", "T_SYS_FLOW_LOG ,T_SYS_FLOW_NODE ,T_RGXX",sb.toString());
 			int iCount = ex.getRecordCount(); 
 			int flag = -1;
@@ -2382,6 +2162,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 		return strBeforeNodeId;
 	}
+	
 	public String queryFlowLogBeforeNodeAuditUser(String _strFlowId,String _strVersion,String _strFlowRunId,String _strNodeId){//查询人出了问题
 		String strBeforeUser = "";
 		TableEx exFlowLog = null;
@@ -2423,6 +2204,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 		return ex;
 	}
+	
 	/**
 	 * 流程日志查询
 	 * @param _strFlowId
@@ -2439,7 +2221,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 			sb.append((_strFlowRunId==null||"".equals(_strFlowRunId))?"":(" and S_RUN_ID='"+_strFlowRunId+"' "));
 			sb.append((_strVersion==null||"".equals(_strVersion))?"":(" and S_AUDIT_VERSION='"+_strVersion+"' "));
 			sb.append(" and (T_SYS_FLOW_LOG.S_AUD_STAUS='1' or T_SYS_FLOW_LOG.S_AUD_STAUS='3')");
-//			sb.append("".equals(_strNodeId)?"":" GROUP BY S_NODE_ID  ");
 			sb.append(" order by T_SYS_FLOW_LOG.S_AUD_DATE desc");
 			ex = new TableEx("*", "T_SYS_FLOW_LOG",sb.toString());
 		} catch (Exception e) {
@@ -2448,6 +2229,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 		return ex;
 	}
+	
 	/**
 	 * 判断节点ID在数组中的索引位置
 	 * @param _strArrayNodeIds
@@ -2565,6 +2347,7 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		String[] strArrayFlowLog22 = {"333","xx","xx",new Date()+"","xx","","start","xx",""};
 		insertFlowLog("1", strArrayFlowLog22);
 	}
+	
 	public void flowOverDelMsg( String S_RUN_ID, String S_FLOW_ID, String S_AUTO_VER) {
 		DBFactory dbf = new DBFactory();
 		try {
@@ -2578,18 +2361,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		}
 	}
 	
-	public void DelMsg( String S_RUN_ID) {
-		DBFactory dbf = new DBFactory();
-		try {
-			dbf.sqlExe("delete from T_MSG_RECORDS where   S_YXID='"+S_RUN_ID+"' ;", false);
-		}catch (Exception e) {
-			MantraLog.fileCreateAndWrite(e);
-		}finally {
-			if(dbf!=null) {
-				dbf.close();
-			}
-		}
-	}
     public String selDAteRet(String col,String tableName,String cond) {
 		String retStr="";
 		TableEx tb = null;
@@ -2610,7 +2381,6 @@ if(strCustomNodeId.equals(helper.getColString("I_NODE_ID", exRun2.getRecord(0)))
 		return retStr;
 	}
     
-	
 	public static void main(String[] args) {
 		HttpServletRequest req = null;
 		ProcessRunOperationHelper helper = new ProcessRunOperationHelper();
