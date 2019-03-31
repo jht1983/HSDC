@@ -28,7 +28,7 @@ import com.yulongtao.sys.QRSC;
 import com.yulongtao.sys.SumToSub;
 import com.yulongtao.sys.WebCommand;
 import com.yulongtao.util.EString;
-import com.yulongtao.util.SerialUtil;
+import com.yulongtao.util.MisSerialUtil;
 
 /**
  * @author tianshisheng
@@ -275,7 +275,7 @@ public class MisRequestEx {
                                     final String[] arrTF = objValue.toString().split("\\$");
                                     final int iTFCount = arrTF.length;
                                     if (iTFCount == 3) {
-                                        objValue = SerialUtil.getSerialNum(arrTF[2], this.request);
+                                        objValue = MisSerialUtil.getSerialNum(arrTF[2], this.request);
                                     }
                                     else if (iTFCount > 5) {
                                         objValue = EString.generId(arrTF[2].trim(), arrTF[3].trim(), arrTF[4].trim(), Integer.parseInt(arrTF[5].trim()));
@@ -313,7 +313,7 @@ public class MisRequestEx {
                                 final String[] arrTF2 = objValue.toString().split("\\$");
                                 final int iTFCount2 = arrTF2.length;
                                 if (iTFCount2 == 3) {
-                                    objValue = SerialUtil.getSerialNum(arrTF2[2], this.request);
+                                    objValue = MisSerialUtil.getSerialNum(arrTF2[2], this.request);
                                     System.out.println("seria" + objValue);
                                 }
                                 else if (arrTF2.length > 5) {
@@ -427,7 +427,7 @@ public class MisRequestEx {
                                         final String[] arrTF = objValue.toString().split("\\$");
                                         final int iTFCount = arrTF.length;
                                         if (iTFCount == 3) {
-                                            objValue = SerialUtil.getSerialNum(arrTF[2], this.request);
+                                            objValue = MisSerialUtil.getSerialNum(arrTF[2], this.request);
                                         }
                                         else if (iTFCount > 5) {
                                             objValue = EString.generId(arrTF[2].trim(), arrTF[3].trim(), arrTF[4].trim(), Integer.parseInt(arrTF[5].trim()));
@@ -465,7 +465,7 @@ public class MisRequestEx {
                                     final String[] arrTF2 = objValue.toString().split("\\$");
                                     final int iTFCount2 = arrTF2.length;
                                     if (iTFCount2 == 3) {
-                                        objValue = SerialUtil.getSerialNum(arrTF2[2], this.request);
+                                        objValue = MisSerialUtil.getSerialNum(arrTF2[2], this.request);
                                         System.out.println("seria" + objValue);
                                     }
                                     else if (arrTF2.length > 5) {
@@ -516,7 +516,7 @@ public class MisRequestEx {
                                 final String[] arrTF3 = strValue.split("\\$");
                                 final int iTFCount3 = arrTF3.length;
                                 if (iTFCount3 == 3) {
-                                    strValue = SerialUtil.getSerialNum(arrTF3[2], this.request);
+                                    strValue = MisSerialUtil.getSerialNum(arrTF3[2], this.request);
                                 }
                                 else if (arrTF3.length > 5) {
                                     strValue = EString.generId(arrTF3[2].trim(), arrTF3[3].trim(), arrTF3[4].trim(), Integer.parseInt(arrTF3[5].trim()));

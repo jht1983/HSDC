@@ -29,21 +29,23 @@ function dragWin(oDrag, handle){
         return false
     };
 }
+//操作对话框
 function win(aUrl){
-	return miniWin('�����Ի���','',aUrl,380,300,'','');
+	return miniWin('\u53ea\u8d4b\u503c\u4e00\u6b21','',aUrl,380,300,'','');
 }
 function win500(aUrl){
-	return miniWin('�����Ի���','',aUrl,650,300,'','');
+	return miniWin('\u53ea\u8d4b\u503c\u4e00\u6b21','',aUrl,650,300,'','');
 }
 function win700(aUrl){
-	return miniWin('�����Ի���','',aUrl,650,520,'','');
+	return miniWin('\u53ea\u8d4b\u503c\u4e00\u6b21','',aUrl,650,520,'','');
 }
+//查询条件
 function winQuery(aUrl){
-	return miniWin('��ѯ����','',aUrl,380,200,'','');
+	return miniWin('\u67e5\u8be2\u6761\u4ef6','',aUrl,380,200,'','');
 }
-
+//上传图片
 function winPic(aUrl){
-	return miniWin('�ϴ�ͼƬ','',aUrl,350,100,'','');
+	return miniWin('\u4e0a\u4f20\u56fe\u7247','',aUrl,350,100,'','');
 }
 var objPhotoBJ;
 function generBg(_strWinId){
@@ -237,8 +239,8 @@ function sys_delSelValues(_strId,_strWid){
 
 
 var sys_obj_timer= null;
-//�����˶���������
-function moveStyleFreeFall(_obj,_iHp,_iVp,_iSpeed,_iTopLeft,_iToTop,_iInitTop) {//�˶�����,����ƫ�ƾ���,����ƫ�ƾ���,�ٶ�,Ŀ�궥��
+//物体运动自由落体
+function moveStyleFreeFall(_obj,_iHp,_iVp,_iSpeed,_iTopLeft,_iToTop,_iInitTop) {//运动对象,横向偏移距离,纵向偏移距离,速度,目标顶点
 		_obj.style.left=_iTopLeft+'px';
 		_obj.style.top=_iInitTop+'px';
 		sys_obj_timer&&clearInterval(sys_obj_timer);
@@ -249,7 +251,7 @@ function moveStyleFreeFall(_obj,_iHp,_iVp,_iSpeed,_iTopLeft,_iToTop,_iInitTop) {
 				_obj.style.left=iObjeLeft+'px';
 				_obj.style.top=iObjTop+'px';
 				if(iObjTop<_iToTop){
-					iAddTop+=10;//��ü��ٶ�Ϊ2
+					iAddTop+=10;//最好加速度为2
 				} else {
 					iAddLeft=(iAddTop>0)?iAddTop*_iHp:0;
 					iAddTop*=(iAddTop>0)?-1*_iVp:0;
@@ -312,10 +314,10 @@ if(aWidth>iScreen_Width){
 		aHeight=aHeight-20;
 		iContentHeight=iContentHeight-120;
 		strWinOp="<tr><td class='win_left'></td><td  width='"+iContentWidth+"px' height='50px' align='center'>"+
-		"<div style='font-family:΢���ź�;font-size:11px;color:#666666;background-color:white;text-align:left;width:100%;height:20px;'>&nbsp;&nbsp;ѡ����Ŀ</div><div class='mutseldiv'><table width='100%' height='100%'><tr><td id='divselect"+strWinId+"'></td></tr></table></div>"+
+		"<div style='font-family:微软雅黑;font-size:11px;color:#666666;background-color:white;text-align:left;width:100%;height:20px;'>&nbsp;&nbsp;\u9009\u4e2d\u9879\u76ee</div><div class='mutseldiv'><table width='100%' height='100%'><tr><td id='divselect"+strWinId+"'></td></tr></table></div>"+
 		"<table align='center'  width='100%'  class='bttformoparea'><tr><td align='center'>"+
-		"<a href=\"javascript:titleclose("+strWinId+");\" class='button red' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qx.png);'>�ر�</div></span></a>"+
-		"<a href=\"javascript:sys_doSetValues('"+strWinId+"_frame');titleclose("+strWinId+");\" class='button green' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>ȷ��</div></span></a>"+
+		"<a href=\"javascript:titleclose("+strWinId+");\" class='button red' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qx.png);'>\u5173\u95ed</div></span></a>"+
+		"<a href=\"javascript:sys_doSetValues('"+strWinId+"_frame');titleclose("+strWinId+");\" class='button green' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>\u786e\u5b9a</div></span></a>"+
 		"</td></tr></table>"
 		+"</td><td class='win_right'></td></tr>";
 	}
@@ -390,10 +392,10 @@ if(aWidth>iScreen_Width){
 		aHeight=aHeight-20;
 		iContentHeight=iContentHeight-120;
 		strWinOp="<tr><td></td><td  width='"+iContentWidth+"px' height='50px' align='center'>"+
-		"<div style='font-family:΢���ź�;font-size:11px;color:#666666;background-color:white;text-align:left;width:100%;height:20px;'>&nbsp;&nbsp;ѡ����Ŀ</div><div class='mutseldiv'><table width='100%' height='100%'><tr><td id='divselect"+strWinId+"'></td></tr></table></div>"+
+		"<div style='font-family:微软雅黑;font-size:11px;color:#666666;background-color:white;text-align:left;width:100%;height:20px;'>&nbsp;&nbsp;\u9009\u4e2d\u9879\u76ee</div><div class='mutseldiv'><table width='100%' height='100%'><tr><td id='divselect"+strWinId+"'></td></tr></table></div>"+
 		"<table align='center'  width='100%'  class='bttformoparea'><tr><td align='center'>"+
-		"<a href=\"javascript:titleclose("+strWinId+");\" class='button red' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qx.png);'>�ر�</div></span></a>"+
-		"<a href=\"javascript:sys_doSetValues('"+strWinId+"_frame');titleclose("+strWinId+");\" class='button green' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>ȷ��</div></span></a>"+
+		"<a href=\"javascript:titleclose("+strWinId+");\" class='button red' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qx.png);'>\u5173\u95ed</div></span></a>"+
+		"<a href=\"javascript:sys_doSetValues('"+strWinId+"_frame');titleclose("+strWinId+");\" class='button green' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>\u786e\u5b9a</div></span></a>"+
 		"</td></tr></table>"
 		+"</td><td></td></tr>";
 	}

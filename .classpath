@@ -99,5 +99,6 @@
 	<classpathentry kind="lib" path="D:/work/lib/yltpdoc-ooxml-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="D:/work/lib/yltpdoc-ooxml-schemas-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="D:/work/lib/yltpdoc-scratchpad-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="D:/work/lib/jsp-api-2.1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

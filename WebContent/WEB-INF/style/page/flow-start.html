@@ -315,6 +315,8 @@
 					var edit = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#edit").checked;
 					var required = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#required").checked;
 					var cl = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#cl").value;
+					var once = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#once").checked;
+					
 					if(show == true && edit == false && cl == "") {
 						continue;
 					}
@@ -324,7 +326,8 @@
 					strReturn += show + ",";
 					strReturn += edit + ",";
 					strReturn += required + ",";
-					strReturn += trim(cl);
+					strReturn += trim(cl)+ ",";
+					strReturn += once + "";
 					strSplit = "|";
 			    }
 			    strSplitReturn="`";
@@ -348,7 +351,7 @@
 				NO_BL.appendChild(optionArr);
 				
 				var tempTr = "";
-				tempTr = "<tr class='tr1'><td id= '" + tempID + "#Name'>" + tableColAttr[0] + "</td><td style='display:none;' id='" + tempID + "#Code'>" + tableColAttr[1] + "</td><td><input id='" + tempID + "#show' " + (tableColAttr[2] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input id='" + tempID + "#edit' " + (tableColAttr[3] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input onclick='requiredCod(this);' id='" + tempID + "#required' " + (tableColAttr[4] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input id='" + tempID + "#cl' type='text' style='width:95%'  value='" + tableColAttr[5] + "'  /></td></tr>";
+				tempTr = "<tr class='tr1'><td id= '" + tempID + "#Name'>" + tableColAttr[0] + "</td><td style='display:none;' id='" + tempID + "#Code'>" + tableColAttr[1] + "</td><td><input id='" + tempID + "#show' " + (tableColAttr[2] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input id='" + tempID + "#edit' " + (tableColAttr[3] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input onclick='requiredCod(this);' id='" + tempID + "#required' " + (tableColAttr[4] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input id='" + tempID + "#cl' type='text' style='width:95%'  value='" + tableColAttr[5] + "'  /></td><td><input id='" + tempID + "#once' " + (tableColAttr[3] == 'true' ? 'checked' : '') + "  type='checkbox' /></td></tr>";
 				if(i < toLeftOrRight) {
     				tableCol.innerHTML += tempTr;
     			} else {
@@ -402,6 +405,12 @@
 					    $(tableId + "$" + temp[0] + "#cl").value = temp[3];
 					    liuchenpeizhi=true;
 					}
+					try {
+						$(tableId + "$" + temp[0] + "#once").checked = false;
+						$(tableId + "$" + temp[0] + "#once").checked = (temp[5] == "true" ? true : false);
+					}catch(e){
+				        
+				    }
 				}
 			}
         }
