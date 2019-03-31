@@ -670,12 +670,12 @@ import com.timing.impcl.EventCl;
     
             String _formId=request.getParameter("formId");
             String _bmid=request.getParameter("bmid");
-            if(_formId == null && _formId.trim().length() > 0){
-                sr.append("琛ㄥ崟ID涓虹┖");
+            if(_formId == null || _formId.trim().length() == 0){
+                sr.append("Fun.getFlowUid: the parameter '_formId' can not be null.");
                 return sr;
             }
-            if(_bmid == null && _bmid.trim().length() > 0){
-                sr.append("缁勭粐涓虹┖");
+            if(_bmid == null || _bmid.trim().length() == 0){
+                sr.append("Fun.getFlowUid: the parameter '_bmid' can not be null.");
                 return sr;
             }
             
