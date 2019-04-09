@@ -539,10 +539,14 @@ public class TimingTaskTool {
 				String qxzt = ProcessRunOperationDao.getColString("S_QXZT", record); //缺陷状态
 
 				//清空状态
-				dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='false' WHERE S_ID='" + sid + "'", true);
-				dbf.sqlExe("UPDATE T_QXJL set S_SUSPEND='false' WHERE S_ID='" + sid + "'", true);
-				dbf.sqlExe("UPDATE T_QXJL set S_WARNING='false' WHERE S_ID='" + sid + "'", true);
-				dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='false' WHERE S_ID='" + sid + "'", true);
+				try {
+					dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='false' WHERE S_ID='" + sid + "'", true);
+					dbf.sqlExe("UPDATE T_QXJL set S_SUSPEND='false' WHERE S_ID='" + sid + "'", true);
+					dbf.sqlExe("UPDATE T_QXJL set S_WARNING='false' WHERE S_ID='" + sid + "'", true);
+					dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='false' WHERE S_ID='" + sid + "'", true);
+				} catch (Exception e) {
+					//do nothing
+				}
 				
 				if ("QXZT013".equals(qxzt)) {
 					dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='true' WHERE S_ID='" + sid + "'", true);
