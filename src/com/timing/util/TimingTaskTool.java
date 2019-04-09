@@ -539,6 +539,7 @@ public class TimingTaskTool {
 				String qxzt = ProcessRunOperationDao.getColString("S_QXZT", record); //缺陷状态
 
 				//清空状态
+				dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='false' WHERE S_ID='" + sid + "'", true);
 				dbf.sqlExe("UPDATE T_QXJL set S_SUSPEND='false' WHERE S_ID='" + sid + "'", true);
 				dbf.sqlExe("UPDATE T_QXJL set S_WARNING='false' WHERE S_ID='" + sid + "'", true);
 				dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='false' WHERE S_ID='" + sid + "'", true);
