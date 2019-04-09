@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Debug;
 import com.bfkc.hzp.viewrcs;
-import com.timing.impcl.MantraLog;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.FieldEx;
 import com.yulongtao.db.Query;
@@ -35,6 +34,8 @@ import com.yulongtao.util.db.DefaultETL;
 import com.yulongtao.util.db.IETL;
 import com.yulongtao.web.component.ComponentInvoke;
 import com.yulongtao.web.component.WebComponent;
+
+import net.sourceforge.osexpress.parser.ExpressLexer;
 
 public class WebQuery
 {
@@ -1531,6 +1532,13 @@ public class WebQuery
         }
     }
     
+    /**
+     * 页面渲染和搜索逻辑.
+     * 
+     * @param aQuery
+     * @param sbSerch
+     * @return
+     */
     private int generSerch(final Query aQuery, final StringBuffer sbSerch) {
         final String[] arrQF = this.strQueryField.split(",");
         final int iQFCount = arrQF.length;
@@ -1540,10 +1548,13 @@ public class WebQuery
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         final Dic dic = new Dic();
         final int iBrCount = Integer.parseInt(arrQF[0]);
+        
+        //显示行数
         int iCols = (iQFCount - 1) / iBrCount;
         if ((iQFCount - 1) % iBrCount != 0) {
             iCols = (iQFCount - 1) / (iBrCount - 1);
         }
+        
         String strScript = "";
         for (int i = 1; i < iQFCount; ++i) {
             final String[] arrParamNames = arrQF[i].split(":");
@@ -1561,10 +1572,14 @@ public class WebQuery
                     try {
                         strParamValue = EString.encoderStr(strParamValue.toString());
                     }
-                    catch (Exception ex) {}
+                    catch (Exception ex) {
+                    	//do nothing
+                    }
+                    
                     if (strFieldName.startsWith("$_")) {
                         strFieldName = this.request.getParameter(strFieldName.substring(2));
                     }
+                    
                     if (strParamValue.startsWith("SYS_")) {
                         final String[] arrStrDate = strParamValue.split("_");
                         if (arrStrDate[2].equals("Y")) {
@@ -1608,9 +1623,11 @@ public class WebQuery
             else if (strParamValue == null) {
                 strParamValue = "";
             }
+            
             if (iBrCount > 1 && i % iCols == 1 && i != iQFCount - 1 && i != 1) {
                 sbSerch.append("</tr><tr class='trquerybg'>");
             }
+            
             StringBuffer strEndSearch = null;
             String strAreLable = "";
             final String strArelableEnd = "<td align='left' class='tdquerybgsing' width='10'>&nbsp;&nbsp;\u81f3&nbsp;&nbsp;</td>";
@@ -1618,16 +1635,35 @@ public class WebQuery
                 strEndSearch = new StringBuffer();
                 strAreLable = "&nbsp;&nbsp;";
             }
+            
             if (iBrCount > 1) {
-                sbSerch.append("<td align='left' class='tdquerybg' style='width:120px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
+            	if (arrParamNames[1].equals("boolean")) {
+            		sbSerch.append("<td align='left' class='tdquerybg' style='width:25px;'>" + arrParamNames[2] + "</td>");
+				}
+            	else {
+            		sbSerch.append("<td align='left' class='tdquerybg' style='width:120px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
+            	}
             }
             else {
-                sbSerch.append("<td align='left' class='tdquerybgsing' style='width:120px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
+            	if (arrParamNames[1].equals("boolean")) {
+            		sbSerch.append("<td align='left' class='tdquerybgsing' style='width:25px;'>" + arrParamNames[2] + "</td>");
+				}
+            	else {
+            		sbSerch.append("<td align='left' class='tdquerybgsing' style='width:120px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
+            	}
             }
+            
+            //显示规则
             if (arrParamNames[1].equals("0")) {
                 sbSerch.append("<td align='left' style='width:130px;'><input type='text' name='" + arrParamNames[0] + "' value='" + strParamValue + "' style='width:120px;'></td>");
                 if (strEndSearch != null) {
                     strEndSearch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:130px;'>&nbsp;<input type='text' name='" + arrParamNames[0] + "1' value='" + strParamValue2 + "' style='width:120px;'></td>");
+                }
+            }
+            else if (arrParamNames[1].equals("boolean")) {
+            	sbSerch.append("<td align='left' style='width:30px;'><input type='checkbox' name='" + arrParamNames[0] + "' value='true' class='inputCheck' " + ("true".equals(strParamValue)?"checked":"") +"></td>");
+                if (strEndSearch != null) {
+                    strEndSearch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:30px;'>&nbsp;<input type='checkbox' name='" + arrParamNames[0] + "1' value='true' class='inputCheck' " + ("true".equals(strParamValue2)?"checked":"") +"></td>");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYEAR")) {
@@ -1685,15 +1721,18 @@ public class WebQuery
                     strEndSearch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:130px;'>" + dic.generSelect(arrParamNames[1], "name='" + arrParamNames[0] + "1' value='" + strParamValue2 + "' style='width:120px;'") + "</td>");
                 }
             }
+            
             if (strEndSearch != null) {
                 sbSerch.append(strEndSearch);
             }
         }
+        
         if (!strTempCon.equals("")) {
             strTempCon = "(" + strTempCon.substring(4) + ")";
             aQuery.addCon(strTempCon);
             this.strSeachCon = "&SYSSERCACHCON=" + URLEncoder.encode(strTempCon);
         }
+        
         if (!strScript.equals("")) {
             sbSerch.append("<script>" + strScript + "</script>");
         }

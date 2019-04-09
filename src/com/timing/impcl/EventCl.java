@@ -50,8 +50,6 @@ public class EventCl extends Event {
 	private int timer = 0;
 	// --SIS Data--end
 
-	private int startCleanHour = 23;
-	private int startCleanMunite = 55;
 	private int startLoadDataPeriod = 6*10; //10秒X6X10
 	
 	public boolean isRun() {
@@ -64,94 +62,10 @@ public class EventCl extends Event {
 			}
 		}
 		
-		//increment every 10 seconds
-		
-		//no need for HSDC
-// 		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "EventCl->isRun:timer: " + timer);
-//		try {
-//			if (isStartSis) {
-//				DBFactory dbf = null;
-//		        MantraUtil mtu = new MantraUtil();
-//				
-//				//load data 10 minutes
-//				if (timer >= startLoadDataPeriod) {
-//					timer = 0;
-//
-//					dbf = new DBFactory();
-//					try {
-//						dbf.sqlExe("DELETE FROM T_SIS_SYNCH WHERE UNIX_TIMESTAMP(S_TIME) < UNIX_TIMESTAMP(NOW()) - 3600 * 24", false);
-//						MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "EventCl->isRun: The T_SIS_SYNCH has clean.");
-//					} catch (Exception e) {
-//						MantraLog.fileCreateAndWrite(e);
-//					} finally {
-//						if (dbf != null) {
-//							dbf.close();
-//						}
-//					}
-//					
-//					httpCon httpConnection = new httpCon();
-//					String result = httpConnection.sendGet(
-//							"http://172.16.100.11/View/GetSnapshot.aspx", 
-//							"first=1&queryField=" + TAG_1_FC +
-//							"," + TAG_1_SO2 +
-//							"," + TAG_1_NOX +
-//							"," + TAG_2_FC +
-//							"," + TAG_2_SO2 +
-//							"," + TAG_2_NOX +
-//							"," + TAG_1_GL +
-//							"," + TAG_2_GL);
-////					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "EventCl->isRun:SIS Data: " + result);
-//					//tag1,实时值 1,时间 1,描述 1,单位 1,|tag2,实时值 2,时间 2,描述 2,单位 2, 
-//					if (StringUtils.isNotEmpty(result)) {
-//						String[] data = result.split("\\|");
-//						
-//						String tag = null;
-//						String value = null;
-//						String time = null;
-//						String desc = null;
-//						String unit = null;
-//						
-//						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//						String currentDate = sdf.format(new Date());
-//						
-//						dbf = new DBFactory();
-//						try {
-//							for (int i = 0; i < data.length; i++) {
-//								String[] record = data[i].split(",");
-//								if (record.length < 5) {
-//									continue;
-//								}
-//								
-//								tag = record[0].trim();
-//								value = record[1].trim();
-//								time = currentDate;//record[2].trim()
-//								desc = record[3].trim();
-//								unit = record[4].trim();
-//								
-//								dbf.sqlExe(
-//										"INSERT INTO T_SIS_SYNCH (`S_ID`, `S_TAG`, `S_VALUE`, `S_TIME`, `S_DESC`, `S_UNIT`) VALUES ('" + 
-//										mtu.getShortUuid() + "','" + 
-//								        tag + "','" + 
-//								        value + "','" + 
-//								        time + "','" + 
-//								        desc + "','" + 
-//								        unit + "')", false);
-//							}
-//						} catch (Exception e) {
-//							MantraLog.fileCreateAndWrite(e);
-//						} finally {
-//							if (dbf != null) {
-//								dbf.close();
-//							}
-//						}
-//					}
-//				}
-//			}
-//		} catch (Exception e) {
-//			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "EventCl->isRun:ERR");
-//			MantraLog.fileCreateAndWrite(e);
-//		}
-		// -----------获取SIS数据
+		//check T_QXJL every 10*20 seconds
+		if (timer % 20 == 0) {
+			timTool.checkQXJL();
+		}
 
 		// --------定时任务
 		try {
@@ -200,7 +114,6 @@ public class EventCl extends Event {
 
 	public synchronized void run() {
 		HashMap<String, String> hmp = null;
-		MantraUtil tool = new MantraUtil();
 		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[:019]->EventCl->isRun:" + runGJStatus.size());
 		for (int z = 0; z < runGJStatus.size(); z++) {
 			hmp = runGJStatus.get(z);
@@ -223,7 +136,4 @@ public class EventCl extends Event {
 	public static void setVecGJStatus(HashMap<String, String> vecGJStatus) {
 		EventCl.vecGJStatus.add(vecGJStatus);
 	}
-
-	// SPAGECODE='+arr[1]+'&sys_bed=true&S_ID='+arr[2]+'&bmid='+arr[3]
-
 }

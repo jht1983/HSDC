@@ -10,9 +10,11 @@ import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.bfkc.process.ProcessRunOperationDao;
 import com.timing.impcl.MantraLog;
 import com.timing.impcl.MantraUtil;
-import com.timing.impcl.ProcessParameterVO;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
@@ -513,4 +515,155 @@ public class TimingTaskTool {
 		}
 	}
 
+	/**
+	 * init the QXJL status.
+	 */
+	public void checkQXJL() {
+		TableEx tableEx = null;
+		DBFactory dbf = new DBFactory();
+		SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat ymdhms = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String startTime = " 08:30";
+		String endTime = " 17:00";
+		String confirmTime = " 10:00";
+		
+		try {
+			Date jzsj = ymd.parse("2018-11-27");
+			tableEx = new TableEx("*", "T_QXJL", "");
+			int iCount = tableEx.getRecordCount();
+
+			for(int i = 0; i < iCount; i++){
+				boolean checkRedWarn = true;
+				Record record = tableEx.getRecord(i);
+				String sid = ProcessRunOperationDao.getColString("S_ID", record);
+				String qxzt = ProcessRunOperationDao.getColString("S_QXZT", record); //缺陷状态
+
+				//清空状态
+				dbf.sqlExe("UPDATE T_QXJL set S_SUSPEND='false' WHERE S_ID='" + sid + "'", true);
+				dbf.sqlExe("UPDATE T_QXJL set S_WARNING='false' WHERE S_ID='" + sid + "'", true);
+				dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='false' WHERE S_ID='" + sid + "'", true);
+				
+				if ("QXZT013".equals(qxzt)) {
+					dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='true' WHERE S_ID='" + sid + "'", true);
+					continue;
+				}
+				
+				//缺陷挂起
+				try {
+					if ("QXZT030".equals(qxzt) || "QXZT031".equals(qxzt) || "QXZT032".equals(qxzt) || "QXZT033".equals(qxzt)) {
+						dbf.sqlExe("UPDATE T_QXJL set S_SUSPEND='true' WHERE S_ID='" + sid + "'", true);
+						checkRedWarn = false;
+					}
+				} catch (Exception e) {
+					//do nothing
+				}
+				
+				//确认超期
+				String fxsj = ProcessRunOperationDao.getColString("S_FXSJ", record); //发现时间
+				Date fxsjDate = ymdhms.parse(fxsj);
+				try {
+					Date startDate = ymdhms.parse(ymd.format(fxsjDate) + startTime);
+					Date endDate = ymdhms.parse(ymd.format(fxsjDate) + endTime);
+					Date confirmDate = ymdhms.parse(ymd.format(fxsjDate) + confirmTime);
+					
+					if (fxsjDate.after(jzsj)) {
+						String qrsj = ProcessRunOperationDao.getColString("S_QRSJ", record); //确认时间
+						Date qrsjDate = null;
+						if (StringUtils.isNotEmpty(qrsj)) {
+							qrsjDate = ymdhms.parse(qrsj);
+						}
+						else {
+							qrsjDate = new Date();
+						}
+						
+						if (fxsjDate.getTime() >= startDate.getTime() && fxsjDate.getTime() <= endDate.getTime()) {
+							long hours = Math.abs(qrsjDate.getTime() - fxsjDate.getTime())/1000/60/60;
+							if (hours > 4) {
+								dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", true);
+							}
+						}
+						else {
+							Date zeroDate = ymdhms.parse(ymd.format(fxsjDate) + " 00:00");
+							if ((fxsjDate.getTime() > zeroDate.getTime() && fxsjDate.getTime() < startDate.getTime()) &&
+									(qrsjDate.after(confirmDate))) {
+								//0点以后发现的
+								dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", true);
+							}
+							else {
+								Date secondConfirmDate = ymdhms.parse(ymd.format(fxsjDate) + confirmTime);
+								secondConfirmDate.setTime(secondConfirmDate.getTime() + 24 * 60 * 60 * 1000);
+								
+								if (qrsjDate.after(secondConfirmDate)) {
+									dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", true);
+								}
+							}
+						}
+					}
+				} catch (Exception e) {
+					//do nothing
+				}
+				
+				//销缺超期
+				if (checkRedWarn) {
+					int expendHours = 0;
+					
+					try {
+						String qxlb = ProcessRunOperationDao.getColString("S_QXLB", record); //缺陷类别
+						String hfkksj = ProcessRunOperationDao.getColString("S_SGYSSJ", record); //恢复开口时间（审批时间）
+						String sjjssj = ProcessRunOperationDao.getColString("S_SJJSSJ", record); //实际结束时间
+						Date sjjssjDate = null;
+						if (StringUtils.isNotEmpty(sjjssj)) {
+							sjjssjDate = ymdhms.parse(sjjssj);
+						}
+						else {
+							sjjssjDate = new Date();
+						}
+						
+						if ("QXLB1".equals(qxlb)) {
+							expendHours = 12;
+						}
+						else if ("QXLB2".equals(qxlb)) {
+							expendHours = 24;
+						}
+						else if ("QXLB3".equals(qxlb)) {
+							expendHours = 48;
+						}
+						else if ("QXLB4".equals(qxlb)) {
+							expendHours = 72;
+						}
+						
+						if (fxsjDate.after(jzsj)) {
+							if (StringUtils.isNotEmpty(hfkksj)) {
+								Date hfkksjDate = ymdhms.parse(hfkksj);
+								if ((Math.abs(sjjssjDate.getTime() - hfkksjDate.getTime())/1000/60/60) > 48) {
+									dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='true' WHERE S_ID='" + sid + "'", true);
+								}
+							}
+							else if ((Math.abs(sjjssjDate.getTime() - fxsjDate.getTime())/1000/60/60) > expendHours) {
+								dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='true' WHERE S_ID='" + sid + "'", true);
+							}
+						}
+					} catch (Exception e) {
+						//do nothing
+					}
+				}
+			}
+		} catch (Exception e) {
+			MantraLog.fileCreateAndWrite(e);
+		} finally {
+			if (tableEx != null) {
+				tableEx.close();
+			}
+			dbf.close();
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat ymdhms = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date fxsjDate = new Date();
+
+		Date zeroDate = ymdhms.parse(ymd.format(fxsjDate) + " 00:00");
+		System.out.println(ymdhms.format(zeroDate));
+	}
 }
