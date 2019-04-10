@@ -264,7 +264,9 @@ public class TimingTaskTool {
 		} catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
 		} finally {
-			tableEx.close();
+			if (tableEx != null) {
+				tableEx.close();
+			}
 			dbf.close();
 		}
 	}
@@ -540,23 +542,21 @@ public class TimingTaskTool {
 
 				//清空状态
 				try {
-					dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='false' WHERE S_ID='" + sid + "'", true);
-					dbf.sqlExe("UPDATE T_QXJL set S_SUSPEND='false' WHERE S_ID='" + sid + "'", true);
-					dbf.sqlExe("UPDATE T_QXJL set S_WARNING='false' WHERE S_ID='" + sid + "'", true);
-					dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='false' WHERE S_ID='" + sid + "'", true);
+					dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='false',S_SUSPEND='false',S_WARNING='false',S_REDWARN='false' WHERE S_ID='" + sid + "'", false);
 				} catch (Exception e) {
 					//do nothing
+					e.printStackTrace();
 				}
 				
 				if ("QXZT013".equals(qxzt)) {
-					dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='true' WHERE S_ID='" + sid + "'", true);
+					dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='true' WHERE S_ID='" + sid + "'", false);
 					continue;
 				}
 				
 				//缺陷挂起
 				try {
 					if ("QXZT030".equals(qxzt) || "QXZT031".equals(qxzt) || "QXZT032".equals(qxzt) || "QXZT033".equals(qxzt)) {
-						dbf.sqlExe("UPDATE T_QXJL set S_SUSPEND='true' WHERE S_ID='" + sid + "'", true);
+						dbf.sqlExe("UPDATE T_QXJL set S_SUSPEND='true' WHERE S_ID='" + sid + "'", false);
 						checkRedWarn = false;
 					}
 				} catch (Exception e) {
@@ -584,7 +584,7 @@ public class TimingTaskTool {
 						if (fxsjDate.getTime() >= startDate.getTime() && fxsjDate.getTime() <= endDate.getTime()) {
 							long hours = Math.abs(qrsjDate.getTime() - fxsjDate.getTime())/1000/60/60;
 							if (hours > 4) {
-								dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", true);
+								dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", false);
 							}
 						}
 						else {
@@ -592,14 +592,14 @@ public class TimingTaskTool {
 							if ((fxsjDate.getTime() > zeroDate.getTime() && fxsjDate.getTime() < startDate.getTime()) &&
 									(qrsjDate.after(confirmDate))) {
 								//0点以后发现的
-								dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", true);
+								dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", false);
 							}
 							else {
 								Date secondConfirmDate = ymdhms.parse(ymd.format(fxsjDate) + confirmTime);
 								secondConfirmDate.setTime(secondConfirmDate.getTime() + 24 * 60 * 60 * 1000);
 								
 								if (qrsjDate.after(secondConfirmDate)) {
-									dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", true);
+									dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", false);
 								}
 							}
 						}
@@ -641,11 +641,11 @@ public class TimingTaskTool {
 							if (StringUtils.isNotEmpty(hfkksj)) {
 								Date hfkksjDate = ymdhms.parse(hfkksj);
 								if ((Math.abs(sjjssjDate.getTime() - hfkksjDate.getTime())/1000/60/60) > 48) {
-									dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='true' WHERE S_ID='" + sid + "'", true);
+									dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='true' WHERE S_ID='" + sid + "'", false);
 								}
 							}
 							else if ((Math.abs(sjjssjDate.getTime() - fxsjDate.getTime())/1000/60/60) > expendHours) {
-								dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='true' WHERE S_ID='" + sid + "'", true);
+								dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='true' WHERE S_ID='" + sid + "'", false);
 							}
 						}
 					} catch (Exception e) {
