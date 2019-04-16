@@ -779,9 +779,7 @@ public class Component extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return vResult;
     }
     
@@ -824,9 +822,7 @@ public class Component extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return vResult;
     }
     
@@ -1525,9 +1521,7 @@ public class Component extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return strValue;
     }
     
@@ -1622,9 +1616,6 @@ public class Component extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
     }
     
     private String getAudLog(final String _strFlowId, final String strRunId, final String _serVersion) {
@@ -1658,9 +1649,7 @@ public class Component extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         vResult = String.valueOf(vResult) + "}";
         return vResult;
     }
@@ -1751,10 +1740,6 @@ public class Component extends HttpServlet
             if (tableEx != null) {
                 tableEx.close();
             }
-        }
-        dbf.close();
-        if (tableEx != null) {
-            tableEx.close();
         }
     }
     

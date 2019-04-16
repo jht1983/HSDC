@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.Debug;
-import com.timing.impcl.MantraLog;
 import com.yulongtao.db.Query;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;

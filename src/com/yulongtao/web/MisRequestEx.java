@@ -602,9 +602,7 @@ public class MisRequestEx {
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return vResult;
     }
     

@@ -640,9 +640,6 @@ public class MisWebAction extends HttpServlet {
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
     }
     
     private String[] getThMsg(final String curNodeId, final String flowId, final String flowRunId, final String _strParSeq, final String _strHTNode) {
@@ -682,9 +679,7 @@ public class MisWebAction extends HttpServlet {
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return vResult;
     }
     
@@ -729,9 +724,6 @@ public class MisWebAction extends HttpServlet {
                     tableEx.close();
                 }
             }
-            if (tableEx != null) {
-                tableEx.close();
-            }
         }
         return vResult;
     }
@@ -769,9 +761,7 @@ public class MisWebAction extends HttpServlet {
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return strVresult;
     }
     
@@ -819,9 +809,7 @@ public class MisWebAction extends HttpServlet {
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return strVresult;
     }
     

@@ -461,9 +461,6 @@ public class MisMenu extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
     }
     
     public void doStyleRes(final HttpServletRequest request, final HttpServletResponse response, final String _strRes) throws ServletException, IOException {
@@ -750,7 +747,7 @@ public class MisMenu extends HttpServlet
         finally {
             tableEx.close();
         }
-        tableEx.close();
+        
         return vResult;
     }
     
@@ -1183,10 +1180,6 @@ public class MisMenu extends HttpServlet
             }
             dbf.close();
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
-        dbf.close();
     }
     
     public void initMindLeafData(final String _strProTbName, final String _strMindId, final DBFactory _dbf) throws Exception {
@@ -1406,7 +1399,6 @@ public class MisMenu extends HttpServlet
         finally {
             tableEx.close();
         }
-        tableEx.close();
     }
     
     private void appLogin(final HttpServletRequest request, final HttpServletResponse response) {
@@ -1610,9 +1602,7 @@ public class MisMenu extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return vResult;
     }
     
@@ -1793,9 +1783,6 @@ public class MisMenu extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
     }
     
     private void doModle(final HttpServletRequest request, final HttpServletResponse response) {
@@ -1861,9 +1848,6 @@ public class MisMenu extends HttpServlet
             if (tableEx != null) {
                 tableEx.close();
             }
-        }
-        if (tableEx != null) {
-            tableEx.close();
         }
     }
     
@@ -1970,9 +1954,6 @@ public class MisMenu extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
     }
     
     private void addRightsChild(final String _strPid, final String _strUrl, final PrintWriter out, final String _strModCode, final String _strModName) {
@@ -2076,12 +2057,6 @@ public class MisMenu extends HttpServlet
                 tableEx.close();
             }
         }
-        if (dbf != null) {
-            dbf.close();
-        }
-        if (tableEx != null) {
-            tableEx.close();
-        }
     }
     
     private void saveRights(final HttpServletRequest request, final HttpServletResponse response) {
@@ -2127,12 +2102,6 @@ public class MisMenu extends HttpServlet
             if (tableEx != null) {
                 tableEx.close();
             }
-        }
-        if (dbf != null) {
-            dbf.close();
-        }
-        if (tableEx != null) {
-            tableEx.close();
         }
     }
     
@@ -2220,9 +2189,6 @@ public class MisMenu extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
     }
     
     private void generModRight(final HttpServletRequest request, final PrintWriter out) {
@@ -2257,9 +2223,6 @@ public class MisMenu extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
     }
     
     private void generModAndFieldRight(final HttpServletRequest request, final PrintWriter out) {
@@ -2287,9 +2250,6 @@ public class MisMenu extends HttpServlet
             if (tableEx != null) {
                 tableEx.close();
             }
-        }
-        if (tableEx != null) {
-            tableEx.close();
         }
     }
     
@@ -2424,16 +2384,6 @@ public class MisMenu extends HttpServlet
             }
             dbf.close();
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
-        if (tableExRead != null) {
-            tableExRead.close();
-        }
-        if (tableExHasRead != null) {
-            tableExHasRead.close();
-        }
-        dbf.close();
     }
     
     private void viewPublishMsg(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
@@ -2502,16 +2452,6 @@ public class MisMenu extends HttpServlet
             }
             dbf.close();
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
-        if (tableExRead != null) {
-            tableExRead.close();
-        }
-        if (tableExHasRead != null) {
-            tableExHasRead.close();
-        }
-        dbf.close();
     }
     
     private void changePassByLogin(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
@@ -2638,9 +2578,6 @@ public class MisMenu extends HttpServlet
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
     }
     
     private void login(final HttpServletRequest request, final HttpServletResponse response) {
@@ -2707,9 +2644,6 @@ public class MisMenu extends HttpServlet
             if (tableEx != null) {
                 tableEx.close();
             }
-        }
-        if (tableEx != null) {
-            tableEx.close();
         }
     }
     

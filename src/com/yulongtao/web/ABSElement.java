@@ -26,7 +26,6 @@ import org.apache.commons.lang.ArrayUtils;
 
 import com.Debug;
 import com.page.method.Fun;
-import com.timing.impcl.MantraLog;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.FieldEx;
 import com.yulongtao.db.Query;

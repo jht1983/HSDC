@@ -201,9 +201,7 @@ public class MisDicManager extends HttpServlet {
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         out.println("</body>");
     }
     
@@ -226,9 +224,6 @@ public class MisDicManager extends HttpServlet {
             if (tableEx != null) {
                 tableEx.close();
             }
-        }
-        if (tableEx != null) {
-            tableEx.close();
         }
     }
     
