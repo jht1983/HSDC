@@ -521,7 +521,6 @@ public class ABSElement extends BodyTagSupport
             finally {
                 tableEx.close();
             }
-            tableEx.close();
         }
     }
     
@@ -964,9 +963,7 @@ public class ABSElement extends BodyTagSupport
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return vResult;
     }
     
@@ -1175,9 +1172,7 @@ public class ABSElement extends BodyTagSupport
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return strVresult;
     }
     
@@ -1264,9 +1259,7 @@ public class ABSElement extends BodyTagSupport
                 tableEx.close();
             }
         }
-        if (tableEx != null) {
-            tableEx.close();
-        }
+        
         return vResult;
     }
     
