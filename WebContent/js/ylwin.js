@@ -382,7 +382,7 @@ if(aWidth>iScreen_Width){
 	
 	var iContentWidth=aWidth-26;
 	var iContentHeight=aHeight-49;
-	var strContent="<iframe id='"+strWinId+"_frame' name='"+strWinId+"_frame' src='"+aUrl+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0'></iframe>";
+	var strContent="<iframe id='"+strWinId+"_frame' name='"+strWinId+"_frame' src='"+aUrl+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='no'></iframe>";
 	if(aUrl=="")
 		strContent=aContent;
 		
