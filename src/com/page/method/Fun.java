@@ -35,6 +35,7 @@ import com.yulongtao.db.TableEx;
 import com.yulongtao.pub.Pub;
 import com.yulongtao.sys.Dic;
 import com.yulongtao.util.EString;
+import com.yulongtao.util.MisSerialUtil;
 
 public class Fun {
 	public HttpServletRequest request;
@@ -1607,19 +1608,23 @@ public class Fun {
 
 		if ("1500260362709".equals(spagecode)) {
 			//电气一种
-			success = FunDao.exportWorkTicketEFirst(sid);
+			String djh = MisSerialUtil.getSerialNum("155564455859023089", this.request);
+			success = FunDao.exportWorkTicketEFirst(sid, djh);
 		}
 		else if ("1500281157502".equals(spagecode)) {
 			//电气二种
-			success = FunDao.exportWorkTicketESecond(sid);
+			String djh = MisSerialUtil.getSerialNum("155564688313223797", this.request);
+			success = FunDao.exportWorkTicketESecond(sid, djh);
 		}
 		else if ("1500291950013".equals(spagecode)) {
 			//热力机械
-			success = FunDao.exportWorkTicketMachine(sid);
+			String djh = MisSerialUtil.getSerialNum("155564690865523799", this.request);
+			success = FunDao.exportWorkTicketMachine(sid, djh);
 		}
 		else if ("1500357504096".equals(spagecode)) {
 			//热控
-			success = FunDao.exportWorkTicketThermalControl(sid);
+			String djh = MisSerialUtil.getSerialNum("155564692843923801", this.request);
+			success = FunDao.exportWorkTicketThermalControl(sid, djh);
 		}
 		
 		if (!success) {
