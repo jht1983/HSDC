@@ -314,7 +314,7 @@ if(aWidth>iScreen_Width){
 		aHeight=aHeight-20;
 		iContentHeight=iContentHeight-120;
 		strWinOp="<tr><td class='win_left'></td><td  width='"+iContentWidth+"px' height='50px' align='center'>"+
-		"<div style='font-family:微软雅黑;font-size:11px;color:#666666;background-color:white;text-align:left;width:100%;height:20px;'>&nbsp;&nbsp;\u9009\u4e2d\u9879\u76ee</div><div class='mutseldiv'><table width='100%' height='100%'><tr><td id='divselect"+strWinId+"'></td></tr></table></div>"+
+		"<div style='font-family:\u5fae\u8f6f\u96c5\u9ed1;font-size:11px;color:#666666;background-color:white;text-align:left;width:100%;height:20px;'>&nbsp;&nbsp;\u9009\u4e2d\u9879\u76ee</div><div class='mutseldiv'><table width='100%' height='100%'><tr><td id='divselect"+strWinId+"'></td></tr></table></div>"+
 		"<table align='center'  width='100%'  class='bttformoparea'><tr><td align='center'>"+
 		"<a href=\"javascript:titleclose("+strWinId+");\" class='button red' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qx.png);'>\u5173\u95ed</div></span></a>"+
 		"<a href=\"javascript:sys_doSetValues('"+strWinId+"_frame');titleclose("+strWinId+");\" class='button green' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>\u786e\u5b9a</div></span></a>"+
@@ -382,7 +382,12 @@ if(aWidth>iScreen_Width){
 	
 	var iContentWidth=aWidth-26;
 	var iContentHeight=aHeight-49;
-	var strContent="<iframe id='"+strWinId+"_frame' name='"+strWinId+"_frame' src='"+aUrl+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='no'></iframe>";
+	var strContent="<iframe id='"+strWinId+"_frame' name='"+strWinId+"_frame' src='"+aUrl+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='auto'></iframe>";
+
+	if(aUrl.indexOf("SPAGECODE")!=-1){
+		strContent="<iframe id='"+strWinId+"_frame' name='"+strWinId+"_frame' src='"+aUrl+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='no'></iframe>";
+	}
+	
 	if(aUrl=="")
 		strContent=aContent;
 		
@@ -392,7 +397,7 @@ if(aWidth>iScreen_Width){
 		aHeight=aHeight-20;
 		iContentHeight=iContentHeight-120;
 		strWinOp="<tr><td></td><td  width='"+iContentWidth+"px' height='50px' align='center'>"+
-		"<div style='font-family:微软雅黑;font-size:11px;color:#666666;background-color:white;text-align:left;width:100%;height:20px;'>&nbsp;&nbsp;\u9009\u4e2d\u9879\u76ee</div><div class='mutseldiv'><table width='100%' height='100%'><tr><td id='divselect"+strWinId+"'></td></tr></table></div>"+
+		"<div style='font-family:\u5fae\u8f6f\u96c5\u9ed1;font-size:11px;color:#666666;background-color:white;text-align:left;width:100%;height:20px;'>&nbsp;&nbsp;\u9009\u4e2d\u9879\u76ee</div><div class='mutseldiv'><table width='100%' height='100%'><tr><td id='divselect"+strWinId+"'></td></tr></table></div>"+
 		"<table align='center'  width='100%'  class='bttformoparea'><tr><td align='center'>"+
 		"<a href=\"javascript:titleclose("+strWinId+");\" class='button red' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qx.png);'>\u5173\u95ed</div></span></a>"+
 		"<a href=\"javascript:sys_doSetValues('"+strWinId+"_frame');titleclose("+strWinId+");\" class='button green' onclick='this.blur();' style='float:right;'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>\u786e\u5b9a</div></span></a>"+
