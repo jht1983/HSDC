@@ -1638,7 +1638,7 @@ public class WebQuery
             
             if (iBrCount > 1) {
             	if (arrParamNames[1].equals("boolean")) {
-            		sbSerch.append("<td align='left' class='tdquerybg' style='width:25px;'>" + arrParamNames[2] + "</td>");
+            		sbSerch.append("<td align='left' class='tdquerybg' nowrap='nowrap' style='min-width:25px;'>" + arrParamNames[2] + "</td>");
 				}
             	else {
             		sbSerch.append("<td align='left' class='tdquerybg' style='width:120px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
@@ -1646,7 +1646,7 @@ public class WebQuery
             }
             else {
             	if (arrParamNames[1].equals("boolean")) {
-            		sbSerch.append("<td align='left' class='tdquerybgsing' style='width:25px;'>" + arrParamNames[2] + "</td>");
+            		sbSerch.append("<td align='left' class='tdquerybgsing' nowrap='nowrap' style='min-width:25px;'>" + arrParamNames[2] + "</td>");
 				}
             	else {
             		sbSerch.append("<td align='left' class='tdquerybgsing' style='width:120px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
