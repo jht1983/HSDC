@@ -38,7 +38,7 @@ import com.yulongtao.web.YLTree;
 import com.yulongtao.web.chart.CharView;
 import com.yulongtao.web.chart.ChartData;
 
-public class Component extends HttpServlet
+public class MisComponent extends HttpServlet
 {
     private static final String CONTENT_TYPE = "text/html; charset=GBK";
     private HttpServletRequest request;
@@ -46,7 +46,7 @@ public class Component extends HttpServlet
     private PrintWriter out;
     private FormItem fItem;
     
-    public Component() {
+    public MisComponent() {
         this.fItem = new FormItem();
     }
     

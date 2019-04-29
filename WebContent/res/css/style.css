@@ -506,6 +506,8 @@ table th{background-color: #f7f7f7; text-align: center;}
 .more{ float: right;}
 .more a{ color: #999; line-height: 40px; font-size: 12px; padding-right: 10px;}
 
+.more2{ float: right;width:200px}
+
 /*二级树*/
     #treeView {
       margin: 10px auto 0;

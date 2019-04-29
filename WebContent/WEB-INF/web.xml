@@ -348,7 +348,7 @@
 	
 	<servlet>
 		<servlet-name>comp</servlet-name>
-		<servlet-class>com.yulongtao.web.component.Component</servlet-class>
+		<servlet-class>com.yulongtao.web.component.MisComponent</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>comp</servlet-name>

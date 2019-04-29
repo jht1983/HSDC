@@ -31,6 +31,18 @@ public class TJSisData {
     public static String MD_YFDL = "md_yfdl";
     //年发电 md_nfdl
     public static String MD_NFDL = "md_nfdl";
+    //#1日发电 md1_fdl
+    private static String MD1_FDL = "md1_fdl";
+    //#1月发电 md1_yfdl
+    public static String MD1_YFDL = "md1_yfdl";
+    //#1年发电 md1_nfdl
+    public static String MD1_NFDL = "md1_nfdl";
+    //#2日发电 md1_fdl
+    private static String MD2_FDL = "md2_fdl";
+    //#2月发电 md1_yfdl
+    public static String MD2_YFDL = "md2_yfdl";
+    //#2年发电 md1_nfdl
+    public static String MD2_NFDL = "md2_nfdl";
 
 	public void init() {
 		TJSisData dbs = new TJSisData();
@@ -192,10 +204,9 @@ public class TJSisData {
 		    
 		    Calendar date = Calendar.getInstance();
 	        String year = String.valueOf(date.get(Calendar.YEAR));
-		    String sql = "select TAGCODE TAGCODE,R_VAL R_VAL from RPT_DAY" + year + " where DATETIME=? AND TAGCODE in ('" + MD_FDL + "','" + MD_YFDL + "','" + MD_NFDL + "') ";
-//			String sql = "select R_VAL R_VAL from RPT_DAY where DATETIME=? AND TAGCODE in ('md1_fdl','md2_fdl') "; //分机组
-//			String sql = "select R_VAL R_VAL from RPT_DAY where DATETIME=? AND TAGCODE in ('rb1_fdl','rb2_fdl') ";
-		//	String sql = "select R_VAL R_VAL from RPT_DAY where DATETIME=? AND TAGCODE in ('DCS1:DUP9:10CRC01AO03','DCS2:DUP9:20CRC01AO03') ";
+	        String sql = "select TAGCODE TAGCODE,R_VAL R_VAL from RPT_DAY" + year + " where DATETIME=? AND TAGCODE in ('" + MD_FDL + "','" + MD_YFDL + "','" + MD_NFDL + "','" + MD1_FDL + "','" + MD1_YFDL + "','" + MD1_NFDL + "','" + MD2_FDL + "','" + MD2_YFDL + "','" + MD2_NFDL + "') ";
+			//	String sql = "select R_VAL R_VAL from RPT_DAY where DATETIME=? AND TAGCODE in ('rb1_fdl','rb2_fdl') ";
+			//	String sql = "select R_VAL R_VAL from RPT_DAY where DATETIME=? AND TAGCODE in ('DCS1:DUP9:10CRC01AO03','DCS2:DUP9:20CRC01AO03') ";
 			preStart = con.prepareStatement(sql);
 		    preStart.setString(1, sdf_ymd.format(getNextDay(new Date())));
 		    

@@ -592,9 +592,16 @@ public class Fun {
 			TJSisData sisTool = new TJSisData();
 			Map<String, String> sisData = sisTool.getSISData();
 
-			retStrBuf.append("var eleSISData='" + sisData.get(TJSisData.MD_FDL) + "';");
-			retStrBuf.append("var eleSISDataYfdl='" + sisData.get(TJSisData.MD_YFDL) + "';");
-			retStrBuf.append("var eleSISDataNfdl='" + sisData.get(TJSisData.MD_NFDL) + "';");
+			retStrBuf.append("var eleSISData='"+sisData.get(TJSisData.MD_FDL)+"';");
+            //retStrBuf.append("var eleSISDataYfdl='"+sisData.get(TJSisData.MD_YFDL)+"';");
+            //retStrBuf.append("var eleSISDataNfdl='"+sisData.get(TJSisData.MD_NFDL)+"';");
+                 
+            retStrBuf.append("var eleSISDataYfdl1='"+sisData.get(TJSisData.MD1_YFDL)+"';");
+            retStrBuf.append("var eleSISDataNfdl1='"+sisData.get(TJSisData.MD1_NFDL)+"';");
+                 
+            retStrBuf.append("var eleSISDataYfdl2='"+sisData.get(TJSisData.MD2_YFDL)+"';");
+            retStrBuf.append("var eleSISDataNfdl2='"+sisData.get(TJSisData.MD2_NFDL)+"';");
+            //retStrBuf.append("var eleSISData='"+sisTool.getSISData()+"';");
 
 			break;
 		case "PPIDID":

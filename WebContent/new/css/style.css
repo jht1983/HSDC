@@ -82,14 +82,14 @@ a:hover{ text-decoration: none;color: #2c6dba;}
 .top{margin-top: 15px;}
 .zhxx{height:100%;background-color: #fff; width: 76%; border-radius: 2px; float: left;padding: 10px 20px;-moz-box-shadow:0px 0px 7px #e8e8e8; -webkit-box-shadow:0px 0px 7px #e8e8e8; box-shadow:0px 0px 7px #e8e8e8;}
 .zhxx ul{margin-top: 25px;overflow: hidden;height:100%}
-.zhxx ul li{  display: inline-table;float: left; width: 20%; text-align: center; height: 60%;/* margin: 0 10px;*/}
+.zhxx ul li{  display: inline-table;float: left; width: 25%; text-align: center; height: 60%;/* margin: 0 10px;*/}
 .zhxx ul .dbsx{ background: url(../images/dbsx-01.png) no-repeat center top;background-size: 90% 100%;}
 .zhxx ul .ybsl{background: url(../images/dbsx-02.png) no-repeat center top;background-size: 90% 100%;}
 .zhxx ul .jhfd{background: url(../images/dbsx-03.png) no-repeat center top;background-size: 90% 100%;}
 .zhxx ul .sjfd{background: url(../images/dbsx-05.png) no-repeat center top;background-size: 90% 100%;}
 .zhxx ul .aqsc{ background: url(../images/dbsx-04.png) no-repeat center top;background-size: 90% 100%;}
 .zhxx ul li h1{font-size: 14px; margin-top: 12px; color: #fff;}
-.zhxx ul li h2{margin-top: 15%; font-size: 22px;}
+.zhxx ul li h2{margin-top: 6%; font-size: 18px;}
 .zhxx ul li h2 span{ color: #afafaf; font-size: 12px;}
 
 .hyxx{height:100%;background-color: #fff; width: 23%;  border-radius: 2px; float: right;padding: 10px 20px;-moz-box-shadow:0px 0px 7px #e8e8e8; -webkit-box-shadow:0px 0px 7px #e8e8e8; box-shadow:0px 0px 7px #e8e8e8;}
