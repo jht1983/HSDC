@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  version="3.1"
+  metadata-complete="true">
+	<servlet>
+		<servlet-name>WebApp</servlet-name>
+		<servlet-class>com.yulongtao.web.WebApp</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebApp</servlet-name>
+		<url-pattern>/welcome/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet> 
+        <servlet-name>DisplayChart</servlet-name> 
+        <servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class> 
+    </servlet> 
+    <servlet-mapping> 
+        <servlet-name>DisplayChart</servlet-name> 
+        <url-pattern>/servlet/DisplayChart</url-pattern> 
+    </servlet-mapping> 
+
+	<servlet> 
+        <servlet-name>DisplayOther</servlet-name> 
+        <servlet-class>com.bfkc.web.image.DisplayOther</servlet-class> 
+    </servlet> 
+    <servlet-mapping> 
+        <servlet-name>DisplayOther</servlet-name> 
+        <url-pattern>/DisplayOther/*</url-pattern> 
+    </servlet-mapping> 
+	<servlet>
+		<servlet-name>EvenServer</servlet-name>
+		<servlet-class>com.yulongtao.web.EvenServer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EvenServer</servlet-name>
+		<url-pattern>/EvenServer/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>WEBPROSERVER</servlet-name>
+		<servlet-class>com.yulongtao.web.WEBPROSERVER</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WEBPROSERVER</servlet-name>
+		<url-pattern>/WEBPROSERVER/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DisplayImage</servlet-name>
+		<servlet-class>com.yulongtao.web.image.DisplayImage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DisplayImage</servlet-name>
+		<url-pattern>/DisplayImage/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>QRCode</servlet-name>
+		<servlet-class>com.yulongtao.web.image.QRCode</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QRCode</servlet-name>
+		<url-pattern>/QRCode/*</url-pattern>
+	</servlet-mapping>
+
+	
+	<servlet>
+		<servlet-name>viewsys</servlet-name>
+		<servlet-class>com.yulongtao.sys.SysConfig</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>viewsys</servlet-name>
+		<url-pattern>/view.do/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<servlet-name>WebAction</servlet-name>
+		<servlet-class>com.yulongtao.web.MisWebAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebAction</servlet-name>
+		<url-pattern>/WebAction/*</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>Progrees</servlet-name>
+		<servlet-class>com.yulongtao.web.Progrees</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Progrees</servlet-name>
+		<url-pattern>/Progrees/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>View</servlet-name>
+		<servlet-class>com.yulongtao.sys.View</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>View</servlet-name>
+		<url-pattern>/View/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>viewapp</servlet-name>
+		<servlet-class>com.yulongtao.phone.AppHome</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>viewapp</servlet-name>
+		<url-pattern>/viewapp/*</url-pattern>
+	</servlet-mapping>
+	
+
+	<servlet>
+		<servlet-name>InitData</servlet-name>
+		<servlet-class>com.yulongtao.sys.InitData</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitData</servlet-name>
+		<url-pattern>/InitData/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Menu</servlet-name>
+		<servlet-class>com.yulongtao.sys.MisMenu</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Menu</servlet-name>
+		<url-pattern>/Menu/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ModMain</servlet-name>
+		<servlet-class>com.yulongtao.sys.ModMain</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ModMain</servlet-name>
+		<url-pattern>/ModMain/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DicManager</servlet-name>
+		<servlet-class>com.yulongtao.sys.MisDicManager</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DicManager</servlet-name>
+		<url-pattern>/DicManager/*</url-pattern>
+	</servlet-mapping>
+    
+	<servlet>
+		<servlet-name>uploadFile</servlet-name>
+		<servlet-class>com.yulongtao.web.uploadFile</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>uploadFile</servlet-name>
+		<url-pattern>/uploadFile/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DownLoad</servlet-name>
+		<servlet-class>com.yulongtao.web.DownLoad</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DownLoad</servlet-name>
+		<url-pattern>/DownLoad/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Redirect</servlet-name>
+		<servlet-class>com.yulongtao.sys.Redirect</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Redirect</servlet-name>
+		<url-pattern>/Redirect/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>YLWebAction</servlet-name>
+		<servlet-class>com.yulongtao.web.MisWebAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>YLWebAction</servlet-name>
+		<url-pattern>/YLWebAction/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>YLDel</servlet-name>
+		<servlet-class>com.yulongtao.web.YLDel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>YLDel</servlet-name>
+		<url-pattern>/YLDel/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ViewFrame</servlet-name>
+		<servlet-class>com.yulongtao.sys.ViewFrame</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewFrame</servlet-name>
+		<url-pattern>/ViewFrame/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RepDesiner</servlet-name>
+		<servlet-class>com.yulongtao.web.rep.RepDesiner</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RepDesiner</servlet-name>
+		<url-pattern>/RepDesiner/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>dohome</servlet-name>
+		<servlet-class>com.yulongtao.web.MisFrameContent</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dohome</servlet-name>
+		<url-pattern>/dohome/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DesinerMain</servlet-name>
+		<servlet-class>com.yulongtao.web.rep.DesinerMain</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DesinerMain</servlet-name>
+		<url-pattern>/DesinerMain/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RepView</servlet-name>
+		<servlet-class>com.yulongtao.web.rep.RepView</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RepView</servlet-name>
+		<url-pattern>/RepView/*</url-pattern>
+	</servlet-mapping>
+
+		<servlet>
+		<servlet-name>FlowFactory</servlet-name>
+		<servlet-class>com.yulongtao.engine.flow.FlowFactory</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FlowFactory</servlet-name>
+		<url-pattern>/FlowFactory/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RunFlow</servlet-name>
+		<servlet-class>com.yulongtao.engine.flow.RunFlow</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RunFlow</servlet-name>
+		<url-pattern>/RunFlow/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+    <servlet-name>InvokExp</servlet-name>
+    <servlet-class>com.yulongtao.web.rep.ExpressServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InvokExp</servlet-name>
+    <url-pattern>/InvokExp</url-pattern>
+  </servlet-mapping>
+	<servlet>
+		<servlet-name>ViewBarCode</servlet-name>
+		<servlet-class>com.yulongtao.util.GenerBarCode</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewBarCode</servlet-name>
+		<url-pattern>/ViewBarCode/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ConsoleFrameWork</servlet-name>
+		<servlet-class>com.yulongtao.web.WebFrame</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConsoleFrameWork</servlet-name>
+		<url-pattern>/ConsoleFrameWork/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>dlhome</servlet-name>
+		<servlet-class>com.yulongtao.web.FrameDesk</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dlhome</servlet-name>
+		<url-pattern>/dlhome/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>tasktype</servlet-name>
+		<servlet-class>com.yulongtao.web.rep.TargetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>tasktype</servlet-name>
+		<url-pattern>/tasktype/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>home</servlet-name>
+		<servlet-class>com.yulongtao.web.RepHome</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>home</servlet-name>
+		<url-pattern>/home/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	
+	<servlet>
+		<servlet-name>graph</servlet-name>
+		<servlet-class>com.bfkc.pla.graph.control.Graph</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>graph</servlet-name>
+		<url-pattern>/graph/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>comp</servlet-name>
+		<servlet-class>com.yulongtao.web.component.MisComponent</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>comp</servlet-name>
+		<url-pattern>/comp/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>docommand</servlet-name>
+		<servlet-class>com.yulongtao.sys.WebCommand</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>docommand</servlet-name>
+		<url-pattern>/docommand/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<servlet-name>viewdoc</servlet-name>
+		<servlet-class>com.yulongtao.util.doc.View</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>viewdoc</servlet-name>
+		<url-pattern>/viewdoc/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>rep</servlet-name>
+		<servlet-class>com.yulongtao.web.rep.GgRep</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rep</servlet-name>
+		<url-pattern>/rep/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PreloadJS</servlet-name>
+		<servlet-class>com.yulongtao.sys.PreloadJS</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PreloadJS</servlet-name>
+		<url-pattern>/pldjs/*</url-pattern>
+	</servlet-mapping>
+
+	
+
+	  <servlet>
+    <description>init project</description>
+    <display-name>InitProject</display-name>
+    <servlet-name>InitProject</servlet-name>
+    <servlet-class>com.bfkc.fdc.project.InitProject</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>InitProject</servlet-name>
+    <url-pattern>/InitProject/*</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  	<servlet>
+		<servlet-name>WebProgress</servlet-name>
+		<servlet-class>com.yulongtao.web.component.WebProgress</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebProgress</servlet-name>
+		<url-pattern>/progressstep/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<servlet-name>holiday</servlet-name>
+		<servlet-class>com.yulongtao.sys.WorkAtten</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>holiday</servlet-name>
+		<url-pattern>/holiday/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<servlet-name>YLChat</servlet-name>
+		<servlet-class>com.yulongtao.sys.YLChat</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>YLChat</servlet-name>
+		<url-pattern>/YLChat/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>login</servlet-name>
+		<servlet-class>com.yulongtao.web.entrance.Face</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>login</servlet-name>
+		<url-pattern>/login/*</url-pattern>
+	</servlet-mapping>
+  
+	<servlet>
+		<servlet-name>KCSTATIC</servlet-name>
+		<display-name>KCSTATIC</display-name>
+		<servlet-class>com.yulongtao.KCSTATIC</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>KCSTATIC</servlet-name>
+		<url-pattern>/KCSTATIC</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+        <filter-name>YLRequest</filter-name>
+        <filter-class>com.yulongtao.web.YLRequest</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>YLRequest</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	
+	
+	<filter>
+        <filter-name>globfilter</filter-name>
+        <filter-class>com.yulongtao.sys.GlobFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>globfilter</filter-name>
+        <url-pattern>*.app</url-pattern>
+    </filter-mapping> 
+	
+	<filter>
+        <filter-name>htmlfilter</filter-name>
+        <filter-class>com.yulongtao.sys.HtmlFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>htmlfilter</filter-name>
+        <url-pattern>*.v</url-pattern>
+    </filter-mapping>
+	
+	
+	
+	<env-entry>
+		<env-entry-name>DEFAULTDBNAME</env-entry-name>
+		<env-entry-value>sip</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+
+	<env-entry>
+		<env-entry-name>DEFAULTUSERNAME</env-entry-name>
+		<env-entry-value>root</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+
+	<env-entry>
+		<env-entry-name>DEFAULTPASSWORD</env-entry-name>
+		<env-entry-value>bfkcsxh</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+
+	<env-entry>
+		<env-entry-name>DEFAULTHOST</env-entry-name>
+		<env-entry-value>localhost</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>DBTYPE</env-entry-name>
+		<env-entry-value>MYSQL</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	
+	<env-entry>
+		<env-entry-name>WEBPORT</env-entry-name>
+		<env-entry-value>80</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	
+	
+	<env-entry>
+		<env-entry-name>ISDEBUG</env-entry-name>
+		<env-entry-value>true</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+
+	<env-entry>
+		<env-entry-name>SYSTXTYPE</env-entry-name>
+		<env-entry-value>001</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+
+	<env-entry>
+		<env-entry-name>SYSDAYPERSON</env-entry-name>
+		<env-entry-value>7</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+
+	<env-entry>
+		<env-entry-name>HOMEURL</env-entry-name>
+		<env-entry-value>login_6</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>CLASS_COMPLEX</env-entry-name>
+		<env-entry-value>Demo</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>sysapi</env-entry-name>
+		<env-entry-value>com.yulongtao.engine.Api.SimpleFun</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>syscharset</env-entry-name>
+		<env-entry-value>gbk</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>systitle</env-entry-name>
+		<env-entry-value>Csteel-构件生产管理平台</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+
+	<welcome-file-list>
+		<welcome-file>logindx.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>
