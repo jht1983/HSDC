@@ -1386,7 +1386,7 @@ public class WebQuery
             vResult.append("<td align='left' class='tdquerycontainer'>");
             vResult.append("<table class='tbquerybg'><tr class='trquerybg'>");
             vResult.append(sbSerch);
-            vResult.append("<td align='left'>");
+            vResult.append("<td align='left' colspan='100'>");
             vResult.append(Pub.getBttn(Pub.getBttnText("query.gif", "\u67e5\u8be2"), "sysqueryform.submit();", "leftbutton blue"));
             vResult.append("</td>");
             if (strViewBttn.indexOf("1") == -1) {
@@ -1557,6 +1557,11 @@ public class WebQuery
         
         String strScript = "";
         for (int i = 1; i < iQFCount; ++i) {
+            if ("<<BR>>".equals(arrQF[i])) {
+            	sbSerch.append("</tr><tr class='trquerybg'>");
+            	continue;
+            }
+            
             final String[] arrParamNames = arrQF[i].split(":");
             String strFieldName = arrParamNames[0];
             String strParamValue = this.request.getParameter(strFieldName);
@@ -1610,7 +1615,13 @@ public class WebQuery
                             strParamValue2 = EString.encoderStr(strParamValue2.toString());
                         }
                         catch (Exception ex2) {}
-                        strTempCon = String.valueOf(strTempCon) + " AND (" + strFieldName + " >= '" + strParamValue + "' AND " + strFieldName + " <= '" + strParamValue2 + "')";
+                        
+                        if (!"".equals(strParamValue2)) {
+                        	strTempCon = String.valueOf(strTempCon) + " AND (" + strFieldName + " >= '" + strParamValue + "' AND " + strFieldName + " <= '" + strParamValue2 + "')";
+						}
+                        else {
+                        	strTempCon = String.valueOf(strTempCon) + " AND (" + strFieldName + " >= '" + strParamValue + "')";
+                        }
                     }
                     else {
                         strTempCon = String.valueOf(strTempCon) + " AND " + strFieldName + " " + arrParamNames[4] + " '" + strParamValue + "'";
@@ -1618,6 +1629,14 @@ public class WebQuery
                 }
                 else {
                     strParamValue = "";
+                    
+                    if (!"".equals(strParamValue2) && arrParamNames[4].equals("ARE")) {
+                        try {
+                            strParamValue2 = EString.encoderStr(strParamValue2.toString());
+                        }
+                        catch (Exception ex2) {}
+                        strTempCon = String.valueOf(strTempCon) + " AND (" + strFieldName + " <= '" + strParamValue2 + "')";
+                    }
                 }
             }
             else if (strParamValue == null) {
@@ -1638,18 +1657,18 @@ public class WebQuery
             
             if (iBrCount > 1) {
             	if (arrParamNames[1].equals("boolean")) {
-            		sbSerch.append("<td align='left' class='tdquerybg' nowrap='nowrap' style='min-width:25px;'>" + arrParamNames[2] + "</td>");
+            		sbSerch.append("<td align='right' class='tdquerybg' nowrap='nowrap' style='min-width:25px;'>" + arrParamNames[2] + "</td>");
 				}
             	else {
-            		sbSerch.append("<td align='left' class='tdquerybg' style='width:120px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
+            		sbSerch.append("<td align='left' class='tdquerybg' nowrap='nowrap' style='min-width:100px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
             	}
             }
             else {
             	if (arrParamNames[1].equals("boolean")) {
-            		sbSerch.append("<td align='left' class='tdquerybgsing' nowrap='nowrap' style='min-width:25px;'>" + arrParamNames[2] + "</td>");
+            		sbSerch.append("<td align='right' class='tdquerybgsing' nowrap='nowrap' style='min-width:25px;'>" + arrParamNames[2] + "</td>");
 				}
             	else {
-            		sbSerch.append("<td align='left' class='tdquerybgsing' style='width:120px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
+            		sbSerch.append("<td align='left' class='tdquerybgsing' nowrap='nowrap' style='min-width:100px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
             	}
             }
             
@@ -1679,27 +1698,27 @@ public class WebQuery
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYMD")) {
-                sbSerch.append("<td align='left' style='width:120px;'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick='WdatePicker()'    name='" + arrParamNames[0] + "'  style='width:120px;'></td>");
+                sbSerch.append("<td align='left' style='width:120px;'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd'})\"    name='" + arrParamNames[0] + "'  style='width:120px;'></td>");
                 if (strEndSearch != null) {
-                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:120px;'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd hh'})\"    name='" + arrParamNames[0] + "1'  style='width:120px;'></td>");
+                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:120px;'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd'})\"    name='" + arrParamNames[0] + "1'  style='width:120px;'></td>");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYMDH")) {
-                sbSerch.append("<td align='left' style='width:120px;'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd hh'})\"    name='" + arrParamNames[0] + "'  style='width:120px;'></td>");
+                sbSerch.append("<td align='left' style='width:120px;'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH'})\"    name='" + arrParamNames[0] + "'  style='width:120px;'></td>");
                 if (strEndSearch != null) {
-                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:120px;'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd hh:mm'})\"    name='" + arrParamNames[0] + "1'  style='width:120px;'></td>");
+                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:120px;'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH'})\"    name='" + arrParamNames[0] + "1'  style='width:120px;'></td>");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYMDHM")) {
-                sbSerch.append("<td align='left' style='width:120px;'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd hh:mm'})\"    name='" + arrParamNames[0] + "'  style='width:120px;'></td>");
+                sbSerch.append("<td align='left' style='width:120px;'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm'})\"    name='" + arrParamNames[0] + "'  style='width:120px;'></td>");
                 if (strEndSearch != null) {
-                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:120px;'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd hh:mm:ss'})\"    name='" + arrParamNames[0] + "1'  style='width:120px;'></td>");
+                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:120px;'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm'})\"    name='" + arrParamNames[0] + "1'  style='width:120px;'></td>");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYMDHMS")) {
-                sbSerch.append("<td align='left' style='width:120px;'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick='WdatePicker()'    name='" + arrParamNames[0] + "'  style='width:120px;'></td>");
+                sbSerch.append("<td align='left' style='width:120px;'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm:ss'})\"    name='" + arrParamNames[0] + "'  style='width:120px;'></td>");
                 if (strEndSearch != null) {
-                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:120px;'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd hh:mm:ss'})\"    name='" + arrParamNames[0] + "1'  style='width:120px;'></td>");
+                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left' style='width:120px;'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm:ss'})\"    name='" + arrParamNames[0] + "1'  style='width:120px;'></td>");
                 }
             }
             else if (arrParamNames[3].equals("0")) {
