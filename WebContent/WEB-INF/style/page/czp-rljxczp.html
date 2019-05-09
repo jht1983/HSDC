@@ -145,7 +145,7 @@ base=base===0?1:base;
 		
 		
 		var one_td_base = Math.ceil(one_td.length/13);
-		var three_td_base = Math.ceil(two_td.length/45);
+		var three_td_base = Math.ceil(three_td.length/14);
 		base=one_td_base>three_td_base?one_td_base:three_td_base;
 base=base===0?1:base;
 		if((runIndex+base)>maxIndex){
@@ -161,8 +161,7 @@ base=base===0?1:base;
 		tableBody+="<td style='text-align:left'>"+two_td+"</td>";
 		tableBody+="<td colspan='2' style='text-align: left;'>"+three_td+"</td>";
 		tableBody+="<td  style='text-align: left;'></td>";
-		tableBody+=" </tr>"
-	
+		tableBody+=" </tr>";
 	}
 	
 	<ylt.for dataId="1536162737846">
