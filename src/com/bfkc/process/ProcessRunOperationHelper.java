@@ -382,6 +382,9 @@ public class ProcessRunOperationHelper {
 		sid = strArray[0];
 		bmid = strArray[1];
 		djh = strArray[2];
+		String pkName = strArray[3];
+		String pageName = strArray[4];
+		strMsgContent = strMsgContent.replace("${pagename}", pageName);
 		
 		//replace the message content with the TABLE.COLUMN
 		try {
@@ -394,7 +397,7 @@ public class ProcessRunOperationHelper {
 				String tab = group.substring(2, group.length() - 1);
 
 				String[] tabs = tab.split("\\.");
-				String value = ProcessRunOperationDao.queryTableValue(tabs[0], tabs[1], sid);
+				String value = ProcessRunOperationDao.queryTableValue(tabs[0], tabs[1], pkName, sid);
 				strMsgContent = strMsgContent.replace(group, value);
 			}
 		} catch (Exception e) {
@@ -571,7 +574,7 @@ public class ProcessRunOperationHelper {
 		TableEx ex = null;
 		TableEx exForm = null;
 		String strTableName = "";
-		String[] strArray=new String[3];
+		String[] strArray=new String[5];
 		try{
 			ex = _dbf.query("select * from T_SYS_FLOW_PAR where S_SPAGECODE='"+_strPageCode+"'");
 			Record rd = null;
@@ -615,6 +618,8 @@ public class ProcessRunOperationHelper {
 					strArray[0] = getColString(_strSid, rd1);
 					strArray[1] = getColString(_strBmid, rd1);
 					strArray[2] = getColString(_strDjh, rd1);
+					strArray[3] = _strSid;
+					strArray[4] = strBz;
 				}
 			}
 			if(!"".equals(strMethod)&&!"".equals(strClass)&&"1".equals(_strIsOver)&&request!=null){

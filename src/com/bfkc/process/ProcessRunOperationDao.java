@@ -151,11 +151,11 @@ public final class ProcessRunOperationDao {
 	 * @param strFlowParentId
 	 * @return
 	 */
-	public static String queryTableValue(String tableName, String columnName, String id) {
+	public static String queryTableValue(String tableName, String columnName, String pkName, String id) {
 		TableEx exParent = null;
 		String value = null;
 		try {
-			exParent = new TableEx(columnName, tableName, " S_ID='" + id + "'");
+			exParent = new TableEx(columnName, tableName, " " + pkName + "='" + id + "'");
 			value = getColString(columnName, exParent.getRecord(0));
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);

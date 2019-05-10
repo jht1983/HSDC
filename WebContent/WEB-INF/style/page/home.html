@@ -68,26 +68,22 @@ $(function () {
 						<li class="dbsx">
 							<h1>月计划发电量</h1>
 							<ylt.for dataId="1548146813403">
-							<h2 class="blue" id="dbsxh1">1机组&nbsp;&nbsp;$value<span>万kW·h</span></h2>
-							<h2 class="blue" id="dbsxh2">2机组&nbsp;&nbsp;$value<span>万kW·h</span></h2>
+							<h2 class="blue" id="dbsxh2">1机组&nbsp;&nbsp;$value<span>万kW·h</span></br>2机组&nbsp;&nbsp;$value<span>万kW·h</h2>
 							</ylt.for>
 						</li>
 						<li class="ybsl">
 							<h1>月实际发电量</h1>
-							<h2 class="green" id="ybslh1">1机组&nbsp;&nbsp;<font id="id_yfdl1"></font> <span>万kW·h</span></h2>
-							<h2 class="green" id="ybslh2">2机组&nbsp;&nbsp;<font id="id_yfdl2"></font> <span>万kW·h</span></h2>
+							<h2 class="green" id="ybslh2">1机组&nbsp;&nbsp;<font id="id_yfdl1"></font> <span>万kW·h</span></br>2机组&nbsp;&nbsp;<font id="id_yfdl2"></font> <span>万kW·h</span></h2>
 						</li>
 						<li class="jhfd">
 							<h1>年计划发电量</h1>
 							<ylt.for dataId="1548147298286">
-								<h2 class="orange" id="jhfdh1">1机组&nbsp;&nbsp;$value<span>万kW·h</span></h2>
-								<h2 class="orange" id="jhfdh2">2机组&nbsp;&nbsp;$value<span>万kW·h</span></h2>
+								<h2 class="orange" id="jhfdh2">1机组&nbsp;&nbsp;$value<span>万kW·h</span></br>2机组&nbsp;&nbsp;$value<span>万kW·h</span></h2>
 							</ylt.for>
 						</li>
 						<li class="sjfd">
 							<h1>年实际发电量</h1>
-							<h2 class="red" id="sjfdh1">1机组&nbsp;&nbsp;<font id="id_nfdl1"></font> <span>万kW·h</span></h2>
-							<h2 class="red" id="sjfdh2">2机组&nbsp;&nbsp;<font id="id_nfdl2"></font> <span>万kW·h</span></h2>
+							<h2 class="red" id="sjfdh2">1机组&nbsp;&nbsp;<font id="id_nfdl1"></font> <span>万kW·h</span></br>2机组&nbsp;&nbsp;<font id="id_nfdl2"></font> <span>万kW·h</span></h2>
 						</li>
 						<!--<li class="aqsc">
 							<h1>安全生产天数</h1>
@@ -133,7 +129,7 @@ $(function () {
 					</div>
 					<ul>
 						<ylt.for dataId="1548072031853">
-						<li><a href="###" onclick="sp('$value&$value&$value&$value&$value&$value&$value&$value&$value');"><p>事件:$value,内容:$value</p><span>$value</span></a></li>
+						<li><a href="###" onclick="sp('$value&$value&$value&$value&$value&$value&$value&$value&$value');" pagename="$value"><p>$value</p><span>$value</span></a></li>
 						</ylt.for>
 						
 					</ul>	
@@ -277,7 +273,7 @@ $(function () {
 
                         <tr bgcolor="$value">
                                 <td onclick="sp('$value&$value&$value&$value&$value&$value&$value&$value$value');"
-                                    style="text-align: left;text-indent:2em">事件:$value,内容:$value
+                                    style="text-align: left;text-indent:2em" pagename="$value">$value
                                 </td>
                                 <td>$value</td>
                                 <td>$value</td>
@@ -302,13 +298,11 @@ $(function () {
 <!---SISDATE--->
 <script type="text/javascript">
 	var realTime = document.getElementById("realTime");
-
 	var yfdlId1 = document.getElementById("id_yfdl1");
 	var nfdlId1 = document.getElementById("id_nfdl1");
 	
 	var yfdlId2 = document.getElementById("id_yfdl2");
 	var nfdlId2 = document.getElementById("id_nfdl2");
-	
 	var getSISDate = null;
 	var locat = window.location.pathname;
 	
@@ -346,7 +340,7 @@ $(function () {
 	}
 	function getSisDateEvl(){
 		var sisData = getTx("disType=REALTIME","sis_date_ajax.v");
-		var sisDataDfdl = subGetTx(sisData,"eleSISData");
+	    var sisDataDfdl = subGetTx(sisData,"eleSISData");
 	    var sisDataYfdl = subGetTx(sisData,"eleSISDataYfdl");
 	    var sisDataNfdl = subGetTx(sisData,"eleSISDataNfdl");
 	    var sisDataYfdl1 = subGetTx(sisData,"eleSISDataYfdl1");
