@@ -770,6 +770,7 @@ function delSysbttoOnEdit(){
         SYS_SHPUT_SEL: null,
         SPAGECODE: null,    //修改页面
         bmid: null,
+        DXCZP_ZY: null,    //操作票专业
         runValidation: function (_lenNumber) {
             if (this.S_RUN_AGR === null || this.SYS_I_ISOVER === null || this.SYS_SHPUT_SEL === null){
                 console.log("err:015008"); 
@@ -786,19 +787,20 @@ function delSysbttoOnEdit(){
             }
             return true;
         },
-        init: function (SPAGECODE, bmid) {
+        init: function (SPAGECODE, bmid, DXCZP_ZY="") {
             this.SPAGECODE = SPAGECODE;
             this.bmid = bmid;
             this.SYS_SHPUT_SEL = $N('SYS_SHPUT_SEL');
             this.SYS_I_ISOVER = $N('sys_I_isover');
             this.S_RUN_AGR = $N('S_RUN_AGR');
+            this.DXCZP_ZY = DXCZP_ZY;
         },
         audit: function (_obj) {
             var rowIndex = _obj.parentNode.parentNode.rowIndex - 1;
          
             var arr = this.S_RUN_AGR[rowIndex].innerHTML.split(",");
             miniWin('审核', '', 'flow-box.v?bmid=' + this.bmid + '&s_id=' + arr[0] + '&sys_flow_run_id=' + arr[1] + '&s_flow_id=' + arr[2] +
-                '&flow_ver=' + arr[3] + '&node_code=' + arr[4] + '&spagecode=' + this.SPAGECODE, 2000, 2000, '', '');
+                '&flow_ver=' + arr[3] + '&node_code=' + arr[4] + '&spagecode=' + this.SPAGECODE + '&DXCZP_ZY=' + this.DXCZP_ZY, 2000, 2000, '', '');
         },
         auditLog: function () {
             if (!sFlow_evet.runValidation(1)) return;

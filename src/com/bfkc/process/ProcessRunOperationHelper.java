@@ -205,14 +205,18 @@ public class ProcessRunOperationHelper {
 						String xlhId = strArrayNum[1];
 						if (zy != null && !"".equals(zy)) {
 							//{number:rl-1504603191000#qj-1504603191001:待定:待定}
-							String[] czpZyIds = xlhId.split("#");
-							Map<String, String> czpZyIdMap = new HashMap<>();
-							for (int k = 0; k < czpZyIds.length; k++) {
-								String[] czpXlhIds = czpZyIds[k].split("-");
-								czpZyIdMap.put(czpXlhIds[0], czpXlhIds[1]);
+							try {
+								String[] czpZyIds = xlhId.split("#");
+								Map<String, String> czpZyIdMap = new HashMap<>();
+								for (int k = 0; k < czpZyIds.length; k++) {
+									String[] czpXlhIds = czpZyIds[k].split("-");
+									czpZyIdMap.put(czpXlhIds[0], czpXlhIds[1]);
+								}
+								
+								xlhId = czpZyIdMap.get(zy);
+							} catch (Exception e) {
+								//do nothing
 							}
-							
-							xlhId = czpZyIdMap.get(zy);
 						}
 						
 						if(!"".equals(strArrayNum[3])){
