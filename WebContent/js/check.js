@@ -1033,7 +1033,7 @@ function sys_synVScroll(){
 			iCurBodyWidth=iCurBodyWidth-18;
 			
 	
-		queryTableTitleDiv.style.width=queryTableDiv.style.width=(iCurBodyWidth-15)+"px";
+		queryTableTitleDiv.style.width=queryTableDiv.style.width=(iCurBodyWidth-3)+"px";
 		
 	
 		//queryTableDiv.style.border="1px solid red";

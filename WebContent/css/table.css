@@ -629,3 +629,33 @@ div#tablediv .table1 span {
 	font-family: -apple-system,PingFang SC,Helvetica Neue,STHeiti,Microsoft Yahei,Tahoma,Simsun,sans-serif !important;
 	font-size: 12px !important;
 }
+
+.tdbttnscontainer {
+	background: url(images/tab-thbg.jpg) repeat-x left bottom;
+    white-space: nowrap;
+    min-width: 600px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-top:1px solid #e6e6e6;
+}
+
+.bttoparea2 {
+	width: 100%;
+	background: #fff;
+    border-top:1px solid #e6e6e6;
+}
+
+table#quicksearch {
+	margin-top: 6px;
+	margin-bottom: 6px;
+	width: 500px;
+}
+
+table#quicksearch td {
+	padding: 3px;
+}
+
+.tdquerybgsing2 {
+	font-size: 12px !important;
+}
+
