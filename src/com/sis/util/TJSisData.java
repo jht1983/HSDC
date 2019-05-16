@@ -162,7 +162,7 @@ public class TJSisData {
 	public Connection getSqlServerCon() {
 		Connection con = null;
 		String driver = "com.microsoft.jdbc.sqlserver.SQLServerDriver";
-		String url = "jdbc:microsoft:sqlserver://10.2.1.24:1433;DatabaseName=Yulin_SIS";
+		String url = "jdbc:microsoft:sqlserver://10.2.1.102:1433;DatabaseName=Yulin_SIS";
 		String user = "sis";
 		String password = "sis";
 

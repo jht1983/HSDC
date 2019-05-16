@@ -652,7 +652,7 @@ public class WebQuery
                         vResult.append(String.valueOf(strContentTagStart) + "<img src='images/icotr/" + strDoTrStyleIco + "'></td>");
                     }
                     else {
-                        vResult.append(String.valueOf(strContentTagStart) + "<input value='" + k + "' type='checkbox' name='syscheckbox' class='inputCheck'></td>");
+                        vResult.append("<td class=\"td" + this.iStyle + " tdcheckbox\" >" + "<input value='" + k + "' type='checkbox' name='syscheckbox' class='inputCheck'></td>");
                     }
                     if (!this.strDelParam.equals("")) {
                         String strMsg2 = this.strDelParam;
