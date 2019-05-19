@@ -633,7 +633,6 @@ div#tablediv .table1 span {
 .tdbttnscontainer {
 	background: url(images/tab-thbg.jpg) repeat-x left bottom;
     white-space: nowrap;
-    min-width: 600px;
     padding-top: 3px;
     padding-bottom: 3px;
     border-top:1px solid #e6e6e6;
