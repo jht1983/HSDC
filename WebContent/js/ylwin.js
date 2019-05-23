@@ -412,11 +412,11 @@ if(aWidth>iScreen_Width){
 		
 		
 	// onmousedown='dragWin(this);'
-	var strContent="<table width='"+aWidth+"px' height='"+aHeight+"px' border='0' align='center' cellpadding='0' cellspacing='0'><tr><td align='center'></td><td style='background:#fff;height:50px;border-bottom:1px solid #e5e5e5;'><table width='100%' height='100%' border='0'><tr>"+
+	var strContent="<table width='"+aWidth+"px' height='"+aHeight+"px' border='0' align='center' cellpadding='0' cellspacing='0'><tr id='editpagetitle'><td style='height:40px;' colspan='3'><table width='100%' height='100%' border='0' cellpadding='0' cellspacing='0'><tr>"+
 	//"<td style='width:8px;'><img src='images/eve/add.png?v=6.77' valign='middle'></td>"+
-	"<td class='win_title' style='padding-left:15px;' id='win_title'>"+
-	aTitle+"</td><td align='left' width='30px'><img src='images/content/close.png' style='cursor:pointer;' onmouseover=\"this.src='images/content/close1.png?v=1';\" onmouseout=\"this.src='images/content/close.png';\" onclick='titleclose("+strWinId+")'></td></tr></table></td><td></td></tr><tr><td></td><td class='win_content' width='"+iContentWidth+"px' height='"+iContentHeight+"px'>"+
-	strContent+"</td><td></td></tr>"+strWinOp+"<tr><td></td><td class='win_bottom_center'></td><td></td></tr></table>";
+	"<td class='win_title' style='padding-left:28px;' id='win_title'>"+
+	aTitle+"</td><td align='left' width='43px'><img src='images/content/close3.png' style='cursor:pointer;' onmouseover=\"this.src='images/content/close4.png?v=1';\" onmouseout=\"this.src='images/content/close3.png';\" onclick='titleclose("+strWinId+")'></td></tr></table></td></tr><tr><td width='13'></td><td class='win_content' width='"+iContentWidth+"px' height='"+iContentHeight+"px'>"+
+	strContent+"</td><td width='13'></td></tr>"+strWinOp+"<tr><td></td><td class='win_bottom_center'></td><td></td></tr></table>";
 	
 	bgObj.setAttribute('winWidth',aWidth);
 	bgObj.setAttribute('winHeight',aHeight);
@@ -435,6 +435,7 @@ if(aWidth>iScreen_Width){
 	bgObj.className="mimiwin";
 	bgObj.style.left=_left+"px";
 	bgObj.style.zIndex = "100";
+	bgObj.style.overflow = "hidden";
 	//bgObj.style.backgroundColor = "red";
 	
 	bgObj.innerHTML=strContent;
