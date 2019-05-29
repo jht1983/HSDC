@@ -494,8 +494,22 @@ box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);}
 * html #tabs li a{width:1%;white-space:nowrap;}
 .bo{width:700px; height:300px; border:1px solid #FF8000; border-top:0;}
 
-.selInputpanel{box-sizing: border-box;padding-left:2px;background:#fff url(../images/tree/combox_trigger1.png) no-repeat right;border:1px #d7d7d7 solid;line-height:21px;overflow:hidden;}
-.selInput{box-sizing: border-box;border:0px;padding-right:21px;background:#fff url(../images/tree/combox_trigger1.png) no-repeat right;}
+.selInputpanel{
+	padding-left:2px;
+	background:#fff url(../images/tree/combox_trigger1.png) no-repeat right;
+	border:1px #d7d7d7 solid;
+	line-height:21px;
+	overflow:unset;
+	display: inline-block;
+}
+
+.selInput{
+	box-sizing: border-box;
+	border:0px;
+	padding-right:21px;
+	background:#fff url(../images/tree/combox_trigger1.png) no-repeat right;
+	display: inline-block;
+}
 
 
 .selInputdisable{background-color:white;border:1 #d7d7d7 solid;height:21px;line-height:21px;}
@@ -647,7 +661,6 @@ div#tablediv .table1 span {
 table#quicksearch {
 	margin-top: 6px;
 	margin-bottom: 6px;
-	width: 500px;
 }
 
 table#quicksearch td {
@@ -658,3 +671,22 @@ table#quicksearch td {
 	font-size: 12px !important;
 }
 
+.quick-search-form-group {
+	display: inline-block;
+	vertical-align: middle;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+.quick-search-form-group label {
+	display: inline-block;
+	font-size: 12px;
+	font-weight: normal;
+	margin-left: 10px;
+	margin-right: 5px;
+}
+
+.quick-search-form-group a {
+	margin-left: 10px;
+}

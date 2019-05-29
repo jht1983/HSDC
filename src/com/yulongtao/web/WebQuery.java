@@ -1384,11 +1384,11 @@ public class WebQuery
         }
         if (iIsBr >= 1) {
             vResult.append("<td align='left' class='tdquerycontainer'>");
-            vResult.append("<table id='quicksearch' class='tbquerybg'><tr class='trquerybg'>");
+            vResult.append("<table id='quicksearch' class='tbquerybg'><tr class='trquerybg'><td>");
             vResult.append(sbSerch);
-            vResult.append("<td align='left' colspan='100' style='padding-left:20px;'>");
+            vResult.append("<div class='quick-search-form-group'>");
             vResult.append(Pub.getBttn(Pub.getBttnText("query.gif", "\u67e5\u8be2"), "sysqueryform.submit();", "leftbutton blue"));
-            vResult.append("</td>");
+            vResult.append("</div></td>");
             vResult.append("</tr></table></td></tr><tr>");
         }
         
@@ -1556,7 +1556,7 @@ public class WebQuery
         String strScript = "";
         for (int i = 1; i < iQFCount; ++i) {
             if ("<<BR>>".equals(arrQF[i])) {
-            	sbSerch.append("</tr><tr class='trquerybg'>");
+            	sbSerch.append("</td></tr><tr class='trquerybg'><td>");
             	continue;
             }
             
@@ -1642,107 +1642,110 @@ public class WebQuery
             }
             
             if (iBrCount > 1 && i % iCols == 1 && i != iQFCount - 1 && i != 1) {
-                sbSerch.append("</tr><tr class='trquerybg'>");
+                sbSerch.append("</td></tr><tr class='trquerybg'><td>");
             }
             
+            sbSerch.append("<div class='quick-search-form-group'>");
+            
             StringBuffer strEndSearch = null;
-            String strAreLable = "";
-            final String strArelableEnd = "<td align='left' class='tdquerybgsing2' width='10'>&nbsp;&nbsp;\u81f3&nbsp;&nbsp;</td>";
+            
+            final String strArelableEnd = " \u81f3 ";
             if (arrParamNames[4].equals("ARE")) {
                 strEndSearch = new StringBuffer();
-                strAreLable = "&nbsp;&nbsp;";
             }
             
             if (iBrCount > 1) {
             	if (arrParamNames[1].equals("boolean")) {
-            		sbSerch.append("<td align='right' class='tdquerybg' nowrap='nowrap' style='min-width:25px;padding-left:20px;'>" + arrParamNames[2] + "</td>");
+            		sbSerch.append("<label>" + arrParamNames[2] + "</label>");
 				}
             	else {
-            		sbSerch.append("<td align='left' class='tdquerybg' nowrap='nowrap' style='min-width:50px;padding-left:20px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
+            		sbSerch.append("<label>&nbsp;" + arrParamNames[2] + ":" + "</label>");
             	}
             }
             else {
             	if (arrParamNames[1].equals("boolean")) {
-            		sbSerch.append("<td align='right' class='tdquerybgsing2' nowrap='nowrap' style='min-width:25px;padding-left:20px;'>" + arrParamNames[2] + "</td>");
+            		sbSerch.append("<label>" + arrParamNames[2] + "</label>");
 				}
             	else {
-            		sbSerch.append("<td align='left' class='tdquerybgsing2' nowrap='nowrap' style='min-width:50px;padding-left:20px;'>&nbsp;" + arrParamNames[2] + ":" + strAreLable + "</td>");
+            		sbSerch.append("<label>&nbsp;" + arrParamNames[2] + ":" + "</label>");
             	}
             }
             
             //显示规则
             String inputWidth = "180px";
             if (arrParamNames[1].equals("0")) {
-                sbSerch.append("<td align='left'><input type='text' name='" + arrParamNames[0] + "' value='" + strParamValue + "' style='width:"+inputWidth+";'></td>");
+                sbSerch.append("<input type='text' name='" + arrParamNames[0] + "' value='" + strParamValue + "' style='width:"+inputWidth+";'>");
                 if (strEndSearch != null) {
-                    strEndSearch.append(String.valueOf(strArelableEnd) + "<td align='left'>&nbsp;<input type='text' name='" + arrParamNames[0] + "1' value='" + strParamValue2 + "' style='width:"+inputWidth+";'></td>");
+                    strEndSearch.append(String.valueOf(strArelableEnd) + "<input type='text' name='" + arrParamNames[0] + "1' value='" + strParamValue2 + "' style='width:"+inputWidth+";'>");
                 }
             }
             else if (arrParamNames[1].equals("boolean")) {
-            	sbSerch.append("<td align='left'><input type='checkbox' name='" + arrParamNames[0] + "' value='true' class='inputCheck' " + ("true".equals(strParamValue)?"checked":"") +"></td>");
+            	sbSerch.append("<input type='checkbox' name='" + arrParamNames[0] + "' value='true' class='inputCheck' " + ("true".equals(strParamValue)?"checked":"") +">");
                 if (strEndSearch != null) {
-                    strEndSearch.append(String.valueOf(strArelableEnd) + "<td align='left'>&nbsp;<input type='checkbox' name='" + arrParamNames[0] + "1' value='true' class='inputCheck' " + ("true".equals(strParamValue2)?"checked":"") +"></td>");
+                    strEndSearch.append(String.valueOf(strArelableEnd) + "<input type='checkbox' name='" + arrParamNames[0] + "1' value='true' class='inputCheck' " + ("true".equals(strParamValue2)?"checked":"") +">");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYEAR")) {
-                sbSerch.append("<td align='left'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'></td>");
+                sbSerch.append("<input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'>");
                 if (strEndSearch != null) {
-                    strEndSearch.append(String.valueOf(strArelableEnd) + "<td align='left'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'></td>");
+                    strEndSearch.append(String.valueOf(strArelableEnd) + "<input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'>");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYM")) {
-                sbSerch.append("<td align='left'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'></td>");
+                sbSerch.append("<input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'>");
                 if (strEndSearch != null) {
-                    strEndSearch.append(String.valueOf(strArelableEnd) + "<td align='left'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'></td>");
+                    strEndSearch.append(String.valueOf(strArelableEnd) + "<input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'>");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYMD")) {
-                sbSerch.append("<td align='left'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'></td>");
+                sbSerch.append("<input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'>");
                 if (strEndSearch != null) {
-                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'></td>");
+                    sbSerch.append(String.valueOf(strArelableEnd) + "<input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'>");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYMDH")) {
-                sbSerch.append("<td align='left'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'></td>");
+                sbSerch.append("<input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'>");
                 if (strEndSearch != null) {
-                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'></td>");
+                    sbSerch.append(String.valueOf(strArelableEnd) + "<input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'>");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYMDHM")) {
-                sbSerch.append("<td align='left'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'></td>");
+                sbSerch.append("<input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'>");
                 if (strEndSearch != null) {
-                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'></td>");
+                    sbSerch.append(String.valueOf(strArelableEnd) + "<input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'>");
                 }
             }
             else if (arrParamNames[1].equals("SYS_CURYMDHMS")) {
-                sbSerch.append("<td align='left'><input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm:ss'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'></td>");
+                sbSerch.append("<input  id='sys_date" + i + "' readonly value='" + strParamValue + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm:ss'})\"    name='" + arrParamNames[0] + "'  style='width:"+inputWidth+";'>");
                 if (strEndSearch != null) {
-                    sbSerch.append(String.valueOf(strArelableEnd) + "<td align='left'><input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm:ss'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'></td>");
+                    sbSerch.append(String.valueOf(strArelableEnd) + "<input  id='sys_date" + i + "_1' readonly value='" + strParamValue2 + "' type='text' class='Wdate' onClick=\"WdatePicker({skin:'default',dateFmt:'yyyy-MM-dd HH:mm:ss'})\"    name='" + arrParamNames[0] + "1'  style='width:"+inputWidth+";'>");
                 }
             }
             else if (arrParamNames[3].equals("0")) {
                 if (arrParamNames[1].startsWith("SYS_")) {
                     final String strParamId = arrParamNames[1].substring(4);
-                    sbSerch.append("<td align='left' id='param" + arrParamNames[1] + "' selname='" + arrParamNames[0] + "' parvalue='" + strParamValue + "'>&nbsp;</td>");
+                    sbSerch.append("<span align='left' id='param" + arrParamNames[1] + "' selname='" + arrParamNames[0] + "' parvalue='" + strParamValue + "'>&nbsp;</span>");
                     strScript = String.valueOf(strScript) + "changeSel('" + strParamId + "',$('sys_sel_" + strParamId + "'),'" + strParamValue + "');";
                 }
                 else {
                     viewParams.request = this.request;
                     final StringBuffer sbParam = viewParams.viewtype(arrParamNames[1], "id='sys_sel_" + arrParamNames[1] + "' name='" + arrParamNames[0] + "' value='" + strParamValue + "' style='width:"+inputWidth+";'", strParamValue);
-                    sbSerch.append("<td align='left'>" + (Object)sbParam + "</td>");
+                    sbSerch.append(sbParam);
                 }
             }
             else {
                 dic.strValue = strParamValue;
-                sbSerch.append("<td align='left'>" + dic.generSelect(arrParamNames[1], "id='" + arrParamNames[0] + "' name='" + arrParamNames[0] + "' value='" + strParamValue + "' style='width:"+inputWidth+";'") + "</td>");
+                sbSerch.append(dic.generSelect(arrParamNames[1], "id='" + arrParamNames[0] + "' name='" + arrParamNames[0] + "' value='" + strParamValue + "' style='width:"+inputWidth+";'"));
                 if (strEndSearch != null) {
-                    strEndSearch.append(String.valueOf(strArelableEnd) + "<td align='left'>" + dic.generSelect(arrParamNames[1], "name='" + arrParamNames[0] + "1' value='" + strParamValue2 + "' style='width:"+inputWidth+";'") + "</td>");
+                    strEndSearch.append(String.valueOf(strArelableEnd) + dic.generSelect(arrParamNames[1], "name='" + arrParamNames[0] + "1' value='" + strParamValue2 + "' style='width:"+inputWidth+";'"));
                 }
             }
             
             if (strEndSearch != null) {
                 sbSerch.append(strEndSearch);
             }
+            
+            sbSerch.append("</div>");
         }
         
         if (!strTempCon.equals("")) {
