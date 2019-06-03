@@ -382,16 +382,7 @@ if(aWidth>iScreen_Width){
 	
 	var iContentWidth=aWidth-26;
 	var iContentHeight=aHeight-45;
-	var strContent="<iframe id='"+strWinId+"_frame' name='"+strWinId+"_frame' src='"+aUrl+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='auto'></iframe>";
-
-	if(aUrl.indexOf("SPAGECODE")!=-1){
-		strContent="<iframe id='"+strWinId+"_frame' name='"+strWinId+"_frame' src='"+aUrl+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='no'></iframe>";
-	}
-	
-	//高级查询
-	if(aUrl.indexOf("view.do?id=602")!=-1){
-		strContent="<iframe id='"+strWinId+"_frame' name='"+strWinId+"_frame' src='"+aUrl+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='auto' style='overflow:auto !important;'></iframe>";
-	}
+	var strContent="<iframe id='"+strWinId+"_frame' name='"+strWinId+"_frame' src='"+aUrl+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='auto' style='overflow:auto !important;'></iframe>";
 	
 	if(aUrl=="")
 		strContent=aContent;
