@@ -230,7 +230,10 @@ public class View extends HttpServlet
                         out.println("</div>");
                     }
                     else if ((Face.iCsType == 6 || Face.iCsType == 8) && request.getParameter("NO_FILTER_FIELD") == null) {
-                        out.print("<div style='width:100%;margin-top:7px;margin-left:3px;height:30px;line-height:30px;'><div style='float:left;color:#070707;height:30px;line-height:30px;font-size:12px;padding-left:20px;padding-right:20px;background:#fff;border-top-left-radius: 5px;border-top-right-radius: 5px;'>" + hashHQRC.get("SPAGENAME") + "</div></div>");
+                    	if (!"YES".equalsIgnoreCase(request.getParameter("NO_TABLELIST_TITLE"))) {
+                    		out.print("<div style='width:100%;margin-top:7px;margin-left:3px;height:30px;line-height:30px;'><div style='float:left;color:#070707;height:30px;line-height:30px;font-size:12px;padding-left:20px;padding-right:20px;background:#fff;border-top-left-radius: 5px;border-top-right-radius: 5px;'>" + hashHQRC.get("SPAGENAME") + "</div></div>");
+						}
+                        
                         out.println("<div style='background:#fff;margin-left:3px;'>");
                         out.println(absElement.generQuery(hashHQRC, request));
                         out.println("</div>");
