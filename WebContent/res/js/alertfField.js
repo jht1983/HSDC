@@ -801,7 +801,11 @@ function delSysbttoOnEdit(){
             var rowIndex = _obj.parentNode.parentNode.rowIndex - 1;
          
             var arr = this.S_RUN_AGR[rowIndex].innerHTML.split(",");
-            var audUsers =  this.S_AUD_USER2[rowIndex].innerHTML;
+            var audUsers = '';
+            try {
+            	audUsers = this.S_AUD_USER2[rowIndex].innerHTML;
+            }catch(err) {}
+            
             miniWin('审核', '', 'flow-box.v?bmid=' + this.bmid + '&s_id=' + arr[0] + '&sys_flow_run_id=' + arr[1] + '&s_flow_id=' + arr[2] +
                 '&flow_ver=' + arr[3] + '&node_code=' + arr[4] + '&spagecode=' + this.SPAGECODE + '&DXCZP_ZY=' + this.DXCZP_ZY + '&s_aud_user=' + audUsers, 2000, 2000, '', '');
         },
