@@ -41,6 +41,10 @@ public class Fun {
 	public HttpServletRequest request;
 	public HttpServletResponse response;
 	public HashMap hashFieldValue;
+	
+	public void init() {
+		//called by InitFactory
+	}
 
 	public StringBuffer ssoRegistered() {
 		StringBuffer strBuf = new StringBuffer();
