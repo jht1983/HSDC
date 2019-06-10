@@ -1021,9 +1021,11 @@ function sys_synVScroll(){
 		//queryTableDiv.style.backgroundColor='red';
 
 		queryTableDiv.style.height=iNewHeight+"px";
+		queryTableDiv.style.minHeight="140px";
 	
 		vbar.childNodes[0].style.height =(queryTable.offsetHeight+queryTableTitleDiv.offsetHeight)+"px";
 		vbar.style.height=(iNewHeight+35)+"px";
+		vbar.style.minHeight="175px";
 		
 		iCurBodyWidth=document.body.clientWidth;
 		
