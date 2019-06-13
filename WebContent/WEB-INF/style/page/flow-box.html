@@ -114,10 +114,12 @@
 	</head>
 
 	<body >
-	    
+	    <div id="message" style="width:100%;min-height:20px; display:none;color: red; padding-top:5px; padding-left:10px;">
+	        还没有关联任何工作票，是否需要关联？
+	    </div>
 	    
 	    <div id="biaodan" style="display:none;top: 30%;left:30%;">
-
+	    
 	    </div>
 	    <div id="biaodan2" style="position: fixed;width:100%;height:100%; z-index:998;background-color:#e9e9e9;display:none;opacity:0.3;">
 
@@ -548,6 +550,71 @@
             z=z.substring(z.indexOf(_vari)+_vari.length);
             return z.substring(0,z.indexOf("';"));
         }
+	    
+	    var pagecode=<ylt.v message="spagecode">""$value"$value"</ylt.v>;
+	    var ajaxData = getTx("S_FLOW_ID=" + NO_sys_flow_id.value + "&S_AUDIT_VERSION=" + NO_sys_flow_Ver.value + "&S_RUN_ID=" + NO_sys_S_RUN_ID.value,"flow_nodes.v");
+	    var nodes = subGetTx(ajaxData,"SYS_FLOW_NODES");
+	    var nodeArray = "";
+	    var node = <ylt.v message="node_code">""$value"$value"</ylt.v>;
+	    
+	    try {
+	    	nodeArray = nodes.split('|');
+	    } catch (err) {}
+	    
+	    if ("155609021542713968" == pagecode) {
+		    var gzpData = getTx("S_RID1=" + S_ID.value + "&S_PAGECODE1=1504084562001","gzp_related.v");
+		    var gzps = subGetTx(gzpData,"gzp_related");
+		    
+	    	if (node == nodeArray[nodeArray.length - 2]) {
+	    		if (node == nodeArray[nodeArray.length - 2]) {
+		    		if (gzps.length == 0) {
+				    	$("message").innerHTML="当前还没有关联任何工作票，建议在结束缺陷之前先关联相关的工作票。";
+					    $("message").style.display="";
+		    		}
+		    		else {
+		    			var gzpArray = gzps.split('|');
+
+		    			for(var i = 0; i < gzpArray.length; i++) {
+		    				if (gzpArray[i].length == 0) {
+		    					continue;
+		    				}
+		    				var gzp = gzpArray[i].split('&');
+		    				if (gzp[gzp.length-1] != 'GZPZT050') {
+							    $("message").innerHTML="当前关联的工作票还有未结束的，建议在结束此缺陷之前先结束所关联的工作票。";
+							    $("message").style.display="";
+	    						break;
+	    					}
+		    			}
+		    		}
+		    	}
+	    	}
+	    }
+	    else if ("155609021542713969" == pagecode) {
+		    var gzpData = getTx("S_RID1=" + S_ID.value + "&S_PAGECODE1=1500428518499","gzp_related.v");
+		    var gzps = subGetTx(gzpData,"gzp_related");
+		    
+	    	if (node == nodeArray[nodeArray.length - 2]) {
+	    		if (gzps.length == 0) {
+			    	$("message").innerHTML="当前还没有关联任何工作票，建议在结束此执行单之前先关联相关的工作票。";
+				    $("message").style.display="";
+	    		}
+	    		else {
+	    			var gzpArray = gzps.split('|');
+	    			for(var i = 0; i < gzpArray.length; i++) {
+	    				if (gzpArray[i].length == 0) {
+	    					continue;
+	    				}
+	    				var gzp = gzpArray[i].split('&');
+	    				if (gzp[gzp.length-1] != 'GZPZT050') {
+	    				    $("message").innerHTML="当前关联的工作票还有未结束的，建议在结束此执行单之前先结束所关联的工作票。";
+	    				    $("message").style.display="";
+    						break;
+    					}
+	    			}
+	    		}
+	    	}
+	    }
+	    
 	</script>
 
 </html>
