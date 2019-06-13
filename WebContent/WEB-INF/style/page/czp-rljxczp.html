@@ -66,13 +66,13 @@ var maxIndex = 18;
 	var pageAwryindex = 0;  
 	var tableHead = '<p id="headline" algin="center" style="text-align:center;font-size:28px">陕西榆林能源集团横山煤电有限公司</br>热力机械操作票</p></div><table style="width: 100%" class="tbTopN" cellspacing="0" cellpadding="2"><colgroup><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width=""/></colgroup><ylt.for dataId="1508936207136"><tr style="font-size:17px;"><td style="border-right:none;">运行值次:</td><td style="border-right:none;border-left:none;" id="yxzc">$value</td><td style="border-right:none;border-left:none;"></td><td style="border-right:none;border-left:none;"></td><td style="border-right:none;border-left:none;">编号:</td><td style="border-right:1px solid #000;border-left:none;" id="bh">$value</td></tr><tr style="display:none"><td>发令人:</td><td>$value</td><td>受令人:</td><td>$value</td><td>发令时间:</td><td>$value</td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 40%">操作开始时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日</span><span style="width: 10%;" id="$value"></span><span style="width: 40%">结束时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日</span><span style="width: 10%;" id="$value"></span></td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 20%;">操作任务:</span><span style="width: 80%;text-align: left"  id="czrw">$value</span></td></tr></ylt.for>';
 	/*种类为电气时加入操作类型*/
-	var tableHead1 = '<p id="headline" algin="center" style="text-align:center;font-size:28px">陕西榆林能源集团横山煤电有限公司</br>电气倒闸操作票</p></div><table style="width: 100%" class="tbTopN" cellspacing="0" cellpadding="2"><colgroup><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width=""/></colgroup><ylt.for dataId="1508936207136"><tr style="font-size:17px;"><td style="border-right:none;">运行值次:</td><td style="border-right:none;border-left:none;" id="yxzc">$value</td><td style="border-right:none;border-left:none;"></td><td style="border-right:none;border-left:none;"></td><td style="border-right:none;border-left:none;">编号:</td><td style="border-right:1px solid #000;border-left:none;" id="bh">$value</td></tr><tr style="display:none"><td>发令人:</td><td>$value</td><td>受令人:</td><td>$value</td><td>发令时间:</td><td>$value</td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 40%">操作开始时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日</span><span style="width: 10%;" id="$value"></span><span style="width: 40%">结束时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日</span><span style="width: 10%;" id="$value"></span></td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 100%;">(&nbsp;&nbsp;)监护操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;)单人操作</span></td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 20%;">操作任务:</span><span style="width: 80%;text-align: left"  id="czrw">$value</span></td></tr></ylt.for>';
+	var tableHead1 = '<p id="headline" algin="center" style="text-align:center;font-size:28px">陕西榆林能源集团横山煤电有限公司</br>电气倒闸操作票</p></div><table style="width: 100%" class="tbTopN" cellspacing="0" cellpadding="2"><colgroup><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width=""/></colgroup><ylt.for dataId="1508936207136"><tr style="font-size:17px;"><td style="border-right:none;">运行值次:</td><td style="border-right:none;border-left:none;" id="yxzc">$value</td><td style="border-right:none;border-left:none;"></td><td style="border-right:none;border-left:none;"></td><td style="border-right:none;border-left:none;">编号:</td><td style="border-right:1px solid #000;border-left:none;" id="bh">$value</td></tr><tr><td>发令人:</td><td>$value</td><td>受令人:</td><td>$value</td><td>发令时间:</td><td>$value</td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 40%">操作开始时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日</span><span style="width: 10%;" id="$value"></span><span style="width: 40%">结束时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日</span><span style="width: 10%;" id="$value"></span></td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 100%;">(&nbsp;&nbsp;)监护操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;)单人操作</span></td></tr><tr style="font-size:17px;"><td colspan="6"><span style="width: 20%;">操作任务:</span><span style="width: 80%;text-align: left"  id="czrw">$value</span></td></tr></ylt.for>';
 	/*带表头的表样式  */
 	var tableBody1 ='<table style="width: 100%" class="tbal" border="0" cellspacing="0" cellpadding="2"><THEAD style="display:table-header-group;"></THEAD><colgroup><col width="8%"/><col width="79%"/><col width="13%"/></colgroup><tr style="font-size:17px;"><td>顺序 </td><td>操&#160;&#160;作&#160;&#160;项&#160;&#160;目 </td><td>执行情况 </td></tr>';
 	/*不带表头的表样式  */
 	var tableBody2 ='<table style="width: 100%" class="tbal" border="0" cellspacing="0" cellpadding="2"><THEAD style="display:table-header-group;"></THEAD><colgroup><col width="8%"/><col width="79%"/><col width="13%"/></colgroup><tr style="font-size:17px;"></tr>';
 	var tablefoot ='</table><table style="width: 100%"class="tbBtmN" cellspacing="0" cellpadding="2"><colgroup><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width=""/></colgroup><ylt.for dataId="1508937744158"><tr><td colspan="6"><span style="width: 20%;">备注:</span><span style="width: 80%;text-align: left;">$value</span></td></tr><tr><td colspan="6"><span style="width: 10%;">操作人:</span><span style="width: 20%;text-align: left;" id="$value"></span><span style="width: 10%;">监护人:</span><span style="width: 20%;text-align: left;" id="$value"></span><span id="bzz1" style="width: 14%;">值长:</span><span id="$value" style="width: 16%;text-align: left;"></span></td></tr></ylt.for></table>';
-
+	var tablefoot1 ='<table style="width: 100%"class="tbBtmN" cellspacing="0" cellpadding="2"><colgroup><col width="100%"/></colgroup><tr><td><span>第几页</span><span>共几页</span></td></tr></table>';
 	var tableBody="";
 	var createDiv_m = document.createElement("div");
 	/* alert(document.getElementById("headline").innerHTML); */
@@ -91,18 +91,20 @@ base=base===0?1:base;
 		if(pageAwryindex!=0){
 			maxIndex=24;
 		}
-		
 		if((runIndex+base)>maxIndex){
 			if(pageAwryindex!=0){
 				/*createDiv_m.innerHTML+='<div style="page-break-after: always;"></div>'+tableHead+tableBody+tablefoot;*/
 				createDiv_m.innerHTML+='<div style="page-break-after: always;"></div>'+tableBody2+tableBody;
+				createDiv_m.innerHTML+='<div style="text-align:center;"><span>第'+(pageAwryindex+1)+'页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pageNum">共页</span></div>';
 				
 			}else{
 				/*电气倒闸操作票调整表头*/
 				if("dq"==DXCZP_ZY){
 					createDiv_m.innerHTML+=tableHead1+tableBody1+tableBody;
+					createDiv_m.innerHTML+='<div style="text-align:center;"><span>第'+(pageAwryindex+1)+'页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pageNum">共页</span></div>';
 				}else{
 					createDiv_m.innerHTML+=tableHead+tableBody1+tableBody;
+					createDiv_m.innerHTML+='<div style="text-align:center;"><span>第'+(pageAwryindex+1)+'页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pageNum">共页</span></div>';
 				}
 				
 			}
@@ -132,9 +134,10 @@ base=base===0?1:base;
                 }
             }
        	    createDiv_m.innerHTML+='<div style="page-break-after: always;"></div>'+tableBody2+tableBody+tablefoot;
+			createDiv_m.innerHTML+='<div style="text-align:center;"><span>第'+(pageAwryindex+1)+'页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pageNum">共页</span></div>';
 		}else{
 			/*操作票只有一页时调整行数*/
-			maxIndex=19;
+			maxIndex=18;
 			if(runIndex!=1){
                 var runId= maxIndex-runIndex ;
                 for(var i =0 ; i < runId ;i++){
@@ -142,12 +145,18 @@ base=base===0?1:base;
                 }
             }
 			createDiv_m.innerHTML+=tableHead+tableBody1+tableBody+tablefoot;
+			createDiv_m.innerHTML+='<div style="text-align:center;"><span>第'+(pageAwryindex+1)+'页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pageNum">共页</span></div>';
 		}
 	}
 	document.body.appendChild(createDiv_m);
 	/*bzz班长或者值长*/
 	if("hx"==DXCZP_ZY){
 		document.getElementById("bzz1").innerHTML="班长:";
+	}
+	/*修改总页码*/
+	var pageNums=document.getElementsByClassName("pageNum");
+	for(var i=0;i<pageNums.length;i++){
+		pageNums[i].innerHTML="共"+(pageAwryindex+1)+"页";
 	}
 </script>
 <script>
