@@ -625,10 +625,10 @@ public class TimingTaskTool {
 						}
 						
 						if ("QXLB1".equals(qxlb)) {
-							expendHours = 12;
+//							expendHours = 12;//不做统计
 						}
 						else if ("QXLB2".equals(qxlb)) {
-							expendHours = 24;
+							expendHours = 72;
 						}
 						else if ("QXLB3".equals(qxlb)) {
 							expendHours = 48;
@@ -637,7 +637,7 @@ public class TimingTaskTool {
 							expendHours = 72;
 						}
 						
-						if (fxsjDate.after(jzsj)) {
+						if (fxsjDate.after(jzsj) && !"QXLB1".equals(qxlb)) {
 							if (StringUtils.isNotEmpty(hfkksj)) {
 								Date hfkksjDate = ymdhms.parse(hfkksj);
 								if ((Math.abs(sjjssjDate.getTime() - hfkksjDate.getTime())/1000/60/60) > 48) {
