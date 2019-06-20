@@ -1532,7 +1532,7 @@ public class ABSElement extends BodyTagSupport
                         final TableEx tableEx = (TableEx) this.hashMutTableCon.get(strTbCode);
                         this.hashTableCon.put(strTbCode, tableEx.getRecord(j));
                     }
-                    sbTrUpdateInput.append("<tr onmouseover=\"this.style.background='#f1f1f1';\" onmouseout=\"this.style.background='#ffffff';\">");
+                    sbTrUpdateInput.append("<tr style='background: #ffffff;' onmouseover=\"this.style.background='#f1f1f1';\" onmouseout=\"this.style.background='#ffffff';\">");
                     this.bIsGetBatchUpdate = true;
                     for (int l = 0; l < iCount; ++l) {
                         sbTrUpdateInput.append(this.genSingField(arrStringInputParams[l][0], arrStringInputParams[l][1], arrStringInputParams[l][2], request, arrStringInputParams[l][3], arrStringInputParams[l][7], arrStringInputParams[l][4], strCurDate, arrStringInputParams[l][5], true, "", arrStringInputParams[l][6], "", strDataTd2, "", "</td>"));
@@ -1549,7 +1549,7 @@ public class ABSElement extends BodyTagSupport
                 }
             }
             else {
-                sbBatchData.append(sbTrHead).append("<tr onmouseover=\"this.style.background='#f1f1f1';\" onmouseout=\"this.style.background='#ffffff';\">").append(sbTrInput).append("</tr>").append("<textarea id='" + strAddRowValueId + "' style='display:none;'>").append(sbTrInput.toString().replaceAll("<", "&lt;").replaceAll(">", "&gt;")).append("</textarea>");
+                sbBatchData.append(sbTrHead).append("<tr style='background: #ffffff;' onmouseover=\"this.style.background='#f1f1f1';\" onmouseout=\"this.style.background='#ffffff';\">").append(sbTrInput).append("</tr>").append("<textarea id='" + strAddRowValueId + "' style='display:none;'>").append(sbTrInput.toString().replaceAll("<", "&lt;").replaceAll(">", "&gt;")).append("</textarea>");
             }
             sbBatchData.append(strInitSelTreeId);
         }

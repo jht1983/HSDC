@@ -690,3 +690,11 @@ table#quicksearch td {
 .quick-search-form-group a {
 	margin-left: 10px;
 }
+
+div#div_mainform {
+	background-color: #f1f2f6 !important;
+}
+
+div#sysformwindiv {
+	background-color: #f1f2f6 !important;
+}
