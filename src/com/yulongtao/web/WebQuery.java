@@ -1655,7 +1655,7 @@ public class WebQuery
             }
             
             if (iBrCount > 1) {
-            	if (arrParamNames[1].equals("boolean")) {
+            	if (arrParamNames[1].equals("boolean") || arrParamNames[1].equals("QXJL_DUPL")) {
             		sbSerch.append("<label>" + arrParamNames[2] + "</label>");
 				}
             	else {
@@ -1663,7 +1663,7 @@ public class WebQuery
             	}
             }
             else {
-            	if (arrParamNames[1].equals("boolean")) {
+            	if (arrParamNames[1].equals("boolean") || arrParamNames[1].equals("QXJL_DUPL")) {
             		sbSerch.append("<label>" + arrParamNames[2] + "</label>");
 				}
             	else {
@@ -1679,7 +1679,7 @@ public class WebQuery
                     strEndSearch.append(String.valueOf(strArelableEnd) + "<input type='text' name='" + arrParamNames[0] + "1' value='" + strParamValue2 + "' style='width:"+inputWidth+";'>");
                 }
             }
-            else if (arrParamNames[1].equals("boolean")) {
+            else if (arrParamNames[1].equals("boolean") || arrParamNames[1].equals("QXJL_DUPL")) {
             	sbSerch.append("<input type='checkbox' name='" + arrParamNames[0] + "' value='true' class='inputCheck' " + ("true".equals(strParamValue)?"checked":"") +">");
                 if (strEndSearch != null) {
                     strEndSearch.append(String.valueOf(strArelableEnd) + "<input type='checkbox' name='" + arrParamNames[0] + "1' value='true' class='inputCheck' " + ("true".equals(strParamValue2)?"checked":"") +">");
@@ -1749,6 +1749,13 @@ public class WebQuery
         }
         
         if (!strTempCon.equals("")) {
+            //重复缺陷记录
+            if (strTempCon.indexOf("T_QXJL.S_DUPL") > -1) {
+            	strTempCon = String.valueOf(strTempCon) + " AND S_SBBM in (select S_SBBM from (select count(*) count, S_SBBM from T_QXJL " + 
+            			" where (" + strTempCon.substring(4) + ") AND T_QXJL.S_ZZ='001017' group by S_SBBM) temp " + 
+            			" where temp.count > 1) ";
+            }
+        	
             strTempCon = "(" + strTempCon.substring(4) + ")";
             aQuery.addCon(strTempCon);
             this.strSeachCon = "&SYSSERCACHCON=" + URLEncoder.encode(strTempCon);

@@ -534,19 +534,20 @@ public class TimingTaskTool {
 			tableEx = new TableEx("*", "T_QXJL", "");
 			int iCount = tableEx.getRecordCount();
 
+			//清空状态
+			try {
+				//S_DUPL always be 'true'
+				dbf.sqlExe("UPDATE T_QXJL set S_DUPL='true',S_CANCEL='false',S_SUSPEND='false',S_WARNING='false',S_REDWARN='false'", false);
+			} catch (Exception e) {
+				//do nothing
+				e.printStackTrace();
+			}
+
 			for(int i = 0; i < iCount; i++){
 				boolean checkRedWarn = true;
 				Record record = tableEx.getRecord(i);
 				String sid = ProcessRunOperationDao.getColString("S_ID", record);
 				String qxzt = ProcessRunOperationDao.getColString("S_QXZT", record); //缺陷状态
-
-				//清空状态
-				try {
-					dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='false',S_SUSPEND='false',S_WARNING='false',S_REDWARN='false' WHERE S_ID='" + sid + "'", false);
-				} catch (Exception e) {
-					//do nothing
-					e.printStackTrace();
-				}
 				
 				if ("QXZT013".equals(qxzt)) {
 					dbf.sqlExe("UPDATE T_QXJL set S_CANCEL='true' WHERE S_ID='" + sid + "'", false);
@@ -670,5 +671,10 @@ public class TimingTaskTool {
 
 		Date zeroDate = ymdhms.parse(ymd.format(fxsjDate) + " 00:00");
 		System.out.println(ymdhms.format(zeroDate));
+		
+		Date fssjDate1 = ymdhms.parse("2019-05-04 16:52");
+		Date qrsjDate1 = ymdhms.parse("2019-05-04 20:47");
+		long hours = Math.abs(qrsjDate1.getTime() - fssjDate1.getTime())/1000/60/60;
+		System.out.println(hours);
 	}
 }
