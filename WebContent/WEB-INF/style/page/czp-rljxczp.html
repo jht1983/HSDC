@@ -137,14 +137,18 @@ base=base===0?1:base;
 			createDiv_m.innerHTML+='<div style="text-align:center;"><span>第'+(pageAwryindex+1)+'页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pageNum">共页</span></div>';
 		}else{
 			/*操作票只有一页时调整行数*/
-			maxIndex=18;
+			maxIndex=17;
 			if(runIndex!=1){
                 var runId= maxIndex-runIndex ;
                 for(var i =0 ; i < runId ;i++){
                     initFXYK(" "," "," "," ");
                 }
             }
-			createDiv_m.innerHTML+=tableHead+tableBody1+tableBody+tablefoot;
+			if("dq"==DXCZP_ZY){
+				createDiv_m.innerHTML+=tableHead1+tableBody1+tableBody+tablefoot;
+			}else{
+				createDiv_m.innerHTML+=tableHead+tableBody1+tableBody+tablefoot;
+			}
 			createDiv_m.innerHTML+='<div style="text-align:center;"><span>第'+(pageAwryindex+1)+'页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pageNum">共页</span></div>';
 		}
 	}
