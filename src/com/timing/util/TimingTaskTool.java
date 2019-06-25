@@ -450,7 +450,10 @@ public class TimingTaskTool {
 				tool.recordRel(sys_org, sys_pageCode, sys_pk, "T_WXDQGZJH", "1500428518499", tool.getOrdGreId(),
 						"T_WXDQGZZX");
 				
-				insertMsg(tool.getUUID(), people, getStrByRecord(tableEx.getRecord(0), "S_GZNR"), "1500428518499", tool.getOrdGreId(), sys_org,
+//				insertMsg(tool.getUUID(), people, getStrByRecord(tableEx.getRecord(0), "S_GZNR"), "1500428518499", tool.getOrdGreId(), sys_org,
+//						strSdfYmdHms.format(new Date()));
+				//BUG 552
+				insertMsg(tool.getUUID(), people, getStrByRecord(tableEx.getRecord(0), "S_GZNR"), "155609021542713969", tool.getOrdGreId(), sys_org,
 						strSdfYmdHms.format(new Date()));
 				
 				sql = "update T_WXDQGZJH set S_SJPL_SYZXMBRQ='" + hmp.get("SYS_LASTDATE") + "' ,S_SJPL_XYZXMBRQ='"
