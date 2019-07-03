@@ -256,7 +256,9 @@ public class ProcessRunOperationHelper {
 				mapCon.put(strTabName, strWhere);
 				map.put(strTabName,(map.get(strTabName)==null?"":(map.get(strTabName).toString()+" , "))+strCou+" = '"+strVal+"' ");//字段名
 				updateColumns.add(strCou);
-				updateValueColumnStr += "|" + strCou;
+				if (updateValueColumnStr != null && updateValueColumnStr.indexOf(strCou) == -1) {
+					updateValueColumnStr += "|" + strCou;
+				}
 			}
 		}
 		
