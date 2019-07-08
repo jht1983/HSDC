@@ -339,7 +339,9 @@ public class ProcessRunOperation {
 			/**5 插入运行表*/
 			String[] strArrayFlowRun = {strFlowId,strFlowRunId,strNodeIdNext,strVersion,strNownewDate,strStartUser,strNextAuditUser,strNextAuditUserIndex+"",strAuditMsgs,strStartUserBranch,strAuditArrayyq,strAuditUsers,strAuditNodes,strIsOver,strAuditOther,strAudSel,strEndNodes,strSonFlow,strFlowType,_strFlowParentId,strFlowPj,strTab};
 			helper.updateFlowRun(strArrayFlowRun,"1");
-		
+			String updateValueColumnStr = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG) + ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG.length(), _sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_END_TAG));
+			ProcessRunOperationDao.updateValueColumns(updateValueColumnStr, strFlowRunId, strFlowId);
+			
 			String strDate = strSdfYmdHms.format(new Date());
 			String  strAuditComment = "";
 			/**插入流程日志*/

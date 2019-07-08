@@ -227,4 +227,21 @@ public final class ProcessRunOperationDao {
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * @param S_RUN_ID
+	 */
+	public static void updateValueColumns(String updateValueColumnStr, String runId, String flowId) {
+		DBFactory dbf = null;
+		try {
+			dbf = new DBFactory();
+			dbf.sqlExe("update T_SYS_FLOW_RUN set S_UPVALUE_COLS='" + updateValueColumnStr + "' where S_RUN_ID='" + runId + "' and S_FLOW_ID='" +flowId + "'", true);
+		} catch (Exception e) {
+		    MantraLog.fileCreateAndWrite(e);
+			e.printStackTrace();
+		} finally {
+			if(dbf!=null){dbf.close();}
+		}
+	}
 }

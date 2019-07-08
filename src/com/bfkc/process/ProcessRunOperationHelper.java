@@ -40,6 +40,8 @@ public class ProcessRunOperationHelper {
 	
     public static final String UPDATE_FIELD_START_TAG = "{updateFieldsStart:";
     public static final String UPDATE_FIELD_END_TAG = "updateFieldsEnd}";
+    public static final String UPDATE_VALUE_COLUMN_START_TAG = "{updateValueColumnStrStart:";
+    public static final String UPDATE_VALUE_COLUMN_END_TAG = "updateValueColumnStrEnd}";
 	
 	private static String[] arrVarNames=new String[]{"username","user","role","branchid","date","dataset","username","splitbranchid","usercount","userip","userlogindate","userlogindatehm"};
 	private static String[] arrVarValues=new String[]{"SYS_STRCURUSERNAME","SYS_STRCURUSER","SYS_STRROLECODE","SYS_STRBRANCHID","SYS_CURDATE","DATASET","SYS_STRCURUSERNAME","SYS_BRANCHID_SPLIT","SYS_USER_COUNT","SYS_STRCURUSER_IP","SYS_USER_LOGIN_DATE","SYS_CURDATE"};
@@ -256,9 +258,6 @@ public class ProcessRunOperationHelper {
 				mapCon.put(strTabName, strWhere);
 				map.put(strTabName,(map.get(strTabName)==null?"":(map.get(strTabName).toString()+" , "))+strCou+" = '"+strVal+"' ");//字段名
 				updateColumns.add(strCou);
-				if (updateValueColumnStr != null && updateValueColumnStr.indexOf(strCou) == -1) {
-					updateValueColumnStr += "|" + strCou;
-				}
 			}
 		}
 		
@@ -279,6 +278,9 @@ public class ProcessRunOperationHelper {
 						if (oldValue != null) {
 							_sr.append(colName + "-" + oldValue + "#");
 						}
+						if (updateValueColumnStr != null && updateValueColumnStr.indexOf(colName) == -1) {
+							updateValueColumnStr += "|" + colName;
+						}
 					}
 				} catch (Exception e) {
 				    //do nothing if exception occurs
@@ -289,9 +291,15 @@ public class ProcessRunOperationHelper {
 				}
 			    
 				dbf.sqlExe("update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key), true);
-				dbf.sqlExe("update T_SYS_FLOW_RUN set S_UPVALUE_COLS='" + updateValueColumnStr + "' where S_RUN_ID='" + _strRunId + "' and S_FLOW_ID='" +_strFlowId + "'", true);
 			}
 			_sr.append(UPDATE_FIELD_END_TAG);
+
+			//used for start process, because the flow run is not existing for now
+			_sr.append(UPDATE_VALUE_COLUMN_START_TAG);
+			_sr.append(updateValueColumnStr);
+			_sr.append(UPDATE_VALUE_COLUMN_END_TAG);
+			
+			dbf.sqlExe("update T_SYS_FLOW_RUN set S_UPVALUE_COLS='" + updateValueColumnStr + "' where S_RUN_ID='" + _strRunId + "' and S_FLOW_ID='" +_strFlowId + "'", true);
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
@@ -694,6 +702,10 @@ public class ProcessRunOperationHelper {
 	public static void main(String[] args) {
 		HttpServletRequest req = null;
 		ProcessRunOperationHelper helper = new ProcessRunOperationHelper();
-		helper.reflectMothedInvoke("com.bfkc.process.ProcessRunOperation","getTest",req);
+//		helper.reflectMothedInvoke("com.bfkc.process.ProcessRunOperation","getTest",req);
+		
+		String _sb = ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG + "1234567890" + ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_END_TAG;
+		String updateValueColumnStr = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG) + ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG.length(), _sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_END_TAG));
+		System.out.println(updateValueColumnStr);
 	}
 }
