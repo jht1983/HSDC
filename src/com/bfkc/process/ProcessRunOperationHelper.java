@@ -23,6 +23,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.Debug;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.timing.impcl.MantraLog;
 import com.yonyou.mis.util.ApplicationUtils;
 import com.yulongtao.db.DBFactory;
@@ -97,6 +99,9 @@ public class ProcessRunOperationHelper {
 			exRun = queryFlowRun(_strFlowId, _strRunId);
 			Record record = exRun.getRecord(0);
 			updateValueColumnStr = record.getFieldByName("S_UPVALUE_COLS").value.toString();
+			//there's no fucking log...
+			System.out.println((new Date()) + "; updateValueColumnStr: " + updateValueColumnStr + "; flow run ID: " + _strRunId);
+			
 			if (StringUtils.isNotEmpty(updateValueColumnStr)) {
 				String[] columns = updateValueColumnStr.split("\\|");
 				for (int k = 0; k < columns.length; k++) {
