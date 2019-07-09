@@ -262,6 +262,9 @@ public class ProcessRunOperationHelper {
 		}
 		
 		try {
+			if (updateValueColumnStr == null) {
+				updateValueColumnStr = "";
+			}
 			_sr.append(UPDATE_FIELD_START_TAG);
 			for (String key : map.keySet()) {
 		    	if(dbf==null){
@@ -278,7 +281,7 @@ public class ProcessRunOperationHelper {
 						if (oldValue != null) {
 							_sr.append(colName + "-" + oldValue + "#");
 						}
-						if (updateValueColumnStr != null && updateValueColumnStr.indexOf(colName) == -1) {
+						if (updateValueColumnStr.indexOf(colName) == -1) {
 							updateValueColumnStr += "|" + colName;
 						}
 					}
