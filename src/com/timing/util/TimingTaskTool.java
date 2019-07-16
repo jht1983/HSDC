@@ -224,43 +224,46 @@ public class TimingTaskTool {
 				recordIndex = tableEx.getRecordCount();
 			
 				for (int j = 0; j < recordIndex; j++) {
-					HashMap<String, String> setEventPar = new HashMap<String, String>();
-					record = tableEx.getRecord(j);
-					String SYS_TYPE = getStrByRecord(record, "SYS_TYPE");
-					String SYS_START = getStrByRecord(record, "SYS_START");
-					String SYS_AHEADDay = getStrByRecord(record, "SYS_AHEADDay");
-					String SYS_NEXTDATE = getStrByRecord(record, "SYS_NEXTDATE");
-					String SYS_LASTDATE = getStrByRecord(record, "SYS_LASTDATE");
-					String cycles = getStrByRecord(record, "cycles");
-					//SYS_NEXTDATE = "".equals(SYS_NEXTDATE)defaultCalculation(String _startDate, String _type, String _cycles)?:SYS_NEXTDATE;
-					
-					if("".equals(SYS_NEXTDATE) ) {
-					 
-					    //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,""+getStrByRecord(record, "SYS_PK"));
-					     
-					    if("".equals(SYS_START)){
-    					    continue;
-    					}
-						SYS_NEXTDATE = strSdfYmdHms.format(defaultCalculation(SYS_START, SYS_TYPE, cycles).getTime());
-					}
-					
-					// 2018-07-04 14:03:51 add enabled;
-					String S_QYZT = getStrByRecord(record, "S_QYZT");
+					try {
+						HashMap<String, String> setEventPar = new HashMap<String, String>();
+						record = tableEx.getRecord(j);
+						String SYS_TYPE = getStrByRecord(record, "SYS_TYPE");
+						String SYS_START = getStrByRecord(record, "SYS_START");
+						String SYS_AHEADDay = getStrByRecord(record, "SYS_AHEADDay");
+						String SYS_NEXTDATE = getStrByRecord(record, "SYS_NEXTDATE");
+						String SYS_LASTDATE = getStrByRecord(record, "SYS_LASTDATE");
+						String cycles = getStrByRecord(record, "cycles");
+						//SYS_NEXTDATE = "".equals(SYS_NEXTDATE)defaultCalculation(String _startDate, String _type, String _cycles)?:SYS_NEXTDATE;
+						
+						if("".equals(SYS_NEXTDATE) ) {
+						 
+						    //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,""+getStrByRecord(record, "SYS_PK"));
+						     
+						    if("".equals(SYS_START)){
+	    					    continue;
+	    					}
+							SYS_NEXTDATE = strSdfYmdHms.format(defaultCalculation(SYS_START, SYS_TYPE, cycles).getTime());
+						}
+						
+						// 2018-07-04 14:03:51 add enabled;
+						String S_QYZT = getStrByRecord(record, "S_QYZT");
 
-					setEventPar.put("SYS_PAGECODE", pagecodeArr[i]);
-					setEventPar.put("SYS_ORG", getStrByRecord(record, "SYS_ORG"));
-					setEventPar.put("SYS_PK", getStrByRecord(record, "SYS_PK"));
-					setEventPar.put("SYS_TYPE", SYS_TYPE);
-					setEventPar.put("SYS_START", SYS_START);
-					setEventPar.put("SYS_AHEADDay", SYS_AHEADDay);
-					setEventPar.put("SYS_NEXTDATE", SYS_NEXTDATE);
-					setEventPar.put("SYS_LASTDATE", SYS_LASTDATE);
-					setEventPar.put("S_QYZT", S_QYZT);
-					setEventPar.put("cycles", cycles);
-					com.timing.impcl.EventCl.setVecGJStatus(setEventPar);
+						setEventPar.put("SYS_PAGECODE", pagecodeArr[i]);
+						setEventPar.put("SYS_ORG", getStrByRecord(record, "SYS_ORG"));
+						setEventPar.put("SYS_PK", getStrByRecord(record, "SYS_PK"));
+						setEventPar.put("SYS_TYPE", SYS_TYPE);
+						setEventPar.put("SYS_START", SYS_START);
+						setEventPar.put("SYS_AHEADDay", SYS_AHEADDay);
+						setEventPar.put("SYS_NEXTDATE", SYS_NEXTDATE);
+						setEventPar.put("SYS_LASTDATE", SYS_LASTDATE);
+						setEventPar.put("S_QYZT", S_QYZT);
+						setEventPar.put("cycles", cycles);
+						com.timing.impcl.EventCl.setVecGJStatus(setEventPar);
+					} catch (Exception e) {
+						//don't affect other tasks
+					}
 				}
 			}
-
 		} catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
 		} finally {
