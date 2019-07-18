@@ -1371,11 +1371,13 @@ public class WebQuery
             strViewBttn = "";
         }
         final StringBuffer sbSerch = new StringBuffer();
-        vResult.append("<form id='sysqueryform' action='" + this.strSelfUrl + "' method='post'>");
         int iIsBr = 0;
+        final HashMap hashSerarchFiled = new HashMap();
         if (!this.strQueryField.equals("")) {
-            iIsBr = this.generSerch(aQuery, sbSerch);
+            iIsBr = this.generSerch(aQuery, sbSerch, hashSerarchFiled);
+            this.strSelfUrl = this.getSimpleQueryUrl(hashSerarchFiled);
         }
+        vResult.append("<form id='sysqueryform' action='" + this.strSelfUrl + "' method='post'>");
         vResult.append("<table id='sysbttoparea' cellpadding='0' cellspacing='0' border='0' class='bttoparea2'>");
         vResult.append("<tr>");
         String strMenuPageCode = this.request.getParameter("SPAGECODE");
@@ -1537,7 +1539,7 @@ public class WebQuery
      * @param sbSerch
      * @return
      */
-    private int generSerch(final Query aQuery, final StringBuffer sbSerch) {
+    private int generSerch(final Query aQuery, final StringBuffer sbSerch, final HashMap hashSerarchFiled) {
         final String[] arrQF = this.strQueryField.split(",");
         final int iQFCount = arrQF.length;
         String strTempCon = "";
@@ -1562,6 +1564,8 @@ public class WebQuery
             
             final String[] arrParamNames = arrQF[i].split(":");
             String strFieldName = arrParamNames[0];
+            hashSerarchFiled.put(strFieldName, "");
+            
             String strParamValue = this.request.getParameter(strFieldName);
             String strParamValue2 = this.request.getParameter(String.valueOf(strFieldName) + "1");
             if (strParamValue2 == null) {
@@ -1790,5 +1794,29 @@ public class WebQuery
             System.out.println("err:" + e);
         }
         return null;
+    }
+    
+    public String getSimpleQueryUrl(final HashMap _hashField) {
+        String vResult = this.request.getRequestURL().toString();
+        final Enumeration paramNames = this.request.getParameterNames();
+        String strSplit = "?";
+        while (paramNames.hasMoreElements()) {
+            final String paraName = paramNames.nextElement().toString();
+            if (!paraName.equals("OPESTR") && !paraName.equals("CURRENTPAGE") && !paraName.equals("GOPAGE") && !paraName.equals("NO_SORT_CONDITION") && !paraName.equals("NO_FITER_CONDITION")) {
+                if (paraName.equals("RECORDCOUNT")) {
+                    continue;
+                }
+                if (_hashField.get(paraName) != null) {
+                    continue;
+                }
+                String paraValue = this.request.getParameter(paraName);
+                if (paraValue == null) {
+                    paraValue = "";
+                }
+                vResult = String.valueOf(vResult) + strSplit + paraName + "=" + EString.encoderStr(paraValue);
+                strSplit = "&";
+            }
+        }
+        return vResult;
     }
 }
