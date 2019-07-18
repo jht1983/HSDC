@@ -1,16 +1,16 @@
 package com.timing.util;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.timing.impcl.MantraLog;
-import com.timing.impcl.ProcessParameterVO;
 import com.yulongtao.db.DBFactory;
-import com.timing.impcl.EventCl;
 import com.yulongtao.db.FieldEx;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
@@ -124,5 +124,4 @@ public class TimingInit {
 		}
 		return dataMap;
 	}
-
 }

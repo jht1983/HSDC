@@ -23,13 +23,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.Debug;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.timing.impcl.MantraLog;
 import com.yonyou.mis.util.ApplicationUtils;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
+import com.yulongtao.sys.WebCommand;
 import com.yulongtao.util.EString;
 
 /**
@@ -255,11 +254,18 @@ public class ProcessRunOperationHelper {
 						    MantraLog.fileCreateAndWrite(e);
 						}
 					}else if(strVal.indexOf("{dataset:")>-1){
-						strVal = strVal.replace("{dataset:", "");
-						strVal = strVal.replace("}", "");
-						String[] strValArry = strVal.split("\\|");
+                        strVal = strVal.replace("{dataset:", "");
+                        strVal = strVal.replace("}", "").trim();
+						//{dataset:098}
+				        final WebCommand webCommad = new WebCommand();
+						(webCommad.hashFieldValue = new HashMap()).put("SYS_TB", strTabName);
+                        webCommad.hashFieldValue.put("SYS_FD", strCou);
+                        webCommad.hashFieldValue.put("SYS_RID", _strRunId);
+                        webCommad.doCommand(strVal, _request);
+                        continue;
 					}
 				}
+				
 				mapCon.put(strTabName, strWhere);
 				map.put(strTabName,(map.get(strTabName)==null?"":(map.get(strTabName).toString()+" , "))+strCou+" = '"+strVal+"' ");//字段名
 				updateColumns.add(strCou);

@@ -1,5 +1,7 @@
 package com.timing.impcl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -50,6 +52,12 @@ public class EventCl extends Event {
 	private int timer = 0;
 	// --SIS Data--end
 
+	//tasks run once every day
+	FuelDataTiming fuelDataTiming = new FuelDataTiming();
+	LaborSchedulingTiming laborSchedulingTiming = new LaborSchedulingTiming();
+	private boolean isNotRun = true;
+	private SimpleDateFormat sdfHour = new SimpleDateFormat("HH");
+
 	private int startLoadDataPeriod = 6*10; //10秒X6X10
 	
 	public boolean isRun() {
@@ -65,6 +73,20 @@ public class EventCl extends Event {
 		//check T_QXJL every 10*20 seconds
 		if (timer % 20 == 0) {
 			timTool.checkQXJL();
+		}
+		
+		//tasks run once every day
+		String hour = sdfHour.format(new Date());
+		if ("11".equals(hour)) {
+			if (isNotRun) {
+				isNotRun = false;
+				
+				fuelDataTiming.fetchFuelData();
+				laborSchedulingTiming.initLaborScheduling();
+			}
+		}
+		else if (!isNotRun) {
+			isNotRun = true;
 		}
 
 		// --------定时任务

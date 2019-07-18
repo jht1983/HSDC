@@ -40,7 +40,12 @@ import com.yulongtao.web.chart.ChartData;
 
 public class MisComponent extends HttpServlet
 {
-    private static final String CONTENT_TYPE = "text/html; charset=GBK";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 616145450860196796L;
+	
+	private static final String CONTENT_TYPE = "text/html; charset=GBK";
     private HttpServletRequest request;
     private HttpServletResponse response;
     private PrintWriter out;
@@ -1576,20 +1581,19 @@ public class MisComponent extends HttpServlet
             this.out.print("<script>var str_Sys_FormId='" + str_Sys_FromId + "';var str_Sys_Ver='" + strVerSion + "';yltFlow.strFlowId='" + _strFlowId + "';yltFlow.init({");
             Object objNodeId = 0;
             final int iColCount = tableEx.getColCount();
-            final HashMap hashNoView = new HashMap() {
-                {
-                    this.put("I_NODE_ID", "");
-                    this.put("S_NODE_NAME", "");
-                    this.put("S_CHILD_ID", "");
-                    this.put("I_X", "");
-                    this.put("I_Y", "");
-                    this.put("S_START", "");
-                    this.put("S_END", "");
-                    this.put("I_COLOR_INDEX", "");
-                    this.put("I_TYPE", "");
-                    this.put("S_AUDIT_VERSION", "");
-                }
-            };
+            
+            HashMap hashNoView = new HashMap();
+            hashNoView.put("I_NODE_ID", "");
+            hashNoView.put("S_NODE_NAME", "");
+            hashNoView.put("S_CHILD_ID", "");
+            hashNoView.put("I_X", "");
+            hashNoView.put("I_Y", "");
+            hashNoView.put("S_START", "");
+            hashNoView.put("S_END", "");
+            hashNoView.put("I_COLOR_INDEX", "");
+            hashNoView.put("I_TYPE", "");
+            hashNoView.put("S_AUDIT_VERSION", "");
+            
             String strSplit = "";
             for (int i = 0; i < iRecordCount; ++i) {
                 final Record record = tableEx.getRecord(i);
