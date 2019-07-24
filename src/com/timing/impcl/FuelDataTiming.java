@@ -6,6 +6,7 @@ package com.timing.impcl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -43,12 +44,41 @@ public class FuelDataTiming {
 	
 	public void fetchMineralData() {
 		try {
+			List<Map<String, Object>> result = TimingTaskDao.fatchMinerals();
+			TimingTaskDao.updateMinerals(result);
+		} catch (Exception e) {
+			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchMineralData -> Fail fetch Mineral data.");
+			MantraLog.fileCreateAndWrite(e);
+			e.printStackTrace();
+		}
+	}
+	
+	public void fetchMineralDataByWS() {
+		try {
 			httpCon httpConnection = new httpCon();
 			Map<String, String> parameterMap = new HashMap<>();
 			String result = httpConnection.doPost(SERVER_ADDRESS + "/api/MineralData", parameterMap);
-			System.out.println(result);
 		} catch (Exception e) {
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming -> Fail fetch Mineral data.");
+			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchMineralDataByWS -> Fail fetch Mineral data.");
+			MantraLog.fileCreateAndWrite(e);
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void fetchFuelData() {
+		try {
+			Date dateTo = new Date();
+			Date dateFrom = TimingTaskTool.getDateBefore(dateTo, 70); //7
+			List<Map<String, Object>> result = TimingTaskDao.fatchLabdataByDate(dateFrom, dateTo);
+			
+			if (result != null && result.size() > 0) {
+				TimingTaskDao.addLabdata(result);
+			}
+		} catch (Exception e) {
+			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchFuelData -> Fail fetch fuel data.");
 			MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}
@@ -57,7 +87,7 @@ public class FuelDataTiming {
 	/**
 	 * 
 	 */
-	public void fetchFuelData() {
+	public void fetchFuelDataByWS() {
 		try {
 			httpCon httpConnection = new httpCon();
 			Map<String, String> parameterMap = new HashMap<>();
@@ -115,7 +145,7 @@ public class FuelDataTiming {
 				}
 			}
 		} catch (Exception e) {
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming -> Fail fetch fuel data.");
+			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchFuelDataByWS -> Fail fetch fuel data.");
 			MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}
@@ -126,7 +156,7 @@ public class FuelDataTiming {
 	 */
 	public static void main(String[] args) {
 		FuelDataTiming fuelDataTiming = new FuelDataTiming();
-//		fuelDataTiming.fetchFuelData();
-		fuelDataTiming.fetchMineralData();
+//		fuelDataTiming.fetchMineralData();
+		fuelDataTiming.fetchFuelData();
 	}
 }
