@@ -77,13 +77,13 @@ public class EventCl extends Event {
 		
 		//tasks run once every day
 		String hour = sdfHour.format(new Date());
-		if ("10".equals(hour)) {
+		if ("16".equals(hour)) {
 			if (isNotRun) {
 				isNotRun = false;
 				
 //				fuelDataTiming.fetchMineralData();
 //				fuelDataTiming.fetchFuelData();
-				laborSchedulingTiming.initLaborScheduling();
+				laborSchedulingTiming.initLaborSchedulings();
 			}
 		}
 		else if (!isNotRun) {

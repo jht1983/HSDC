@@ -12,7 +12,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timing.util.AES256Util;
-import com.timing.util.TimingTaskDao;
+import com.timing.util.FuelDataTimingDao;
 import com.timing.util.TimingTaskTool;
 import com.url.urlUtill.httpCon;
 
@@ -44,8 +44,8 @@ public class FuelDataTiming {
 	
 	public void fetchMineralData() {
 		try {
-			List<Map<String, Object>> result = TimingTaskDao.fatchMinerals();
-			TimingTaskDao.updateMinerals(result);
+			List<Map<String, Object>> result = FuelDataTimingDao.fatchMinerals();
+			FuelDataTimingDao.updateMinerals(result);
 		} catch (Exception e) {
 			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchMineralData -> Fail fetch Mineral data.");
 			MantraLog.fileCreateAndWrite(e);
@@ -72,10 +72,10 @@ public class FuelDataTiming {
 		try {
 			Date dateTo = new Date();
 			Date dateFrom = TimingTaskTool.getDateBefore(dateTo, 70); //7
-			List<Map<String, Object>> result = TimingTaskDao.fatchLabdataByDate(dateFrom, dateTo);
+			List<Map<String, Object>> result = FuelDataTimingDao.fatchLabdataByDate(dateFrom, dateTo);
 			
 			if (result != null && result.size() > 0) {
-				TimingTaskDao.addLabdata(result);
+				FuelDataTimingDao.addLabdata(result);
 			}
 		} catch (Exception e) {
 			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchFuelData -> Fail fetch fuel data.");
@@ -115,7 +115,7 @@ public class FuelDataTiming {
 			parameterMap.put(PARAM_ENDTIME, sdf.format(endDate) + DATE_TIME); // yyyy-MM-dd HH:mm:ss
 			
 			//获取矿别，循环获取检测结果
-			String[] mineNos = TimingTaskDao.findMineNos();
+			String[] mineNos = FuelDataTimingDao.findMineNos();
 			if (mineNos != null) {
 				for (int i = 0; i < mineNos.length; i++) {
 					try {

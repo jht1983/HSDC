@@ -27,7 +27,7 @@ import com.yulongtao.db.TableEx;
  * @author tianshisheng
  *
  */
-public final class TimingTaskDao {
+public final class FuelDataTimingDao {
 	/**
 	 * 
 	 * @return
@@ -298,7 +298,7 @@ public final class TimingTaskDao {
 	 * @param _value
 	 * @return
 	 */
-	public static String getStrByRecord(Record _rec, String _value) {
+	private static String getStrByRecord(Record _rec, String _value) {
 		String _retvalue = "";
 		if (_rec.getFieldByName(_value).value != null) {
 			_retvalue = _rec.getFieldByName(_value).value.toString();
