@@ -24,6 +24,7 @@ import com.sip.business.BusinessUtil;//DEMO
 import com.sis.util.TJSisData;
 import com.timing.impcl.CheckTool;
 import com.timing.impcl.EventCl;
+import com.timing.impcl.LaborSchedulingTiming;
 import com.timing.impcl.MantraLog;
 import com.timing.impcl.MantraUtil;
 import com.timing.impcl.MeasuresTool;
@@ -1645,5 +1646,14 @@ public class Fun {
 //		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "sid="+sid);
 //		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "retStrBuf="+retStrBuf);
 		return new StringBuffer(retStrBuf);
+	}
+	
+	/**
+	 * 
+	 */
+	public void initLaborSchedual() {
+		String laborId = request.getParameter("laborId");
+		LaborSchedulingTiming laborSchedulingTiming = new LaborSchedulingTiming();
+		laborSchedulingTiming.initLaborScheduling(laborId);
 	}
 }

@@ -74,8 +74,7 @@ public final class LaborSchedulingTimingDao {
 				" FROM" + 
 				"	T_LBSCWH LEFT JOIN T_LBDY ON T_LBDY.S_ID = T_LBSCWH.S_GZZX" + 
 				" WHERE" + 
-				"	T_LBSCWH.S_BMID = '001017' and T_LBSCWH.S_ID='" + sid + "'" + 
-				" ORDER BY T_LBSCWH.S_ID DESC";
+				"	T_LBSCWH.S_BMID = '001017' and T_LBSCWH.S_ID='" + sid + "'";
 		DBFactory dbf = new DBFactory();
 		TableEx tableEx = null;
 		Record record = null;

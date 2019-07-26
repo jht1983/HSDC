@@ -10,7 +10,6 @@ import java.util.Map;
 import com.timing.util.LaborSchedulingTimingDao;
 import com.timing.util.TimingTaskTool;
 import com.yulongtao.db.DBFactory;
-import com.yulongtao.util.EString;
 
 /**
  * @author tianshisheng
@@ -69,13 +68,15 @@ public class LaborSchedulingTiming {
 					Date por = TimingTaskTool.getDateAfter(ksrq, (int) (dataIndex / oneDayTime));
 					String porStr = sdf.format(por);
 
-					if ("true".equals(aloneArr[2]) && (por.after(startDate) && por.before(endDate))) {
-						dbf.exeSqls("insert into T_LBSCWHZB (S_ID,S_PID,S_RQ,S_BCBM,S_BZBM,S_SYS_ORDERNUMBER) values ('"
-								+ pid + index + "','" + pid + "','" + porStr + "','" + aloneArr[0] + "','" + aloneArr[1]
-								+ "','" + index + "');", false);
+					if ("true".equals(aloneArr[2])) {
+						if (por.after(startDate) && por.before(endDate)) {
+							dbf.exeSqls("insert into T_LBSCWHZB (S_ID,S_PID,S_RQ,S_BCBM,S_BZBM,S_SYS_ORDERNUMBER) values ('"
+									+ pid + index + "','" + pid + "','" + porStr + "','" + aloneArr[0] + "','" + aloneArr[1]
+									+ "','" + index + "');", false);
+						}
+						index++;
 					}
 
-					index++;
 					dataIndex++;
 				}
 			}

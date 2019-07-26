@@ -77,7 +77,7 @@ public class EventCl extends Event {
 		
 		//tasks run once every day
 		String hour = sdfHour.format(new Date());
-		if ("16".equals(hour)) {
+		if ("01".equals(hour)) {
 			if (isNotRun) {
 				isNotRun = false;
 				
