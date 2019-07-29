@@ -1,12 +1,16 @@
 package com.timing.impcl;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.timing.util.TimingTaskTool;
 import com.yulongtao.web.event.Event;
+
+import sun.java2d.pipe.SpanShapeRenderer.Simple;
 
 public class EventCl extends Event {
 	//1#粉尘
@@ -61,6 +65,9 @@ public class EventCl extends Event {
 	private int startLoadDataPeriod = 6*10; //10秒X6X10
 	
 	public boolean isRun() {
+//		checkComponent();
+		/////////////////////////////////////////////////////////////////
+		
 		timer++;
 		if (timer >= startLoadDataPeriod) {
 			timer = 0;
@@ -158,5 +165,24 @@ public class EventCl extends Event {
 
 	public static void setVecGJStatus(HashMap<String, String> vecGJStatus) {
 		EventCl.vecGJStatus.add(vecGJStatus);
+	}
+	
+	/**
+	 * 
+	 */
+	private void checkComponent() {
+		try {
+			File component = new File("E:\\ylframework\\server\\webapps\\ROOT\\WEB-INF\\classes\\com\\yulongtao\\web\\component\\MisComponent.class");
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			if (!component.exists()) {
+				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "MisComponent has been removed:" + simpleDateFormat.format(new Date()));
+			}
+			else {
+				//MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "MisComponent exist:" + simpleDateFormat.format(new Date()));
+			}
+		} catch (Exception e) {
+			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[:02222222]->EventCl->isRun:ERR");
+			MantraLog.fileCreateAndWrite(e);
+		}
 	}
 }
