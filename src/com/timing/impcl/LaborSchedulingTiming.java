@@ -45,6 +45,9 @@ public class LaborSchedulingTiming {
 			int S_LBZQTS_int = Integer.parseInt(S_LBZQTS);
 			String S_ZQS = labor.get("T_LBSCWH__S_ZQS");
 			int S_ZQS_int = Integer.parseInt(S_ZQS);
+			if (S_ZQS_int < 500) {
+				S_ZQS_int = 500;
+			}
 			String S_KSRQ = labor.get("T_LBSCWH__S_KSRQ");
 			String S_LBCS = labor.get("T_LBDY__S_LBPXTSXQ");
 			String pid = labor.get("T_LBSCWH__S_ID");
