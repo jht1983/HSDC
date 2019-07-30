@@ -71,7 +71,7 @@ public class FuelDataTiming {
 	public void fetchFuelData() {
 		try {
 			Date dateTo = new Date();
-			Date dateFrom = TimingTaskTool.getDateBefore(dateTo, 70); //7
+			Date dateFrom = TimingTaskTool.getDateBefore(dateTo, 100); //7
 			List<Map<String, Object>> result = FuelDataTimingDao.fatchLabdataByDate(dateFrom, dateTo);
 			
 			if (result != null && result.size() > 0) {

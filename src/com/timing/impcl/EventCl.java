@@ -6,11 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.timing.util.TimingTaskTool;
 import com.yulongtao.web.event.Event;
-
-import sun.java2d.pipe.SpanShapeRenderer.Simple;
 
 public class EventCl extends Event {
 	//1#粉尘
@@ -84,12 +81,12 @@ public class EventCl extends Event {
 		
 		//tasks run once every day
 		String hour = sdfHour.format(new Date());
-		if ("01".equals(hour)) {
+		if ("01".equals(hour)) { //01
 			if (isNotRun) {
 				isNotRun = false;
 				
-//				fuelDataTiming.fetchMineralData();
-//				fuelDataTiming.fetchFuelData();
+				fuelDataTiming.fetchMineralData();
+				fuelDataTiming.fetchFuelData();
 				laborSchedulingTiming.initLaborSchedulings();
 			}
 		}
