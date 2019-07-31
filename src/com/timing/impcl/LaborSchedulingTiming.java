@@ -4,7 +4,9 @@
 package com.timing.impcl;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 
 import com.timing.util.LaborSchedulingTimingDao;
@@ -106,5 +108,11 @@ public class LaborSchedulingTiming {
 
 		Date testDate = sdf.parse("2019-07-29");
 		System.out.println(testDate.after(startDate) && testDate.before(endDate));
+		
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar test = new GregorianCalendar();
+		test.setTime(sdf2.parse("2019-02-28 00:00:00"));
+		test.add(Calendar.MONTH, 1);
+		System.out.println(sdf2.format(test.getTime()));
 	}
 }
