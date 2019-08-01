@@ -2149,7 +2149,8 @@ public class MisMenu extends HttpServlet
         TableEx tableChecked = null;
         try {
             final String strRoleCode = request.getParameter("rolecode");
-            final String strCurRoleCode = request.getSession().getAttribute("SYS_STRROLECODE").toString();
+//            final String strCurRoleCode = request.getSession().getAttribute("SYS_STRROLECODE").toString();
+            final String strCurRoleCode = ""; //always use 888 role code
             String strLenFunction = "";
             if (DBFactory.DBTYPE == 2) {
                 strLenFunction = "len";
