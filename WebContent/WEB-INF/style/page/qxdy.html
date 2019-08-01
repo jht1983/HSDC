@@ -121,6 +121,70 @@
         </table>
     </div>
 </ylt.for>
+
+<script>
+    var maxIndex = 40;
+	var height = 30;
+	var runIndex = 25;
+	var pageAwryindex = 0;
+	var base;
+
+    var shr = '';
+    var xkr = '';
+    var createDiv_m = document.createElement("div");
+    var tableHeader = '<div style="margin: 0 auto;width: 847px">' + 
+        '<table border="0" cellspacing="0" cellpadding="7" style="border-left: 1px solid black;">' + 
+        '<colgroup><col width="30%" /><col width="50%" /><col width="20%" /></colgroup>' + 
+        '<tr height="30">' + 
+        '<td style="border: 1px solid black; border-left: 0px; border-top: 0px;" align="center">工作项目</td>' + 
+        '<td style="border: 1px solid black; border-left: 0px; border-top: 0px;" align="center">工作内容</td>' + 
+        '<td style="border: 1px solid black; border-left: 0px; border-top: 0px;" align="center">工时</td>' + 
+        '</tr>';
+    var tableHeader2 = '<div style="page-break-after: always;"></div><div style="margin: 0 auto;width: 847px">' + 
+        '<table border="0" cellspacing="0" cellpadding="7" style="border-left: 1px solid black;border-top: 1px solid black;">' + 
+        '<colgroup><col width="30%" /><col width="50%" /><col width="20%" /></colgroup>';
+        
+    var tableFooter = '</table></div>';
+    var tableBody = '';
+    
+    function initGD(_gzxm, _gznr, _gs, _shr, _xkr) {
+    	shr = _shr;
+    	xkr = _xkr;
+    	
+		var one_td_base = Math.ceil(_gzxm.length/12);
+		var two_td_base = Math.ceil(_gznr.length/18);
+		
+		base=one_td_base>two_td_base?one_td_base:two_td_base;
+		base=base===0?1:base;
+		
+		if((runIndex+base)>maxIndex){
+			tableBody += tableFooter + tableHeader2;
+			
+			pageAwryindex++;
+			runIndex=1;
+		}
+
+		runIndex=runIndex+base;
+    	tableBody += '<tr height="30">';
+    	tableBody += '<td style="border: 1px solid black; border-left: 0px; border-top: 0px;">'+_gzxm+'</td>';
+    	tableBody += '<td style="border: 1px solid black; border-left: 0px; border-top: 0px;">'+_gznr+'</td>';
+    	tableBody += '<td style="border: 1px solid black; border-left: 0px; border-top: 0px;">'+_gs+'</td>';
+    	tableBody += '</tr>';
+    }
+    
+    <ylt.for dataId="1564553551632">
+        initGD('$value', '$value', '$value', '$value', '$value');
+    </ylt.for>
+    
+    tableBody += '<tr height="30">';
+	tableBody += '<td style="border: 1px solid black; border-left: 0px; border-top: 0px; border-right: 0px;">审核人：'+shr+'</td>';
+	tableBody += '<td colspan="2" style="border: 1px solid black; border-left: 0px; border-top: 0px;">许可人：'+xkr+'</td>';
+	tableBody += '</tr>';
+    
+    createDiv_m.innerHTML = tableHeader+tableBody+tableFooter;
+    document.body.appendChild(createDiv_m);
+</script>
+
 <script>
     window.print();
 </script>
