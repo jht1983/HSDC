@@ -177,6 +177,18 @@ public final class FuelDataTimingDao {
 				map.put("TESTNO", rs.getString("TESTNO"));
 				map.put("testdate", rs.getString("testdate"));
 				map.put("datajsonvalue", rs.getString("datajsonvalue"));
+				String SamplingSites = rs.getString("SamplingSites");
+				String Sampler = rs.getString("Sampler");
+				String SamplingDate = rs.getString("SamplingDate");
+				String Analyst = rs.getString("Analyst");
+				String Auditor = rs.getString("Auditor");
+				
+				map.put("SamplingSites", SamplingSites == null? "" : SamplingSites); //采样地点
+				map.put("Sampler", Sampler == null? "" : Sampler); //采样人
+				map.put("SamplingDate", SamplingDate == null? "" : SamplingDate); //采样日期
+				map.put("Analyst", Analyst == null? "" : Analyst); //分析人
+				map.put("Auditor", Auditor == null? "" : Auditor); //审批人
+				map.put("SumNetWeight", rs.getString("SumNetWeight")); //进煤量
 				result.add(map);
 			}
 		} catch (Exception e) {
@@ -228,12 +240,12 @@ public final class FuelDataTimingDao {
 				String datamark = String.valueOf(map.get("Datamark")).trim();
 				if ("入厂".equals(datamark)) {
 					tableName = "T_rcmmz";
-					colNames = " (s_id,fxrq,kb1,qsfk1,kgjsfk1,kgjhfaark1,kgjhfaadk1,kgjhfadk1,kgjhffvark1,kgjhffvadk1,kgjhffvdk1," 
+					colNames = " (s_id,fxrq,kb1,cyr,cydd,cyrq,approver,fxr,jml1,qsfk1,kgjsfk1,kgjhfaark1,kgjhfaadk1,kgjhfadk1,kgjhffvark1,kgjhffvadk1,kgjhffvdk1," 
 							+ "kgjhffvdafk1,kgjqlstark1,kgjqlstadk1,kgjqlstdk1,gdtk1,dtfrlk1,kgjgwrz1,sdjdwrzkmj1,sdjdwrzkcal1) ";
 				}
 				else if ("入炉".equals(datamark)) {
 					tableName = "T_rlmb";
-					colNames = " (s_id,fxrq,kb1,qsfk1,kgjsfk1,kgjhfaark1,kgjhfaadk1,kgjhfadk1,kgjhffvark1,kgjhffvadk1,kgjhffvdk1," 
+					colNames = " (s_id,fxrq,kb1,cyr,cydd,cyrq,approver,fxr,jml1,qsfk1,kgjsfk1,kgjhfaark1,kgjhfaadk1,kgjhfadk1,kgjhffvark1,kgjhffvadk1,kgjhffvdk1," 
 							+ "kgjhffvdafk1,kgjqlstark1,kgjqlstadk1,kgjqlstdk1,gdtk1,dtfrlk1,kgjgwrz1,sdjdwrzkmj1,sdjdwrzkcal1) ";
 				}
 				else {
@@ -289,7 +301,13 @@ public final class FuelDataTimingDao {
 				dbf.sqlExe("insert into " + tableName + colNames + " values('" + 
 				    map.get("TESTNO") + "','" + 
 				    testdate + "','" + 
-					map.get("MineralNo") + "'," + 
+					map.get("MineralNo") + "','" + 
+					map.get("Sampler") + "','" + 
+					map.get("SamplingSites") + "','" + 
+					map.get("SamplingDate") + "','" + 
+					map.get("Auditor") + "','" + 
+					map.get("Analyst") + "'," + 
+					map.get("SumNetWeight") + "," + 
 					Mt + "," +  //qsfk1
 					Mad + "," +  //kgjsfk1
 					Aar + "," +  //kgjhfaark1
