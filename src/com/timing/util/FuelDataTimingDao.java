@@ -28,6 +28,8 @@ import com.yulongtao.db.TableEx;
  *
  */
 public final class FuelDataTimingDao {
+	private static final String ZERO_STR = "0";
+	
 	/**
 	 * 
 	 * @return
@@ -245,7 +247,7 @@ public final class FuelDataTimingDao {
 				}
 				else if ("入炉".equals(datamark)) {
 					tableName = "T_rlmb";
-					colNames = " (s_id,fxrq,kb1,cyr,cydd,cyrq,approver,fxr,jml1,qsfk1,kgjsfk1,kgjhfaark1,kgjhfaadk1,kgjhfadk1,kgjhffvark1,kgjhffvadk1,kgjhffvdk1," 
+					colNames = " (s_id,fxrq,kb1,cyr,cydd,cyrq,approver,fxr,jml111,qsfk1,kgjsfk1,kgjhfaark1,kgjhfaadk1,kgjhfadk1,kgjhffvark1,kgjhffvadk1,kgjhffvdk1," 
 							+ "kgjhffvdafk1,kgjqlstark1,kgjqlstadk1,kgjqlstdk1,gdtk1,dtfrlk1,kgjgwrz1,sdjdwrzkmj1,sdjdwrzkcal1) ";
 				}
 				else {
@@ -256,39 +258,54 @@ public final class FuelDataTimingDao {
 
 				String datajsonvalue = (String) map.get("datajsonvalue");
 				JsonNode node = mapper.readTree(datajsonvalue);
-				String Qb_ad = node.get("Qb_ad") == null ? "0" : node.get("Qb_ad").asText(); //弹筒发热量(发热)
-				String Qgr_d = node.get("Qgr_d") == null ? "0" : node.get("Qgr_d").asText(); //干基高位发热量(发热)
-				String Qnet_var = node.get("Qnet_var") == null ? "0" : node.get("Qnet_var").asText(); //收到基低位发热量(发)
-				String Qnet_v_arcal = node.get("Qnet_v_arcal") == null ? "0" : node.get("Qnet_v_arcal").asText(); //收到基低位发热量(大卡)
-				String Mt = node.get("Mt") == null ? "0" : node.get("Mt").asText(); //全水(发热量、水)
-				String Mad = node.get("Mad") == null ? "0" : node.get("Mad").asText(); //分析水(发、水、碳氢氮、工、硫)
-				String Mf = node.get("Mf") == null ? "0" : node.get("Mf").asText(); //外水(发热量)
-				String Sad = node.get("Sad") == null ? "0" : node.get("Sad").asText(); //全硫（硫）
-				String Sar = node.get("Sar") == null ? "0" : node.get("Sar").asText(); //收到基全硫
-				String Sd = node.get("Sd") == null ? "0" : node.get("Sd").asText(); //干基硫
-				String Ht_ad = node.get("Ht_ad") == null ? "0" : node.get("Ht_ad").asText(); //氢（过程）（碳氢氮）
-				String Har = node.get("Har") == null ? "0" : node.get("Har").asText(); //收到基氢
-				String Hd = node.get("Hd") == null ? "0" : node.get("Hd").asText(); //干基氢
-				String Vt_ad = node.get("Vt_ad") == null ? "0" : node.get("Vt_ad").asText(); //挥发分（过程）（工分）
-				String Vad = node.get("Vad") == null ? "0" : node.get("Vad").asText(); //空干基挥发分（工、发）
-				String Var = node.get("Var") == null ? "0" : node.get("Var").asText(); //收到基挥发分
-				String Vd = node.get("Vd") == null ? "0" : node.get("Vd").asText(); //干基挥发分
-				String Vdaf = node.get("Vdaf") == null ? "0" : node.get("Vdaf").asText(); //干燥无灰基挥发分
-				String Aad = node.get("Aad") == null ? "0" : node.get("Aad").asText(); //空干基灰分（工、发）
-				String Aar = node.get("Aar") == null ? "0" : node.get("Aar").asText(); //收到基灰分
-				String Ad = node.get("Ad") == null ? "0" : node.get("Ad").asText(); //干基灰分
-				String FCad = node.get("FCad") == null ? "0" : node.get("FCad").asText(); //干燥无灰基碳（工分）
-				String Fcar = node.get("Fcar") == null ? "0" : node.get("Fcar").asText(); //收到基碳
-				String Fcd = node.get("Fcd") == null ? "0" : node.get("Fcd").asText(); //干基碳
-				String Hdaf = node.get("Hdaf") == null ? "0" : node.get("Hdaf").asText(); //干燥无灰基氢
-				String Nad = node.get("Nad") == null ? "0" : node.get("Nad").asText(); //空干基氮（碳氢氮）
-				String Nd = node.get("Nd") == null ? "0" : node.get("Nd").asText(); //干基氮
-				String CD = node.get("CD") == null ? "0" : node.get("CD").asText(); //干基碳
-				String DTWD = node.get("DTWD") == null ? "0" : node.get("DTWD").asText(); //变形温度(灰熔融)
-				String STWD = node.get("STWD") == null ? "0" : node.get("STWD").asText(); //软化温度(灰熔融)
-				String HTWD = node.get("HTWD") == null ? "0" : node.get("HTWD").asText(); //半球温度(灰熔融)
-				String FTWD = node.get("FTWD") == null ? "0" : node.get("FTWD").asText(); //流动温度(灰熔融)
-				String Had = node.get("Had") == null ? "0" : node.get("Had").asText(); //空干基氢（发、工、碳氢氮）
+				String Qb_ad = node.get("Qb,ad") == null ? ZERO_STR : node.get("Qb,ad").asText(); //弹筒发热量(发热)
+				String Qgr_d = node.get("Qgr,d") == null ? ZERO_STR : node.get("Qgr,d").asText(); //干基高位发热量(发热)
+				String Qnet_var = node.get("Qnet,var") == null ? ZERO_STR : node.get("Qnet,var").asText(); //收到基低位发热量(发)
+				String Qnet_v_arcal = node.get("Qnet,v,arcal") == null ? ZERO_STR : node.get("Qnet,v,arcal").asText(); //收到基低位发热量(大卡)
+				
+				//old data
+				if (ZERO_STR.equals(Qb_ad)) {
+					Qb_ad = node.get("Qb_ad") == null ? ZERO_STR : node.get("Qb_ad").asText();
+				}
+				if (ZERO_STR.equals(Qgr_d)) {
+					Qgr_d = node.get("Qgr_d") == null ? ZERO_STR : node.get("Qgr_d").asText();
+				}
+				if (ZERO_STR.equals(Qnet_var)) {
+					Qnet_var = node.get("Qnet_var") == null ? ZERO_STR : node.get("Qnet_var").asText();
+				}
+				if (ZERO_STR.equals(Qnet_v_arcal)) {
+					Qnet_v_arcal = node.get("Qnet_v_arcal") == null ? ZERO_STR : node.get("Qnet_v_arcal").asText();
+				}
+				
+				String Mt = node.get("Mt") == null ? ZERO_STR : node.get("Mt").asText(); //全水(发热量、水)
+				String Mad = node.get("Mad") == null ? ZERO_STR : node.get("Mad").asText(); //分析水(发、水、碳氢氮、工、硫)
+				String Mf = node.get("Mf") == null ? ZERO_STR : node.get("Mf").asText(); //外水(发热量)
+				String Sad = node.get("Sad") == null ? ZERO_STR : node.get("Sad").asText(); //全硫（硫）
+				String Sar = node.get("Sar") == null ? ZERO_STR : node.get("Sar").asText(); //收到基全硫
+				String Sd = node.get("Sd") == null ? ZERO_STR : node.get("Sd").asText(); //干基硫
+				String Ht_ad = node.get("Ht_ad") == null ? ZERO_STR : node.get("Ht_ad").asText(); //氢（过程）（碳氢氮）
+				String Har = node.get("Har") == null ? ZERO_STR : node.get("Har").asText(); //收到基氢
+				String Hd = node.get("Hd") == null ? ZERO_STR : node.get("Hd").asText(); //干基氢
+				String Vt_ad = node.get("Vt_ad") == null ? ZERO_STR : node.get("Vt_ad").asText(); //挥发分（过程）（工分）
+				String Vad = node.get("Vad") == null ? ZERO_STR : node.get("Vad").asText(); //空干基挥发分（工、发）
+				String Var = node.get("Var") == null ? ZERO_STR : node.get("Var").asText(); //收到基挥发分
+				String Vd = node.get("Vd") == null ? ZERO_STR : node.get("Vd").asText(); //干基挥发分
+				String Vdaf = node.get("Vdaf") == null ? ZERO_STR : node.get("Vdaf").asText(); //干燥无灰基挥发分
+				String Aad = node.get("Aad") == null ? ZERO_STR : node.get("Aad").asText(); //空干基灰分（工、发）
+				String Aar = node.get("Aar") == null ? ZERO_STR : node.get("Aar").asText(); //收到基灰分
+				String Ad = node.get("Ad") == null ? ZERO_STR : node.get("Ad").asText(); //干基灰分
+				String FCad = node.get("FCad") == null ? ZERO_STR : node.get("FCad").asText(); //干燥无灰基碳（工分）
+				String Fcar = node.get("Fcar") == null ? ZERO_STR : node.get("Fcar").asText(); //收到基碳
+				String Fcd = node.get("Fcd") == null ? ZERO_STR : node.get("Fcd").asText(); //干基碳
+				String Hdaf = node.get("Hdaf") == null ? ZERO_STR : node.get("Hdaf").asText(); //干燥无灰基氢
+				String Nad = node.get("Nad") == null ? ZERO_STR : node.get("Nad").asText(); //空干基氮（碳氢氮）
+				String Nd = node.get("Nd") == null ? ZERO_STR : node.get("Nd").asText(); //干基氮
+				String CD = node.get("CD") == null ? ZERO_STR : node.get("CD").asText(); //干基碳
+				String DTWD = node.get("DTWD") == null ? ZERO_STR : node.get("DTWD").asText(); //变形温度(灰熔融)
+				String STWD = node.get("STWD") == null ? ZERO_STR : node.get("STWD").asText(); //软化温度(灰熔融)
+				String HTWD = node.get("HTWD") == null ? ZERO_STR : node.get("HTWD").asText(); //半球温度(灰熔融)
+				String FTWD = node.get("FTWD") == null ? ZERO_STR : node.get("FTWD").asText(); //流动温度(灰熔融)
+				String Had = node.get("Had") == null ? ZERO_STR : node.get("Had").asText(); //空干基氢（发、工、碳氢氮）
 				
 				String testdate = "";
 				try {
