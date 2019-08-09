@@ -194,6 +194,9 @@ public class MisWebAction extends HttpServlet {
                     requestEx.updateSolveTable(strType.substring(2));
                 }
             }
+            
+            Fun.generateXLH(request, response);
+            
             if (strIsApp != null) {
                 out.println("<script language='javascript' src='js/ylphone.js'></script><script>yltPhone.closeLinkByResult('','ok');</script>");
                 return;

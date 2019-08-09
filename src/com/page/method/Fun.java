@@ -1656,4 +1656,34 @@ public class Fun {
 		LaborSchedulingTiming laborSchedulingTiming = new LaborSchedulingTiming();
 		laborSchedulingTiming.initLaborScheduling(laborId);
 	}
+	
+	/**
+	 * 为表单生成序列号.
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	public static void generateXLH(HttpServletRequest request, HttpServletResponse response) {
+		//87654321|T_GZLXD|S_LXDBH|12345678
+		final String xlhInfo = request.getParameter("NO_GEN_XLH_STRETOGY");
+		if (xlhInfo == null || "".equals(xlhInfo)) {
+			return;
+		}
+		DBFactory dbFactory = null;
+		
+		try {
+			dbFactory = new DBFactory();
+			
+			String[] tempArr = xlhInfo.split("\\|");
+			String xlh = com.yulongtao.util.MisSerialUtil.getSerialNum(tempArr[0], request);
+			String sql = "UPDATE " + tempArr[1] + " SET " + tempArr[2] + "='" + xlh + "' WHERE S_ID='" + tempArr[3] + "'";
+			dbFactory.sqlExe(sql, false);
+		} catch (Exception e) {
+			MantraLog.fileCreateAndWrite(e);
+		} finally {
+			if (dbFactory != null) {
+				dbFactory.close();
+			}
+		}
+	}
 }
