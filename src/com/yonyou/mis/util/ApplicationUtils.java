@@ -19,4 +19,27 @@ public final class ApplicationUtils {
 		}
 		return _array;
 	}
+	
+	/**
+	 * 
+	 * @param sourceCode
+	 * @return
+	 */
+	public static final String escapeHTML(String sourceCode) {
+		String result = "";
+		if (sourceCode == null) {
+			return result;
+		}
+		
+		result = sourceCode.replaceAll("\'", "&#x27;");
+		result = result.replaceAll("\"", "&quot;");
+//		result = result.replaceAll(System.getProperty("line.separator"), "<br/>");
+		result = result.replaceAll(System.getProperty("line.separator"), "&nbsp;&nbsp;");
+		return result;
+	}
+	
+	public static void main(String[] args) {
+		String teString = "5. \"操作开始时间\" ";
+		System.out.print(ApplicationUtils.escapeHTML(teString));
+	}
 }
