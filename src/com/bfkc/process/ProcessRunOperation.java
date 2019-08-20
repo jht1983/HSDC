@@ -1339,15 +1339,26 @@ public class ProcessRunOperation {
 			/**查询流程运行信息*/
 			if(exRun.getRecordCount()>0){
 				String strCustomNodes = helper.getColString("S_AUDIT_SEL", exRun.getRecord(0));
-				String strNodeIds = helper.getColString("S_AUDIT_NODES", exRun.getRecord(0));
 				int index = Integer.parseInt(helper.getColString("S_AUDIT_INDEX", exRun.getRecord(0)));
 				strCustomNodes = strCustomNodes.split("\\|",-1)[index];
+				String audDef = "";
+				TableEx nodeEx = null;
+				try {
+					nodeEx = new TableEx("S_AUDIT_DEF","T_SYS_FLOW_NODE"," S_CHILD_ID='"+strCustomNodes +"' and S_FLOW_ID='"+strFlowId+"' and S_AUDIT_VERSION ='"+strVersion+"'");
+					audDef = helper.getColString("S_AUDIT_DEF", nodeEx.getRecord(0));
+				} catch (Exception e) {
+				    MantraLog.fileCreateAndWrite(e);
+					e.printStackTrace();
+				} finally{
+					if(nodeEx!=null){nodeEx.close();}
+				}
+				
 				if(!"".equals(strCustomNodes)){
-					exTRGXX = new TableEx("I_NODE_ID,S_NODE_NAME,I_TYPE","T_SYS_FLOW_NODE","1=1  and I_NODE_ID in("+strCustomNodes+")" +"and S_FLOW_ID='"+strFlowId+"' and S_AUDIT_VERSION ='"+strVersion+"'");
+					exTRGXX = new TableEx("I_NODE_ID,S_NODE_NAME,I_TYPE","T_SYS_FLOW_NODE"," I_NODE_ID in("+strCustomNodes+")" +"and S_FLOW_ID='"+strFlowId+"' and S_AUDIT_VERSION ='"+strVersion+"'");
 					Record rd = null;
 					for(int i=0,j=exTRGXX.getRecordCount();i<j;i++){
 						rd = exTRGXX.getRecord(i);
-						strResult = ("".equals(strResult)?"":(strResult+"|"))+helper.getColString("I_NODE_ID", rd)+","+helper.getColString("S_NODE_NAME", rd)+","+helper.getColString("I_TYPE", rd);
+						strResult = ("".equals(strResult)?"":(strResult+"|"))+helper.getColString("I_NODE_ID", rd)+","+helper.getColString("S_NODE_NAME", rd)+","+helper.getColString("I_TYPE", rd)+","+audDef;
 					}
 				}
 			}

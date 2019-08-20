@@ -330,6 +330,7 @@
 				if(run == false) {
 					return false;
 				}
+				
 				if($("runCod").style.display === "none" && $("runCod").innerHTML.replace(/\s+/g, "") != "") {
 					alert("请选择下一审批人");
 					$("tospan").style.display = "";
@@ -368,7 +369,7 @@
 		var nowNodeName = "<ylt.fun fun="doFlowChoieNode_nowNodeName"/>";
         var S_AUDIT_FSPJ = "<ylt.fun fun="doFlowChoieNode_strFlowPj"/>";
         var auditFlag = "<ylt.fun fun="doFlowChoieNode_auditFlag"/>";
-       
+
         if(auditFlag==""||auditFlag=="7"||auditFlag=="0"){
             $('auditFlagRu').style.visibility="hidden";
         }
@@ -392,15 +393,29 @@
 				condition = condition.substr(0, condition.length - 1);
 				var radioCol = condition.split("\|");
 				var radioArrLength = radioCol.length;
-				var returnRadio = "";
+				var returnRadio = "<table border='0' cellpadding='10' cellspacing='0' align='center' style='vertical-align: middle;'><tr>";
+				var cked = "";
 				for(var i = 0; i < radioArrLength; i++) {
 					var radioCent = radioCol[i].split(",");
-					returnRadio +=  "<div><input type='radio' style='vertical-align: middle;' name='" + RadioName + "' value='" + radioCent[0] + "'/>"+radioCent[1] ;
+					var auditDef = "";
+					if (radioCent.length >= 4) {
+						auditDef = radioCent[3];
+					}
+					
+					if (i == 0 || auditDef == radioCent[0]) {
+						cked = " checked ";
+					}
+					else {
+						cked = "";
+					}
+					
+					returnRadio +=  "<td><table border='0' cellpadding='2' cellspacing='0' align='center' style='vertical-align: middle;'><tr><td><input type='radio' style='vertical-align: middle;' name='" + RadioName + "' value='" + radioCent[0] + "'" + cked + "/></td><td>"+radioCent[1] ;
 					if(EleId=="backCod"){
 					   returnRadio +=":"+radioCent[2]; 
 					}
-					returnRadio +="</div>";
+					returnRadio +="</td></tr></table></td>";
 				}
+				returnRadio +="</tr></table>";
 				$(EleId).innerHTML = returnRadio;
 				/*document.getElementsByName(RadioName)[0].click();*/
 			}
@@ -614,7 +629,7 @@
 	    		}
 	    	}
 	    }
-	    
+	    //console.log($("audioCod").innerHTML.replace(/\s+/g, ""));
 	</script>
 
 </html>
