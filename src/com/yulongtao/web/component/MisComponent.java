@@ -1722,11 +1722,20 @@ public class MisComponent extends HttpServlet
                     final String strChild = this.request.getParameter(String.valueOf(strId) + "_child");
                     if (strChild != null) {
                         record.addField(new FieldEx("S_CHILD_ID", strChild));
+                        String[] strChildArr = strChild.split(",");
+                        if (strChildArr != null && strChildArr.length > 1) {
+                            record.addField(new FieldEx("S_AUDIT_SEL", strChild));
+						}
+                        else {
+                            record.addField(new FieldEx("S_AUDIT_SEL", ""));
+                        }
                         record.addField(new FieldEx("S_START", this.request.getParameter(String.valueOf(strId) + "_start")));
                         record.addField(new FieldEx("S_END", this.request.getParameter(String.valueOf(strId) + "_end")));
                     }
                     for (int k = 0; k < iAttrCount; ++k) {
-                        record.addField(new FieldEx(arrAttrs[k], EString.encoderStr(this.request.getParameter(String.valueOf(strId) + "_attr" + arrAttrs[k]), "utf-8")));
+                    	if (!"S_AUDIT_SEL".equalsIgnoreCase(arrAttrs[k])) {
+                    		record.addField(new FieldEx(arrAttrs[k], EString.encoderStr(this.request.getParameter(String.valueOf(strId) + "_attr" + arrAttrs[k]), "utf-8")));
+						}
                     }
                     tableEx.addRecord(record);
                 }
