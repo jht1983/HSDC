@@ -1570,7 +1570,7 @@ public class MisComponent extends HttpServlet
         else {
             strAudMsg = this.getAudLog(_strFlowId, strRunId, strVerSion);
         }
-        this.out.print("<body style='width:100%;height:100%;overflow:hidden;'><div id='treepanel' style='left:0px;top:0px;position: absolute;z-index:0;width:3000px;height:2000px;background:#fff;' onclick=\"ylt.flow.addNodeByEvent(event)\"></div>");
+        this.out.print("<body style='width:100%;height:100%;'><div id='treepanel' style='left:0px;top:0px;position: absolute;z-index:0;width:2000px;height:1000px;background:#fff;' onclick=\"ylt.flow.addNodeByEvent(event)\"></div>");
         TableEx tableEx = null;
         try {
             if (strVerSion == null) {
