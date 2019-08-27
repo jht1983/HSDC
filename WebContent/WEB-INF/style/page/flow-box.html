@@ -199,7 +199,7 @@
 					<iframe style="display:none;width:100%;height:100%;" id="sys_pic" name="sys_pic" src="about:blank"></iframe>
 <!--&NO_QDBTTN=no取消-->
 <!--NO_QXBTTN   保存-->
-					<iframe style="display:;width:100%;height:100%;" name="sys_bd" id="sys_bd" src="View?sys_bed=true&NO_QXBTTN=no&type<ylt.v message="type">=&$value=$value&</ylt.v>bmid<ylt.v message="bmid">=$value=$value&</ylt.v>sys_flow_run_id<ylt.v message="sys_flow_run_id">=$value=$value&</ylt.v>S_ID<ylt.v message="s_id">=$value=$value&</ylt.v>SPAGECODE<ylt.v message="spagecode">=$value=$value&</ylt.v>S_AUD_USER<ylt.v message="s_aud_user">=$value=$value"</ylt.v>></iframe>
+					<iframe style="display:;width:100%;height:100%;" name="sys_bd" id="sys_bd" src=""></iframe>
 				</td>
 			</tr>
 		</table>
@@ -251,6 +251,7 @@
 		function $N(str) {
 			return document.getElementsByName(str);
 		}
+		
 		var buttonObj;
 		var viewObj;
         var strPic="comp?viewtype=flow&sys_type=viewflow&type="+type+"&bmid="+bmid+"&flowid="+flowId+"&flowversion="+strVer+"&runid="+strRunId;
@@ -361,8 +362,6 @@
 
 		}
 
-		$("lcb").click();
-
 		var runCod = "<ylt.fun fun="doFlowChoieNode_run"/>";
 		var backCod = "<ylt.fun fun="doFlowChoieNode_back"/>";
 		var audioCod = "<ylt.fun fun="doFlowChoieNode_audio"/>";
@@ -380,7 +379,8 @@
 		runCod=runCod=="|"?"":runCod;
 		backCod=backCod=="|"?"":backCod;
 		audioCod=audioCod=="|"?"":audioCod;
-	
+
+		var auditDef = <ylt.v message="s_custom_node">""$value"$value"</ylt.v>;
         function addRadio(condition, EleId) {
 		    if(condition!=""){
 		        $(EleId+"P").style.display="";
@@ -395,10 +395,10 @@
 				var radioArrLength = radioCol.length;
 				var returnRadio = "<table border='0' cellpadding='10' cellspacing='0' align='center' style='vertical-align: middle;'><tr>";
 				var cked = "";
+				var clickA = "";
 				for(var i = 0; i < radioArrLength; i++) {
 					var radioCent = radioCol[i].split(",");
-					var auditDef = "";
-					if (radioCent.length >= 4) {
+					if ("" == auditDef && radioCent.length >= 4) {
 						auditDef = radioCent[3];
 					}
 					
@@ -409,7 +409,14 @@
 						cked = "";
 					}
 					
-					returnRadio +=  "<td><table border='0' cellpadding='2' cellspacing='0' align='center' style='vertical-align: middle;'><tr><td><input type='radio' style='vertical-align: middle;' name='" + RadioName + "' value='" + radioCent[0] + "'" + cked + "/></td><td>"+radioCent[1] ;
+					if(EleId == "audioCod") {
+						clickA = " onclick='customNodeClick(this)' ";
+					}
+					else {
+						clickA = "";
+					}
+					
+					returnRadio +=  "<td><table border='0' cellpadding='2' cellspacing='0' align='center' style='vertical-align: middle;'><tr><td><input type='radio' style='vertical-align: middle;' name='" + RadioName + "' value='" + radioCent[0] + "'" + cked + clickA + "/></td><td>"+radioCent[1] ;
 					if(EleId=="backCod"){
 					   returnRadio +=":"+radioCent[2]; 
 					}
@@ -530,10 +537,11 @@
 		    }
 		    
 		};
-       
-     
-      
-        
+		
+	    function customNodeClick(obj){
+            var url = 'flow-box.v?bmid<ylt.v message="bmid">=$value=$value&</ylt.v>s_id<ylt.v message="s_id">=$value=$value&</ylt.v>sys_flow_run_id<ylt.v message="sys_flow_run_id">=$value=$value&</ylt.v>s_flow_id<ylt.v message="s_flow_id">=$value=$value&</ylt.v>flow_ver<ylt.v message="flow_ver">=$value=$value&</ylt.v>node_code<ylt.v message="node_code">=$value=$value&</ylt.v>spagecode<ylt.v message="spagecode">=$value=$value&</ylt.v>s_aud_user<ylt.v message="s_aud_user">=$value=$value&</ylt.v>gs_upl_kc<ylt.v message="gs_upl_kc">=$value=$value&</ylt.v>DXCZP_ZY<ylt.v message="DXCZP_ZY">=$value=$value&</ylt.v>s_custom_node=' + obj.value;
+            window.location = url;
+        }
 	</script>
 	<script>
 	    function checkUserPower(){
@@ -545,10 +553,9 @@
 	
 	        var checkValue = getTx("S_FLOW_ID=" + NO_sys_flow_id.value + "&S_AUDIT_VERSION=" + NO_sys_flow_Ver.value + "&S_RUN_ID=" + NO_sys_S_RUN_ID.value,"ajax.v");
 	        
-	       
 	         var node = subGetTx(checkValue,"sys_check_flow_now_node");
 	         var user = subGetTx(checkValue,"sys_check_flow_now_user");
-	    
+
 	         if(node==NO_sys_node_code.value&&user.indexOf(SYS_STRCURUSER)>-1){
 	             return true;
 	         }else{
@@ -629,7 +636,17 @@
 	    		}
 	    	}
 	    }
-	    //console.log($("audioCod").innerHTML.replace(/\s+/g, ""));
+
+	    var auditNodeCodArr = document.getElementsByName('auditNodeCod');
+	    var auditNodeCodValue = "";
+	    for(var i = 0; i < auditNodeCodArr.length; i++) {
+	    	if (auditNodeCodArr[i].checked) {
+	    		auditNodeCodValue = auditNodeCodArr[i].value;
+	    	}
+	    }
+	    var dbSrc = "View?sys_bed=true&NO_QXBTTN=no&type<ylt.v message="type">=&$value=$value&</ylt.v>bmid<ylt.v message="bmid">=$value=$value&</ylt.v>sys_flow_run_id<ylt.v message="sys_flow_run_id">=$value=$value&</ylt.v>S_ID<ylt.v message="s_id">=$value=$value&</ylt.v>SPAGECODE<ylt.v message="spagecode">=$value=$value&</ylt.v>S_AUD_USER<ylt.v message="s_aud_user">=$value=$value"</ylt.v>+"&S_CUSTOM_NODE="+auditNodeCodValue;
+	    document.getElementById('sys_bd').src=dbSrc;
+		$("lcb").click();
 	</script>
 
 </html>
