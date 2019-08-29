@@ -26,6 +26,8 @@ import org.apache.commons.lang.ArrayUtils;
 
 import com.Debug;
 import com.page.method.Fun;
+import com.sun.istack.internal.FinalArrayList;
+import com.timing.impcl.MantraLog;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.FieldEx;
 import com.yulongtao.db.Query;
@@ -916,16 +918,47 @@ public class ABSElement extends BodyTagSupport
     
     private HashMap getFlowFormMsg(final Object objFlowId, final String strFlowVer, final String _strFlowRunId, final HttpServletRequest _request) {
         TableEx tableEx = null;
+        TableEx tableEx2 = null;
         final HashMap vResult = new HashMap();
+        String sCustomNode = _request.getParameter("S_CUSTOM_NODE");
+        String strNodeId = "";
+        String strChildId = "";
         try {
             if (_strFlowRunId == null) {
-                final String strNodeId = new Fun().getFlowStartNodeId(_request, objFlowId.toString(), strFlowVer);
+                strNodeId = new Fun().getFlowStartNodeId(_request, objFlowId.toString(), strFlowVer);
                 tableEx = new TableEx("S_AUDIT_TABLECONTROL", "t_sys_flow_node", "S_FLOW_ID='" + objFlowId + "' and S_AUDIT_VERSION='" + strFlowVer + "' and I_TYPE=3 and I_NODE_ID=" + strNodeId);
             }
             else {
-                tableEx = new TableEx("S_AUDIT_TABLECONTROL", "t_sys_flow_run,t_sys_flow_node", "t_sys_flow_node.S_FLOW_ID='" + objFlowId + "' and t_sys_flow_node.S_AUDIT_VERSION='" + strFlowVer + "' and S_RUN_ID='" + _strFlowRunId + "' " + " and t_sys_flow_run.S_FLOW_ID=t_sys_flow_node.S_FLOW_ID and t_sys_flow_run.S_AUDIT_VERSION=t_sys_flow_node.S_AUDIT_VERSION" + " and t_sys_flow_run.S_NODE_CODE=t_sys_flow_node.I_NODE_ID");
+                tableEx = new TableEx("S_AUDIT_TABLECONTROL,I_NODE_ID,S_CHILD_ID", "t_sys_flow_run,t_sys_flow_node", "t_sys_flow_node.S_FLOW_ID='" + objFlowId + "' and t_sys_flow_node.S_AUDIT_VERSION='" + strFlowVer + "' and S_RUN_ID='" + _strFlowRunId + "' " + " and t_sys_flow_run.S_FLOW_ID=t_sys_flow_node.S_FLOW_ID and t_sys_flow_run.S_AUDIT_VERSION=t_sys_flow_node.S_AUDIT_VERSION and t_sys_flow_run.S_NODE_CODE=t_sys_flow_node.I_NODE_ID");
+                strNodeId = tableEx.getRecord(0).getFieldByName("I_NODE_ID").value.toString();
+                strChildId = tableEx.getRecord(0).getFieldByName("S_CHILD_ID").value.toString();
             }
-            final String[] arrFormTableRight = tableEx.getRecord(0).getFieldByName("S_AUDIT_TABLECONTROL").value.toString().split("`");
+            String tableControl = tableEx.getRecord(0).getFieldByName("S_AUDIT_TABLECONTROL").value.toString();
+            
+            try {
+                if (sCustomNode != null && !"".equals(sCustomNode)) {
+                	tableEx2 = new TableEx("S_AUDIT_TABLECONTROL,I_TYPE", "t_sys_flow_node", "t_sys_flow_node.S_FLOW_ID='" + objFlowId + "' and t_sys_flow_node.S_AUDIT_VERSION='" + strFlowVer + "' and t_sys_flow_node.I_NODE_ID=" + strChildId);
+                	Record record = tableEx2.getRecord(0);
+                	String nodeType = record.getFieldByName("I_TYPE").value.toString();
+                	if ("2".equals(nodeType)) { //2. 网管分支
+						String tableControl2 = record.getFieldByName("S_AUDIT_TABLECONTROL").value.toString();
+	                	
+	    				final String[] branchTableControls = tableControl2.split("###");
+	    				for (int i = 0; i < branchTableControls.length; i++) {
+	    					final String[] branchTableControlContent = branchTableControls[i].split("##");
+	    					String branchId = strChildId + "-" + sCustomNode;
+	    					if (branchId.equals(branchTableControlContent[0])) {
+	    						tableControl = branchTableControlContent[1];
+	    						break;
+							}
+	    				}
+					}
+    			}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+            
+            final String[] arrFormTableRight = tableControl.split("`");
             for (int iFormTableCount = arrFormTableRight.length, i = 0; i < iFormTableCount; ++i) {
                 final String[] arrStrFormMsg = arrFormTableRight[i].split("\\$");
                 if (arrStrFormMsg[1].equals("true")) {
@@ -960,6 +993,10 @@ public class ABSElement extends BodyTagSupport
         finally {
             if (tableEx != null) {
                 tableEx.close();
+            }
+
+            if (tableEx2 != null) {
+                tableEx2.close();
             }
         }
         
