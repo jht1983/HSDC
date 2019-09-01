@@ -245,11 +245,9 @@ public class ProcessRunOperationHelper {
 						strVal = strVal.replace("{request:", "");//strAuditComment {request:strAuditComment}
 						strVal = strVal.replace("}", "");
 						
-						Object _obj = _request.getParameter(strVal+"");
-//						new String(_obj.toString().getBytes("iso8859-1"),"UTF-8");
-						String str = _obj.toString();
+						String str = _request.getParameter(strVal);
 						try{
-							strVal = (_obj==null?"":(new String(str.getBytes("iso8859-1"),"UTF-8")));
+							strVal = (str==null?"":(new String(str.getBytes("iso8859-1"),"UTF-8")));
 						}catch (Exception e) {
 						    MantraLog.fileCreateAndWrite(e);
 						}
