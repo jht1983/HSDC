@@ -183,7 +183,9 @@ public class ProcessRunOperation {
 			b=false;
 			e.printStackTrace();
 		}finally{
-			tableEx.close();
+			if (tableEx != null) {
+				tableEx.close();
+			}
 		}
 		return b;
 	}
@@ -398,7 +400,9 @@ public class ProcessRunOperation {
 		    
 			e.printStackTrace();
 		}finally{
-			exFlowNode.close();
+			if (exFlowNode != null) {
+				exFlowNode.close();
+			}
 		}
 		return _strNextAuditUser;
 	}
@@ -423,7 +427,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			ex.close();
+			if (ex != null) {
+				ex.close();
+			}
 			dbf.close();
 		}
 		return strRole;
@@ -1270,7 +1276,9 @@ public class ProcessRunOperation {
 			b = false;
 			e.printStackTrace();
 		}finally{
-			exRun.close();
+			if (exRun != null) {
+				exRun.close();
+			}
 			if(tableEx!=null){tableEx.close();}
 			return b;
 		}
@@ -1309,8 +1317,12 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			exRun.close();
-			exRunNowNode.close();
+			if (exRun != null) {
+				exRun.close();
+			}
+			if (exRunNowNode != null) {
+				exRunNowNode.close();
+			}
 		}
 		
 		map.put("processAudCustomNodeIds", processAudCustomNodeIds.replaceAll("\r|\n", ""));
@@ -1514,7 +1526,6 @@ public class ProcessRunOperation {
 				} catch (Exception e) {
 				    MantraLog.fileCreateAndWrite(e);
 					e.printStackTrace();
-					if(ex!=null){ex.close();}
 				}finally{
 					if(ex!=null){ex.close();}
 				}
@@ -1543,7 +1554,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			ex.close();
+			if (ex != null) {
+				ex.close();
+			}
 		}
 		return strResult;
 	}
@@ -1628,7 +1641,9 @@ public class ProcessRunOperation {
 			    MantraLog.fileCreateAndWrite(e);
 				e.printStackTrace();
 			}finally{
-				exTRGXX.close();
+				if (exTRGXX != null) {
+					exTRGXX.close();
+				}
 			}
 		}
 		return strAuditIds;
@@ -1650,7 +1665,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			exTRGXX.close();
+			if (exTRGXX != null) {
+				exTRGXX.close();
+			}
 		}
 		return sr.deleteCharAt(sr.length()-1).toString();
 	}
@@ -1713,8 +1730,10 @@ public class ProcessRunOperation {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}finally{
+			if (exSq != null) {
+				exSq.close();
+			}
 			try{
-					exSq.close();
 					dbf.close();
 			}catch(Exception e){
 				
@@ -1766,8 +1785,10 @@ public class ProcessRunOperation {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}finally{
+			if (exSq != null) {
+				exSq.close();
+			}
 			try{
-					exSq.close();
 					dbf.close();
 			}catch(Exception e){
 				
@@ -1806,7 +1827,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			exTRGXX.close();
+			if (exTRGXX != null) {
+				exTRGXX.close();
+			}
 		}
 		//获取最近的部门
 
@@ -1856,7 +1879,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			exTRGXX.close();
+			if (exTRGXX != null) {
+				exTRGXX.close();
+			}
 		}
 		//获取最近的部门
 		StringBuffer sr = new StringBuffer();
@@ -2065,7 +2090,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			exRun.close();
+			if (exRun != null) {
+				exRun.close();
+			}
 			return bFlag;
 		}
 	}
@@ -2135,7 +2162,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			ex.close();
+			if (ex != null) {
+				ex.close();
+			}
 		}
 		return strReturn+"|";
 	}
@@ -2171,7 +2200,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			exFlowLog.close();
+			if (exFlowLog != null) {
+				exFlowLog.close();
+			}
 		}
 		return strBeforeNodeId;
 	}
@@ -2186,7 +2217,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			exFlowLog.close();
+			if (exFlowLog != null) {
+				exFlowLog.close();
+			}
 		}
 		return strBeforeUser;
 	}
@@ -2213,7 +2246,9 @@ public class ProcessRunOperation {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}finally{
-			ex.close();
+			if (ex != null) {
+				ex.close();
+			}
 		}
 		return ex;
 	}
@@ -2389,7 +2424,9 @@ public class ProcessRunOperation {
 		}catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
 		}finally {
-			tb.close();
+			if (tb != null) {
+				tb.close();
+			}
 		}
 		return retStr;
 	}

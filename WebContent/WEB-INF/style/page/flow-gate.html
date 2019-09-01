@@ -42,9 +42,6 @@
 	var nodeId = '';
     var S_CONDITION = document.getElementById('S_CONDITION');
 
-
-
- 
 	function initValue(){
 	   document.getElementById('attreventname').value = objParentFlow.objCurSelGraph.data("text");
 	   var attr_childcon = objParentFlow.objCurSelGraph.data("attr_childcon");
@@ -120,19 +117,22 @@
 	function morenxuanze(_obj){
 	    if(_obj.checked){
 	        $('S_AUDIT_SEL').value=strNodeChild;
+	        $('S_AUDIT_AUTO').value="N";
 	    }else{
 	        $('S_AUDIT_SEL').value="";
+	        $('S_AUDIT_AUTO').value="Y";
 	    }
 	}
 	var audioValue=$("S_AUDIT_DEF").value;
 	var selValue=$("S_AUDIT_SEL").value;
+	var autoValue=$("S_AUDIT_AUTO").value;
     
-    if(selValue!=""){
+    if(autoValue!="Y"){
 	    $("SFSDXZJD").click();
 	}else{
 	    
 	}
-	if(audioValue!=""){
+    if(audioValue!=""){
 	    $("radio_"+audioValue).click();
 	}else{
 	    

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.Debug;
+import com.timing.impcl.MantraLog;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.FieldEx;
 import com.yulongtao.db.Record;
@@ -1598,9 +1599,10 @@ public class MisComponent extends HttpServlet
             for (int i = 0; i < iRecordCount; ++i) {
                 final Record record = tableEx.getRecord(i);
                 objNodeId = record.getFieldByName("I_NODE_ID").value;
+                
                 final String strNodeName = record.getFieldByName("S_NODE_NAME").value.toString().replaceAll("\n", "\\\\n");
                 this.out.print(String.valueOf(strSplit) + "'" + objNodeId + "':{'text':'" + strNodeName + "','child':'" + record.getFieldByName("S_CHILD_ID").value + "',x:" + record.getFieldByName("I_X").value + ",y:" + record.getFieldByName("I_Y").value + ",'start':'" + record.getFieldByName("S_START").value + "','end':'" + record.getFieldByName("S_END").value + "',iIndexColor:" + record.getFieldByName("I_COLOR_INDEX").value + ",type:" + record.getFieldByName("I_TYPE").value);
-                for (int j = 1; j < iColCount; ++j) {
+                for (int j = 1; j < iColCount + 1; ++j) {
                     final FieldEx fieldEx = record.getFieldById(j);
                     if (hashNoView.get(fieldEx.fieldName) == null) {
                         this.out.print("," + fieldEx.fieldName + ":'" + fieldEx.value + "'");
@@ -1720,10 +1722,11 @@ public class MisComponent extends HttpServlet
                     record.addField(new FieldEx("I_TYPE", this.request.getParameter(String.valueOf(strId) + "_type")));
                     record.addField(new FieldEx("S_CONDITION", EString.encoderStr(this.request.getParameter(String.valueOf(strId) + "_attrchildcon"), "utf-8")));
                     final String strChild = this.request.getParameter(String.valueOf(strId) + "_child");
+                    final String autoAuditSel = this.request.getParameter(String.valueOf(strId) + "_attrS_AUDIT_AUTO");
                     if (strChild != null) {
                         record.addField(new FieldEx("S_CHILD_ID", strChild));
                         String[] strChildArr = strChild.split(",");
-                        if (strChildArr != null && strChildArr.length > 1) {
+                        if (strChildArr != null && strChildArr.length > 1 && !"Y".equals(autoAuditSel)) {
                             record.addField(new FieldEx("S_AUDIT_SEL", strChild));
 						}
                         else {

@@ -1006,13 +1006,14 @@ public class Fun {
 	public StringBuffer TheGateway() {
 		StringBuffer localStringBuffer = new StringBuffer();
 		localStringBuffer.append(
-				"<table id='flowgate' width='100%' class='table1'><col width='30%'/><col width='10%'/><col /><tr><th class='td1'>鑺傜偣鍚嶇О </th><th class='td1'>榛樿 </th><th class='td1'>鏉′欢璁剧疆 | 鏄惁鎵嬪姩閫夋嫨鑺傜偣<input id='SFSDXZJD' type='checkbox' style='vertical-align: middle;' onclick='morenxuanze(this)' /> </th></tr");
+				"<table id='flowgate' width='100%' class='table1'><col width='30%'/><col width='10%'/><col /><tr><th class='td1'>\u8282\u70b9\u540d\u79f0</th><th class='td1'>\u9ed8\u8ba4</th><th class='td1'>\u6761\u4ef6\u8bbe\u7f6e | \u662f\u5426\u624b\u52a8\u9009\u62e9\u8282\u70b9<input id='SFSDXZJD' type='checkbox' style='vertical-align: middle;' onclick='morenxuanze(this)' /> </th></tr");
 		localStringBuffer.append("</table>");
 		localStringBuffer.append(
-				"<table class='table1' cellpadding='0' cellspacing='0' width='100%' style='display:black;position:fixed; bottom:0;'><tbody><tr><td colspan='2' align='right' class='bttformoparea'><table><tbody><tr><td><a id='submitToObj' class='button green'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>纭畾</div></span></a></td><td width='50px'> </td></tr></tbody></table></td></tr></tbody></table>");
+				"<table class='table1' cellpadding='0' cellspacing='0' width='100%' style='display:black;position:fixed; bottom:0;'><tbody><tr><td colspan='2' align='right' class='bttformoparea'><table><tbody><tr><td><a id='submitToObj' class='button green'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>\u786e \u5b9a</div></span></a></td><td width='50px'> </td></tr></tbody></table></td></tr></tbody></table>");
 		localStringBuffer.append("<input type=\"hidden\" name=\"S_CONDITION\" id=\"S_CONDITION\" value=\"\" />");
 		localStringBuffer.append("<input type=\"hidden\" name=\"S_AUDIT_DEF\" id=\"S_AUDIT_DEF\" value=\"\" />");
 		localStringBuffer.append("<input type=\"hidden\" name=\"S_AUDIT_SEL\" id=\"S_AUDIT_SEL\" value=\"\" />");
+		localStringBuffer.append("<input type=\"hidden\" name=\"S_AUDIT_AUTO\" id=\"S_AUDIT_AUTO\" value=\"\" />");
 		return localStringBuffer;
 	}
 
@@ -1074,16 +1075,16 @@ public class Fun {
 		localStringBuffer.append("<col width='5%' />");
 		localStringBuffer.append("<tr>");
 		localStringBuffer.append("<td class='td1'></td>");
-		localStringBuffer.append("<td class='td1'>鍒?</td>");
-		localStringBuffer.append("<td class='td1'>鏉′欢</td>");
-		localStringBuffer.append("<td class='td1'>鏉′欢</td>");
-		localStringBuffer.append("<td class='td1'>鎷兼帴</td>");
+		localStringBuffer.append("<td class='td1'>\u5b57\u6bb5</td>");
+		localStringBuffer.append("<td class='td1'>\u6761\u4ef6</td>");
+		localStringBuffer.append("<td class='td1'>\u6761\u4ef6</td>");
+		localStringBuffer.append("<td class='td1'>\u62fc\u63a5</td>");
 		localStringBuffer.append("<td class='td1'></td>");
 		localStringBuffer.append("</tr>");
 		localStringBuffer.append("</table>");
 
 		localStringBuffer.append(
-				"<table class='table1' cellpadding='0' cellspacing='0' width='100%' style='display:black'><tbody><tr><td colspan='2' align='right' class='bttformoparea'><table><tbody><tr><td class='td1'><a onclick='save();' class='button green'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>纭畾</div></span></a></td><td width='50px'> </td></tr></tbody></table></td></tr></tbody></table>");
+				"<table class='table1' cellpadding='0' cellspacing='0' width='100%' style='display:black'><tbody><tr><td colspan='2' align='right' class='bttformoparea'><table><tbody><tr><td class='td1'><a onclick='save();' class='button green'><span><div class='bttn_panel' style='background-image:url(images/eve/qd.png);'>\u786e \u5b9a</div></span></a></td><td width='50px'> </td></tr></tbody></table></td></tr></tbody></table>");
 
 		try {
 			tableEx = new TableEx("SPAGETYPE,SFIELDCODE", "t_sys_pagemsg", "SPAGECODE='" + str + "'");
