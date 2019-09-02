@@ -932,6 +932,9 @@ public class Fun {
 				ProcessUtillMantra pUm = new ProcessUtillMantra();
 				results = pUm.delRunLog(flowId, flowRunCode, flowVersion, flowRunUserCode);
 				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[backFlow]->pUm.delRunLog:" + results);
+				
+				ProcessRunOperationHelper processRunOperationHelper = new ProcessRunOperationHelper();
+				processRunOperationHelper.delMsg(flowRunCode);
 			}
 			sb.append("var SYS_FLOW_RUNOVER='" + results + "';");
 		} catch (Exception e) {
