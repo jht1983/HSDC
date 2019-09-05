@@ -515,6 +515,12 @@ public class ProcessRunOperation {
 			String strMethodName = helper.getColString("S_AUDIT_CLASSNAME", exRun1.getRecord(0));
 			String strAuditStateBak = request.getParameter("NO_sys_flow_state");
 			String strField = helper.getColString("S_AUDIT_TABLECONTROL", exRun1.getRecord(0));
+			
+			//如果手动选择分支，则需要读取分支属性配置
+			String tableControl = ProcessRunOperationDao.getNextBranchTableControl(strFlowId, strVersion, strNodeIdNow, strCustomNodeId);
+			if(tableControl!=null&&!"".equals(tableControl)){
+				strField = tableControl;
+			}
 
 			if(strField!=null&&!"".equals(strField)){
 				helper.updateTabByFlowSet(request, "", strField, strFlowId, strFlowRunId,_sb);//strNodeIdNow
@@ -525,7 +531,6 @@ public class ProcessRunOperation {
 	            	if(exRunGet!=null){
 	            	    exRunGet.close();
 	            	}
-				    
 	            }
 			}
 			

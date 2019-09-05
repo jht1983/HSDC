@@ -244,4 +244,46 @@ public final class ProcessRunOperationDao {
 			if(dbf!=null){dbf.close();}
 		}
 	}
+	
+	/**
+	 * 
+	 * @param strFlowId
+	 * @param strVersion
+	 * @param strNodeIdNow
+	 * @param strCustomNodeId
+	 * @return
+	 */
+	public static String getNextBranchTableControl(String strFlowId, String strVersion, String strNodeIdNow, String strCustomNodeId) {
+		TableEx tableEx1 = null;
+		TableEx tableEx2 = null;
+		String result = "";
+		try {
+			tableEx1 = new TableEx("S_CHILD_ID", "t_sys_flow_node", "t_sys_flow_node.S_FLOW_ID='" + strFlowId + "' and t_sys_flow_node.S_AUDIT_VERSION='" + strVersion + "' and t_sys_flow_node.I_NODE_ID=" + strNodeIdNow);
+        	String strChildId = tableEx1.getRecord(0).getFieldByName("S_CHILD_ID").value.toString();
+        	tableEx2 = new TableEx("S_AUDIT_TABLECONTROL,I_TYPE", "t_sys_flow_node", "t_sys_flow_node.S_FLOW_ID='" + strFlowId + "' and t_sys_flow_node.S_AUDIT_VERSION='" + strVersion + "' and t_sys_flow_node.I_NODE_ID=" + strChildId);
+        	Record recordTableEx2 = tableEx2.getRecord(0);
+        	String nodeType = recordTableEx2.getFieldByName("I_TYPE").value.toString();
+        	if ("2".equals(nodeType)) { //2. 网管分支
+				String tableControl = recordTableEx2.getFieldByName("S_AUDIT_TABLECONTROL").value.toString();
+				final String[] branchTableControls = tableControl.split("###");
+				
+				for (int i = 0; i < branchTableControls.length; i++) {
+					final String[] branchTableControlContent = branchTableControls[i].split("##");
+					String branchId = strChildId + "-" + strCustomNodeId;
+					if (branchId.equals(branchTableControlContent[0])) {
+						result = branchTableControlContent[1];
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+		    MantraLog.fileCreateAndWrite(e);
+			e.printStackTrace();
+		} finally {
+			if(tableEx1!=null){tableEx1.close();}
+			if(tableEx2!=null){tableEx2.close();}
+		}
+		
+		return result;
+	}
 }

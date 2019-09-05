@@ -31,6 +31,11 @@
     $value
         var formid="$value";
     </ylt.v>
+    <ylt.v message="bmid">
+    var bmid="";
+$value
+    var bmid="$value";
+</ylt.v>
   
 </script>
 <script>
@@ -97,6 +102,9 @@
 		tempTD += "<td class='td1'>";
 		tempTD += "<input type='button' class='button red' id='sys_node_" + strNodeChild[i] + "' onclick='CONDITION(this," + strNodeChild[i] + ");' style='width:120px;height:40px;' value='设置条件' />";
 		tempTD += "</td>";
+		tempTD += "<td class='td1'>";
+		tempTD += "<input type='button' class='button red' id='sys_node_" + strNodeChild[i] + "_attr' onclick='setAttr(this," + strNodeChild[i] + ");' style='width:120px;height:40px;' value='设置属性' />";
+		tempTD += "</td>";
 		elementTr.innerHTML = tempTD;
 		tableElement.appendChild(elementTr);
 	}
@@ -104,6 +112,11 @@
 	function CONDITION(_obj, num) { 
 		miniWin('设置条件', '', 'flow-gatecon.v?nodechild=' + num+'&formid='+formid+"&parentId="+objParentFlow.objCurSelGraph.data("id"), 1000, 330, '', ''); 
 	}
+	
+	function setAttr(_obj, num) { 
+		miniWin('设置属性', '', 'flow-gate-select.v?nodechild=' + num+'&formid='+formid+"&parentId="+objParentFlow.objCurSelGraph.data("id")+"&bmid="+bmid+"&par_gs_upl_kc="+gs_upl_kc, 1300, 800, '', ''); 
+	}
+	
 	var conButton=null;
 	function radioCodReturn(_obj){
 	    var radio = _obj.value;

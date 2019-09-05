@@ -1,0 +1,315 @@
+	<script type='text/javascript' src='js/evenfunction.js'></script>
+	<script type='text/javascript' src='js/ylselect.js'></script>
+	<script type='text/javascript' src='js/yltree.js'></script>
+	<script type='text/javascript' src='js/check.js'></script>
+	
+<script>
+	<ylt.v message="gs_upl_kc">
+        var gs_upl_kc="";
+    $value
+        var gs_upl_kc="$value";
+    </ylt.v>
+    <ylt.v message="nodechild">
+        var nodechild="";
+    $value
+        var nodechild="$value";
+    </ylt.v>
+    <ylt.v message="parentId">
+    var parentId="";
+$value
+    var parentId="$value";
+</ylt.v>
+    var objParent = parent.getOpenPage(gs_upl_kc);
+
+    var S_AUDIT_TABLECONTROL =objParent.document.getElementById("S_AUDIT_TABLECONTROL");
+    var str_TABLECONTROL = S_AUDIT_TABLECONTROL.value;
+    
+    var tableControlArr = str_TABLECONTROL.split("###");
+    var tableControlMap = {};
+    for(var i =0 ; i < tableControlArr.length ; i++){
+    	var tableControl = tableControlArr[i];
+    	if ("" != tableControl) {
+        	var tableControlValue = tableControl.split("##");
+        	if (tableControlValue.length > 1) {
+            	tableControlMap[tableControlValue[0]] = tableControlValue[1];
+        	}
+    	}
+    }
+    
+</script>
+
+	<style>
+		.noneTable {
+			background: url("res/images/none.png");
+			background-size: 100% 100%;
+			width: 100%;
+			height: 20px;
+			cursor: pointer;
+		}
+		
+		.blackTable {
+			background: url("res/images/black.png");
+			background-size: 100% 100%;
+			width: 100%;
+			height: 20px;
+			cursor: pointer;
+		}
+		
+		.tableinputV {
+			width: 100%;
+			height: 25px;
+		}
+		
+		.tableCol td {
+			border-top: 1px solid #e9e9e9;
+			border-left: 1px solid #e9e9e9;
+			text-align: center;
+			text-overflow: ellipsis;
+			/* for IE */
+			-moz-text-overflow: ellipsis;
+			/* for Firefox,mozilla */
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		
+		.none {
+			/* display: none; */
+		}
+		
+		.noneSpan {
+			border: 0.1px solid aliceblue;
+			text-align: center;
+			box-sizing: border-box;
+			display: inline-block;
+			display: -moz-inline-box;
+			cursor: pointer;
+		}
+		
+		.blockSpan {
+			border: 0.1px solid aliceblue;
+			text-align: center;
+			box-sizing: border-box;
+			display: inline-block;
+			display: -moz-inline-box;
+			cursor: pointer;
+			background-color: #539ddd;
+		}
+		input[type=checkbox] {
+        	width:20px;
+        	height:20px;
+        }
+	</style>
+	<link href='css/table.css' rel='stylesheet' type='text/css' />
+
+	<div id="THTCK" style="position: fixed;overflow-y:scroll; width:50%;height:50%; z-index:998;background-color:#e9e9e9;display:none;left:15%;top:15%">
+
+	</div>
+
+	<table id="headTable" class='table1' cellpadding='0' cellspacing='0' width='100%' height="15" style="display:black;"></table>
+
+	<div style="width:100%;color:#000;">当前用户:{user},审批意见写入字段{request:strAuditComment},当前用户名称:{username}当前用户角色:{role},当前用户部门:{branchid},当前时间:{date},{number:变量::},其他请填写默认值</div>
+	<div id="flowSpan">
+	</div>
+	<ylt.fun fun="TheSelectTable" />
+	<table class='table1' cellpadding='0' cellspacing='0' width='100%' style="display:black">
+		<tr>
+			<td colspan='2' align='right' class='bttformoparea'>
+				<table>
+					<tr>
+						<td>
+							<a id="submitToObj" class="button green" href="javascript:getAttr();"><span><div
+    									class='bttn_panel'
+    									style='background-image:url(images/eve/qd.png);'>确定</div> </span> </a>
+						</td>
+						<td width='50px'>&#160;</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+	<script>
+	<ylt.v message="par_gs_upl_kc">
+    var par_gs_upl_kc="";
+$value
+    var par_gs_upl_kc="$value";
+</ylt.v>
+		var objParentPar = parent.getOpenPage(par_gs_upl_kc);
+		var objParentFlow = objParentPar.ylt.flow;
+		var array_end = objParentFlow.arrStrAttrIds;
+		var iFieldCount = array_end.length;
+		
+        function trim(str){ 
+　　        return str.replace(/(^\s*)|(\s*$)/g, "");
+　　    }
+		function getAttr() { /* 给对象赋值 */
+			tableControlMap[parentId + "-" + nodechild] = tableColReturn();
+		    var tableControlResult = "";
+			for(let key in tableControlMap){
+				tableControlResult += key+"##"+tableControlMap[key]+"###";
+			}
+			
+			S_AUDIT_TABLECONTROL.value = tableControlResult;
+			parent.closeWinById(gs_upl_kc);
+		}
+
+		function $(_str) {/* 按ID取对象 */
+			return document.getElementById(_str);
+		}
+		
+		function requiredCod(_obj){
+		    var tableObj = _obj.parentNode.parentNode;
+		    if(_obj.checked){
+		        tableObj.cells[3].firstElementChild.checked = true;
+		        tableObj.cells[4].firstElementChild.checked = true;
+		    }
+		}
+		
+		function tablejong(tableName, tableCod, _index) {/* 新增表单页面 */
+			var tableAttr = tableCod.split("|");
+			var index = tableAttr.length;
+			var toLeftOrRight = Math.ceil(index / 2);
+			var tableCol = $(tableName + "#tableCol1");
+			var tableCol2 = $(tableName + "#tableCol2");
+			for(var i = 0; i < index; i++) {
+				var tableColAttr = tableAttr[i].split(",");
+				var tempID = tableName + "$" + tableColAttr[1];
+				/*三权测试*/
+				if(_index == 0) {
+					var optionArr = document.createElement('option');
+					optionArr.innerHTML = tableColAttr[0];
+					optionArr.value = tableColAttr[1];
+				}
+				var tempTr = "";
+				tempTr = "<tr class='tr1'><td id= '" + tempID + "#Name'>" + tableColAttr[0] + "</td><td style='display:none;' id='" + tempID + "#Code'>" + tableColAttr[1] + "</td><td><input id='" + tempID + "#show' " + (tableColAttr[2] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input id='" + tempID + "#edit' " + (tableColAttr[3] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input onclick='requiredCod(this);' id='" + tempID + "#required' " + (tableColAttr[4] == 'true' ? 'checked' : '') + "  type='checkbox' /></td><td><input id='" + tempID + "#cl' type='text' style='width:95%'  value='" + tableColAttr[5] + "'  /></td><td><input id='" + tempID + "#once' " + (tableColAttr[3] == 'true' ? 'checked' : '') + "  type='checkbox' /></td></tr>";
+				if(i < toLeftOrRight) {
+					tableCol.innerHTML += tempTr;
+				} else {
+					tableCol2.innerHTML += tempTr;
+				}
+			}
+		}
+		var arrName = [];
+		var arrCod = [];
+		var flowSpan = $("flowSpan");
+		var Element = null;
+		var strSplitTableContRol = TABLECONTROL.split("`");/* 获取当前的表单字段内容内容 */
+		var strSplitTableContRolLength = strSplitTableContRol.length;/* 表单长度 */
+		for(var i = 0; i < strSplitTableContRolLength; i++) {
+		    try{
+    			var strSplitTableContRolArr = strSplitTableContRol[i].split("$");
+    			var tableId = strSplitTableContRolArr[0];
+    			var tableName = strSplitTableContRolArr[1];
+    			var tableJur = strSplitTableContRolArr[2];
+    			var tableCod = strSplitTableContRolArr[3];
+    			
+    			Element = document.createElement("span");
+    			Element.setAttribute("onclick", "showTable1(this,'" + tableId + "')");
+    			Element.setAttribute("class", "noneSpan");
+    			Element.innerHTML = "<input style='vertical-align:middle;' type='checkbox' " + (tableJur == "true" ? "checked" : "") + " id='" + tableId + "#Jur' />" + tableName;
+    			arrName.push(tableId);
+    			arrCod.push(tableCod);
+    			tablejong(tableId, tableCod, i);
+    			flowSpan.appendChild(Element);
+		    }catch(e){
+		        
+		    }
+		}
+		/* 表单字段回写 */
+		var TABLECONTROL_Value = tableControlMap[parentId + "-" + nodechild];
+		if(TABLECONTROL_Value != null && TABLECONTROL_Value != "") {
+			var allTableJurCod = TABLECONTROL_Value.split("`");
+			var allTableJurCodLength = allTableJurCod.length;
+			for(var i = 0; i < allTableJurCodLength; i++) {
+				var tableJurCod = allTableJurCod[i].split("$");
+				var tableId = tableJurCod[0];
+				if(arrName.indexOf(tableId) == -1) {
+					S_AUDIT_TABLECONTROL.value = "";
+					continue;
+				}
+				var tableJur = tableJurCod[1];
+				var tableCon = tableJurCod[2];
+				var tableConArr = tableCon.split("|");
+				var tableConLength = tableConArr.length;
+				$(tableId + "#Jur").checked = (tableJur == "true" ? true : false);
+				if(tableCon === "") {
+					continue;
+				}
+				for(var z = 0; z < tableConLength; z++) {
+					var temp = tableConArr[z].split(",");
+					$(tableId + "$" + temp[0] + "#show").checked = (temp[1] == "true" ? true : false);
+					$(tableId + "$" + temp[0] + "#edit").checked = (temp[2] == "true" ? true : false);
+					if(temp[3] == "true"||temp[3] == "false"){
+					    $(tableId + "$" + temp[0] + "#required").checked = (temp[3] == "true" ? true : false);
+					    $(tableId + "$" + temp[0] + "#cl").value = temp[4];
+					}else{
+					    $(tableId + "$" + temp[0] + "#cl").value = temp[3];
+					}
+					try {
+						$(tableId + "$" + temp[0] + "#once").checked = false;
+						$(tableId + "$" + temp[0] + "#once").checked = (temp[5] == "true" ? true : false);
+					}catch(e){
+				        
+				    }
+				}
+			}
+		}
+		var strCol = "";
+		var spanObj = null;
+
+		function showTable1(_obj, _str) {
+			if(strCol != "") {
+				$(strCol + "#tableCol1").style.display = "none";
+				$(strCol + "#tableCol2").style.display = "none";
+				spanObj.className = "noneSpan";
+			}
+			$(_str + "#tableCol1").style.display = "";
+			$(_str + "#tableCol2").style.display = "";
+			_obj.className = "blockSpan";
+			spanObj = _obj;
+			strCol = _str;
+		}
+
+		function tableColReturn() {/* 表单控制返回 */
+			var strReturn = "";
+			var strSplitReturn = "";
+			var arrNameLength = arrName.length;
+			for(var i = 0; i < arrNameLength; i++) {
+				strReturn += strSplitReturn;
+				strReturn += arrName[i] + "$";
+				strReturn += $(arrName[i] + "#Jur").checked + "$";
+
+				var CodRrrValue = arrCod[i].split("|");
+				var CodRrrValueLength = CodRrrValue.length;
+				var strSplit = "";
+				for(var j = 0; j < CodRrrValueLength; j++) {
+					var Code = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#Code").innerHTML;
+					var show = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#show").checked;
+					var edit = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#edit").checked;
+					var required = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#required").checked;
+					var cl = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#cl").value;
+					var once = $(arrName[i] + "$" + CodRrrValue[j].split(",")[1] + "#once").checked;
+					
+					if(show == true && edit == false && cl == "") {
+						continue;
+					}
+					strReturn += strSplit;
+
+					strReturn += Code + ",";
+					strReturn += show + ",";
+					strReturn += edit + ",";
+					strReturn += required + ",";
+					strReturn += trim(cl)+ ",";
+					strReturn += once + "";
+					strSplit = "|";
+				}
+				strSplitReturn = "`";
+			}
+			return strReturn;
+		}
+
+		var spanTabArr = document.getElementById("flowSpan").getElementsByTagName("span");
+		if(spanTabArr.length > 0) {
+			spanTabArr[0].click();
+		}
+	</script>
