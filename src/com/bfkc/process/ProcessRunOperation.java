@@ -434,28 +434,7 @@ public class ProcessRunOperation {
 		}
 		return strRole;
 	}
-	private static String defaultTag() {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        for (StackTraceElement e : stackTrace) {
-            System.out.println(e.getClassName() + "\t"
-                    + e.getMethodName() + "\t" + e.getLineNumber());
-        }
-        StackTraceElement log = stackTrace[1];
-        String tag = null;
-        for (int i = 1; i < stackTrace.length; i++) {
-            StackTraceElement e = stackTrace[i];
-            if (!e.getClassName().equals(log.getClassName())) {
-                tag = e.getClassName() + "." + e.getMethodName();
-                break;
-            }
-        }
-        if (tag == null) {
-            tag = log.getClassName() + "." + log.getMethodName();
 
-        }
-        System.out.println(tag);
-        return tag;
-    }
 	/**
 	 * @param request
 	 * @param _sb
@@ -477,7 +456,6 @@ public class ProcessRunOperation {
 		String strVersion="";
 		String strCustomNodeId = "";
 		String strAuditUser = "";
-		System.out.println("**************************************************************流程开始"+defaultTag());
 		try{
 			request.setCharacterEncoding("UTF-8");
 			/**接收数据*/
@@ -530,7 +508,7 @@ public class ProcessRunOperation {
 			if("1".equals(strIsOverRun)){//判断完成返回
 				return b;
 			}
-
+			
 			/**更新表单*/
 			exRun1 = queryFlowNodeInfo(strFlowId, strVersion, strNodeIdNow);
 			String strClassName = helper.getColString("S_AUDIT_PAGENAME", exRun1.getRecord(0));
@@ -555,6 +533,7 @@ public class ProcessRunOperation {
 	            	}
 	            }
 			}
+			
 			if(strCustomNodeId!=null&&!"".equals(strCustomNodeId)){
 				exRun2 = queryFlowNodeInfo(strFlowId, strVersion, strCustomNodeId);
            	    //节点名称相同-类型为2,手动选择节点
@@ -567,7 +546,8 @@ public class ProcessRunOperation {
 					 helper.updateFlowRun(strArrayFlowRunVal, "6");
 					 return true;
 			    }
-           }
+           }            
+			
 			 _sb.append("form end");
 			String[] strArrayAuditUsers =strAuditUsers.split("\\|",-1);//审批人数组
 			String[] strArrayNodes = strNodes.split("\\|",-1);//节点数组
@@ -593,7 +573,6 @@ public class ProcessRunOperation {
 			String strAudMod="";//审批 指定/  抢占模式
 			String[] strOtherArrayNow = strOther.split("\\|",-1)[index].split(",",-1);
 			boolean bFlag=false;//驳回&结束流程
-			 
 			/**是否逾期*/
 			if(!isYuQi(strLaunchDate, strYqs,index)){
 				String strYqOpt = strYqs.split("\\|",-1)[index].split(",",-1)[1];
@@ -622,7 +601,6 @@ public class ProcessRunOperation {
 				}
 			}else{
 				 _sb.append("当前审批人长度:"+strArrayAuditUsersNow.length+"---strAuditState---"+strAuditState);
-				
 				/**判断是否审核通过*/
 				switch (strAuditState) {
 					case "1"://审核通过
@@ -664,14 +642,12 @@ public class ProcessRunOperation {
 								//子流程结束,启动主流程
 							}
 						}else if(strArrayAuditUsersNow.length>1){//当前为多用户审批,判断审批模式
-							
 							String strAudModNow = strOtherArrayNow[4];//当前节点模式
 							//类型,值5,通过人数6,驳回人数7|
 							_sb.append("当前节点strother:"+strOther.split("\\|",-1)[index]);
 							double dHQ = Double.parseDouble((strOtherArrayNow[5]==null||"".equals(strOtherArrayNow[5])?"0":strOtherArrayNow[5]));//会签值
 							int iHQCount = strArrayAuditUsersNow.length;//总人数
 							int iPasscount = Integer.parseInt("".equals(strOtherArrayNow[6])?"0":strOtherArrayNow[6]);//通过次数
-							
 							//修改数组 strOther
 							_sb.append("修改strOther数组 :"+strOther);
 							_sb.append("修改strOtherArrayNow数组 :"+strOtherArrayNow);
@@ -691,28 +667,12 @@ public class ProcessRunOperation {
 									strAudMod = strOther.split("\\|",-1)[iNextAuditUserIndex].split(",",-1)[4];//下一节点模式:抢占?指定
 									break;
 								case "HQ"://会签
-									//new add 2019-9-11
-									String strBranchMod=helper.getColString("S_AUDIT_BRANCH", exRun1.getRecord(0)).trim();
-									if(strBranchMod.startsWith("branch:")&&strBranchMod.length()>7) {
-										if(doBranchHQ(strArrayAuditUsers,index,request.getSession().getAttribute("SYS_STRBRANCHID").toString())) {
-											index = index+1;
-											iNextAuditUserIndex = getNodesInfoRun(strAuditUsers,strOther,index,strLaunchUser,strArrayMsgs,strFlowId,strVersion,strFlowRunId,strArrayNodes[index]);
-											strAudMod = strOther.split("\\|",-1)[iNextAuditUserIndex].split(",",-1)[4];//下一节点模式:抢占?指定
-										};
-									}else if(strBranchMod.startsWith("team:")&&strBranchMod.length()>5) {
-										if(doTeamHQ(strArrayAuditUsers,index,request.getSession().getAttribute("SYS_STRCURUSER").toString())) {
-											index = index+1;
-											iNextAuditUserIndex = getNodesInfoRun(strAuditUsers,strOther,index,strLaunchUser,strArrayMsgs,strFlowId,strVersion,strFlowRunId,strArrayNodes[index]);
-											strAudMod = strOther.split("\\|",-1)[iNextAuditUserIndex].split(",",-1)[4];//下一节点模式:抢占?指定
-										};
-									}else { //new add end2019-9-11									
-										//通过人数5--驳回人数6,会签值1,通过比例0.5,
-										if(((iPasscount+1)*100/iHQCount)>=dHQ){//通过比例>=录入值,执行通过操作
-											index = index+1;
-											iNextAuditUserIndex = getNodesInfoRun(strAuditUsers,strOther,index,strLaunchUser,strArrayMsgs,strFlowId,strVersion,strFlowRunId,strArrayNodes[index]);
-											strAudMod = strOther.split("\\|",-1)[iNextAuditUserIndex].split(",",-1)[4];//下一节点模式:抢占?指定
-										}
-									}//new add new add end 2019-9-11
+									//通过人数5--驳回人数6,会签值1,通过比例0.5,
+									if(((iPasscount+1)*100/iHQCount)>=dHQ){//通过比例>=录入值,执行通过操作
+										index = index+1;
+										iNextAuditUserIndex = getNodesInfoRun(strAuditUsers,strOther,index,strLaunchUser,strArrayMsgs,strFlowId,strVersion,strFlowRunId,strArrayNodes[index]);
+										strAudMod = strOther.split("\\|",-1)[iNextAuditUserIndex].split(",",-1)[4];//下一节点模式:抢占?指定
+									}
 									break;
 								default:
 									index = index+1;
@@ -938,8 +898,6 @@ public class ProcessRunOperation {
 			}
 			String updateMessage = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_START_TAG), _sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_END_TAG) + ProcessRunOperationHelper.UPDATE_FIELD_END_TAG.length());
 			String[] strArrayFlowLog = {strFlowId,strFlowRunId,strNodeIdNow,strNowDate,strVersion,strAuditUser,strAuditState,strAuditComment,updateMessage};
-			
-			System.out.println("=====================================插入审核日志");
 			insertFlowLog("1", strArrayFlowLog);
 			/**更新当前审批日志为空*/
 			updateSendMsgZt(dbf,strFlowRunId,strAuditUser,strFlowId);
@@ -993,7 +951,7 @@ public class ProcessRunOperation {
 			if("1".equals(strAuditStateBak)&&strClassName!=null&&strMethodName!=null&&!"".equals(strMethodName)&&!"".equals(strClassName)){
 				helper.reflectMothedInvoke(strClassName, strMethodName, request);
 			}
-			System.out.println("=====================================审批结束");		
+			
 			/**审批通过&流程结束执行操作*/
 			if("1".equals(strIsOver)&"1".equals(strAuditState)){
 				DBFactory db = new DBFactory();
@@ -1655,17 +1613,6 @@ public class ProcessRunOperation {
 	 * @return
 	 */
 	public String queryAuditPerson(String _strLanuchUserId,String _strLanuchBranchId,String _strBranchIds,String _strRoleIds,String _strUserIds,String _strAttr,String _strZj,HttpServletRequest _request,Record rd,String _strFlowRunId){
-		//new add 2019-9-11
-		_strBranchIds=_strBranchIds.trim();
-		if(_strBranchIds.startsWith("branch:"))
-			_strBranchIds=_strBranchIds.substring(7);
-		String strTeam="";
-		if(_strBranchIds.startsWith("team:")) {
-			strTeam=_strBranchIds.substring(5).trim();
-			_strBranchIds="";
-		}
-		//new add end 2019-9-11
-		
 		String strAuditIds = "";
 		//选择了人------------直接返回人
 		String strGw = "";
@@ -1704,13 +1651,6 @@ public class ProcessRunOperation {
 				}
 			}
 		}
-//new add 2019-9-11  S_USER_CODE,S_PEOPLE_CODE
-			if(!strTeam.equals("")) {
-				strAuditIds=helper.getTeamMsg("S_PEOPLE_CODE in ('"+strAuditIds.replaceAll(",", "','")+
-						"') and S_USER_CODE in('"+strTeam.replaceAll(",", "','")+"')",false);
-			}
-//new add end 2019-9-11
-System.out.println("**********************************************person***"+strAuditIds);			
 		return strAuditIds;
 	}
 	
@@ -1868,8 +1808,8 @@ System.out.println("**********************************************person***"+str
 		//查询人所在父级部门的所有人,并通过角色筛选得到map< 角色代码，人ID>
 		try {
             String Sqyy = selDAteRet("S_TSSX","T_JSYHZ","S_ID='"+_strZj+"'");
-            MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---Sqyy---"+Sqyy);
-            MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---Sqyy---"+strRole);
+            //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---Sqyy---"+Sqyy);
+            //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---Sqyy---"+strRole);
             
             if("SQYY".equals(Sqyy)){
 	            exTRGXX = new TableEx("t_rgxx.SROLECODE SROLECODE,t_rgxx.SYGZW SYGZW,t_rgxx.SBRANCHID SBRANCHID","T_SQRYDJB LEFT JOIN t_rgxx ON T_SQRYDJB.S_RYBM=t_rgxx.sygzw "," 1=1 and SROLECODE!='' and SBRANCHID like '"+strBranchCodes.substring(0,3)+"%' ");//and SROLECODE in("+_strRoles+")
@@ -1910,7 +1850,7 @@ System.out.println("**********************************************person***"+str
 			 strAuditIds =sr.deleteCharAt(sr.length()-1).toString();
 		 }
 		 
-		 MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---strAuditIds---"+strAuditIds);
+		 //MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---strAuditIds---"+strAuditIds);
 		return strAuditIds;
 	}
 	
@@ -2495,49 +2435,4 @@ System.out.println("**********************************************person***"+str
 		}
 		return retStr;
 	}
-    /*******************2019-9-11 update****** old source 2019-9-5****************************************/
-    /**
-     * @see #processRun 670
-     * @see #queryAuditPerson 1626 1675
-     * @see ProcessRunOperationHelper #updateTabByFlowSet 204
-     * @see #doBranchHQ
-     * @see #doTeamHQ
-     */
-    private boolean doBranchHQ(String[] _arrNodeAudUsers,int _iCurIndex,String _strCurUserBranchId) {
-    	boolean vResult=false;
-    	String strUsers=_arrNodeAudUsers[_iCurIndex].replaceAll(",", "','");
-    	TableEx tableEx=null;
-    	try {
-			tableEx=new TableEx("SYGZW","t_rgxx","sygzw in ('"+strUsers+"') and SBRANCHID<>'"+_strCurUserBranchId+"'");
-			int iRecordCount=tableEx.getRecordCount();
-			String strSplit="";
-			strUsers="";
-			Record record;
-			for(int i=0;i<iRecordCount;i++) {
-				record=tableEx.getRecord(i);
-				strUsers+=strSplit+record.getFieldByName("SYGZW").value;
-				strSplit=",";
-			}
-			_arrNodeAudUsers[_iCurIndex]=strUsers;
-			if(strUsers.equals(""))
-				vResult=true;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(tableEx!=null)
-				tableEx.close();
-		}
-    	return vResult;
-    } 
-    private boolean doTeamHQ(String[] _arrNodeAudUsers,int _iCurIndex,String _strUserCode) {
-    	boolean vResult=false;
-    	String strUsers=_arrNodeAudUsers[_iCurIndex].replaceAll(",", "','");
-		String strCondition="S_PEOPLE_CODE in ('"+strUsers+"') and S_USER_CODE<>'"+helper.getTeamMsg("S_PEOPLE_CODE='"+_strUserCode+"'", true)+"'";
-		strUsers=helper.getTeamMsg(strCondition,false);
-		_arrNodeAudUsers[_iCurIndex]=strUsers;
-		if(strUsers.equals(""))
-			vResult=true;
-    	return vResult;
-    }
 }
