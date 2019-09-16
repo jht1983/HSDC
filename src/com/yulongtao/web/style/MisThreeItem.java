@@ -135,7 +135,7 @@ public class MisThreeItem extends ThreeItem {
         TableEx tableEx = null;
         this.dbf = new DBFactory();
         Query query = new Query("*", "T_SYS_MOD", "1=1 order by ISQL");
-        if (!this.strUserCode.equals("888")) {
+        if (!"888".equals(this.strUserCode)) {
             if (!this.strGroupRole.equals("")) {
                 final String strInRole = "SROLECODE in ('" + this.strGroupRole.replaceAll(",", "','") + "')";
                 query = new Query("*", "T_SYS_MOD,t_roleright", "SMODCODE=SRIGHTCODE and (SROLECODE='" + this.strRoleCode + "' or " + strInRole + ") GROUP by SMODCODE order by ISQL");

@@ -43,7 +43,7 @@ public class Fun {
 	public HttpServletResponse response;
 	public HashMap hashFieldValue;
 	
-	public void init() {
+	public static void init() {
 		//called by InitFactory
 	}
 
