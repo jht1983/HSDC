@@ -39,6 +39,7 @@
                 width:100%
 			}
 </style>
+<script type='text/javascript' src='res/js/alertfField.js?v=1.1'></script>
 </head>
 
 <body>
@@ -124,7 +125,7 @@
 		    <col width='10%'/>
             <tr>
                <td>日期： </td>
-               <td  id="SYS_RQ">$value </td>
+               <td  id="SYS_RQ"><span name="upDat">$value</span> </td>
                <td>星期:</td>
                <td>$value </td>
                <td>班次： </td>
@@ -262,7 +263,7 @@
 			
 			</td>
 			<td id="$value">
-				$value
+				<span name="upTime">$value</span>
 			</td>
 			<td class="texIndt">
 				$value
@@ -339,7 +340,7 @@
 	            交接时间：
 	        </td>
 	         <td style="border-bottom: 1px solid #000;">
-	           $value
+	           <span name="upTime">$value</span>
 	        </td>
             <td></td>
 	    </tr>
@@ -408,7 +409,9 @@ $value
 	
 		</ylt.for>
         document.getElementById("ppap").innerHTML=insertHtml;
-        
+
+        dataFormat("upDat","yyyy年MM月dd日");
+        dataFormat("upTime","yyyy年MM月dd日 hh时mm分");
         window.print();
     document.getElementById('SYS_RQ2').innerHTML=document.getElementById('SYS_RQ').innerHTML;
     var serialNumber = document.getElementsByName('serialNumber');

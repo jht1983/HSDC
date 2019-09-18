@@ -36,11 +36,12 @@
             .sb{font-style:normal;display:block;position:absolute;top:-40px;left:-10px;width:35px;}
             em{font-style:normal;display:block;position:absolute;top:-25px;left:-80px;width:55x;}
 </style>
+<script type='text/javascript' src='res/js/alertfField.js?v=1.1'></script>
 <body>
     <!--startprint-->
     <p algin="center" style="text-align:center;font-size:28px">启 动 炉 运 行 日 志</p>
     <ylt.for dataId="1543807209338">
-       <span style="float:right;"><span class="show_base_span">&#160;&#160;$value</span><span class="show_base_span">&#160;&#160;$value&#160;&#160;</span></span>
+       <span style="float:right;"><span class="show_base_span" name="upDat">&#160;&#160;$value</span><span class="show_base_span">&#160;&#160;$value&#160;&#160;</span></span>
           
        <table class="Ttable">
         <tr>
@@ -390,6 +391,8 @@ $value
 	
 		</ylt.for>
         document.getElementById("ppap").innerHTML=insertHtml;
+
+        dataFormat("upDat","yyyy年MM月dd日");
         window.print();
     
     

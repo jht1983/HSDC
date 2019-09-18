@@ -1202,7 +1202,7 @@ function sys_EditForm(width,height,flag){
     
 function dataFormat(_name,_formatStr){
     try{
-        var upDat = document.getElementsByName("upDat");
+        var upDat = document.getElementsByName(_name);
         var datOn = null;
 		for(let i = 0 ; i < upDat.length;i++){
 		    let obj = upDat[i];
