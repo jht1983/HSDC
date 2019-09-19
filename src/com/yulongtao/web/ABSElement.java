@@ -10,14 +10,17 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -606,6 +609,21 @@ public class ABSElement extends BodyTagSupport
         final StringBuffer vResult = new StringBuffer();
         final String strWidth = "100%";
         vResult.append("<form id=\"add\" method=\"post\" style=\"width:100%;height:100%;\">");
+        String curPageToken = "";
+        try {
+        	HttpSession session = request.getSession();
+        	List submissionTokenList = (List) session.getAttribute(RepeatSubmissionFilter.SYS_SUBMISSION_TOKEN_LIST);
+    		if (submissionTokenList == null) {
+    			submissionTokenList = new ArrayList();
+    			session.setAttribute(RepeatSubmissionFilter.SYS_SUBMISSION_TOKEN_LIST, submissionTokenList);
+    		}
+    		curPageToken = UUID.randomUUID().toString();
+    		submissionTokenList.add(curPageToken);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+        vResult.append("<input type='hidden' name='" + RepeatSubmissionFilter.SYS_SUBMISSION_TOKEN_PARAM + "' id='" + RepeatSubmissionFilter.SYS_SUBMISSION_TOKEN_PARAM + "' value='" + curPageToken + "'>");
+        
         final String strFieldCodes = this.getFilterData(hashHQRC.get("SFIELDCODE").toString(), request);
         String[] arrcode = strFieldCodes.split(",");
         String[] arrname = hashHQRC.get("SFIELDNAME").toString().replaceAll(" ", "&nbsp;").split(",");

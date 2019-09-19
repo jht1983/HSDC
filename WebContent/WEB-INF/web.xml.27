@@ -464,6 +464,15 @@
 	</servlet-mapping>
 
 	<filter>
+        <filter-name>RepeatSubmissionFilter</filter-name>
+        <filter-class>com.yulongtao.web.RepeatSubmissionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RepeatSubmissionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	<filter>
         <filter-name>YLRequest</filter-name>
         <filter-class>com.yulongtao.web.YLRequest</filter-class>
     </filter>
