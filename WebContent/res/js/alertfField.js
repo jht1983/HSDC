@@ -1082,7 +1082,7 @@ function delSysbttoOnEdit(){
 
               var processIndex = subGetTx(returnUserBz,"processIndex");
                var loginUser = subGetTx(returnUserBz,"loginUser");
-               alert(arr);
+
               if(loginUser!="888"){
 
                   if(processIndex!="0"&&LCSFYX=="0"){
