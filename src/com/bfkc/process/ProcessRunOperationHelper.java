@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.bfkc.process;
 
 import java.lang.reflect.InvocationTargetException;
@@ -201,6 +198,32 @@ public class ProcessRunOperationHelper {
 						
 						strVal = branchesMap.get(strCustomNodeId);
 					}
+					
+					
+					//new add 2019-9-11 {hqbh:001001}:{user}
+					if (strVal.indexOf("{hqbh:") > -1) {
+						strVal = strVal.replace("{hqbh:", "");
+						strVal = strVal.replace("}", "");
+						String[] arrStrBranchWrite = strVal.split(":");
+						if(_request.getSession().getAttribute("SYS_STRBRANCHID").toString().equals(arrStrBranchWrite[0]))
+							strVal=arrStrBranchWrite[1];
+						else
+							continue;
+						
+					}
+					if (strVal.indexOf("{hqteam:") > -1) {
+						strVal = strVal.replace("{hqteam:", "");
+						strVal = strVal.replace("}", "");
+						String[] arrStrBranchWrite = strVal.split(":");
+						
+						if(getTeamMsg("S_PEOPLE_CODE='"+_request.getSession().getAttribute("SYS_STRCURUSER")+"'",true).equals(arrStrBranchWrite[0]))
+							strVal=arrStrBranchWrite[1];
+						else
+							continue;
+						
+					}
+					//new add end
+					
 					
 					if(strVal.indexOf("{number:")>-1){
 						strVal = strVal.replace("{", "");
@@ -720,4 +743,34 @@ public class ProcessRunOperationHelper {
 		String updateValueColumnStr = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG) + ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG.length(), _sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_END_TAG));
 		System.out.println(updateValueColumnStr);
 	}
+	//new add 2019-9-11
+	protected String getTeamMsg(String _strCondition,boolean _bIsGetTeam) {
+    	String vResult="";
+    	TableEx tableEx=null;
+    	try {
+			tableEx=new TableEx("S_USER_CODE,S_PEOPLE_CODE","T_BZRYB",_strCondition);
+			int iRecordCount=tableEx.getRecordCount();
+			if(iRecordCount>0) {
+				if(_bIsGetTeam)
+					return tableEx.getRecord(0).getFieldByName("S_USER_CODE").value.toString();
+				else {
+					String strSplit="";
+					Record record;
+					for(int i=0;i<iRecordCount;i++) {
+						record=tableEx.getRecord(i);
+						vResult+=strSplit+record.getFieldByName("S_PEOPLE_CODE").value;
+						strSplit=",";
+					}
+				}
+			}
+				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(tableEx!=null)
+				tableEx.close();
+		}
+    	return vResult;
+    }
 }

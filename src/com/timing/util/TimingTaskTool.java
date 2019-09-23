@@ -384,6 +384,7 @@ public class TimingTaskTool {
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
+			dbf.close();
 			if (tableEx != null)
 				tableEx.close();
 		}
@@ -499,6 +500,8 @@ public class TimingTaskTool {
 		} catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
 		} finally {
+			if(tableEx!=null)
+				tableEx.close();
 			if (dbf != null) {
 				dbf.close();
 			}
