@@ -1,0 +1,18 @@
+SELECT T_YSDJ.S_ID S_ID,
+	T_YSDJ.S_SL - ifnull(sum(T_YSJY.S_SL), 0) + ifnull(
+		sum(
+			(
+				SELECT
+					sum(T_YSGH.S_GHSL) GHHS
+				FROM
+					T_YSGH
+				WHERE
+					T_YSGH.S_KEY_ID = T_YSJY.S_ID
+			)
+		),
+		0
+	) retNum
+FROM
+	T_YSDJ
+LEFT JOIN T_YSJY ON T_YSDJ.S_ID = T_YSJY.S_KEY_ID
+GROUP BY T_YSDJ.S_ID
