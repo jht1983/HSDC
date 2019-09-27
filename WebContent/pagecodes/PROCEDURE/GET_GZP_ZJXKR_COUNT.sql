@@ -28,16 +28,14 @@ group by DATE_FORMAT(DATE_SUB(S_GZZJ_XKRQZSJ,INTERVAL 2 HOUR),'%Y-%m-%d'),S_GZZJ
 
 UNION All
 
-(select 'T_YJDHGZP','一级动火工作票',DATE_FORMAT(DATE_SUB(S_GZZJ_XKRQZSJ,INTERVAL 2 HOUR),'%Y-%m-%d') xksj,S_GZZJ_BZBM bz, S_BPDD bpdd, if(S_BPDD='01_JK', S_JZ,'') jz, sum(IFNULL(aqcsCount,0)) count
-from (select * from T_YJDHGZP where S_DEL<>'1' and S_GZPZT<>'GZPZT051' and T_YJDHGZP.S_WXZZ='001017' and S_GZZJ_BZBM in ('01', '02', 'hd03', '21') and S_GZZJ_XKRQZSJ<>'') gzp
-LEFT OUTER JOIN (select s_fid,count(*) aqcsCount from t_dhy_aqcs where S_DHBMYCQDAC<>'' or S_YXYCQDAC<>'' or S_XFYCQDAC<>'' GROUP BY s_fid) aqcs on aqcs.s_fid=gzp.S_ID
-group by DATE_FORMAT(DATE_SUB(S_GZZJ_XKRQZSJ,INTERVAL 2 HOUR),'%Y-%m-%d'),S_GZZJ_BZBM, S_BPDD, if(S_BPDD='01_JK', S_JZ,''))
+(select 'T_YJDHGZP','一级动火工作票',DATE_FORMAT(DATE_SUB(S_GZZJ_DHGZZJSJ,INTERVAL 2 HOUR),'%Y-%m-%d') xksj,S_GZZJ_BZBM bz, S_BPDD bpdd, if(S_BPDD='01_JK', S_JZ,'') jz, count(S_BPDD) count
+from (select * from T_YJDHGZP where S_DEL<>'1' and S_GZPZT<>'GZPZT051' and T_YJDHGZP.S_WXZZ='001017' and S_GZZJ_BZBM in ('01', '02', 'hd03', '21') and S_GZZJ_DHGZZJSJ<>'') gzp
+group by DATE_FORMAT(DATE_SUB(S_GZZJ_DHGZZJSJ,INTERVAL 2 HOUR),'%Y-%m-%d'),S_GZZJ_BZBM, S_BPDD, if(S_BPDD='01_JK', S_JZ,''))
 
 UNION All
 
-(select 'T_EJDHGZP','二级动火工作票',DATE_FORMAT(DATE_SUB(S_ZJ_XKRQZSJ,INTERVAL 2 HOUR),'%Y-%m-%d') xksj,S_GZZJ_BZBM bz, S_BPDD bpdd, if(S_BPDD='01_JK', S_JZ,'') jz, sum(IFNULL(aqcsCount,0)) count
+(select 'T_EJDHGZP','二级动火工作票',DATE_FORMAT(DATE_SUB(S_ZJ_XKRQZSJ,INTERVAL 2 HOUR),'%Y-%m-%d') xksj,S_GZZJ_BZBM bz, S_BPDD bpdd, if(S_BPDD='01_JK', S_JZ,'') jz, count(S_BPDD) count
 from (select * from T_EJDHGZP where S_DEL<>'1' and S_GZPZT<>'GZPZT051' and T_EJDHGZP.S_ZZ='001017' and S_GZZJ_BZBM in ('01', '02', 'hd03', '21') and S_ZJ_XKRQZSJ<>'') gzp
-LEFT OUTER JOIN (select s_fid,count(*) aqcsCount from t_dhe_aqcs where S_DHBMYCQDAC<>'' or S_YXYCQDAC<>'' or S_XFYCQDQC<>'' GROUP BY s_fid) aqcs on aqcs.s_fid=gzp.S_ID
 group by DATE_FORMAT(DATE_SUB(S_ZJ_XKRQZSJ,INTERVAL 2 HOUR),'%Y-%m-%d'),S_GZZJ_BZBM, S_BPDD, if(S_BPDD='01_JK', S_JZ,''))
 
 UNION All
