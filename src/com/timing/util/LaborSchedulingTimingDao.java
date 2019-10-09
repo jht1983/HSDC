@@ -40,8 +40,18 @@ public final class LaborSchedulingTimingDao {
 			MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		} finally {
-			if (tableEx != null)
-				tableEx.close();
+			try {
+				dbf.close();
+			} catch (Exception e) {
+				MantraLog.fileCreateAndWrite(e);
+			}
+			
+			try {
+				if (tableEx != null)
+					tableEx.close();
+			} catch (Exception e) {
+				MantraLog.fileCreateAndWrite(e);
+			}
 		}
 
 		return result;
@@ -93,8 +103,18 @@ public final class LaborSchedulingTimingDao {
 			MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		} finally {
-			if (tableEx != null)
-				tableEx.close();
+			try {
+				dbf.close();
+			} catch (Exception e) {
+				MantraLog.fileCreateAndWrite(e);
+			}
+			
+			try {
+				if (tableEx != null)
+					tableEx.close();
+			} catch (Exception e) {
+				MantraLog.fileCreateAndWrite(e);
+			}
 		}
 
 		return result;

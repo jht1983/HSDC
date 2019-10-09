@@ -56,6 +56,7 @@ public class EventCl extends Event {
 	//tasks run once every day
 	FuelDataTiming fuelDataTiming = new FuelDataTiming();
 	LaborSchedulingTiming laborSchedulingTiming = new LaborSchedulingTiming();
+	MessageRecordTiming messageRecordTiming = new MessageRecordTiming();
 	private boolean isNotRun = true;
 	private SimpleDateFormat sdfHour = new SimpleDateFormat("HH");
 
@@ -85,9 +86,29 @@ public class EventCl extends Event {
 			if (isNotRun) {
 				isNotRun = false;
 				
-				fuelDataTiming.fetchMineralData();
-				fuelDataTiming.fetchFuelData();
-				laborSchedulingTiming.initLaborSchedulings();
+				try {
+					fuelDataTiming.fetchMineralData();
+				} catch (Exception e) {
+					MantraLog.fileCreateAndWrite(e);
+				}
+				
+				try {
+					fuelDataTiming.fetchFuelData();
+				} catch (Exception e) {
+					MantraLog.fileCreateAndWrite(e);
+				}
+				
+				try {
+					laborSchedulingTiming.initLaborSchedulings();
+				} catch (Exception e) {
+					MantraLog.fileCreateAndWrite(e);
+				}
+				
+				try {
+					messageRecordTiming.cleanDutyMessages();
+				} catch (Exception e) {
+					MantraLog.fileCreateAndWrite(e);
+				}
 			}
 		}
 		else if (!isNotRun) {
