@@ -981,7 +981,7 @@ function sys_synVScroll(){
 			objFormWinDiv.style.height=objFormSizeDiv.style.height;
 		else{
 			if($("sys_form_flow_panel")==null)
-				objFormWinDiv.style.height=(iCurBodyHeight-32)+"px";
+				objFormWinDiv.style.height=(iCurBodyHeight-37)+"px";
 			}
 	}
 
