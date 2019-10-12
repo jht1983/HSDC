@@ -1257,7 +1257,7 @@ public class ProcessRunOperation {
 			
 			if(strCustomNodeId!=null&&!"".equals(strCustomNodeId)){//
 				 strStartNode =strCustomNodeId;
-			}else{
+			}else if (strNodesArray.length > index+1) {
 		         strStartNode = strNodesArray[index+1];
 			}
 
