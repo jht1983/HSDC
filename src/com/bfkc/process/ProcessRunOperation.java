@@ -1353,13 +1353,19 @@ public class ProcessRunOperation {
 			processAudCustomNodeIds = processAudCustomNodeIds(request, exRun);
 			processAuditSelectNode = processAuditSelectNode(request, exRun);
 			processNodeAudit = processNodeAudit(request, exRun);
-			int index = Integer.parseInt(exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value.toString());//索引
-			strFlowPj = exRun.getRecord(0).getFieldByName("S_AUDIT_FSPJ").value.toString().split("\\|",-1)[index];//附属票据;
 			
-			nowNodeId = exRun.getRecord(0).getFieldByName("S_NODE_CODE").value.toString();
-			strAuditFlag = exRun.getRecord(0).getFieldByName("S_AUDIT_OTHER").value.toString().split("\\|",-1)[index].split(",",-1)[1];
+			if (exRun != null && exRun.getRecordCount() > 0) {
+				int index = Integer.parseInt(exRun.getRecord(0).getFieldByName("S_AUDIT_INDEX").value.toString());//索引
+				strFlowPj = exRun.getRecord(0).getFieldByName("S_AUDIT_FSPJ").value.toString().split("\\|",-1)[index];//附属票据;
+				
+				nowNodeId = exRun.getRecord(0).getFieldByName("S_NODE_CODE").value.toString();
+				strAuditFlag = exRun.getRecord(0).getFieldByName("S_AUDIT_OTHER").value.toString().split("\\|",-1)[index].split(",",-1)[1];
+			}
+			
 			exRunNowNode = new TableEx("S_NODE_NAME","t_sys_flow_node"," s_flow_id='"+strFlowId+"' and S_AUDIT_VERSION='"+strVersion+"' and I_NODE_ID='"+nowNodeId+"'");
-			nowNodeName = exRunNowNode.getRecord(0).getFieldByName("S_NODE_NAME").value.toString();
+			if (exRunNowNode.getRecordCount() > 0) {
+				nowNodeName = exRunNowNode.getRecord(0).getFieldByName("S_NODE_NAME").value.toString();
+			}
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
@@ -1426,8 +1432,9 @@ public class ProcessRunOperation {
 			e.printStackTrace();
 		}finally{
 			if(exTRGXX!=null){exTRGXX.close();}
-			return strResult+"|";
 		}
+		
+		return strResult+"|";
 	}
 	
 	/**
