@@ -112,5 +112,11 @@
             }
              parent.closeWinById(gs_upl_kc);
         }
+        
+        document.onreadystatechange = function() {
+	        if(document.readyState == "complete") {
+              document.getElementById('win15_frame_m').src=document.getElementById('win15_frame_m').src;
+            }
+	    }
     </script>
 </html>
