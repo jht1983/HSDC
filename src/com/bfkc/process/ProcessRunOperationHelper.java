@@ -205,9 +205,12 @@ public class ProcessRunOperationHelper {
 						strVal = strVal.replace("{hqbh:", "");
 						strVal = strVal.replace("}", "");
 						String[] arrStrBranchWrite = strVal.split(":");
-						if(_request.getSession().getAttribute("SYS_STRBRANCHID").toString().equals(arrStrBranchWrite[0]))
-							strVal=arrStrBranchWrite[1];
-						else
+						if(_request.getSession().getAttribute("SYS_STRBRANCHID").toString().equals(arrStrBranchWrite[0])) {
+							if(arrStrBranchWrite.length>2)
+								strVal=arrStrBranchWrite[1]+":"+arrStrBranchWrite[2];
+							else
+								strVal=arrStrBranchWrite[1];
+						}else
 							continue;
 						
 					}
@@ -216,9 +219,12 @@ public class ProcessRunOperationHelper {
 						strVal = strVal.replace("}", "");
 						String[] arrStrBranchWrite = strVal.split(":");
 						
-						if(getTeamMsg("S_PEOPLE_CODE='"+_request.getSession().getAttribute("SYS_STRCURUSER")+"'",true).equals(arrStrBranchWrite[0]))
-							strVal=arrStrBranchWrite[1];
-						else
+						if(getTeamMsg("S_PEOPLE_CODE='"+_request.getSession().getAttribute("SYS_STRCURUSER")+"'",true).equals(arrStrBranchWrite[0])) {
+							if(arrStrBranchWrite.length>2)
+								strVal=arrStrBranchWrite[1]+":"+arrStrBranchWrite[2];
+							else
+								strVal=arrStrBranchWrite[1];
+						}else
 							continue;
 						
 					}
