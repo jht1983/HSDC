@@ -1565,9 +1565,10 @@ public class WebQuery
             final String[] arrParamNames = arrQF[i].split(":");
             String strFieldName = arrParamNames[0];
             hashSerarchFiled.put(strFieldName, "");
+            hashSerarchFiled.put(strFieldName + "1", "");
             
             String strParamValue = this.request.getParameter(strFieldName);
-            String strParamValue2 = this.request.getParameter(String.valueOf(strFieldName) + "1");
+            String strParamValue2 = this.request.getParameter(strFieldName + "1");
             if (strParamValue2 == null) {
                 strParamValue2 = "";
             }
