@@ -38,7 +38,7 @@ public class PermissionQuery {
 
 			if (tableEx.getRecordCount() == 0 || tableEx.getRecordCount() > 1) { // 无菜单或菜单超过
 				retStrBuf.append("<div class='errorCode'>error: check the menu code is " + _modId+"</div>");
-				retStrBuf.append("<div class='errorName'>绠＄悊鍛樻湭閰嶇疆褰撳墠鑺傜偣鎸夐挳鏉冮檺</div>");
+				retStrBuf.append("<div class='errorName'>\u8bf7\u9009\u62e9\u5de6\u4fa7\u83dc\u5355\u8fdb\u884c\u64cd\u4f5c\u3002</div>");
 				return retStrBuf;
 			}
 
@@ -46,14 +46,14 @@ public class PermissionQuery {
 			
             if (record.getFieldByName("assFiled").value==null ) { // 无菜单或菜单超过
 			    retStrBuf.append("<div class='errorCode'>error: check the menu code is " + _modId+"</div>");
-				retStrBuf.append("<div class='errorName'>绠＄悊鍛樻湭閰嶇疆褰撳墠鑺傜偣鎸夐挳鏉冮檺</div>");
+				retStrBuf.append("<div class='errorName'>\u8bf7\u9009\u62e9\u5de6\u4fa7\u83dc\u5355\u8fdb\u884c\u64cd\u4f5c\u3002</div>");
 				return retStrBuf;
 			}
 			String assFiled = record.getFieldByName("assFiled").value.toString();
 
             if (assFiled==null || assFiled.length() ==0 ) { // 无菜单或菜单超过
 				retStrBuf.append("<div class='errorCode'>error: check the menu code is " + _modId+"</div>");
-				retStrBuf.append("<div class='errorName'>绠＄悊鍛樻湭閰嶇疆褰撳墠鑺傜偣鎸夐挳鏉冮檺</div>");
+				retStrBuf.append("<div class='errorName'>\u8bf7\u9009\u62e9\u5de6\u4fa7\u83dc\u5355\u8fdb\u884c\u64cd\u4f5c\u3002</div>");
 				return retStrBuf;
 			}
 			String[] assFiledPageArr = assFiled.split(","); // 功能页面
