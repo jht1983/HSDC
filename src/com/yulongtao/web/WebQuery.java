@@ -1389,6 +1389,9 @@ public class WebQuery
             vResult.append("<table id='quicksearch' class='tbquerybg'><tr class='trquerybg'><td>");
             vResult.append(sbSerch);
             vResult.append("<div class='quick-search-form-group'>");
+            vResult.append(Pub.getLinkBttn(Pub.getBttnText("qx.png", "\u91cd\u7f6e"), this.strSelfUrl, "rightbutton blue"));
+            vResult.append("</div>");
+            vResult.append("<div class='quick-search-form-group'>");
             vResult.append(Pub.getBttn(Pub.getBttnText("query.gif", "\u67e5\u8be2"), "sysqueryform.submit();", "leftbutton blue"));
             vResult.append("</div></td>");
             vResult.append("</tr></table></td></tr><tr>");
