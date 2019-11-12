@@ -990,6 +990,7 @@ public class ProcessRunOperation {
 				strPageCode = helper.sendMsg(strMsgId,strNextAuditUser,strAuditState,strIsOver,strFlowId,strVersion,strFlowRunId,strNodeIdNext,request,strFlowtype,"",strTab);
 			}
 			
+			//审批通过
 			if("1".equals(strAuditStateBak)&&strClassName!=null&&strMethodName!=null&&!"".equals(strMethodName)&&!"".equals(strClassName)){
 				helper.reflectMothedInvoke(strClassName, strMethodName, request);
 			}
