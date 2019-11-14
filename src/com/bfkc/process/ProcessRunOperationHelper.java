@@ -79,7 +79,12 @@ public class ProcessRunOperationHelper {
 				
 				for (int k = 0; k < rollBackArray.length; k++) {
 					String[] rollBackValue = rollBackArray[k].split("-");
-					rollBackMap.put(rollBackValue[0], rollBackValue[1]);
+					if (rollBackValue.length < 2) {
+						rollBackMap.put(rollBackValue[0], "");
+					}
+					else {
+						rollBackMap.put(rollBackValue[0], rollBackValue[1]);
+					}
 				}
 			}
 		} catch (Exception e) {
