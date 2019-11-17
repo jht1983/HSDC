@@ -19,6 +19,7 @@ import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.timing.impcl.DefectProcessTool;
 import com.timing.impcl.MantraLog;
 import com.yonyou.mis.util.ApplicationUtils;
 import com.yulongtao.db.DBFactory;
@@ -341,13 +342,19 @@ public class ProcessRunOperation {
 			/**5 插入运行表*/
 			String[] strArrayFlowRun = {strFlowId,strFlowRunId,strNodeIdNext,strVersion,strNownewDate,strStartUser,strNextAuditUser,strNextAuditUserIndex+"",strAuditMsgs,strStartUserBranch,strAuditArrayyq,strAuditUsers,strAuditNodes,strIsOver,strAuditOther,strAudSel,strEndNodes,strSonFlow,strFlowType,_strFlowParentId,strFlowPj,strTab};
 			helper.updateFlowRun(strArrayFlowRun,"1");
-			String updateValueColumnStr = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG) + ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG.length(), _sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_END_TAG));
-			ProcessRunOperationDao.updateValueColumns(updateValueColumnStr, strFlowRunId, strFlowId);
+			
+			if (_sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG) != -1) {
+				String updateValueColumnStr = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG) + ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_START_TAG.length(), _sb.indexOf(ProcessRunOperationHelper.UPDATE_VALUE_COLUMN_END_TAG));
+				ProcessRunOperationDao.updateValueColumns(updateValueColumnStr, strFlowRunId, strFlowId);
+			}
 			
 			String strDate = strSdfYmdHms.format(new Date());
 			String  strAuditComment = "";
 			/**插入流程日志*/
-			String updateMessage = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_START_TAG), _sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_END_TAG) + ProcessRunOperationHelper.UPDATE_FIELD_END_TAG.length());
+			String updateMessage = "";
+			if (_sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_START_TAG) != -1) {
+				updateMessage = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_START_TAG), _sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_END_TAG) + ProcessRunOperationHelper.UPDATE_FIELD_END_TAG.length());
+			}
 			String[] strArrayFlowLog = {strFlowId,strFlowRunId,strAuditNodes.split("\\|",-1)[0],strDate,strVersion,strStartUser,strAuditState,strAuditComment, updateMessage};
 			insertFlowLog("1", strArrayFlowLog);
 			/**发送消息*/
@@ -936,7 +943,10 @@ public class ProcessRunOperation {
 			if(bTranFlowSonFlag){
 				strAuditUser =request.getSession().getAttribute("SYS_STRCURUSER").toString();
 			}
-			String updateMessage = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_START_TAG), _sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_END_TAG) + ProcessRunOperationHelper.UPDATE_FIELD_END_TAG.length());
+			String updateMessage = "";
+			if (_sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_START_TAG) != -1) {
+				updateMessage = _sb.substring(_sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_START_TAG), _sb.indexOf(ProcessRunOperationHelper.UPDATE_FIELD_END_TAG) + ProcessRunOperationHelper.UPDATE_FIELD_END_TAG.length());
+			}
 			String[] strArrayFlowLog = {strFlowId,strFlowRunId,strNodeIdNow,strNowDate,strVersion,strAuditUser,strAuditState,strAuditComment,updateMessage};
 			
 			System.out.println("=====================================插入审核日志");
@@ -999,8 +1009,10 @@ public class ProcessRunOperation {
 			if("1".equals(strIsOver)&"1".equals(strAuditState)){
 				DBFactory db = new DBFactory();
 				flowOverDelMsg(strFlowRunId,strFlowId,strVersion);
-            
-				if("1510196651437".equals(strPageCode)){
+                
+				if("155609021542713968".equals(strPageCode)){
+					new DefectProcessTool().dealResult(request);
+				}else if("1510196651437".equals(strPageCode)){
 					new com.page.method.Fun().MeasuresToolEntr(request);
 				}else if("1513048527561".equals(strPageCode)){
 					new com.page.method.Fun().MeasuresToolEntr(request);
