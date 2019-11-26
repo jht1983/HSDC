@@ -1623,10 +1623,15 @@ public class ABSElement extends BodyTagSupport
                 String strRule2 = this.getRule(_strRule2, strLable2);
                 final String strFieldCode = arrcode[m];
                 boolean bIsSplitMsg = false;
+                boolean bIsWrap = false;
                 boolean bIsSplitPag = false;
                 if (strFieldCode.equals("$SPLIT")) {
                     bIsSplitMsg = true;
                     strDataTd3 = "<td class=\"tdsplit\">";
+                }
+                if (strFieldCode.equals("$WRAP")) {
+                	bIsWrap = true;
+                    strDataTd3 = "<td style=\"height:0px;\">";
                 }
                 if (strFieldCode.startsWith("$PAG")) {
                     bIsSplitPag = true;
@@ -1642,6 +1647,9 @@ public class ABSElement extends BodyTagSupport
                 if (bIsSplitMsg) {
                     strLableTd2 = "<td class=\"thsplit\" width='100'>" + strLable2 + "</td>";
                 }
+                if (bIsWrap) {
+                    strLableTd2 = "";
+                }
                 if (bIsSplitPag) {
                     strLableTd2 = "";
                 }
@@ -1649,9 +1657,12 @@ public class ABSElement extends BodyTagSupport
                     strTrEnd2 = "";
                     final String strFiledType = arrType[m];
                     final String strFieldWidth = arrFieldsSize[m];
-                    if (strFiledType.startsWith("8") || strFiledType.startsWith("9") || strFiledType.startsWith("PIC") || strFiledType.startsWith("MUP") || strFiledType.startsWith("MAP") || strFieldWidth.equals("0") || bIsSplitMsg || bIsSplitPag || strFiledType.startsWith("CD")) {
+                    if (strFiledType.startsWith("8") || strFiledType.startsWith("9") || strFiledType.startsWith("PIC") || strFiledType.startsWith("MUP") || strFiledType.startsWith("MAP") || strFieldWidth.equals("0") || bIsSplitMsg || bIsSplitPag || bIsWrap || strFiledType.startsWith("CD")) {
                         if (bIsSplitMsg) {
                             strDataTd3 = "<td class='thsplit' align='left' colspan='" + this.iCols * 2 + "'>";
+                        }
+                        else if (bIsWrap) {
+                            strDataTd3 = "<td align='left' colspan='" + this.iCols * 2 + "'>";
                         }
                         else if (bIsSplitPag) {
                             strDataTd3 = "<td class='tdsplit' align='left' colspan='" + this.iCols * 2 + "'>";
@@ -1695,6 +1706,9 @@ public class ABSElement extends BodyTagSupport
                 }
                 else if (bIsSplitMsg) {
                     sbBatchData.append(strTrStyle2).append(strDataTd3).append("<table style='width:100%;'><tr><td width='200' style='white-space: nowrap;'>" + strLable2 + "</td><td><hr class='hrsplit'></td></tr></table>").append(strTdEnd2).append(strTrEnd2);
+                }
+                else if (bIsWrap) {
+                    sbBatchData.append(strTrStyle2).append(strDataTd3).append(strTdEnd2).append(strTrEnd2);
                 }
                 else if (bIsSplitPag) {
                     final String strViewParam = this.getFilterData(strFieldCode.substring(4), request);
