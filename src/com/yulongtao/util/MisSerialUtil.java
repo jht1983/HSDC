@@ -3,16 +3,18 @@ package com.yulongtao.util;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.Debug;
+import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
-import com.yulongtao.web.ParamTree;
+import com.yulongtao.web.ABSElement;
 
 public class MisSerialUtil
 {
@@ -33,8 +35,8 @@ public class MisSerialUtil
         final StringBuffer strResult = new StringBuffer();
         final String _strSplit = "_";
         final int count = vec.size();
-        final ParamTree pTree = new ParamTree();
-        pTree.request = _request;
+//        final ParamTree pTree = new ParamTree();
+//        pTree.request = _request;
         TableEx tableEx = null;
         for (int i = 0; i < count; ++i) {
             final String[] arrStrCodeRule = vec.get(i);
@@ -58,7 +60,7 @@ public class MisSerialUtil
             else if (strType.equals("dataset")) {
                 String strTemp = "0";
                 try {
-                    tableEx = pTree.getTableEx(arrStrCodeRule[2]);
+                    tableEx = MisSerialUtil.getTableEx(arrStrCodeRule[2], _request);
                     int recordCount = tableEx.getRecordCount();
                     
                     if (recordCount > 0) {
@@ -129,5 +131,45 @@ public class MisSerialUtil
         final double pross = (1.0 + rm.nextDouble()) * Math.pow(10.0, l);
         final String fixLenthString = String.valueOf(pross);
         return fixLenthString.substring(1, l + 1);
+    }
+    
+    /**
+     * 
+     * @param strId
+     * @param _request
+     * @return
+     */
+    private static TableEx getTableEx(final String strId, final HttpServletRequest _request) {
+        TableEx table = null;
+        TableEx te = null;
+        DBFactory dbff = null;
+        String sql = "";
+        try {
+            table = new TableEx("SSQL,SDATADB", "t_sys_dataset", "SCONID='" + strId + "'");
+            final Record record = table.getRecord(0);
+            sql = record.getFieldByName("SSQL").value.toString();
+            final ABSElement abs = new ABSElement();
+            if (_request != null) {
+                sql = abs.getFilterData(sql, _request);
+            }
+            Debug.println("\u3010\u4fe1\u606f\u3011\u6570\u636e\u96c6" + strId + "=" + sql);
+            final String strDataDb = record.getFieldByName("SDATADB").value.toString();
+            if (!strDataDb.equals("")) {
+                dbff = new DBFactory(strDataDb, 1);
+            }
+            else {
+                dbff = new DBFactory();
+            }
+            te = dbff.query(sql);
+        }
+        catch (Exception e) {
+            Debug.println("\u67e5\u8be2\u6570\u636e\u96c6\u3010" + strId + "\u3011\u9519\u8bef\uff01" + e);
+            return te;
+        }
+        finally {
+            table.close();
+        }
+        table.close();
+        return te;
     }
 }
