@@ -49,6 +49,9 @@ public class MisSerialUtil
             else if (strType.equals("yyyy")) {
                 strResult.append(leftPading(new StringBuilder(String.valueOf(MisSerialUtil.FORMATTER_yyyy.format(new Date()))).toString(), arrStrCodeRule[4], Integer.parseInt(("".equals(arrStrCodeRule[3]) || arrStrCodeRule[3] == null) ? "0" : arrStrCodeRule[3])));
             }
+            else if (strType.equals("yy")) {
+                strResult.append(leftPading(new StringBuilder(String.valueOf(MisSerialUtil.FORMATTER_yyyy.format(new Date()))).toString().substring(2), arrStrCodeRule[4], Integer.parseInt(("".equals(arrStrCodeRule[3]) || arrStrCodeRule[3] == null) ? "0" : arrStrCodeRule[3])));
+            }
             else if (strType.equals("yyyyMM")) {
             	strResult.append(MisSerialUtil.FORMATTER_yyyyMM.format(new Date()));
             }

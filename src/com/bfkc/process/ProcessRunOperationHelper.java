@@ -240,9 +240,12 @@ public class ProcessRunOperationHelper {
 						strVal = strVal.replace("{", "");
 						strVal = strVal.replace("}", "");
 						String[] strArrayNum = strVal.split(":",-1);
+						String xlhId = strArrayNum[1];
+						
 						//操作票号根据专业区分
 						String zy = _request.getParameter("T_CZPSC$S_ZY");
-						String xlhId = strArrayNum[1];
+						String yhdj = _request.getParameter("T_YHDJPG$S_PG_PGDJ");
+						
 						if (zy != null && !"".equals(zy)) {
 							//{number:rl-1504603191000#qj-1504603191001:待定:待定}
 							try {
@@ -254,6 +257,21 @@ public class ProcessRunOperationHelper {
 								}
 								
 								xlhId = czpZyIdMap.get(zy);
+							} catch (Exception e) {
+								//do nothing
+							}
+						}
+						else if (yhdj != null && !"".equals(yhdj)) {
+							//{number:YHDJ01-1504603191000#YHDJ02-1504603191001:待定:待定}
+							try {
+								String[] yhdjIds = xlhId.split("#");
+								Map<String, String> yhdjIdMap = new HashMap<>();
+								for (int k = 0; k < yhdjIds.length; k++) {
+									String[] yhdjXlhIds = yhdjIds[k].split("-");
+									yhdjIdMap.put(yhdjXlhIds[0], yhdjXlhIds[1]);
+								}
+								
+								xlhId = yhdjIdMap.get(yhdj);
 							} catch (Exception e) {
 								//do nothing
 							}
