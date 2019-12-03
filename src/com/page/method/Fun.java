@@ -427,28 +427,28 @@ public class Fun {
 		String Id = EString.generId();
 		switch (S_RZLX) {
 		case "ZZRZ":
-			sql = "insert into T_ZZYXRZ (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,CREATETIME) values ('" + Id + "','YJB','"
-					+ bmid + "','" + S_LBID + "','" + S_YY + "',NOW());";
+			sql = "insert into T_ZZYXRZ (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,S_RQ,CREATETIME) values ('" + Id + "','YJB','"
+					+ bmid + "','" + S_LBID + "','" + S_YY + "',DATE_FORMAT(NOW(),'%Y-%m-%d'),NOW());";
 			break;
 		case "JZZRZ":
-			sql = "insert into T_JZZYXRZ (S_ID,S_BCLB,S_ZZ,S_LBID,S_JZ,S_LB_TZNR,CREATETIME) values ('" + Id
-					+ "','YJB','" + bmid + "','" + S_LBID + "','" + S_JZH + "','" + S_YY + "',NOW());";
+			sql = "insert into T_JZZYXRZ (S_ID,S_BCLB,S_ZZ,S_LBID,S_JZ,S_LB_TZNR,S_RQ,CREATETIME) values ('" + Id
+					+ "','YJB','" + bmid + "','" + S_LBID + "','" + S_JZH + "','" + S_YY + "',DATE_FORMAT(NOW(),'%Y-%m-%d'),NOW());";
 			break;
 		case "TLRZ":
-			sql = "insert into T_TLYXRZ (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,CREATETIME) values ('" + Id + "','YJB','"
-					+ bmid + "','" + S_LBID + "','" + S_YY + "',NOW());";
+			sql = "insert into T_TLYXRZ (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,S_RQ,CREATETIME) values ('" + Id + "','YJB','"
+					+ bmid + "','" + S_LBID + "','" + S_YY + "',DATE_FORMAT(NOW(),'%Y-%m-%d'),NOW());";
 			break;
 		case "RLZBRZ":
-			sql = "insert into T_RLZBJL (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,CREATETIME) values ('" + Id + "','YJB','"
-					+ bmid + "','" + S_LBID + "','" + S_YY + "',NOW());";
+			sql = "insert into T_RLZBJL (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,S_RQ,CREATETIME) values ('" + Id + "','YJB','"
+					+ bmid + "','" + S_LBID + "','" + S_YY + "',DATE_FORMAT(NOW(),'%Y-%m-%d'),NOW());";
 			break;
 		case "HXBZJL":
-			sql = "insert into S_HXBZRZ (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,CREATETIME) values ('" + Id + "','YJB','"
-					+ bmid + "','" + S_LBID + "','" + S_YY + "',NOW());";
+			sql = "insert into S_HXBZRZ (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,S_RQ,CREATETIME) values ('" + Id + "','YJB','"
+					+ bmid + "','" + S_LBID + "','" + S_YY + "',DATE_FORMAT(NOW(),'%Y-%m-%d'),NOW());";
 			break;
 		case "HSYXRZ":
-			sql = "insert into T_HSRZJL (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,CREATETIME) values ('" + Id + "','YJB','"
-					+ bmid + "','" + S_LBID + "','" + S_YY + "',NOW());";
+			sql = "insert into T_HSRZJL (S_ID,S_BCLB,S_ZZ,S_LBID,S_LB_TZNR,S_RQ,CREATETIME) values ('" + Id + "','YJB','"
+					+ bmid + "','" + S_LBID + "','" + S_YY + "',DATE_FORMAT(NOW(),'%Y-%m-%d'),NOW());";
 			break;
 		default:
 			break;
