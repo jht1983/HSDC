@@ -200,7 +200,7 @@ public final class FuelDataTimingDao {
 				map.put("SamplingDate", SamplingDate == null? "" : SamplingDate); //采样日期
 				map.put("Analyst", Analyst == null? "" : Analyst); //分析人
 				map.put("Auditor", Auditor == null? "" : Auditor); //审批人
-				map.put("SumNetWeight", rs.getString("SumNetWeight")); //进煤量
+				map.put("SumWeight", rs.getString("SumWeight")); //进煤量
 				result.add(map);
 			}
 		} catch (Exception e) {
@@ -334,7 +334,7 @@ public final class FuelDataTimingDao {
 					map.get("SamplingDate") + "','" + 
 					map.get("Auditor") + "','" + 
 					map.get("Analyst") + "'," + 
-					map.get("SumNetWeight") + "," + 
+					map.get("SumWeight") + "," + 
 					Mt + "," +  //qsfk1
 					Mad + "," +  //kgjsfk1
 					Aar + "," +  //kgjhfaark1
