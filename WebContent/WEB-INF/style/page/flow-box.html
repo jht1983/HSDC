@@ -181,6 +181,7 @@
 						
 						<input name="T_CZPSC$S_ZY" id="T_CZPSC$S_ZY" type="hidden" value=<ylt.v message="DXCZP_ZY">""$value"$value"</ylt.v>/>
 						<input name="T_YHDJPG$S_PG_PGDJ" id="T_YHDJPG$S_PG_PGDJ" type="hidden" value=''/>
+						<input name="T_SBSG$S_ZY" id="T_SBSG$S_ZY" type="hidden" value=''/>
 						<ylt.for dataId="1567069368231">
 						<input name="NO_CRRENT_LBBZ" id="NO_CRRENT_LBBZ" type="hidden" abc="$value|$value|$value" value="$value" />
 						</ylt.for>
@@ -340,6 +341,11 @@
 				try {
 					document.getElementById('T_YHDJPG$S_PG_PGDJ').value=document.getElementById('sys_bd').contentWindow.$('T_YHDJPG$S_PG_PGDJ').value;
 					console.log(document.getElementById('T_YHDJPG$S_PG_PGDJ').value);
+				}catch(err){}
+				
+				try {
+					document.getElementById('T_SBSG$S_ZY').value=document.getElementById('sys_bd').contentWindow.$('T_SBSG$S_ZY').value;
+					console.log(document.getElementById('T_SBSG$S_ZY').value);
 				}catch(err){}
 				
 				if($("runCod").style.display === "none" && $("runCod").innerHTML.replace(/\s+/g, "") != "") {

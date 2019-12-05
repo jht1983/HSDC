@@ -58,13 +58,16 @@ public class MisSerialUtil
             	strResult.append(MisSerialUtil.FORMATTER_yyyyMM.format(new Date()));
             }
             else if (strType.equals("dataset")) {
-                String strTemp = "0";
+            	String newSerialNumber = "1";
                 try {
                     tableEx = MisSerialUtil.getTableEx(arrStrCodeRule[2], _request);
                     int recordCount = tableEx.getRecordCount();
                     
                     if (recordCount > 0) {
-                        strTemp = tableEx.getRecord(0).getFieldByName("ID").value.toString();
+                    	String strTemp = tableEx.getRecord(0).getFieldByName("ID").value.toString();
+                    	if (strTemp != null && strTemp.trim().length() > 0) {
+                        	newSerialNumber = strTemp.trim();
+						}
                         
                         //check whether it has cut off numbers
                         if (recordCount > 1) {
@@ -76,8 +79,12 @@ public class MisSerialUtil
                             int tempNumber = 0;
                             for (int m = 0; m < numbers.size(); m++) {
                             	tempNumber = Integer.parseInt(numbers.get(m));
-    							if ((m < numbers.size() - 1) && (tempNumber + 1 < Integer.parseInt(numbers.get(m + 1)))) {
-    								strTemp = String.valueOf(tempNumber);
+                            	
+                            	if (m == 0 && tempNumber == 3) { //特殊，为1的情况
+                            		newSerialNumber = "1";
+                            		break;
+                            	} else if ((m < numbers.size() - 1) && (tempNumber + 1 < Integer.parseInt(numbers.get(m + 1)))) {
+    								newSerialNumber = String.valueOf(tempNumber);
     								break;
     							}
     						}
@@ -93,7 +100,7 @@ public class MisSerialUtil
                     }
                 }
                 
-                strResult.append(leftPading(strTemp, arrStrCodeRule[4], Integer.parseInt(("".equals(arrStrCodeRule[3]) || arrStrCodeRule[3] == null) ? "0" : arrStrCodeRule[3])));
+                strResult.append(leftPading(newSerialNumber, arrStrCodeRule[4], Integer.parseInt(("".equals(arrStrCodeRule[3]) || arrStrCodeRule[3] == null) ? "0" : arrStrCodeRule[3])));
             }
             else if (strType.equals("param")) {
                 strResult.append(arrStrCodeRule[2]);
