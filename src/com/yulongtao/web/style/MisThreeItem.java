@@ -51,9 +51,12 @@ public class MisThreeItem extends ThreeItem {
     			
     			
     			"<span class='span_ico_right' tip-data=\"\u5934\u50cf\" onclick=\"ylt.Home.bttnClick(this,8);\"><img id='headimg' src=\"upload/" + 
-    			this.strUserHead + "\" style=\"vertical-align: middle;\"></i></span>" +
+    			this.strUserHead + "\" style=\"vertical-align: middle;\"></span>" +
     			"<span class='span_ico_right_time' style=\"color:#fff;font-size:14px;font-family:微软雅黑;vertical-align: middle;\"><div id=\"Show_Time\" style=\"font-size:13px;\"></div></span>" +
-    			"<span class='span_ico_right_time' style=\"color:#fff;font-size:14px;font-family:微软雅黑;vertical-align: middle;\">当前时间:</span></div></td></tr></table>";
+    			"<span class='span_ico_right_time' style=\"color:#fff;font-size:14px;font-family:微软雅黑;vertical-align: middle;\">当前时间:</span>" + 
+    			"<span id='todoListCount' class='span_ico_right' style='margin-right: 5px;background-color: #c90000;height: 23px !important;width: 23px !important;text-align: center;margin-top: 15px;line-height: 23px;color: white;font-weight: bold;border-radius: 24px; visibility: hidden;'></span>" + 
+    			"<span id='todoListCountIcon' class='span_ico_right' tip-data=\"\u5934\u50cf\" onclick=\"document.getElementById('framehome').contentWindow.modal_todo_show();\" style='margin-right: -15px;'><img id='headimg' src='images/todo_count.png' style=\"vertical-align: middle;\"></span>" + 
+    			"</div></td></tr></table>";
     	
         final String strType = this.request.getParameter(this.strTypeName);
         final StringBuffer vResult = new StringBuffer();
@@ -63,7 +66,18 @@ public class MisThreeItem extends ThreeItem {
         vResult.append("</div></div></td><td valign=\"top\">");
         //vResult.append("<span id=\"tools_expand_bttn\" class='span_ico_left' tip-data=\"\u6536\u7f29\u83dc\u5355\u680f\"  onclick=\"ylt.Home.bttnClick(this,1);\"" + strEvent + "><i class=\"iconfont icon-menufold\"></i></span>").append("<span class='span_ico_left' tip-data=\"\u56de\u9996\u9875\" onclick=\"ylt.Home.bttnClick(this,2);\"" + strEvent + "><i class=\"iconfont icon-shouye\"></i></span>").append("<span class='span_ico_left' tip-data=\"\u5237\u65b0\" onclick=\"ylt.Home.bttnClick(this,3);\"" + strEvent + "><i class=\"iconfont icon-refresh\"></i></span>").append("<span class='span_ico_left'><input type=\"text\" placeholder=\"\u641c\u7d22...\" autocomplete=\"off\" ></span>").append("<span class='span_ico_right' tip-data=\"\u5934\u50cf\" onclick=\"ylt.Home.bttnClick(this,8);\"><img id='headimg' src=\"upload/" + this.strUserHead + "\"></i></span>").append("<span class='span_ico_right' tip-data=\"\u9000\u51fa\" onclick=\"ylt.Home.bttnClick(this,7);\"" + strEvent + "><i class=\"iconfont icon-exit\"></i></span>").append("<span class='span_ico_right' tip-data=\"\u5168\u5c4f\" onclick=\"ylt.Home.bttnClick(this,6);\"" + strEvent + "><i class=\"iconfont icon-fullscreen\"></i></span>").append("<span class='span_ico_right' tip-data=\"\u98ce\u683c\" onclick=\"ylt.Home.bttnClick(this,5);\"" + strEvent + "><i class=\"iconfont icon-zhuti_tiaosepan_o\"></i></span>").append("<span class='span_ico_right' tip-data=\"\u6d88\u606f\" onclick=\"ylt.Home.bttnClick(this,4);\"" + strEvent + "><i class=\"iconfont icon-xiaoxi\"></i></span>").append("<span class='span_ico_right' tip-data=\"\u4fee\u6539\u5bc6\u7801\" onclick=\"ylt.Home.bttnClick(this,9);\"" + strEvent + "><span style='color:#999999;font-size:13px;font-family:\u5fae\u8f6f\u96c5\u9ed1;'>" + this.strUserName + ",\u60a8\u597d\uff01 </span></span>");
 //        vResult.append("<span class='span_ico_right' tip-data=\"\u9000\u51fa\" onclick=\"ylt.Home.bttnClick(this,7);\"" + strEvent + "><img src=\"new/images/exit-icon.png\" style=\"width: 20px;height:20px;vertical-align: middle;\"></span>").append("<span class='span_ico_right' tip-data=\"\u4fee\u6539\u5bc6\u7801\" onclick=\"ylt.Home.bttnClick(this,9);\"" + strEvent + "><span style='color:#fff;font-size:13px;font-family:\u5fae\u8f6f\u96c5\u9ed1;vertical-align: middle;'>" + this.strUserName + ",\u60a8\u597d\uff01 </span></span>").append("<span class='span_ico_right' tip-data=\"\u5934\u50cf\" onclick=\"ylt.Home.bttnClick(this,8);\"><img id='headimg' src=\"upload/" + this.strUserHead + "\" style=\"vertical-align: middle;\"></i></span>").append("<span class='span_ico_right' style=\"color:#fff;font-size:13px;font-family:微软雅黑;vertical-align: middle;\"><div id=\"Show_Time\" style=\"font-size:13px;\"></div></span>").append("<span class='span_ico_right' style=\"color:#fff;font-size:13px;font-family:微软雅黑;vertical-align: middle;\">当前时间:</span>");
-        vResult.append("<iframe id=\"framehome\" name=\"framehome\" src=\"home.v?bmid=001017\"  frameborder=\"no\" border=\"0\"  width=\"100%\" height=\"100%\" scrolling=\"auto\"></iframe> </td> </tr> </table><div id=\"sys_div_rect_tip\" class=\"recttip\" style=\"display:none;\"></div><div id=\"sys_div_msg_tip\" class=\"yl-tipbox\" style=\"display:none;\"></div><div id=\"sys_div_msg_right\" class=\"sys_div_msg_right\" style=\"display:none;\"></div></body> </html>");
+        vResult.append("<iframe id=\"framehome\" name=\"framehome\" src=\"home.v?bmid=001017\"  frameborder=\"no\" border=\"0\"  width=\"100%\" height=\"100%\" scrolling=\"auto\"></iframe> </td> </tr> </table><div id=\"sys_div_rect_tip\" class=\"recttip\" style=\"display:none;\"></div><div id=\"sys_div_msg_tip\" class=\"yl-tipbox\" style=\"display:none;\"></div><div id=\"sys_div_msg_right\" class=\"sys_div_msg_right\" style=\"display:none;\"></div>");
+        vResult.append("<script language=javascript>");
+        vResult.append("try {\r\n" + 
+        		"		initTodoList();\r\n" + 
+        		"	} catch(err) {}");
+        vResult.append("try {\r\n" + 
+        		"		window.setInterval(function() {\r\n" + 
+        		"			initTodoList();\r\n" + 
+        		"			}, 1000 * 60);\r\n" + 
+        		"	} catch(err) {}");
+        vResult.append("</script>");
+        vResult.append("</body> </html>");
         return vResult;
     }
     
@@ -77,6 +91,50 @@ public class MisThreeItem extends ThreeItem {
         _sbHead.append("<link href='css/win.css' rel='stylesheet' type='text/css'>");
         _sbHead.append("<link href='res/css/treeitem.css' rel='stylesheet' type='text/css'>");
         _sbHead.append("<link href='res/css/iconfont.css' rel='stylesheet' type='text/css'>");
+
+        _sbHead.append("<script language=javascript>");
+        _sbHead.append("function getAjaxActive(){\r\n" + 
+        		"		 var xmlHttp;\r\n" + 
+        		"		 if (window.ActiveXObject) { \r\n" + 
+        		"		  xmlHttp = new ActiveXObject(\"Microsoft.XMLHTTP\");\r\n" + 
+        		"		 }\r\n" + 
+        		"		 else if (window.XMLHttpRequest) { \r\n" + 
+        		"		  xmlHttp = new XMLHttpRequest();\r\n" + 
+        		"		 }\r\n" + 
+        		"		 return xmlHttp;\r\n" + 
+        		"	}\r\n" + 
+        		"	\r\n" + 
+        		"	function getTx(param,aStrUrl){\r\n" + 
+        		"		var xml=getAjaxActive();\r\n" + 
+        		"		xml.open(\"POST\",aStrUrl,false);\r\n" + 
+        		"		xml.setRequestHeader(\"content-length\",param.length);  \r\n" + 
+        		"		xml.setRequestHeader(\"content-type\",\"application/x-www-form-urlencoded\");  \r\n" + 
+        		"		xml.setRequestHeader(\"charset\", \"UTF-8\");\r\n" + 
+        		"		xml.send(param);  \r\n" + 
+        		"		var res = xml.responseText;\r\n" + 
+        		"		return res;\r\n" + 
+        		"	}\r\n" + 
+        		"	\r\n" + 
+        		"	function subGetTx(_subStr,_vari){\r\n" + 
+        		"	    var z = _subStr;\r\n" + 
+        		"	    _vari =\"var \"+_vari+\"='\";\r\n" + 
+        		"	    z=z.substring(z.indexOf(_vari)+_vari.length);\r\n" + 
+        		"	    return z.substring(0,z.indexOf(\"';\"));\r\n" + 
+        		"	}\r\n" + 
+        		"	\r\n");
+        _sbHead.append("function initTodoList() {\r\n" + 
+        		"       var todoListCountStr = getTx(\"\",\"todoListCount.v\");\r\n" + 
+        		"	    var todoListCount = subGetTx(todoListCountStr,\"todoListCount\");\r\n" + 
+        		"	    \r\n" + 
+        		"	    document.getElementById('todoListCount').innerHTML = todoListCount;\r\n" + 
+        		"	    if (todoListCount > 0) {\r\n" + 
+        		"	    	document.getElementById('todoListCount').style.visibility = \"visible\";\r\n" + 
+        		"	    }\r\n" + 
+        		"	    else {\r\n" + 
+        		"	    	document.getElementById('todoListCount').style.visibility = \"hidden\";\r\n" + 
+        		"	    }\r\n" + 
+        		"	}\r\n");
+        _sbHead.append("</script>");
     }
     
     private void generMenuNode(final StringBuffer _sbMenu, final String _strParId, final String _strNodeId, final Node _node, final int _iLineHeight, final int _iLevel) {

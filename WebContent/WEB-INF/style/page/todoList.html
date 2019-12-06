@@ -1,0 +1,50 @@
+{todoListStart}<table class="md-content" cellpadding="0" border="0" cellspacing="0" style="width:100%;height:100%">
+        <tr style="height:60px;line-height:60px;">
+            <td>
+                <h3 style="border-bottom: 2px solid rgb(233, 233, 233);display: block;font-size: 1.17em;-webkit-margin-before: 1em;-webkit-margin-after: 1em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;font-weight: bold;">待办事项</h3>
+            </td>
+        </tr>
+        <tr class="md-fun-content" valign="top"  align="left">
+            <td style="border-bottom: 2px solid rgb(233, 233, 233);">
+                <div class="box_left_inter_contert" id="parentc" style="width: 99%;height: 100%;overflow: auto;">
+               <table class="conterTable" cellpadding="0" border="0" cellspacing="0">
+                    <colgroup>
+                        <col width="480px">
+                        <col width="120px">
+                        <col width="">
+                    </colgroup>
+                    <tr>
+                        <th>流程内容</th>
+                        <th>审核人</th>
+                        <th>时间</th>
+                    </tr>
+                </table>
+
+                <ylt.for dataId="1525853802311">
+                    <table class="conterTable conterTableTd"  cellpadding="0" border="0" cellspacing="0">
+                        <colgroup>
+                            <col width="480px">
+                            <col width="120px">
+                            <col width="">
+                        </colgroup>
+
+                        <tr bgcolor="$value">
+                                <td onclick="sp('$value&$value&$value&$value&$value&$value&$value&$value&$value$value');"
+                                    style="text-align: left;text-indent:2em" pagename="$value" title="$value">$value
+                                </td>
+                                <td>$value</td>
+                                <td>$value</td>
+                        </tr>
+
+                    </table>
+                </ylt.for>
+            </div>
+                
+            </td>
+        </tr>
+        <tr class="md-bttn">
+            <td class="md-bttn">
+                 <input type="button" id="md-todo-close" style="line-height: 35px;" onclick="mdTodoClose()" value="关闭"/>
+            </td>
+        </tr>
+    </table>{todoListEnd}
