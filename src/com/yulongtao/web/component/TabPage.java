@@ -191,6 +191,59 @@ public class TabPage extends WebElement
         if (!this.bIsFieldForm) {
             this.sbComponent.append("</form>");
         }
+        
+        this.sbComponent.append("<link href=\"res/css/sip_new_home.css?v=2.1\" rel=\"stylesheet\" type=\"text/css\">");
+        this.sbComponent.append("<div class=\"md-modal md-effect-1\" id=\"todo\" style=\"height:80%;width:900px;top:50%;position: absolute;\"></div>");
+        this.sbComponent.append("<script type=\"text/javascript\">");
+        this.sbComponent.append("try {\r\n" + 
+        		"		initTodoList();\r\n" + 
+        		"		parent.parent.initTodoList();\r\n" + 
+        		"	} catch(err) {}\r\n" + 
+        		"	\r\n" + 
+        		"	try {\r\n" + 
+        		"		window.setInterval(function() {\r\n" + 
+        		"			initTodoList();\r\n" + 
+        		"			}, 1000 * 60);\r\n" + 
+        		"	} catch(err) {}\r\n");
+        this.sbComponent.append("function initTodoList() {\r\n" + 
+        		"		var todoList = getTx(\"\",\"todoList.v\");\r\n" + 
+        		"	    document.getElementById('todo').innerHTML = todoList.substring(todoList.indexOf('{todoListStart}')+15, todoList.indexOf('{todoListEnd}'));\r\n" + 
+        		"	    \r\n" + 
+        		"	}" + 
+        		"	    \r\n");
+        this.sbComponent.append("    function modal_todo_show(){\r\n" + 
+        		"        document.getElementById('todo').setAttribute(\"class\", \"md-modal md-effect-1 md-show\");\r\n" + 
+        		"        document.getElementById('todo').style.visibility = \"visible\";\r\n" + 
+        		"    };\r\n" + 
+        		"    \r\n" + 
+        		"    \r\n" + 
+        		"    document.getElementById('md-todo-close').click = function () {\r\n" + 
+        		"        document.getElementById('todo').setAttribute(\"class\", \"md-modal md-effect-1\");\r\n" + 
+        		"        document.getElementById('todo').style.visibility = \"hidden\";\r\n" + 
+        		"\r\n" + 
+        		"    };\r\n" + 
+        		"    \r\n" + 
+        		"    document.getElementById('md-todo-close').addEventListener(\"click\", function () {\r\n" + 
+        		"        document.getElementById('todo').setAttribute(\"class\", \"md-modal md-effect-1\");\r\n" + 
+        		"        document.getElementById('todo').style.visibility = \"hidden\";\r\n" + 
+        		"\r\n" + 
+        		"    });\r\n" + 
+        		"       \r\n" + 
+        		"    function mdTodoClose(){\r\n" + 
+        		"        document.getElementById('todo').setAttribute(\"class\", \"md-modal md-effect-1\");\r\n" + 
+        		"        document.getElementById('todo').style.visibility = \"hidden\";\r\n" + 
+        		"    }\r\n" + 
+        		"function sp(id) {\r\n" + 
+        		"	    var arr = id.split(\"&\");\r\n" + 
+        		"\r\n" + 
+        		"	    if(arr[arr.length-1]==\"6S\"){\r\n" + 
+        		"	        parent.parent.miniWin('\u5355\u636e', '', 'View?SPAGECODE='+arr[1]+'&sys_bed=true&S_ID='+arr[2]+'&bmid='+arr[3], 2000, 1800, '', '');\r\n" + 
+        		"	    }else{\r\n" + 
+        		"	       parent.parent.miniWin('\u5ba1\u6838', '', 'flow-box.v?bmid=' + arr[3] + '&s_id=' + arr[2] + '&sys_flow_run_id=' + arr[5] + '&s_flow_id=' + arr[4] + '&flow_ver=' + arr[6] + '&node_code=' + arr[8] + '&spagecode=' + arr[1] +'&s_aud_user=' + arr[7], 2000, 1800, '', '');\r\n" + 
+        		"	    }\r\n" + 
+        		"	}\r\n");
+        this.sbComponent.append("</script>");
+        
         this.sbComponent.append(sbSize);
     }
     
