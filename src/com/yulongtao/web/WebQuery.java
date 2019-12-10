@@ -1166,6 +1166,58 @@ public class WebQuery
         vResult.append("<div id='query_list_pop_menu' class='file_list_pop_menu' style='display:none;border:1px solid #b0aeae;'><form id='sys_form_fiter_con' action='" + strForm_Fiter_Url + "' method='post'><input type='hidden' name='NO_SORT_CONDITION' value=''><textarea name='NO_FITER_CONDITION' id='NO_FITER_CONDITION' style='display:none;'>" + str_NO_Fiter_Condition + "</textarea>").append(Pub.getPopMenu(new String[] { "gjcx.png" }, new String[] { Pub.getPopWin("\u9ad8\u7ea7\u67e5\u8be2", "view.do?id=600" + strMenuPageCode + this.getPageParameter(this.request), "1000,450").toString() }, new String[] { "\u9ad8\u7ea7\u67e5\u8be2" })).append("<iframe id='sys_frame_singer_col' name='sys_frame_singer_col' src='' width='100%' height='300px'  frameborder='no' border='0' marginwidth='0' marginheight='0'></iframe><table cellpadding='0' cellspacing='0' border='0' class='bttoparea' width='200px;'><tr><td align='center'><button onclick='sys_singer_col_fiter_query();'>\u786e \u5b9a</button></td><td align='center'><button onclick='sys_singer_col_fiter_query_Clear();'>\u6e05\u9664\u6761\u4ef6</button></td></tr></table></form></div>");
         vResult.append("<script>var sys_StrFiterParam=\"" + strFiterParam + "\";</script><form id='sys_form_fiter_con_view_col' action='' method='post' target='sys_frame_singer_col'><textarea name='sys_frame_view_condition' id='sys_frame_view_condition' style='display:none;'>" + str_NO_Fiter_Condition + "</textarea></form>");
         vResult.append("<div intinpuspanivigr='true' id='sys_int_input_div' class='sys_int_input_div' style='display:none;'><table intinpuspanivigr='true' cellpadding='5'><tr><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)' intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,1)'>1</span></td><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,2)'>2</span></td><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,3)'>3</span></td></tr><tr><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,4)'>4</span></td><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,5)'>5</span></td><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,6)'>6</span></td></tr><tr><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,7)'>7</span></td><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,8)'>8</span></td><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,9)'>9</span></td></tr><tr><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out(this)' onclick='sys_gener_IntInputClick(this,0)'>0</span></td><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span_clear' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out_Clear(this)' onclick='sys_gener_IntInputClick_Clear(this)'>\u6e05\u9664</span></td><td  intinpuspanivigr='true' class='sys_int_input_div_td'><span onmousedown='sys_gener_IntInputDown(this)'   intinpuspanivigr='true' class='sys_int_input_div_span_ok' onmouseover='sys_gener_IntInput_Over(this)' onmouseout='sys_gener_IntInput_Out_Ok(this)' onclick='sys_gener_IntInputClick_Ok(this)'>\u786e\u5b9a</span></td></tr></table></div>");
+        
+        vResult.append("<link href=\"res/css/sip_new_home.css?v=2.1\" rel=\"stylesheet\" type=\"text/css\">");
+        vResult.append("<div class=\"md-modal md-effect-1\" id=\"todo\" style=\"height:80%;width:900px;top:50%;position: absolute;\"></div>");
+        vResult.append("<script type=\"text/javascript\">");
+        vResult.append("try {\r\n" + 
+        		"		initTodoList();\r\n" + 
+        		"		parent.parent.initTodoList();\r\n" + 
+        		"	} catch(err) {}\r\n" + 
+        		"	\r\n" + 
+        		"	try {\r\n" + 
+        		"		window.setInterval(function() {\r\n" + 
+        		"			initTodoList();\r\n" + 
+        		"			}, 1000 * 60);\r\n" + 
+        		"	} catch(err) {}\r\n");
+        vResult.append("function initTodoList() {\r\n" + 
+        		"		var todoList = getTx(\"\",\"todoList.v\");\r\n" + 
+        		"	    document.getElementById('todo').innerHTML = todoList.substring(todoList.indexOf('{todoListStart}')+15, todoList.indexOf('{todoListEnd}'));\r\n" + 
+        		"	    \r\n" + 
+        		"	}" + 
+        		"	    \r\n");
+        vResult.append("    function modal_todo_show(){\r\n" + 
+        		"        document.getElementById('todo').setAttribute(\"class\", \"md-modal md-effect-1 md-show\");\r\n" + 
+        		"        document.getElementById('todo').style.visibility = \"visible\";\r\n" + 
+        		"    };\r\n" + 
+        		"    \r\n" + 
+        		"    \r\n" + 
+        		"    document.getElementById('md-todo-close').click = function () {\r\n" + 
+        		"        document.getElementById('todo').setAttribute(\"class\", \"md-modal md-effect-1\");\r\n" + 
+        		"        document.getElementById('todo').style.visibility = \"hidden\";\r\n" + 
+        		"\r\n" + 
+        		"    };\r\n" + 
+        		"    \r\n" + 
+        		"    document.getElementById('md-todo-close').addEventListener(\"click\", function () {\r\n" + 
+        		"        document.getElementById('todo').setAttribute(\"class\", \"md-modal md-effect-1\");\r\n" + 
+        		"        document.getElementById('todo').style.visibility = \"hidden\";\r\n" + 
+        		"\r\n" + 
+        		"    });\r\n" + 
+        		"       \r\n" + 
+        		"    function mdTodoClose(){\r\n" + 
+        		"        document.getElementById('todo').setAttribute(\"class\", \"md-modal md-effect-1\");\r\n" + 
+        		"        document.getElementById('todo').style.visibility = \"hidden\";\r\n" + 
+        		"    }\r\n" + 
+        		"function sp(id) {\r\n" + 
+        		"	    var arr = id.split(\"&\");\r\n" + 
+        		"\r\n" + 
+        		"	    if(arr[arr.length-1]==\"6S\"){\r\n" + 
+        		"	        parent.parent.miniWin('\u5355\u636e', '', 'View?SPAGECODE='+arr[1]+'&sys_bed=true&S_ID='+arr[2]+'&bmid='+arr[3], 2000, 1800, '', '');\r\n" + 
+        		"	    }else{\r\n" + 
+        		"	       parent.parent.miniWin('\u5ba1\u6838', '', 'flow-box.v?bmid=' + arr[3] + '&s_id=' + arr[2] + '&sys_flow_run_id=' + arr[5] + '&s_flow_id=' + arr[4] + '&flow_ver=' + arr[6] + '&node_code=' + arr[8] + '&spagecode=' + arr[1] +'&s_aud_user=' + arr[7], 2000, 1800, '', '');\r\n" + 
+        		"	    }\r\n" + 
+        		"	}\r\n");
+        vResult.append("</script>");
         return vResult;
     }
     

@@ -12,19 +12,17 @@
 
                parent.location.reload(); 
          }else{
-
-             parent.getOpenPage(strwin).location.reload();
-             parent.closeWinById(strwin);
-             
-             /*
-            parent.framehome.lxmain.location.reload();
-            
-            parent.closeWinById(strwin);
-            */
+        	 try {
+                 parent.getOpenPage(strwin).location.reload();
+                 parent.closeWinById(strwin);
+        	} catch(err) {
+        		parent.framehome.lxmain.location.reload();
+        		parent.closeWinById(strwin);
+        	}
          }
        
     }else{
-        alert("Á÷×ªÊ§°Ü");
+        alert("\u5ba1\u6279\u5931\u8d25");
        parent.framehome.lxmain.location.reload();
         parent.closeWinById(<ylt.v message="NO_UPL_KC">""$value"$value"</ylt.v>);
        

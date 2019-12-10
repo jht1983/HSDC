@@ -55,7 +55,7 @@ public class MisThreeItem extends ThreeItem {
     			"<span class='span_ico_right_time' style=\"color:#fff;font-size:14px;font-family:微软雅黑;vertical-align: middle;\"><div id=\"Show_Time\" style=\"font-size:13px;\"></div></span>" +
     			"<span class='span_ico_right_time' style=\"color:#fff;font-size:14px;font-family:微软雅黑;vertical-align: middle;\">当前时间:</span>" + 
     			"<span id='todoListCount' class='span_ico_right' style='margin-right: 5px;background-color: #c90000;height: 23px !important;width: 23px !important;text-align: center;margin-top: 15px;line-height: 23px;color: white;font-weight: bold;border-radius: 24px; visibility: hidden;'></span>" + 
-    			"<span id='todoListCountIcon' class='span_ico_right' tip-data=\"\u5934\u50cf\" onclick=\"document.getElementById('framehome').contentWindow.modal_todo_show();\" style='margin-right: -15px;'><img id='headimg' src='images/todo_count.png' style=\"vertical-align: middle;\"></span>" + 
+    			"<span id='todoListCountIcon' class='span_ico_right' tip-data=\"\u5934\u50cf\" onclick=\"showTodoList();\" style='margin-right: -15px;'><img id='headimg' src='images/todo_count.png' style=\"vertical-align: middle;\"></span>" + 
     			"</div></td></tr></table>";
     	
         final String strType = this.request.getParameter(this.strTypeName);
@@ -121,6 +121,14 @@ public class MisThreeItem extends ThreeItem {
         		"	    z=z.substring(z.indexOf(_vari)+_vari.length);\r\n" + 
         		"	    return z.substring(0,z.indexOf(\"';\"));\r\n" + 
         		"	}\r\n" + 
+        		"	\r\n" +
+        		"function showTodoList() {\r\n" + 
+        		"    try {\r\n" + 
+        		"		document.getElementById('framehome').contentWindow.modal_todo_show();\r\n" + 
+        		"	} catch(err) {\r\n" + 
+        		"	    document.getElementById('framehome').contentWindow.lxmain.modal_todo_show();\r\n" + 
+        		"	}\r\n" + 
+        		"}" + 
         		"	\r\n");
         _sbHead.append("function initTodoList() {\r\n" + 
         		"       var todoListCountStr = getTx(\"\",\"todoListCount.v\");\r\n" + 
