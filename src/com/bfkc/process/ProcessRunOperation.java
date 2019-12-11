@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 import com.timing.impcl.DefectProcessTool;
 import com.timing.impcl.MantraLog;
+import com.timing.impcl.WorkTicketProcessTool;
 import com.yonyou.mis.util.ApplicationUtils;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
@@ -1063,6 +1064,22 @@ public class ProcessRunOperation {
 					new com.page.method.Fun().MeasuresToolEntr(request);
 				}else if("1522719345443".equals(strPageCode)){//合理化建议上报
 					new com.page.method.Fun().MeasuresToolEntr(request);
+				} else if ("1504686822663".equals(strPageCode)) { //电气一种工作票
+					new WorkTicketProcessTool().setDqyzSpjg(request);
+				} else if ("1505700684880".equals(strPageCode)) { //电气二种工作票
+					new WorkTicketProcessTool().setDqezSpjg(request);
+				} else if ("1505787525562".equals(strPageCode)) { //热力机械工作票
+					new WorkTicketProcessTool().setRljxSpjg(request);
+				} else if ("1511402005697".equals(strPageCode)) { //一级动火工作票
+					new WorkTicketProcessTool().setYjdhSpjg(request);
+				} else if ("1508322738124".equals(strPageCode)) { //二级动火工作票
+					new WorkTicketProcessTool().setEjdhSpjg(request);
+				} else if ("1505703509013".equals(strPageCode)) { //热控工作票
+					new WorkTicketProcessTool().setRKSpjg(request);
+				} else if ("1505706136535".equals(strPageCode)) { //应急抢修工作票
+					new WorkTicketProcessTool().setYjqxSpjg(request);
+				} else if ("1508409020345".equals(strPageCode)) { //动土工作票
+					new WorkTicketProcessTool().setDTSpjg(request);
 				}
 
 				if(db!=null){db.close();}
