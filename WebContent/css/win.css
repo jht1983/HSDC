@@ -106,6 +106,9 @@ background-color: white;border:1px solid green;
 	.leftbutton:hover {
 		background:#e6e6e6;color:black;
 	}
+	.rightbutton:hover {
+		background:#e6e6e6;color:black;
+	}
 .green {color: #999999;background: #fff;}
 .red {color: #999999;background: #fff;}
 .blue {color: #999999;background: #fff;}
