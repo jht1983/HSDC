@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 
 import com.timing.impcl.MantraLog;
+import com.timing.util.MisLogger;
 import com.yonyou.mis.util.ApplicationUtils;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
@@ -33,6 +34,7 @@ import com.yulongtao.util.EString;
  *
  */
 public class ProcessRunOperationHelper {
+	private static MisLogger logger = new MisLogger(ProcessRunOperationHelper.class);
 	public static SimpleDateFormat strSdfYmd =  new SimpleDateFormat("yyyy-MM-dd");
 	public static SimpleDateFormat strSdfYmdHms =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
@@ -88,7 +90,7 @@ public class ProcessRunOperationHelper {
 				}
 			}
 		} catch (Exception e) {
-		    //do nothing if exception occurs
+		    logger.debug("ERR: ", e);
 		} finally {
 			if (ex != null) {
 				ex.close();
@@ -113,13 +115,16 @@ public class ProcessRunOperationHelper {
 				updateValueColumnStr = "";
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+		    logger.debug("ERR: ", e);
 		} finally {
 			if (exRun != null) {
 				exRun.close();
 			}
 		}
 		
+	    logger.debug("==>>==>>==>>==>>==>>==>>==>>==>>字段回写开始");
+	    logger.debug("_strkey=" + _strkey);
+	    logger.debug("strField=" + strField);
 		for(int a=0,b=strArrayTable.length;a<b;a++){
 			String strTemp = strArrayTable[a];
 			strTemp = strTemp.substring(strTemp.indexOf("e$")+2,strTemp.length());
@@ -316,12 +321,17 @@ public class ProcessRunOperationHelper {
 					}
 				}
 				
+			    logger.debug("strCou=" + strCou + "; strVal=" + strVal);
+				
 				mapCon.put(strTabName, strWhere);
 				map.put(strTabName,(map.get(strTabName)==null?"":(map.get(strTabName).toString()+" , "))+strCou+" = '"+strVal+"' ");//字段名
 				updateColumns.add(strCou);
 			}
 		}
-		
+
+	    logger.debug("mapCon=" + mapCon);
+	    logger.debug("map=" + map);
+	    logger.debug("updateColumns=" + updateColumns);
 		try {
 			if (updateValueColumnStr == null) {
 				updateValueColumnStr = "";
@@ -364,6 +374,8 @@ public class ProcessRunOperationHelper {
 			_sr.append(UPDATE_VALUE_COLUMN_END_TAG);
 			
 			dbf.sqlExe("update T_SYS_FLOW_RUN set S_UPVALUE_COLS='" + updateValueColumnStr + "' where S_RUN_ID='" + _strRunId + "' and S_FLOW_ID='" +_strFlowId + "'", true);
+
+		    logger.debug("==>>==>>==>>==>>==>>==>>==>>==>>字段回写结束");
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
