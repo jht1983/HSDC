@@ -1,12 +1,14 @@
 package com.timing.impcl;
 
-import com.yulongtao.web.event.Event;
-import com.timing.impcl.MantraUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import com.sis.util.TJSisData;
+import com.timing.util.MisLogger;
+import com.yulongtao.web.event.Event;
 
 public class SisDataTiming extends Event {
+	private static MisLogger logger = new MisLogger(SisDataTiming.class);
 	static String _getSisDate = "";
 	MantraUtil tool = null;
 	SimpleDateFormat sdf_ymd = new SimpleDateFormat("yyyy-MM-dd");
@@ -14,8 +16,7 @@ public class SisDataTiming extends Event {
 
 	@Override
 	public boolean isRun() {
-	    	MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[:019]->SisDataTiming->isRun:");
+		logger.debug("[:019]->SisDataTiming->isRun:");
 		boolean isRun = false; // 判断是否运行
 		if (index == 60) {
 			tool = new MantraUtil(); // 工具类
@@ -23,8 +24,7 @@ public class SisDataTiming extends Event {
 			if("".equals(_getSisDate)) {  //初始化
 				_getSisDate=strNowDate;
 			}else if(strNowDate.equals(_getSisDate)){  //相等
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[:019]->SisDataTiming->isRun:"+strNowDate);
+				logger.debug("[:019]->SisDataTiming->isRun:"+strNowDate);
 			}else {	//不相等
 				int dataRow = tool.getDateCont("t_sis_date_day", "DATETIME='" + _getSisDate + "'"); // 判断数据库是否有当天得数据
 				if (dataRow == 0) {

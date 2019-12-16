@@ -1,16 +1,16 @@
 package com.timing.impcl;
 
-import java.util.UUID;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import com.timing.impcl.MantraLog;
+import java.util.UUID;
+
+import com.timing.util.MisLogger;
+import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
-import com.yulongtao.db.DBFactory;
 import com.yulongtao.pub.Pub;
 import com.yulongtao.util.EString;
-import com.timing.impcl.RelationVO;
 
 /*
 *chars 字符数组
@@ -24,6 +24,7 @@ import com.timing.impcl.RelationVO;
 *
 **/
 public class MantraUtil {
+	private static MisLogger logger = new MisLogger(MantraUtil.class);
 	public static final String[] chars = new String[] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
 			"n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7",
 			"8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
@@ -145,8 +146,8 @@ public class MantraUtil {
 		String[][] PageField = new Pub().getPageField(_formId);
 		String[] onePageField = PageField[0];
 		String[] twoPageField = PageField[1];
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "&onePageField.length" + onePageField.length);
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "&twoPageField.length" + twoPageField.length);
+		logger.debug("&onePageField.length" + onePageField.length);
+		logger.debug("&twoPageField.length" + twoPageField.length);
 		// if(onePageField.length == twoPageField.length && onePageField.length!=1){
 		// sb.append(_formId+"|");
 		// for(int i = 0 , j = onePageField.length ; i < j ; i ++){
@@ -376,7 +377,7 @@ public class MantraUtil {
 
 	public void runSqlEx(String _str) {
 		DBFactory dbf = new DBFactory();
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "&_str&" + _str + "&");
+		logger.debug("&_str&" + _str + "&");
 		try {
 			dbf.sqlExe(_str, false);
 		} catch (Exception e) {

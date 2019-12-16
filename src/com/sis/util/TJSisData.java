@@ -12,9 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.timing.impcl.MantraLog;
+import com.timing.util.MisLogger;
 import com.yulongtao.db.DBFactory;
 
 public class TJSisData {
+	private static MisLogger logger = new MisLogger(TJSisData.class);
 // 	static String[] dayCondCode = { "rb1_fdl", "rb1_jhdl", "rb1_hbfc", "rb1_hbso", "rb1_hbno", "rb2_fdl", "rb2_jhdl",
 // 			"rb2_hbfc", "rb2_hbso", "rb2_hbno","DCS1:DUP9:10CRC01AO03","DCS2:DUP9:20CRC01AO03" };
 // 	static String[] dayCondName = { "#1 机组日发电量 ", "#1 机组日计划电量 ", "#1 机粉尘浓度日平均", "#1 机 SO2 排放浓度日平均 ",
@@ -215,7 +217,7 @@ public class TJSisData {
 				result.put(rs.getString("TAGCODE"), String.valueOf(rs.getFloat("R_VAL")));
 			}
 		} catch (Exception e) {
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,e.getMessage());
+			logger.debug(e.getMessage());
 			MantraLog.fileCreateAndWrite(e);
 		} finally {
 			try {

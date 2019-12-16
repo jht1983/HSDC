@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import com.timing.impcl.DefectProcessTool;
 import com.timing.impcl.MantraLog;
 import com.timing.impcl.WorkTicketProcessTool;
+import com.timing.util.MisLogger;
 import com.yonyou.mis.util.ApplicationUtils;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
@@ -29,6 +30,8 @@ import com.yulongtao.db.TableEx;
 
 	
 public class ProcessRunOperation {
+	private static MisLogger logger = new MisLogger(ProcessRunOperation.class);
+	
 	public static SimpleDateFormat strSdfYmd =  new SimpleDateFormat("yyyy-MM-dd");
 	public static SimpleDateFormat strSdfYmdHms =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -1905,8 +1908,8 @@ System.out.println("**********************************************person***"+str
 		//查询人所在父级部门的所有人,并通过角色筛选得到map< 角色代码，人ID>
 		try {
             String Sqyy = selDAteRet("S_TSSX","T_JSYHZ","S_ID='"+_strZj+"'");
-            MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---Sqyy---"+Sqyy);
-            MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---Sqyy---"+strRole);
+            logger.debug("---Sqyy---"+Sqyy);
+            logger.debug("---Sqyy---"+strRole);
             
             if("SQYY".equals(Sqyy)){
 	            exTRGXX = new TableEx("t_rgxx.SROLECODE SROLECODE,t_rgxx.SYGZW SYGZW,t_rgxx.SBRANCHID SBRANCHID","T_SQRYDJB LEFT JOIN t_rgxx ON T_SQRYDJB.S_RYBM=t_rgxx.sygzw "," 1=1 and SROLECODE!='' and SBRANCHID like '"+strBranchCodes.substring(0,3)+"%' ");//and SROLECODE in("+_strRoles+")
@@ -1947,7 +1950,7 @@ System.out.println("**********************************************person***"+str
 			 strAuditIds =sr.deleteCharAt(sr.length()-1).toString();
 		 }
 		 
-		 MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"---strAuditIds---"+strAuditIds);
+		 logger.debug("---strAuditIds---"+strAuditIds);
 		return strAuditIds;
 	}
 	

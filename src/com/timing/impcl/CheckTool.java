@@ -1,11 +1,14 @@
 package com.timing.impcl;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.timing.util.MisLogger;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
 
 public class CheckTool {
+	private static MisLogger logger = new MisLogger(CheckTool.class);
 	MantraUtil mu = new MantraUtil();
 
 	public static void main(String[] args) {
@@ -59,7 +62,7 @@ public class CheckTool {
 		if ("".equals(_planPk)) {
 			return false;
 		}
-        MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "checkToolId:"+_planPk);
+        logger.debug("checkToolId:"+_planPk);
 		StringBuffer sbf = new StringBuffer();
 		sbf.append("select ");
 		sbf.append(" T_DJJH.S_ZZ T_DJJH__S_ZZ,");

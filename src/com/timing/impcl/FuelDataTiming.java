@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timing.util.AES256Util;
 import com.timing.util.FuelDataTimingDao;
+import com.timing.util.MisLogger;
 import com.timing.util.TimingTaskTool;
 import com.url.urlUtill.httpCon;
 
@@ -21,6 +22,7 @@ import com.url.urlUtill.httpCon;
  *
  */
 public class FuelDataTiming {
+	private static MisLogger logger = new MisLogger(FuelDataTiming.class);
 	private static final String SERVER_ADDRESS = "http://172.168.3.3:8078";
 	
 	private static final String PARAM_USERCODE = "UserCode";
@@ -47,7 +49,7 @@ public class FuelDataTiming {
 			List<Map<String, Object>> result = FuelDataTimingDao.fatchMinerals();
 			FuelDataTimingDao.updateMinerals(result);
 		} catch (Exception e) {
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchMineralData -> Fail fetch Mineral data.");
+			logger.debug("FuelDataTiming.fetchMineralData -> Fail fetch Mineral data.");
 			MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}
@@ -59,7 +61,7 @@ public class FuelDataTiming {
 			Map<String, String> parameterMap = new HashMap<>();
 			String result = httpConnection.doPost(SERVER_ADDRESS + "/api/MineralData", parameterMap);
 		} catch (Exception e) {
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchMineralDataByWS -> Fail fetch Mineral data.");
+			logger.debug("FuelDataTiming.fetchMineralDataByWS -> Fail fetch Mineral data.");
 			MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}
@@ -78,7 +80,7 @@ public class FuelDataTiming {
 				FuelDataTimingDao.addLabdata(result);
 			}
 		} catch (Exception e) {
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchFuelData -> Fail fetch fuel data.");
+			logger.debug("FuelDataTiming.fetchFuelData -> Fail fetch fuel data.");
 			MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}
@@ -135,7 +137,7 @@ public class FuelDataTiming {
 						JsonNode data = node.get("Data");
 						if (data.isArray()) {
 							for (JsonNode objNode : data) {
-								MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, ">>>>>>>>>>>>" + objNode.get("TestNo").asText());
+								logger.debug(">>>>>>>>>>>>" + objNode.get("TestNo").asText());
 						    }
 						}
 					} catch (Exception e) {
@@ -145,7 +147,7 @@ public class FuelDataTiming {
 				}
 			}
 		} catch (Exception e) {
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "FuelDataTiming.fetchFuelDataByWS -> Fail fetch fuel data.");
+			logger.debug("FuelDataTiming.fetchFuelDataByWS -> Fail fetch fuel data.");
 			MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
 		}

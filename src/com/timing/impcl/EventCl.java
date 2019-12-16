@@ -6,10 +6,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 
+import com.timing.util.MisLogger;
 import com.timing.util.TimingTaskTool;
 import com.yulongtao.web.event.Event;
 
 public class EventCl extends Event {
+	private static MisLogger logger = new MisLogger(EventCl.class);
 	//1#粉尘
 //	public static final String TAG_1_FC = "FKGY:DUP36:10HTA20CQ104_C";//折算前
 	public static final String TAG_1_FC = "FKGY:DUP36:10HTA20CQ105";
@@ -143,7 +145,7 @@ public class EventCl extends Event {
 						}
 					}
 				} else {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "initEventClParameter");
+					logger.debug("initEventClParameter");
 					timTool.initEventClParameter();
 				}
 			}
@@ -154,7 +156,7 @@ public class EventCl extends Event {
 				return false;
 			}
 		} catch (Exception e) {
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[:019]->EventCl->isRun:ERR");
+			logger.debug("[:019]->EventCl->isRun:ERR");
 			MantraLog.fileCreateAndWrite(e);
 		}
 		return false;
@@ -162,7 +164,7 @@ public class EventCl extends Event {
 
 	public synchronized void run() {
 		HashMap<String, String> hmp = null;
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[:019]->EventCl->isRun:" + runGJStatus.size());
+		logger.debug("[:019]->EventCl->isRun:" + runGJStatus.size());
 		for (int z = 0; z < runGJStatus.size(); z++) {
 			hmp = runGJStatus.get(z);
 			timTool.runningStartEvent(hmp);
@@ -193,13 +195,13 @@ public class EventCl extends Event {
 			File component = new File("E:\\ylframework\\server\\webapps\\ROOT\\WEB-INF\\classes\\com\\yulongtao\\web\\component\\MisComponent.class");
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			if (!component.exists()) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "MisComponent has been removed:" + simpleDateFormat.format(new Date()));
+				logger.debug("MisComponent has been removed:" + simpleDateFormat.format(new Date()));
 			}
 			else {
-				//MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "MisComponent exist:" + simpleDateFormat.format(new Date()));
+				//logger.debug("MisComponent exist:" + simpleDateFormat.format(new Date()));
 			}
 		} catch (Exception e) {
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[:02222222]->EventCl->isRun:ERR");
+			logger.debug("[:02222222]->EventCl->isRun:ERR");
 			MantraLog.fileCreateAndWrite(e);
 		}
 	}

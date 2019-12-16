@@ -4,6 +4,7 @@
 package com.timing.csd;
 
 import com.timing.impcl.MantraLog;
+import com.timing.util.MisLogger;
 import com.yulongtao.web.event.Event;
 
 /**
@@ -13,17 +14,18 @@ import com.yulongtao.web.event.Event;
  *
  */
 public class EventCleanSisData extends Event {
+	private static MisLogger logger = new MisLogger(EventCleanSisData.class);
 
 	@Override
 	public boolean isRun() {
 
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "EventCleanSisData.run()");
+		logger.debug("EventCleanSisData.run()");
 		return true;
 	}
 
 	@Override
 	public void run() {
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "EventCleanSisData.run()");
+		logger.debug("EventCleanSisData.run()");
 		//clean the sis table data
 	}
 

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import com.timing.impcl.MantraLog;
 import com.timing.impcl.MantraUtil;
 import com.timing.impcl.ProcessParameterVO;
+import com.timing.util.MisLogger;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.FieldEx;
 import com.yulongtao.db.Record;
@@ -13,6 +14,7 @@ import com.yulongtao.db.TableEx;
 import com.yulongtao.util.EString;
 
 public class TechnicalReform {
+	private static MisLogger logger = new MisLogger(TechnicalReform.class);
 	ProcessParameterVO proVo = null;//实体类
 	
 	
@@ -31,12 +33,12 @@ public class TechnicalReform {
 			tableEx = new TableEx("T_KXXYJBG.S_SBID S_CZJXJH","T_KXXYJBG","S_ID = '"+proVo.getInpPkey()+"'");
 			recordIndex = tableEx.getRecordCount();
 			if(recordIndex!=1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->recordIndex="+recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex="+recordIndex);
 			}
 			for(int i = 0 ; i < recordIndex ; i++) {
 				record = tableEx.getRecord(i);
 				if(record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return ;
 				}
 
@@ -176,7 +178,7 @@ public class TechnicalReform {
 			sbr.append("'");
 			sbr.append(proVo.getInpPkey());
 			sbr.append("';");
-	        MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "SQl:"+sbr.toString());
+	        logger.debug("SQl:"+sbr.toString());
 			dbf.sqlExe(sbr.toString(), true);
 			
 		}catch (Exception e) {

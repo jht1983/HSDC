@@ -1,19 +1,21 @@
 package com.equi.overhaul;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.timing.impcl.MantraLog;
+import com.timing.impcl.MantraUtil;
 import com.timing.impcl.ProcessParameterVO;
 import com.timing.impcl.RelationVO;
+import com.timing.util.MisLogger;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
-import com.timing.impcl.MantraLog;
-import com.timing.impcl.MantraUtil;
 import com.yulongtao.util.EString;
 
 public class OverhaulManage {
+	private static MisLogger logger = new MisLogger(OverhaulManage.class);
 	ProcessParameterVO proVo = null;
 
 	/*
@@ -179,13 +181,12 @@ else
 			tableEx = new TableEx("S_CZJXJHID S_CZJXJH", "T_JXQSBPJBG", "S_ZJ = '" + proVo.getInpPkey() + "'");
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 				sumOver = record.getFieldByName("S_CZJXJH").value.toString();
@@ -221,13 +222,12 @@ else
 			tableEx = new TableEx("T_JXWJHCB.S_CZJHID S_CZJXJH", "T_JXWJHCB", "S_ZJ = '" + proVo.getInpPkey() + "'");
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 				sumOver = record.getFieldByName("S_CZJXJH").value.toString();
@@ -265,13 +265,12 @@ else
 					"S_ZJ = '" + proVo.getInpPkey() + "'");
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 				sumOver = record.getFieldByName("S_CZJXJH").value.toString();
@@ -312,13 +311,12 @@ else
 					"S_ZJ = '" + proVo.getInpPkey() + "'");
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 
@@ -401,13 +399,12 @@ else
 			tableEx = new TableEx("T_JXZX.S_JXBGID S_CZJXJH", "T_JXZX", "S_ZJ = '" + proVo.getInpPkey() + "'");
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 				sumOver = record.getFieldByName("S_CZJXJH").value.toString();
@@ -447,13 +444,12 @@ else
 			tableEx = new TableEx("T_JXZLYSBG.S_JHFJID S_CZJXJH,T_JXZLYSBG.S_DJH S_DJH", "T_JXZLYSBG", "S_ZJ = '" + proVo.getInpPkey() + "'");
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 				sumOver = record.getFieldByName("S_CZJXJH").value.toString();
@@ -466,12 +462,12 @@ else
 
 				String RenoRepl = getRenovationReplyById(rel.getS_LEFT_ID());
 				
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, RenoRepl);
+				logger.debug(RenoRepl);
 				
 				rel=rel.getRelationVOs().get(0);
 				runSql = "update T_XMZH_F set S_ZLBG='"+S_DJH+"',S_ZLYSBG_ID='"+proVo.getInpPkey()+"' where s_fidpf='"+rel.getRelationVOs().get(0).getS_LEFT_ID()+"' and S_ID in ("+RenoRepl+")";
 				
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, runSql);
+				logger.debug(runSql);
 				
 				dbf.sqlExe(runSql, false);
 				
@@ -506,13 +502,12 @@ else
 			tableEx = new TableEx("T_XMJY.S_GLJHID S_CZJXJH", "T_XMJY", "S_ZJ = '" + proVo.getInpPkey() + "'");
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 				sumOver = record.getFieldByName("S_CZJXJH").value.toString();
@@ -550,13 +545,12 @@ else
 			tableEx = new TableEx("T_JXSYPJBG.S_JXZJHID S_CZJXJH", "T_JXSYPJBG", "S_ID = '" + proVo.getInpPkey() + "'");
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 				sumOver = record.getFieldByName("S_CZJXJH").value.toString();
@@ -595,13 +589,12 @@ else
 
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 				sumOver = record.getFieldByName("S_CZJXJH").value.toString();
@@ -641,13 +634,12 @@ else
 
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
 				if (record.getFieldByName("S_CZJXJH").value == null) {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[err]:019->OverHaulTheReport->S_CZJXJH=null");
+					logger.debug("[err]:019->OverHaulTheReport->S_CZJXJH=null");
 					return false;
 				}
 				sumOver = record.getFieldByName("S_CZJXJH").value.toString();
@@ -685,8 +677,7 @@ else
 			tableEx = new TableEx("*", "T_JXZJHFJ", "T_JXZJHFJ.S_ZJ = '" + proVo.getInpPkey() + "'");
 			recordIndex = tableEx.getRecordCount();
 			if (recordIndex != 1) {
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS,
-						"[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
+				logger.debug("[err]:019->OverHaulTheReport->recordIndex=" + recordIndex);
 			}
 			for (int i = 0; i < recordIndex; i++) {
 				record = tableEx.getRecord(i);
@@ -705,7 +696,7 @@ else
 					sbr.append("select S_JXXM AS 'S_CBXM',S_KSRQ AS 'S_SGSD',S_JSRQ AS 'S_Z',S_BM AS 'S_ID','"+generId+"' AS 'S_RID','"+tool.getStrByRecord(record,"S_WWDW")+"' AS 'S_CBDW','"+tool.getStrByRecord(record,"S_LXFS")+"' AS 'S_LXFS','"+tool.getStrByRecord(record,"S_XTLXT")+"' AS 'S_XTLL' from T_JXZJHFJSB where T_JXZJHFJSB.S_PID='");
 					sbr.append( proVo.getInpPkey());
 					sbr.append("';");
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, sbr.toString());
+					logger.debug(sbr.toString());
 					dbf.sqlExe(sbr.toString(), false);
 					tool.recordRel(proVo.getBranck(), proVo.getSpageCode(),proVo.getInpPkey(), "T_JXZJHFJ","1506310525794",generId, "T_WWXM");
 				}

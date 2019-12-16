@@ -1,18 +1,19 @@
 package com.timing.impcl;
-import com.yulongtao.db.DBFactory;
-import com.yulongtao.db.Record;
-import com.yulongtao.db.TableEx;
-import com.yulongtao.util.EString;
-import com.timing.impcl.MantraUtil;
-
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.timing.util.MisLogger;
+import com.yulongtao.db.DBFactory;
+import com.yulongtao.db.Record;
+import com.yulongtao.db.TableEx;
+import com.yulongtao.util.EString;
     /*
     *   安全性查评项目
     */
 public class SafetyInquireTool {
+	private static MisLogger logger = new MisLogger(SafetyInquireTool.class);
 	ProcessParameterVO proParVo = null;
 	MantraUtil tool = new MantraUtil();
 	//MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,primaryKey);
@@ -226,7 +227,7 @@ public class SafetyInquireTool {
 							+ " where T_AQXCPXMHZ.S_ID='" + proParVo.getInpPkey() + "'";
 
 					insertSql = tool.sqlDisCom(insertSql,"pageCode=151944042188610027&bmid=" + proParVo.getBranck());
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"********"+insertSql);
+					logger.debug("********"+insertSql);
 
 					tool.recordRel(proParVo.getBranck(), proParVo.getSpageCode(), proParVo.getInpPkey(), "T_AQXCPXMHZ","151944042188610027", tool.getOrdGreId(), "T_AQXCPZGD");
 					//tool.recordRel(proParVo.getInpPkey(),"T_AQXCPXMHZ",tool.getOrdGreId(),"T_AQXCPZGD");
@@ -330,7 +331,7 @@ public class SafetyInquireTool {
 							+ " where T_AQXCPXMHZ.S_ID='" + proParVo.getInpPkey() + "'";
 
 					insertSql = tool.sqlDisCom(insertSql,"pageCode=152237975399214970&bmid=" + proParVo.getBranck());
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS ,"********"+insertSql);
+					logger.debug("********"+insertSql);
 					
 					tool.recordRel(proParVo.getBranck(), proParVo.getSpageCode(), proParVo.getInpPkey(), "T_AQXCPXMHZ","152237975399214970", tool.getOrdGreId(), "T_ZGJH");
 					//tool.recordRel(proParVo.getInpPkey(),"T_AQXCPXMHZ",tool.getOrdGreId(),"T_ZGJH");

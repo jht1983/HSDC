@@ -30,6 +30,7 @@ import com.timing.impcl.MantraUtil;
 import com.timing.impcl.MeasuresTool;
 import com.timing.impcl.ProcessUtillMantra;
 import com.timing.impcl.SafeCheck;
+import com.timing.util.MisLogger;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
@@ -39,6 +40,7 @@ import com.yulongtao.util.EString;
 import com.yulongtao.util.MisSerialUtil;
 
 public class Fun {
+	private static MisLogger logger = new MisLogger(Fun.class);
 	public HttpServletRequest request;
 	public HttpServletResponse response;
 	public HashMap hashFieldValue;
@@ -383,7 +385,7 @@ public class Fun {
 	public StringBuffer keyTradingCon() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("1234567890");
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "1234567890");
+		logger.debug("1234567890");
 		return sb;
 	}
 
@@ -919,19 +921,20 @@ public class Fun {
 		}
 		// 监控撤回
 		// EString.getCurDate()
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "---------------------[backFlow_start]---------------------");
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[backFlow]->FLOW_ID=" + flowId);
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[backFlow]->FLOW_RUN_CODE=" + flowRunCode);
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[backFlow]->FLOW_RUN_USER_CODE=" + flowRunUserCode);
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[backFlow]->FLOW_VERSION=" + flowVersion);
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[backFlow]->date=" + EString.getCurDate());
+		logger.debug("---------------------[backFlow_start]---------------------");
+		logger.debug("[backFlow]->FLOW_ID=" + flowId);
+		logger.debug("[backFlow]->FLOW_RUN_CODE=" + flowRunCode);
+		logger.debug("[backFlow]->FLOW_RUN_USER_CODE=" + flowRunUserCode);
+		logger.debug("[backFlow]->FLOW_VERSION=" + flowVersion);
+		logger.debug("[backFlow]->date=" + EString.getCurDate());
+		
 		try {
 			boolean results = pro.backFlowRun(this.request, flowId, flowRunCode, flowVersion, flowRunUserCode);
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[backFlow]->pro.backFlowRun:" + results);
+			logger.debug("[backFlow]->pro.backFlowRun:" + results);
 			if (results == true) {
 				ProcessUtillMantra pUm = new ProcessUtillMantra();
 				results = pUm.delRunLog(flowId, flowRunCode, flowVersion, flowRunUserCode);
-				MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "[backFlow]->pUm.delRunLog:" + results);
+				logger.debug("[backFlow]->pUm.delRunLog:" + results);
 				
 				ProcessRunOperationHelper processRunOperationHelper = new ProcessRunOperationHelper();
 				processRunOperationHelper.delMsg(flowRunCode);
@@ -941,8 +944,8 @@ public class Fun {
 			sb.append("出现错误");
 			sb.append(e.toString());
 		}
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, sb.toString());
-		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "---------------------[backFlow_start]---------------------");
+		logger.debug(sb.toString());
+		logger.debug("---------------------[backFlow_start]---------------------");
 		return sb;
 	}
 
@@ -1647,9 +1650,9 @@ public class Fun {
 		if (!success) {
 			retStrBuf = "var workTicketExportResult='fail';";
 		}
-//		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "spagecode="+spagecode);
-//		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "sid="+sid);
-//		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "retStrBuf="+retStrBuf);
+//		logger.debug("spagecode="+spagecode);
+//		logger.debug("sid="+sid);
+//		logger.debug("retStrBuf="+retStrBuf);
 		return new StringBuffer(retStrBuf);
 	}
 	

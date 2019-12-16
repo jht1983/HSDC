@@ -28,6 +28,7 @@ import com.yulongtao.db.TableEx;
  *
  */
 public final class FuelDataTimingDao {
+	private static MisLogger logger = new MisLogger(FuelDataTimingDao.class);
 	private static final String ZERO_STR = "0";
 	
 	/**
@@ -261,7 +262,7 @@ public final class FuelDataTimingDao {
 							+ "kgjhffvdafk1,kgjqlstark1,kgjqlstadk1,kgjqlstdk1,gdtk1,dtfrlk1,kgjgwrz1,sdjdwrzkmj1,sdjdwrzkcal1) ";
 				}
 				else {
-					MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "TimingTaskDao.addLabdata -> wrong datamark: " + map);
+					logger.debug("TimingTaskDao.addLabdata -> wrong datamark: " + map);
 				}
 				
 				dbf.sqlExe("delete from " + tableName + " where s_id='" + map.get("TESTNO") + "'", false);

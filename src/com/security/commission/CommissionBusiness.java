@@ -3,13 +3,15 @@ package com.security.commission;
 import javax.servlet.http.HttpServletRequest;
 
 import com.timing.impcl.MantraLog;
+import com.timing.impcl.MantraUtil;
 import com.timing.impcl.ProcessParameterVO;
+import com.timing.util.MisLogger;
 import com.yulongtao.db.DBFactory;
 import com.yulongtao.db.Record;
 import com.yulongtao.db.TableEx;
-import com.timing.impcl.MantraUtil;
 
 public class CommissionBusiness {
+	private static MisLogger logger = new MisLogger(CommissionBusiness.class);
 	ProcessParameterVO pro = null;
 
 	public boolean CommissionProject(HttpServletRequest _request) {
@@ -73,7 +75,7 @@ public class CommissionBusiness {
 		try {
 			tableEx = dbf.query(
 					"select T_WWJYPX.S_JXJH_ID ZJHID from T_WWJYPX where T_WWJYPX.S_ID='" + pro.getInpPkey() + "'");
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "select T_WWJYPX.S_JXJH_ID ZJHID from T_WWJYPX where T_WWJYPX.S_ID='" + pro.getInpPkey() + "'");		
+			logger.debug("select T_WWJYPX.S_JXJH_ID ZJHID from T_WWJYPX where T_WWJYPX.S_ID='" + pro.getInpPkey() + "'");		
 			int recordCount = tableEx.getRecordCount();
 			String ZJHID = "";
 			for (int i = 0; i < recordCount; i++) {
@@ -149,7 +151,7 @@ public class CommissionBusiness {
 		try {
 			tableEx = dbf.query(
 					"select T_KGXKZ.S_XKXMBM ZJHID from T_KGXKZ where T_KGXKZ.S_ID='" + pro.getInpPkey() + "'");
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "select T_WWJYPX.S_JXJH_ID ZJHID from T_WWJYPX where T_WWJYPX.S_ID='" + pro.getInpPkey() + "'");
+			logger.debug("select T_WWJYPX.S_JXJH_ID ZJHID from T_WWJYPX where T_WWJYPX.S_ID='" + pro.getInpPkey() + "'");
 			int recordCount = tableEx.getRecordCount();
 			String ZJHID = "";
 			for (int i = 0; i < recordCount; i++) {
@@ -186,7 +188,7 @@ public class CommissionBusiness {
 		try {
 			tableEx = dbf.query(
 					"select T_WWJGYS.S_KGXGZ_ID ZJHID from T_WWJGYS where T_WWJGYS.S_ID='" + pro.getInpPkey() + "'");
-			MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, "select T_WWJYPX.S_JXJH_ID ZJHID from T_WWJYPX where T_WWJYPX.S_ID='" + pro.getInpPkey() + "'");
+			logger.debug("select T_WWJYPX.S_JXJH_ID ZJHID from T_WWJYPX where T_WWJYPX.S_ID='" + pro.getInpPkey() + "'");
 			int recordCount = tableEx.getRecordCount();
 			String ZJHID = "";
 			for (int i = 0; i < recordCount; i++) {
