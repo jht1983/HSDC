@@ -488,7 +488,7 @@ public class ProcessRunOperation {
 		String strVersion="";
 		String strCustomNodeId = "";
 		String strAuditUser = "";
-        logger.debug("**************************************************************processRun: start" + defaultTag());
+        logger.debug("**************************************************************processRun: start");
 		try{
 			request.setCharacterEncoding("UTF-8");
 			/**接收数据*/
@@ -1090,7 +1090,7 @@ public class ProcessRunOperation {
 				}
 
 		        logger.debug("其他信息：" + _sb);
-		        logger.debug("**************************************************************processRun: end" + defaultTag());
+		        logger.debug("**************************************************************processRun: end");
 				if(db!=null){db.close();}
 			}
 		}catch (Exception e) {
