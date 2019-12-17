@@ -488,7 +488,7 @@ public class ProcessRunOperation {
 		String strVersion="";
 		String strCustomNodeId = "";
 		String strAuditUser = "";
-        logger.debug("**************************************************************processRun: start");
+        logger.info("**************************************************************processRun: start");
 		try{
 			request.setCharacterEncoding("UTF-8");
 			/**接收数据*/
@@ -505,9 +505,9 @@ public class ProcessRunOperation {
 			strFlowId = request.getParameter("NO_sys_flow_id");
             strFlowRunId = request.getParameter("NO_sys_S_RUN_ID");
             strVersion = request.getParameter("NO_sys_flow_Ver");
-            logger.debug("strFlowId=" + strFlowId);
-            logger.debug("strFlowRunId=" + strFlowRunId);
-            logger.debug("strVersion=" + strVersion);
+            logger.info("strFlowId=" + strFlowId);
+            logger.info("strFlowRunId=" + strFlowRunId);
+            logger.info("strVersion=" + strVersion);
             
             _sb.append("---审批人指定退回节点:"+strAuditChoiceNode);
             String strAuditUserId = request.getParameter("auditUserId");//多个审核人,指定审核人
@@ -611,7 +611,7 @@ public class ProcessRunOperation {
 			/**是否逾期*/
 			if(!isYuQi(strLaunchDate, strYqs,index)){
 				String strYqOpt = strYqs.split("\\|",-1)[index].split(",",-1)[1];
-	            logger.debug("strYqOpt=" + strYqOpt);
+	            logger.info("strYqOpt=" + strYqOpt);
 				switch (strYqOpt) {
 					case "ZF"://作废
 						strAuditState = "5";
@@ -957,7 +957,7 @@ public class ProcessRunOperation {
 			}
 			String[] strArrayFlowLog = {strFlowId,strFlowRunId,strNodeIdNow,strNowDate,strVersion,strAuditUser,strAuditState,strAuditComment,updateMessage};
 			
-            logger.debug("=====================================插入审核日志");
+            logger.info("=====================================插入审核日志");
 			insertFlowLog("1", strArrayFlowLog);
 			/**更新当前审批日志为空*/
 			updateSendMsgZt(dbf,strFlowRunId,strAuditUser,strFlowId);
@@ -1012,7 +1012,7 @@ public class ProcessRunOperation {
 			if("1".equals(strAuditStateBak)&&strClassName!=null&&strMethodName!=null&&!"".equals(strMethodName)&&!"".equals(strClassName)){
 				helper.reflectMothedInvoke(strClassName, strMethodName, request);
 			}	
-            logger.debug("=====================================审批结束");
+            logger.info("=====================================审批结束");
 			/**审批通过&流程结束执行操作*/
 			if("1".equals(strIsOver)&"1".equals(strAuditState)){
 				DBFactory db = new DBFactory();
@@ -1089,8 +1089,8 @@ public class ProcessRunOperation {
 					new WorkTicketProcessTool().setDTSpjg(request);
 				}
 
-		        logger.debug("其他信息：" + _sb);
-		        logger.debug("**************************************************************processRun: end");
+		        logger.info("其他信息：" + _sb);
+		        logger.info("**************************************************************processRun: end");
 				if(db!=null){db.close();}
 			}
 		}catch (Exception e) {

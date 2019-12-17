@@ -50,4 +50,22 @@ public class MisLogger {
 	public void debugToProcessFile(String message) {
 		MantraLog.WriteProgress(MantraLog.LOG_PROGRESS, strSdfYmdHms.format(new Date()) + " " + className.getName() + ": " + message);
 	}
+	
+	/**
+	 * 
+	 * @param message
+	 */
+	public void info(String message) {
+		System.out.println(strSdfYmdHms.format(new Date()) + " " + className.getName() + ": " + message);
+	}
+	
+	/**
+	 * 
+	 * @param message
+	 * @param e
+	 */
+	public void info(String message, Exception e) {
+		System.out.println(strSdfYmdHms.format(new Date()) + " " + className.getName() + ": " + message + " - " + e.getMessage());
+		e.printStackTrace();
+	}
 }

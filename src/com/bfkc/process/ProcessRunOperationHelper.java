@@ -122,9 +122,9 @@ public class ProcessRunOperationHelper {
 			}
 		}
 		
-	    logger.debug("==>>==>>==>>==>>==>>==>>==>>==>>字段回写开始");
-	    logger.debug("_strkey=" + _strkey);
-	    logger.debug("strField=" + strField);
+	    logger.info("==>>==>>==>>==>>==>>==>>==>>==>>字段回写开始");
+	    logger.info("_strkey=" + _strkey);
+	    logger.info("strField=" + strField);
 		for(int a=0,b=strArrayTable.length;a<b;a++){
 			String strTemp = strArrayTable[a];
 			strTemp = strTemp.substring(strTemp.indexOf("e$")+2,strTemp.length());
@@ -321,7 +321,7 @@ public class ProcessRunOperationHelper {
 					}
 				}
 				
-			    logger.debug("strCou=" + strCou + "; strVal=" + strVal);
+			    logger.info("strCou=" + strCou + "; strVal=" + strVal);
 				
 				mapCon.put(strTabName, strWhere);
 				map.put(strTabName,(map.get(strTabName)==null?"":(map.get(strTabName).toString()+" , "))+strCou+" = '"+strVal+"' ");//字段名
@@ -329,9 +329,9 @@ public class ProcessRunOperationHelper {
 			}
 		}
 
-	    logger.debug("mapCon=" + mapCon);
-	    logger.debug("map=" + map);
-	    logger.debug("updateColumns=" + updateColumns);
+	    logger.info("mapCon=" + mapCon);
+	    logger.info("map=" + map);
+	    logger.info("updateColumns=" + updateColumns);
 		try {
 			if (updateValueColumnStr == null) {
 				updateValueColumnStr = "";
@@ -375,7 +375,7 @@ public class ProcessRunOperationHelper {
 			
 			dbf.sqlExe("update T_SYS_FLOW_RUN set S_UPVALUE_COLS='" + updateValueColumnStr + "' where S_RUN_ID='" + _strRunId + "' and S_FLOW_ID='" +_strFlowId + "'", true);
 
-		    logger.debug("==>>==>>==>>==>>==>>==>>==>>==>>字段回写结束");
+		    logger.info("==>>==>>==>>==>>==>>==>>==>>==>>字段回写结束");
 		} catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
 			e.printStackTrace();
