@@ -39,7 +39,7 @@ public class MisThreeItem extends ThreeItem {
     			"<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr class=\"toptoolstr\"><td>" + logocontainer + "</td><td><div class=\"toptoolscontainer h50\">" + 
     	        "<span class='span_ico_right' tip-data=\"\u9000\u51fa\" onclick=\"ylt.Home.bttnClick(this,7);\"" + 
     			strEvent + 
-    			"><img src=\"new/images/exit-icon.png\" style=\"width: 20px;height:20px;vertical-align: middle;\"></span>" +
+    			"><img src=\"new/images/exit-icon.png\" style=\"width: 20px;height:20px;vertical-align: middle;margin-bottom: 8px;\"></span>" +
 				"<span class='span_ico_right' tip-data=\"\u8fd4\u56de\u9996\u9875\" onclick=\"ylt.Home.bttnClick(this,2);\" \"" + 
 				strEvent + 
 				"><span style='color:#fff;font-size:13px;font-family:\u5fae\u8f6f\u96c5\u9ed1;vertical-align: middle;'>\u8fd4\u56de\u9996\u9875</span></span>" +
@@ -51,11 +51,11 @@ public class MisThreeItem extends ThreeItem {
     			
     			
     			"<span class='span_ico_right' tip-data=\"\u5934\u50cf\" onclick=\"ylt.Home.bttnClick(this,8);\"><img id='headimg' src=\"upload/" + 
-    			this.strUserHead + "\" style=\"vertical-align: middle;\"></span>" +
+    			this.strUserHead + "\" style=\"vertical-align: middle;margin-bottom: 8px;\"></span>" +
     			"<span class='span_ico_right_time' style=\"color:#fff;font-size:14px;font-family:微软雅黑;vertical-align: middle;\"><div id=\"Show_Time\" style=\"font-size:13px;\"></div></span>" +
     			"<span class='span_ico_right_time' style=\"color:#fff;font-size:14px;font-family:微软雅黑;vertical-align: middle;\">当前时间:</span>" + 
-    			"<span id='todoListCount' class='span_ico_right' style='margin-right: 5px;background-color: #c90000;height: 23px !important;width: 23px !important;text-align: center;margin-top: 15px;line-height: 23px;color: white;font-weight: bold;border-radius: 24px; visibility: hidden;'></span>" + 
-    			"<span id='todoListCountIcon' class='span_ico_right' tip-data=\"\u5934\u50cf\" onclick=\"showTodoList();\" style='margin-right: -15px;'><img id='headimg' src='images/todo_count.png' style=\"vertical-align: middle;\"></span>" + 
+    			"<span id='todoListCount' class='span_ico_right' style='margin-right: 5px;background-color: #c90000;height: 23px !important;width: 23px !important;text-align: center;margin-top: 7px;line-height: 23px;color: white;font-weight: bold;border-radius: 24px; visibility: hidden;'></span>" + 
+    			"<span id='todoListCountIcon' class='span_ico_right' tip-data=\"\u5934\u50cf\" onclick=\"showTodoList();\" style='margin-right: -15px;'><img id='headimg' src='images/todo_count.png' style=\"vertical-align: middle;margin-bottom: 8px;\"></span>" + 
     			"</div></td></tr></table>";
     	
         final String strType = this.request.getParameter(this.strTypeName);
