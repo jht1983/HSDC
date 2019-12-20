@@ -659,6 +659,7 @@ public class ABSElement extends BodyTagSupport
         final String strFlowVerMsg = this.getFormFlowMsg(strFlowFromCode, request);
         Object objFlowId = null;
         String strFlowVer = "";
+        String strCurrentNode = "";
         if (!strFlowVerMsg.equals("")) {
             final String[] arrFlowVerMsg = strFlowVerMsg.split("_");
             objFlowId = arrFlowVerMsg[0];
@@ -673,9 +674,11 @@ public class ABSElement extends BodyTagSupport
         if (strFrontFlowRunId != null) {
             TableEx tbFlowRunVer = null;
             try {
-                tbFlowRunVer = new TableEx("S_AUDIT_VERSION", "t_sys_flow_run", "S_FLOW_ID='" + objFlowId + "' and S_RUN_ID='" + strFrontFlowRunId + "'");
+                tbFlowRunVer = new TableEx("S_AUDIT_VERSION,S_NODE_CODE", "t_sys_flow_run", "S_FLOW_ID='" + objFlowId + "' and S_RUN_ID='" + strFrontFlowRunId + "'");
                 if (tbFlowRunVer.getRecordCount() > 0) {
-                    strFlowVer = tbFlowRunVer.getRecord(0).getFieldByName("S_AUDIT_VERSION").value.toString();
+                	Record flowRunRecord = tbFlowRunVer.getRecord(0);
+                    strFlowVer = flowRunRecord.getFieldByName("S_AUDIT_VERSION").value.toString();
+                    strCurrentNode = flowRunRecord.getFieldByName("S_NODE_CODE").value.toString();
                 }
             }
             catch (Exception ex) {
@@ -865,6 +868,7 @@ public class ABSElement extends BodyTagSupport
             }
             strQDBttn = String.valueOf(strQDBttn) + "<input type='hidden' name='NO_sys_flow_id' value='" + objFlowId + "'>";
             strQDBttn = String.valueOf(strQDBttn) + "<input type='hidden' name='NO_sys_flow_Ver' value='" + objFlowVer + "'>";
+            strQDBttn = String.valueOf(strQDBttn) + "<input type='hidden' name='NO_sys_flow_current_node' value='" + strCurrentNode + "'>";
         }
         vResult.append("</div></td></tr>");
         vResult.append("<tr><td height='29' valign='bottom'>");

@@ -88,6 +88,49 @@ function check(aForm,aAction){
 	var iFormSize=aForm.elements.length;
 	var iRule="";
 	
+	try {
+		var NO_sys_flow_current_node = document.getElementsByName('NO_sys_flow_current_node')[0].value.trim();
+		
+		//after start the process
+		if (NO_sys_flow_current_node != '') {
+			var strMsg = getTx("NO_sys_S_RUN_ID=" + document.getElementsByName('NO_sys_S_RUN_ID')[0].value.trim(), "flow_current_node.v");
+			//console.log(strMsg);
+
+			var strCurrentNode = subGetTx(strMsg, "flow_current_node");
+			var strCurrentAudUser = subGetTx(strMsg, "flow_current_aud_user");
+			var SYS_STRCURUSER = subGetTx(strMsg, "SYS_STRCURUSER");
+			//console.log(strCurrentNode);
+			//console.log(strCurrentAudUser);
+			//console.log(SYS_STRCURUSER);
+		    
+		    if (NO_sys_flow_current_node != strCurrentNode || strCurrentAudUser == '' || strCurrentAudUser.indexOf(SYS_STRCURUSER)==-1) {
+		    	alert("\u8be5\u5355\u636e\u5df2\u901a\u8fc7\uff0c\u65e0\u6cd5\u7ee7\u7eed\u64cd\u4f5c\uff0c\u8bf7\u5173\u95ed\u6b64\u7a97\u53e3");
+		    	
+		    	try {
+			    	var strwin=subGetTx(strMsg, "strwin");
+			    	
+			         if(parent.parent.framehome.location.pathname.indexOf("home.v")!=-1){
+			             parent.parent.framehome.location.reload();
+			             parent.parent.closeWinById(strwin);
+			         }else if(typeof(parent.parent.framehome.lxmain)=="undefined"){
+
+			               parent.parent.location.reload(); 
+			         }else{
+			        	 try {
+			                 parent.parent.getOpenPage(strwin).location.reload();
+			                 parent.parent.closeWinById(strwin);
+			        	} catch(err) {
+			        		parent.parent.framehome.lxmain.location.reload();
+			        		parent.parent.closeWinById(strwin);
+			        	}
+			         }
+	        	} catch(err) {}
+		    	
+		    	return false;
+		    }
+		}
+	} catch(err) {}
+	
 	for(var i=0;i<iFormSize;i++){
 		var objRule=aForm.elements[i].attributes.rule;
 		

@@ -288,23 +288,21 @@
 			if(checkUserPower()==false){
 			    alert("该单据已通过，无法继续操作");
 			    var strwin=<ylt.v message="gs_upl_kc">""$value"$value"</ylt.v>;
-                 if(parent.mainhomeframe.location.pathname.indexOf("home.v")!=-1){
-                     parent.mainhomeframe.location.reload();
-                     parent.closeWinById(strwin);
-                 }else if(typeof(parent.mainhomeframe.lxmain)=="undefined"){
-        
-                       parent.location.reload(); 
-                 }else{
-        
-                     parent.getOpenPage(strwin).location.reload();
-                     parent.closeWinById(strwin);
-                     
-                     /*
-                    parent.mainhomeframe.lxmain.location.reload();
-                    
-                    parent.closeWinById(strwin);
-                    */
-                 }
+			    if(parent.framehome.location.pathname.indexOf("home.v")!=-1){
+		             parent.framehome.location.reload();
+		             parent.closeWinById(strwin);
+		         }else if(typeof(parent.framehome.lxmain)=="undefined"){
+
+		               parent.location.reload(); 
+		         }else{
+		        	 try {
+		                 parent.getOpenPage(strwin).location.reload();
+		                 parent.closeWinById(strwin);
+		        	} catch(err) {
+		        		parent.framehome.lxmain.location.reload();
+		        		parent.closeWinById(strwin);
+		        	}
+		         }
        
 			    return ;
 			}
