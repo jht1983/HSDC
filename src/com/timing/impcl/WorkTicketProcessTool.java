@@ -52,8 +52,10 @@ public final class WorkTicketProcessTool {
 				Date pzjssj = sdf.parse(String.valueOf(record.getFieldByName("S_PZJSGZSJ").value));
 				
 				boolean valid = true;
-				if (yqz != null && gzzzsj.after(yqz)) {
-					valid = false;
+				if (yqz != null) {
+					if (gzzzsj.after(yqz)) {
+						valid = false;
+					}
 				} else if (gzzzsj.after(pzjssj)) {
 					valid = false;
 				}
@@ -110,8 +112,10 @@ public final class WorkTicketProcessTool {
 				Date pzjssj = sdf.parse(String.valueOf(record.getFieldByName("S_PZ_PZJSGZSJ").value));
 				
 				boolean valid = true;
-				if (yqz != null && gzzzsj.after(yqz)) {
-					valid = false;
+				if (yqz != null) {
+					if (gzzzsj.after(yqz)) {
+						valid = false;
+					}
 				} else if (gzzzsj.after(pzjssj)) {
 					valid = false;
 				}
@@ -167,8 +171,10 @@ public final class WorkTicketProcessTool {
 				Date pzjssj = sdf.parse(String.valueOf(record.getFieldByName("S_PZ_PZJSGZSJ").value));
 				
 				boolean valid = true;
-				if (yqz != null && gzzzsj.after(yqz)) {
-					valid = false;
+				if (yqz != null) {
+					if (gzzzsj.after(yqz)) {
+						valid = false;
+					}
 				} else if (gzzzsj.after(pzjssj)) {
 					valid = false;
 				}
@@ -312,8 +318,10 @@ public final class WorkTicketProcessTool {
 				Date pzjssj = sdf.parse(String.valueOf(record.getFieldByName("S_PZ_PZJSGZSJ").value));
 				
 				boolean valid = true;
-				if (yqz != null && gzzzsj.after(yqz)) {
-					valid = false;
+				if (yqz != null) {
+					if (gzzzsj.after(yqz)) {
+						valid = false;
+					}
 				} else if (gzzzsj.after(pzjssj)) {
 					valid = false;
 				}
@@ -412,8 +420,10 @@ public final class WorkTicketProcessTool {
 				Date pzjssj = sdf.parse(String.valueOf(record.getFieldByName("S_PZ_JSGZSJ").value));
 				
 				boolean valid = true;
-				if (yqz != null && gzzzsj.after(yqz)) {
-					valid = false;
+				if (yqz != null) {
+					if (gzzzsj.after(yqz)) {
+						valid = false;
+					}
 				} else if (gzzzsj.after(pzjssj)) {
 					valid = false;
 				}
