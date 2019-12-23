@@ -52,6 +52,7 @@ public final class WorkTicketProcessTool {
 				Date pzjssj = sdf.parse(String.valueOf(record.getFieldByName("S_PZJSGZSJ").value));
 				
 				boolean valid = true;
+				//此处逻辑不能使用if (yqz != null && gzzzsj.after(yqz))
 				if (yqz != null) {
 					if (gzzzsj.after(yqz)) {
 						valid = false;
@@ -440,5 +441,14 @@ public final class WorkTicketProcessTool {
 			if(dbf!=null)
 				dbf.close();
 		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String pzjssj = "";
+		String yqz = "2019-12-21 16:00";
+		String gzzzsj = "2019-12-21 14:17";
+		
+		System.out.print(sdf.parse(gzzzsj).after(sdf.parse(yqz)));
 	}
 }
