@@ -304,7 +304,7 @@ public class MisComponent extends HttpServlet
         finally {
             dbf.close();
         }
-        dbf.close();
+        
         return vResult.append("</table></body></html>").toString();
     }
     
@@ -438,7 +438,7 @@ public class MisComponent extends HttpServlet
         finally {
             dbf.close();
         }
-        dbf.close();
+        
         return vResult.append("</table></body></html>").toString();
     }
     
@@ -1478,7 +1478,7 @@ public class MisComponent extends HttpServlet
             }
         }
         this.out.println(String.valueOf(arrStrText) + ");" + arrStrCode + ");");
-        System.out.println(String.valueOf(arrStrText) + ");" + arrStrCode + ");");
+        //System.out.println(String.valueOf(arrStrText) + ");" + arrStrCode + ");");
     }
     
     private void generSingTree() {

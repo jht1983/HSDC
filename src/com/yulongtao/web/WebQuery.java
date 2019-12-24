@@ -362,7 +362,6 @@ public class WebQuery
                 String strCount = this.request.getParameter("RECORDCOUNT");
                 int iTotalPage = 0;
                 if (strCount == null) {
-                    System.out.println("===================================================" + this.bIsInvoke);
                     TableEx tableCount;
                     if (this.bIsInvoke) {
                         tableCount = this.comInvoke.doFun(aQuery.toString());
@@ -407,7 +406,7 @@ public class WebQuery
                     iCurrentPage = 1;
                 }
                 final int iStartCount = (iCurrentPage - 1) * this.pageSize;
-                System.out.println("*************************" + aQuery.conditionStr);
+                
                 if (aQuery.conditionStr.equals("")) {
                     if (query.bIsHaving) {
                         query = new Query(aQuery.fields, aQuery.tables, aQuery.conditionStr);
@@ -424,7 +423,7 @@ public class WebQuery
                 else {
                     query = new Query(aQuery.fields, aQuery.tables, String.valueOf(aQuery.conditionStr) + " limit " + iStartCount + "," + this.pageSize);
                 }
-                System.out.println("*************************" + query.getSql());
+                
                 query.bIsHaving = aQuery.bIsHaving;
                 query.strHaving = aQuery.strHaving;
                 String strFormParam = "";
