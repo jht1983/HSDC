@@ -74,18 +74,20 @@ public class ProcessRunOperationHelper {
 		String rollBackStr = null;
 		try {
 			ex = new TableEx("s_rollback", "t_sys_flow_log"," S_RUN_ID='" + _strRunId + "' order by s_aud_date desc");
-			rollBackStr = getColString("s_rollback", ex.getRecord(0));
-			if (rollBackStr != null && rollBackStr.length() > 0) {
-				String rollBack = rollBackStr.substring(rollBackStr.indexOf(UPDATE_FIELD_START_TAG)+UPDATE_FIELD_START_TAG.length(),rollBackStr.indexOf(UPDATE_FIELD_END_TAG));
-				String[] rollBackArray = rollBack.split("#");
-				
-				for (int k = 0; k < rollBackArray.length; k++) {
-					String[] rollBackValue = rollBackArray[k].split("-");
-					if (rollBackValue.length < 2) {
-						rollBackMap.put(rollBackValue[0], "");
-					}
-					else {
-						rollBackMap.put(rollBackValue[0], rollBackValue[1]);
+			if (ex.getRecordCount() > 0) {
+				rollBackStr = getColString("s_rollback", ex.getRecord(0));
+				if (rollBackStr != null && rollBackStr.length() > 0) {
+					String rollBack = rollBackStr.substring(rollBackStr.indexOf(UPDATE_FIELD_START_TAG)+UPDATE_FIELD_START_TAG.length(),rollBackStr.indexOf(UPDATE_FIELD_END_TAG));
+					String[] rollBackArray = rollBack.split("#");
+					
+					for (int k = 0; k < rollBackArray.length; k++) {
+						String[] rollBackValue = rollBackArray[k].split("-");
+						if (rollBackValue.length < 2) {
+							rollBackMap.put(rollBackValue[0], "");
+						}
+						else {
+							rollBackMap.put(rollBackValue[0], rollBackValue[1]);
+						}
 					}
 				}
 			}
@@ -100,10 +102,13 @@ public class ProcessRunOperationHelper {
 		TableEx exRun = null;
 		try {
 			exRun = queryFlowRun(_strFlowId, _strRunId);
-			Record record = exRun.getRecord(0);
-			updateValueColumnStr = record.getFieldByName("S_UPVALUE_COLS").value.toString();
-			//there's no fucking log...
-			System.out.println((new Date()) + "; updateValueColumnStr: " + updateValueColumnStr + "; flow run ID: " + _strRunId);
+			
+			if (exRun.getRecordCount() > 0) {
+				Record record = exRun.getRecord(0);
+				updateValueColumnStr = record.getFieldByName("S_UPVALUE_COLS").value.toString();
+				//there's no fucking log...
+				logger.debug((new Date()) + "; updateValueColumnStr: " + updateValueColumnStr + "; flow run ID: " + _strRunId);
+			}
 			
 			if (StringUtils.isNotEmpty(updateValueColumnStr)) {
 				String[] columns = updateValueColumnStr.split("\\|");

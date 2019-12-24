@@ -158,7 +158,7 @@ public class MisRequestEx {
                     this.strTables = String.valueOf(this.strTables) + arrTables[0] + ":";
                 }
             }
-            System.out.println("----------------------------------" + paraValue);
+            
             this.requestHash.put(paraName, EString.encoderStr(paraValue, this.strChars));
         }
         if (!this.strTables.equals("")) {

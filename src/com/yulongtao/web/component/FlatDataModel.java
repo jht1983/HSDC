@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.Debug;
 import com.page.method.Fun;
 import com.yonyou.mis.util.ApplicationUtils;
 import com.yulongtao.db.DBFactory;
@@ -82,7 +83,7 @@ public class FlatDataModel
             }
         }
         catch (Exception e) {
-            System.out.println("\u52a0\u8f7d\u98ce\u683c\u6587\u4ef6\u5931\u8d25\uff01" + e);
+            Debug.println("\u52a0\u8f7d\u98ce\u683c\u6587\u4ef6\u5931\u8d25\uff01" + e);
         }
     }
     
@@ -499,7 +500,7 @@ public class FlatDataModel
                 }
             }
         }
-        System.out.println("===============" + strSql);
+        //Debug.println("===============" + strSql);
         TableEx tableEx = null;
         final String[] arrcode = hashHQRC.get("SFIELDCODE").toString().split(",");
         final String[] arrDic = hashHQRC.get("STRANS").toString().split(",");
@@ -736,7 +737,7 @@ public class FlatDataModel
         final int iFileCount = arrFile.length;
         String strBg = record.getFieldByName("S_CJBG").value.toString();
         strBg = strBg.replaceAll("<br>", " ");
-        System.out.println("iFileCount" + iFileCount);
+        //Debug.println("iFileCount" + iFileCount);
         for (int i = 0; i < iFileCount; ++i) {
             vResult.append("<tr> <td class=\"tdtitle\" rowspan=\"2\">\u62a5\u544a\u540d\u79f0</td> <td class=\"linetd\" rowspan=\"2\">").append(arrFile[i].split("\\.")[0]).append("</td> <td class=\"tdtitle\">\u62a5\u544a\u7f16\u53f7:</td> <td class=\"linetd\" width='200' valign='bottom' align='center'>").append(strNeeId).append("_").append(i + 1).append("</td> </tr> <tr> <td class=\"tdtitle\">\u62a5\u544a\u65f6\u95f4:</td> <td class=\"linetd\" valign='bottom' align='center'>").append(strBg).append("</td> </tr>");
         }
@@ -752,7 +753,7 @@ public class FlatDataModel
         if (strConValue != null) {
             for (int iConCount = arrRdt.length, i = 1; i < iConCount; ++i) {
                 final String[] arrCon = arrRdt[i].split("=");
-                System.out.println(String.valueOf(strConValue) + "=" + arrCon[0] + "to" + arrCon[1]);
+                //Debug.println(String.valueOf(strConValue) + "=" + arrCon[0] + "to" + arrCon[1]);
                 if (strConValue.equals(arrCon[0])) {
                     this.response.sendRedirect(String.valueOf(arrCon[1]) + Pub.getUrlParams(this.request));
                     break;
@@ -767,7 +768,7 @@ public class FlatDataModel
             final String strCon = record.getFieldByName(hashHQRC.get("SFIELDCODE").toString().split(",")[0]).value.toString();
             for (int iConCount2 = arrRdt.length, j = 1; j < iConCount2; ++j) {
                 final String[] arrCon2 = arrRdt[j].split("=");
-                System.out.println(String.valueOf(strCon) + "=" + arrCon2[0] + "to" + arrCon2[1]);
+                //Debug.println(String.valueOf(strCon) + "=" + arrCon2[0] + "to" + arrCon2[1]);
                 if (strCon.equals(arrCon2[0])) {
                     this.response.sendRedirect(arrCon2[1]);
                     break;
