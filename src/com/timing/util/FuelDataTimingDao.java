@@ -393,10 +393,9 @@ public final class FuelDataTimingDao {
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
-			if (!con.isClosed()) {
-				System.out.println("Succeeded connecting to the Database!");
-			
-			}
+//			if (!con.isClosed()) {
+//				System.out.println("Succeeded connecting to the Database!");
+//			}
 		} catch (Exception e) {
 			MantraLog.fileCreateAndWrite(e);
 		}
