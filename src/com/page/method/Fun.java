@@ -24,6 +24,7 @@ import com.sip.business.BusinessUtil;//DEMO
 import com.sis.util.TJSisData;
 import com.timing.impcl.CheckTool;
 import com.timing.impcl.EventCl;
+import com.timing.impcl.FuelDataTiming;
 import com.timing.impcl.LaborSchedulingTiming;
 import com.timing.impcl.MantraLog;
 import com.timing.impcl.MantraUtil;
@@ -526,14 +527,7 @@ public class Fun {
 				a.append(";</br>");
 			}
 			a.append("</td></tr>");
-		} else if ("startSisData".equals(getVale)) {
-			EventCl.isStartSis = true;
-			a.append("<tr><td>");
-			a.append(EventCl.isStartSis + "");
-
-			a.append("</td></tr>");
 		} else if ("AllSession".equals(getVale)) {
-			EventCl.isStartSis = true;
 			a.append("<tr><td>");
 			java.util.Enumeration e = request.getSession().getAttributeNames();
 			while (e.hasMoreElements()) {
@@ -544,12 +538,20 @@ public class Fun {
 			}
 
 			a.append("</td></tr>");
-		} else if ("endSisData".equals(getVale)) {
-			EventCl.isStartSis = false;
-			a.append("<tr><td>");
-			a.append(EventCl.isStartSis + "");
-
-			a.append("</td></tr>");
+		} else if ("startFuelData".equals(getVale)) {
+			FuelDataTiming fuelDataTiming = new FuelDataTiming();
+			try {
+				fuelDataTiming.fetchMineralData();
+			} catch (Exception e) {
+				MantraLog.fileCreateAndWrite(e);
+			}
+			
+			try {
+				fuelDataTiming.fetchFuelData();
+			} catch (Exception e) {
+				MantraLog.fileCreateAndWrite(e);
+			}
+			a.append("<tr><td>OK</td></tr>");
 		}
 
 		return a;

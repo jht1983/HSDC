@@ -1,6 +1,5 @@
 package com.timing.impcl;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,18 +39,10 @@ public class EventCl extends Event {
 	public Vector<HashMap<String, String>> runGJStatus = new Vector<HashMap<String, String>>();
 
 	public static int sys_index = 0;
-	// private static final long timeInterval = 10 * 60 * 1000L;
-	// super.lFLAGTIME = 60000L;
-	private int index = 0;
-
 	TimingTaskTool timTool = new TimingTaskTool();
 
 	// --SIS Data--start
-	static String _getSisDate = "";
-
 	static boolean isRun = false;
-	public static boolean isStartSis = false; //set to true after deploy into PRO
-	
 	private int timer = 0;
 	// --SIS Data--end
 
@@ -65,9 +56,6 @@ public class EventCl extends Event {
 	private int startLoadDataPeriod = 6*10; //10秒X6X10
 	
 	public boolean isRun() {
-//		checkComponent();
-		/////////////////////////////////////////////////////////////////
-		
 		timer++;
 		if (timer >= startLoadDataPeriod) {
 			timer = 0;
@@ -185,24 +173,5 @@ public class EventCl extends Event {
 
 	public static void setVecGJStatus(HashMap<String, String> vecGJStatus) {
 		EventCl.vecGJStatus.add(vecGJStatus);
-	}
-	
-	/**
-	 * 
-	 */
-	private void checkComponent() {
-		try {
-			File component = new File("E:\\ylframework\\server\\webapps\\ROOT\\WEB-INF\\classes\\com\\yulongtao\\web\\component\\MisComponent.class");
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			if (!component.exists()) {
-				logger.debug("MisComponent has been removed:" + simpleDateFormat.format(new Date()));
-			}
-			else {
-				//logger.debug("MisComponent exist:" + simpleDateFormat.format(new Date()));
-			}
-		} catch (Exception e) {
-			logger.debug("[:02222222]->EventCl->isRun:ERR");
-			MantraLog.fileCreateAndWrite(e);
-		}
 	}
 }
