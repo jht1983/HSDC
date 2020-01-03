@@ -64,7 +64,7 @@ public final class DefectProcessTool {
 		        
 				String sql_new = "INSERT INTO T_YHDJPG (S_ID,S_DJRQ,S_ZZ,S_RUN_ID,S_QXBH,S_QXZT,S_JZ,S_QXLB,S_SBMC," + 
 				                 "S_SBBM,S_SSZY,S_XQDW,S_FXR,S_FXRBM,S_FXSJ,S_FXRSSBM_NAME,S_FXRSSBM,S_FXRSSBZ," + 
-						         "S_GZPPZ,S_GZXXSM,S_GZFZR,S_GZFZRBM,S_QXYY,S_YHFXRBM) " + 
+						         "S_GZPPZ,S_GZXXSM,S_GZFZR,S_GZFZRBM,S_QXYY,S_YHWHCD,S_YHFXRBM) " + 
 				                 " VALUES (" + 
 						         "'" + sId + "'," +
 						         "'" + strCurDate + "'," +
@@ -89,6 +89,7 @@ public final class DefectProcessTool {
 						         "'" + String.valueOf(record.getFieldByName("S_GZFZR").value) + "'," +
 						         "'" + String.valueOf(record.getFieldByName("S_GZFZRBM").value) + "'," +
 						         "'" + String.valueOf(record.getFieldByName("S_QXYY").value) +"'," +
+						         "'" + String.valueOf(record.getFieldByName("S_SSZY").value) +"'," +
 						         "'" + String.valueOf(record.getFieldByName("S_WHZGBM").value) + "'" +
 						         ")";
 				dbf.sqlExe(sql_new, false);
