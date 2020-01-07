@@ -832,6 +832,24 @@ public class MisComponent extends HttpServlet
     }
     
     private void excelToDbConfig(final String _strImportId) {
+    	String expFileName = "";    	
+    	try {
+    		String path = getServletContext().getRealPath("/modexcel");
+    		String fileName = "/sys_upload_mod_" + _strImportId;
+    		File file = new File(path + fileName + ".xlsx");
+    		if (file.exists()) {
+    			expFileName = ".xlsx";
+			}
+    		else {
+    			file = new File(path + fileName + ".xls");
+    			if (file.exists()) {
+        			expFileName = ".xls";
+    			}
+    		}
+		} catch (Exception e) {
+            e.printStackTrace();
+		}
+    	
         this.out.println("<html> <head> <script></script> <script type=\"text/javascript\" src=\"js/ylexceltodb.js\"></script> <script type=\"text/javascript\" src=\"js/evenfunction.js\"></script> <script type=\"text/javascript\" src=\"js/check.js\"></script> </head> <style>");
         this.out.println(" .fieldstyle{margin:5px;float:left;background:#fafafa;border-radius: 5px;padding-left:5px;padding-right:5px;border:1px solid gray;font-family:\u5fae\u8f6f\u96c5\u9ed1;font-size:12px;} </style>");
         this.out.println("<link href='css/table.css' rel='stylesheet' type='text/css'/>");
@@ -861,7 +879,10 @@ public class MisComponent extends HttpServlet
         this.out.println(Pub.getBttn(Pub.getBttnText("add.png", "\u5bfc\u5165\u8868"), "miniWin1('\u9009\u62e9\u8868','','View?sys_select_type=1-2&SPAGECODE=1427776889139&RETURN=_eventsetImportTable',800,600,'','');", "button blue"));
         this.out.println("</td>");
         this.out.println("<td width=\"150px\" height=\"25px\" align=\"center\"><div class=\"exceltodbbttn\"> <span id=\"sysfile1\">\u5bfc\u5165\u6a21\u677f</span> </div></td>");
-        this.out.println("<td>&nbsp;</td> </tr> <tr style=\"background:white;\"> <td colspan=\"9\" id=\"tr_seltable\">");
+        if (!"".equals(expFileName)) {
+            this.out.println("<td width=\"150px\" height=\"25px\" align=\"center\"><div class=\"exceltodbbttn\"> <a href=\"modexcel/sys_upload_mod_" + _strImportId + expFileName + "\" target=\"_blank\">\u5bfc\u51fa\u6a21\u677f</a> </div></td>");
+		}
+        this.out.println("<td>&nbsp;</td> </tr> <tr style=\"background:white;\"> <td colspan=\"11\" id=\"tr_seltable\">");
         TableEx tableEx = null;
         String strInitBindCol = "function initExcelToDb(){var objViewFrame=document.getElementById('iframemodle').contentWindow;yltExcelToDb.strImId='" + _strImportId + "';";
         
@@ -941,7 +962,13 @@ public class MisComponent extends HttpServlet
         this.out.println("<script>");
         this.out.println(strInitBindCol);
         this.out.println("</script>");
-        this.out.println(" <iframe id='iframemodle' onload=\"initExcelToDb();\" src=\"modexcel/sys_upload_mod_" + _strImportId + ".html\" width=\"100%\" height=\"100%\" frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"auto\"></iframe> <script>var uploadUrl='" + Dic.strCurRoot + "/uploadFile?';</script> <script type=\"text/javascript\" src=\"js/yluploader.js\"></script> <script>");
+        if (!"".equals(expFileName)) {
+        	this.out.println(" <iframe id='iframemodle' onload=\"initExcelToDb();\" src=\"modexcel/sys_upload_mod_" + _strImportId + ".html\" width=\"100%\" height=\"100%\" frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"auto\"></iframe> ");
+        }
+        else {
+        	this.out.println("<span style='padding: 10px;'>\u6ca1\u6709\u627e\u5230\u6a21\u677f\uff0c\u8bf7\u70b9\u51fb\u201c\u5bfc\u5165\u6a21\u677f\u201d\u6309\u94ae\u65b0\u589e\u6a21\u677f</span>");
+        }
+        this.out.println("<script>var uploadUrl='" + Dic.strCurRoot + "/uploadFile?';</script> <script type=\"text/javascript\" src=\"js/yluploader.js\"></script> <script>");
         this.out.println("yltUploader.FreeOpSucces=function(){document.getElementById('iframemodle').contentWindow.location='modexcel/sys_upload_mod_" + _strImportId + ".html?id=a'+Math.random(); }");
         this.out.println("initSingUpload_FreeOp('12','modexcel','sys_upload_mod_" + _strImportId + "','85120.0','.xlsx,.xls','Excel\u6a21\u677f\u6587\u4ef6','sysfile1','sys_upload_mod_" + _strImportId + "','12');");
         this.out.println(" </script><div id='sys_prim_key' style='display:none;position: absolute;border:#909090 1px solid;background:#fff;color:#333;z-index:100002;'></div> </body> </html>");
