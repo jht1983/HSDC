@@ -966,7 +966,7 @@ public class MisComponent extends HttpServlet
         	this.out.println(" <iframe id='iframemodle' onload=\"initExcelToDb();\" src=\"modexcel/sys_upload_mod_" + _strImportId + ".html\" width=\"100%\" height=\"100%\" frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"auto\"></iframe> ");
         }
         else {
-        	this.out.println("<span style='padding: 10px;'>\u6ca1\u6709\u627e\u5230\u6a21\u677f\uff0c\u8bf7\u70b9\u51fb\u201c\u5bfc\u5165\u6a21\u677f\u201d\u6309\u94ae\u65b0\u589e\u6a21\u677f</span>");
+        	this.out.println(" <iframe id='iframemodle' onload=\"initExcelToDb();\" src=\"modexcelDefault.v\" width=\"100%\" height=\"100%\" frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"auto\"></iframe> ");
         }
         this.out.println("<script>var uploadUrl='" + Dic.strCurRoot + "/uploadFile?';</script> <script type=\"text/javascript\" src=\"js/yluploader.js\"></script> <script>");
         this.out.println("yltUploader.FreeOpSucces=function(){document.getElementById('iframemodle').contentWindow.location='modexcel/sys_upload_mod_" + _strImportId + ".html?id=a'+Math.random(); }");
