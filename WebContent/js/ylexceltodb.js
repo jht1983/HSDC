@@ -98,9 +98,9 @@ var ylt=ylt||{};
 			}
 			for(var i in this.objParamRecive){
 					if(this.objprimKey[i]!=null)
-						strPrimKey+="<tr class='tr1'><td><input onclick=\"yltExcelToDb.setPrimKeyValue(this,'"+i+"')\" type='checkbox' value='"+i+"' checked></td><td class='td1'>"+i+"</td><td class='td1' style='color:red;'>Êı¾İ½ÓÊÕ</td></tr>";
+						strPrimKey+="<tr class='tr1'><td><input onclick=\"yltExcelToDb.setPrimKeyValue(this,'"+i+"')\" type='checkbox' value='"+i+"' checked></td><td class='td1'>"+i+"</td><td class='td1' style='color:red;'>ï¿½ï¿½ï¿½İ½ï¿½ï¿½ï¿½</td></tr>";
 					else
-						strPrimKey+="<tr class='tr1'><td><input onclick=\"yltExcelToDb.setPrimKeyValue(this,'"+i+"')\" type='checkbox'></td><td class='td1'>"+i+"</td><td class='td1' style='color:red;'>Êı¾İ½ÓÊÕ</td></tr>";
+						strPrimKey+="<tr class='tr1'><td><input onclick=\"yltExcelToDb.setPrimKeyValue(this,'"+i+"')\" type='checkbox'></td><td class='td1'>"+i+"</td><td class='td1' style='color:red;'>ï¿½ï¿½ï¿½İ½ï¿½ï¿½ï¿½</td></tr>";
 			}
 			
 			
@@ -119,11 +119,11 @@ var ylt=ylt||{};
 			if(!this.bIsDicConfig){
 				this.bIsDicConfig=true;
 				bttndic.className="button gray";
-				bttndic_text.innerHTML="È¡ÏûÉèÖÃ";
+				bttndic_text.innerHTML="\u53d6\u6d88\u8bbe\u7f6e"; //å–æ¶ˆè®¾ç½®
 			}else{
 				this.bIsDicConfig=false
 				bttndic.className="button pink";
-				bttndic_text.innerHTML="ÉèÖÃ×Öµä";
+				bttndic_text.innerHTML="\u8bbe\u7f6e\u5b57\u5178"; //è®¾ç½®å­—å…¸
 			}
 		},
 		addBindCol:function(_strDBField,_strExcelCol,_strDBFieldName,_strItemType){
@@ -137,7 +137,7 @@ var ylt=ylt||{};
 			
 			var objTableFieldMenu=document.getElementById("sys_seltablefields_param");
 			if(objTableFieldMenu==null){
-				alert("ÇëÏÈÑ¡Ôñµ¼Èë±í£¡");
+				alert("\u8bf7\u5148\u9009\u62e9\u5bfc\u5165\u8868\uff01"); //è¯·å…ˆé€‰æ‹©å¯¼å…¥è¡¨ï¼
 				return;
 			}
 			if(objTableFieldMenu.style.display==""){
@@ -152,7 +152,7 @@ var ylt=ylt||{};
 		if(!this.bIsDicConfig){
 				var objTableFieldMenu=document.getElementById("sys_seltablefields_menu");
 				if(objTableFieldMenu==null){
-					alert("ÇëÏÈÑ¡Ôñµ¼Èë±í£¡");
+					alert("\u8bf7\u5148\u9009\u62e9\u5bfc\u5165\u8868\uff01"); //è¯·å…ˆé€‰æ‹©å¯¼å…¥è¡¨ï¼
 					return;
 				}
 				objTableFieldMenu.style.left=_event.x+"px";
@@ -160,7 +160,8 @@ var ylt=ylt||{};
 				objTableFieldMenu.style.display="";
 				this.objCurSelHead=_obj;
 		}else{
-			if(confirm("È·¶¨Òª½«¸ÃÁĞÉèÖÃÎª×Öµä·­ÒëÂğ£¿")){
+			//ç¡®å®šè¦å°†è¯¥åˆ—è®¾ç½®ä¸ºå­—å…¸ç¿»è¯‘å—ï¼Ÿ
+			if(confirm("\u786e\u5b9a\u8981\u5c06\u8be5\u5217\u8bbe\u7f6e\u4e3a\u5b57\u5178\u7ffb\u8bd1\u5417\uff1f")){
 				_obj.style.background="#d6edc5";
 				this.objDicCol[_obj.attributes["icol"].value]=_obj.attributes["icol"].value;
 				//var strBindCol=this.objCurSelHead.attributes["icol"].value;
@@ -172,12 +173,12 @@ var ylt=ylt||{};
 			var objCurObjHeadBind=this.objBindCol[strBindCol];
 			if(objCurObjHeadBind!=null)
 				if(objCurObjHeadBind[_strId]!=null){
-					alert("¸ÃÁĞÒÑ°ó¶¨"+_strName+"×Ö¶Î£¬²»ÄÜÖØ¸´°ó¶¨£¡");
+					alert("\u8be5\u5217\u5df2\u7ed1\u5b9a"+_strName+"\u5b57\u6bb5\uff0c\u4e0d\u80fd\u91cd\u590d\u7ed1\u5b9a\uff01"); //è¯¥åˆ—å·²ç»‘å®š å­—æ®µï¼Œä¸èƒ½é‡å¤ç»‘å®šï¼
 					sys_seltablefields_menu.style.display="none";
 					return;
 				}
 				
-			this.objCurSelHead.innerHTML+="<font style='font-family:Î¢ÈíÑÅºÚ;font-size:14px;color:green;'>("+_strName+")</font>";
+			this.objCurSelHead.innerHTML+="<font style='font-family:å¾®è½¯é›…é»‘;font-size:14px;color:green;'>("+_strName+")</font>";
 			document.getElementById(_strId).style.background="#39ee30";
 			
 			this.addBindCol(_strId,strBindCol,_strName,_strItemType);
@@ -185,7 +186,8 @@ var ylt=ylt||{};
 		},
 		sys_setExceleToDbStartRow:function(_obj){
 			var iStartRow=parseInt(_obj.innerText);
-			if(confirm("È·¶¨Òª½«µÚ "+iStartRow+" ĞĞÉèÖÃÎªÆğÊ¼ĞĞÂğ£¿")){
+			//ç¡®å®šè¦å°†ç¬¬ "+iStartRow+" è¡Œè®¾ç½®ä¸ºèµ·å§‹è¡Œå—ï¼Ÿ
+			if(confirm("\u786e\u5b9a\u8981\u5c06\u7b2c "+iStartRow+" \u884c\u8bbe\u7f6e\u4e3a\u8d77\u59cb\u884c\u5417\uff1f")){
 				if(this.objStarRow!=null)
 					this.objStarRow.style.backgroundColor="#fafafa";
 				_obj.style.backgroundColor="red";
@@ -194,10 +196,11 @@ var ylt=ylt||{};
 			}
 		},
 		delConfigMsg:function(){
-			if(confirm("È·¶¨Çå³ıËùÓĞÅäÖÃĞÅÏ¢Âğ£¿")){
+			//ç¡®å®šæ¸…é™¤æ‰€æœ‰é…ç½®ä¿¡æ¯å—ï¼Ÿ
+			if(confirm("\u786e\u5b9a\u6e05\u9664\u6240\u6709\u914d\u7f6e\u4fe1\u606f\u5417\uff1f")){
 				var vResult=getTx("comid=002&S_IMID="+yltExcelToDb.strImId+"&S_BINDCOL=&I_STARTROW=0&S_DICCOL=&S_PARAM=","docommand");
 				if(vResult=="true"){
-					alert("Çå³ı³É¹¦£¡");
+					alert("\u6e05\u9664\u6210\u529f\uff01"); //æ¸…é™¤æˆåŠŸï¼
 					window.location.reload();
 				}
 			}
@@ -254,11 +257,11 @@ var ylt=ylt||{};
 				var vResult=getTx("comid=002&S_IMID="+yltExcelToDb.strImId+"&S_BINDCOL="+strBindField+"&I_STARTROW="+this.iStartRow+"&S_DICCOL="+strDicCol+
 								  "&S_PARAM="+strReciveHiddenMethod+"&S_PRIMKEY="+strPrimKeys+"&S_FILTER="+strFilters+"&S_EXTENDS="+strExtends,"docommand");
 				if(vResult=="true")
-					alert("±£´æ³É¹¦£¡");
+					alert("\u4fdd\u5b58\u6210\u529f\uff01"); //ä¿å­˜æˆåŠŸï¼
 				else
-					alert("±£´æÊ§°Ü£¡");
+					alert("\u4fdd\u5b58\u5931\u8d25\uff01"); //ä¿å­˜å¤±è´¥ï¼
 			}else{
-				alert("Ã»ÓĞÈÎºÎÅäÖÃĞÅÏ¢£¬²»ĞèÒª±£´æ£¡");
+				alert("\u6ca1\u6709\u4efb\u4f55\u914d\u7f6e\u4fe1\u606f\uff0c\u4e0d\u9700\u8981\u4fdd\u5b58\uff01"); //æ²¡æœ‰ä»»ä½•é…ç½®ä¿¡æ¯ï¼Œä¸éœ€è¦ä¿å­˜ï¼
 			}
 		}
 	}
