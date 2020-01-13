@@ -672,6 +672,74 @@ public class TimingTaskTool {
 			dbf.close();
 		}
 	}
+	
+
+	/**
+	 * init the QXJL status.
+	 */
+	public void checkYHDJPG() {
+		TableEx tableEx = null;
+		DBFactory dbf = new DBFactory();
+		SimpleDateFormat ymdhms = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+		try {
+			tableEx = new TableEx("*", "T_YHDJPG", "");
+			int iCount = tableEx.getRecordCount();
+
+			//清空状态
+			try {
+				dbf.sqlExe("UPDATE T_YHDJPG set S_WARNING='false'", false);
+			} catch (Exception e) {
+				//do nothing
+				e.printStackTrace();
+			}
+
+			for(int i = 0; i < iCount; i++){
+				Record record = tableEx.getRecord(i);
+				String sid = ProcessRunOperationDao.getColString("S_ID", record);
+				String sgdj = ProcessRunOperationDao.getColString("S_PG_PGDJ", record);
+				String sjwcsj = ProcessRunOperationDao.getColString("S_SJWCSJ", record);
+				
+				Date sjwcsjDate = null;
+				if (StringUtils.isNotEmpty(sjwcsj)) {
+					sjwcsjDate = ymdhms.parse(sjwcsj);
+				}
+				else {
+					sjwcsjDate = new Date();
+				}
+				
+				String sprq = "";
+				try {
+					if ("YHDJ01".equals(sgdj) || "YHDJ02".equals(sgdj)) {
+						sprq = ProcessRunOperationDao.getColString("S_PG_PGLDSJ", record);
+					}
+					else {
+						sprq = ProcessRunOperationDao.getColString("S_AJB_RQ", record);
+					}
+					
+					if (StringUtils.isEmpty(sprq)) {
+						continue;
+					}
+					
+					Date sprqDate = ymdhms.parse(sprq);
+					long hours = Math.abs(sjwcsjDate.getTime() - sprqDate.getTime())/1000/60/60;
+					
+					if (sjwcsjDate.after(sprqDate) && hours > 72) {
+						dbf.sqlExe("UPDATE T_YHDJPG set S_WARNING='true' WHERE S_ID='" + sid + "'", false);
+					}
+				} catch (Exception e) {
+					//do nothing
+				}
+			}
+		} catch (Exception e) {
+			MantraLog.fileCreateAndWrite(e);
+		} finally {
+			if (tableEx != null) {
+				tableEx.close();
+			}
+			dbf.close();
+		}
+	}
 
 	/**
 	 * 得到几天前的时间
@@ -709,9 +777,10 @@ public class TimingTaskTool {
 		Date zeroDate = ymdhms.parse(ymd.format(fxsjDate) + " 00:00");
 		System.out.println(ymdhms.format(zeroDate));
 		
-		Date fssjDate1 = ymdhms.parse("2019-05-04 16:52");
-		Date qrsjDate1 = ymdhms.parse("2019-05-04 20:47");
+		Date fssjDate1 = ymdhms.parse("2019-12-29 10:47");
+		Date qrsjDate1 = ymdhms.parse("2019-12-23 11:01");
 		long hours = Math.abs(qrsjDate1.getTime() - fssjDate1.getTime())/1000/60/60;
+		System.out.println(qrsjDate1.after(fssjDate1));
 		System.out.println(hours);
 	}
 }

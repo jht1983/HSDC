@@ -11,30 +11,6 @@ import com.yulongtao.web.event.Event;
 
 public class EventCl extends Event {
 	private static MisLogger logger = new MisLogger(EventCl.class);
-	//1#粉尘
-//	public static final String TAG_1_FC = "FKGY:DUP36:10HTA20CQ104_C";//折算前
-	public static final String TAG_1_FC = "FKGY:DUP36:10HTA20CQ105";
-	//1#SO2
-//	public static final String TAG_1_SO2 = "FKGY:DUP36:10HTA20CQ101_C";//折算前
-	public static final String TAG_1_SO2 = "FKGY:DUP36:10HTA20CQ101";
-	//1#NOX
-//	public static final String TAG_1_NOX = "FKGY:DUP36:10HTA20CQ102_C";//折算前
-	public static final String TAG_1_NOX = "FKGY:DUP36:10HTA20CQ102";
-	//2#粉尘
-//	public static final String TAG_2_FC = "FKGY:DUP38:20HTA20CQ104_C";//折算前
-	public static final String TAG_2_FC = "FKGY:DUP38:20HTA20CQ105";
-	//2#SO2
-//	public static final String TAG_2_SO2 = "FKGY:DUP38:20HTA20CQ101_C";//折算前
-	public static final String TAG_2_SO2 = "FKGY:DUP38:20HTA20CQ101";
-	//2#NOX
-//	public static final String TAG_2_NOX = "FKGY:DUP38:20HTA20CQ102_C";//折算前
-	public static final String TAG_2_NOX = "FKGY:DUP38:20HTA20CQ102";
-	
-	//1#实发功率
-	public static final String TAG_1_GL = "DCS1:DUP9:10CRC01AO03";
-	//2#实发功率
-	public static final String TAG_2_GL = "DCS2:DUP9:20CRC01AO03";
-
 	public static Vector<HashMap<String, String>> vecGJStatus = new Vector<HashMap<String, String>>();
 	public Vector<HashMap<String, String>> runGJStatus = new Vector<HashMap<String, String>>();
 
@@ -65,9 +41,10 @@ public class EventCl extends Event {
 			}
 		}
 		
-		//check T_QXJL every 10*20 seconds
-		if (timer % 20 == 0) {
+		//check T_QXJL every 10*60 seconds
+		if (timer % 60 == 0) {
 			timTool.checkQXJL();
+			timTool.checkYHDJPG();
 		}
 		
 		//tasks run once every day
