@@ -60,9 +60,9 @@
    <input name="T_CZPSC$S_ZY" id="T_CZPSC$S_ZY" type="hidden" value=<ylt.v message="DXCZP_ZY">""$value"$value"</ylt.v>/>
 
 <script>
-var maxIndex = 16;
+var maxIndex = 18;
 	var runIndex = 1;
-	var height = 40;
+	var height = 38;
 	var pageAwryindex = 0;  
 	var totalHeight = 0;
 	
@@ -113,7 +113,7 @@ base=base===0?1:base;
 			runIndex=1;
 			totalHeight = 0;
 			
-			maxIndex=24;
+			maxIndex=23;
 		}
 		
 		runIndex=runIndex+base;
@@ -140,7 +140,7 @@ base=base===0?1:base;
 			createDiv_m.innerHTML+='<div style="text-align:center;"><span>第'+(pageAwryindex+1)+'页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pageNum">共页</span></div>';
 		}else{
 			/*操作票只有一页时调整行数*/
-			maxIndex=16;
+			maxIndex=18;
 			if(runIndex!=1){
                 var runId= maxIndex-runIndex ;
                 for(var i =0 ; i < runId ;i++){
