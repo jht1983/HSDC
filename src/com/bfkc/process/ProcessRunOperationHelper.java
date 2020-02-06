@@ -128,6 +128,7 @@ public class ProcessRunOperationHelper {
 		}
 		
 	    logger.info("==>>==>>==>>==>>==>>==>>==>>==>>字段回写开始");
+	    logger.info("_strRunId=" + _strRunId);
 	    logger.info("_strkey=" + _strkey);
 	    logger.info("strField=" + strField);
 		for(int a=0,b=strArrayTable.length;a<b;a++){
@@ -369,6 +370,7 @@ public class ProcessRunOperationHelper {
 					}
 				}
 			    
+				logger.info("update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key));
 				dbf.sqlExe("update " + key + " set " + map.get(key) + " where S_RUN_ID='" + _strRunId + "' "+mapCon.get(key), true);
 			}
 			_sr.append(UPDATE_FIELD_END_TAG);

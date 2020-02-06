@@ -1088,11 +1088,11 @@ public class ProcessRunOperation {
 				} else if ("1508409020345".equals(strPageCode)) { //动土工作票
 					new WorkTicketProcessTool().setDTSpjg(request);
 				}
-
-		        logger.info("其他信息：" + _sb);
-		        logger.info("**************************************************************processRun: end");
 				if(db!=null){db.close();}
 			}
+
+	        logger.info("其他信息：" + _sb);
+	        logger.info("**************************************************************processRun: end");
 		}catch (Exception e) {
 		    MantraLog.fileCreateAndWrite(e);
 			b = false;
