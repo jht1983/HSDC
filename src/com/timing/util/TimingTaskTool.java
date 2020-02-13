@@ -536,7 +536,8 @@ public class TimingTaskTool {
 		SimpleDateFormat ymdhms = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String startTime = " 08:30";
 		String endTime = " 17:00";
-		String confirmTime = " 10:00";
+		String newEndTime = " 22:30";
+		String confirmTime = " 9:00";
 		
 		try {
 			Date jzsj = ymd.parse("2018-11-27");
@@ -579,6 +580,7 @@ public class TimingTaskTool {
 				try {
 					Date startDate = ymdhms.parse(ymd.format(fxsjDate) + startTime);
 					Date endDate = ymdhms.parse(ymd.format(fxsjDate) + endTime);
+					Date newEndDate = ymdhms.parse(ymd.format(fxsjDate) + newEndTime);
 					Date confirmDate = ymdhms.parse(ymd.format(fxsjDate) + confirmTime);
 					
 					if (fxsjDate.after(jzsj)) {
@@ -593,7 +595,11 @@ public class TimingTaskTool {
 						
 						if (fxsjDate.getTime() >= startDate.getTime() && fxsjDate.getTime() <= endDate.getTime()) {
 							long hours = Math.abs(qrsjDate.getTime() - fxsjDate.getTime())/1000/60/60;
-							if (hours > 4) {
+							if (hours >= 2) {
+								dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", false);
+							}
+						} else if (fxsjDate.getTime() > endDate.getTime() && fxsjDate.getTime() <= newEndDate.getTime()) {
+							if (qrsjDate.after(newEndDate)) {
 								dbf.sqlExe("UPDATE T_QXJL set S_WARNING='true' WHERE S_ID='" + sid + "'", false);
 							}
 						}
@@ -625,13 +631,24 @@ public class TimingTaskTool {
 					try {
 						String qxlb = ProcessRunOperationDao.getColString("S_QXLB", record); //缺陷类别
 						String hfkksj = ProcessRunOperationDao.getColString("S_SGYSSJ", record); //恢复开口时间（审批时间）
-						String sjjssj = ProcessRunOperationDao.getColString("S_SJJSSJ", record); //实际结束时间
-						Date sjjssjDate = null;
-						if (StringUtils.isNotEmpty(sjjssj)) {
-							sjjssjDate = ymdhms.parse(sjjssj);
+//						String sjjssj = ProcessRunOperationDao.getColString("S_SJJSSJ", record); //实际结束时间
+						String yxyssj = ProcessRunOperationDao.getColString("S_YXYSSJ", record); //运行验收时间
+						String qrsj = ProcessRunOperationDao.getColString("S_QRSJ", record); //确认时间
+						
+						Date qrsjDate = null;
+						if (StringUtils.isNotEmpty(qrsj)) {
+							qrsjDate = ymdhms.parse(qrsj);
 						}
 						else {
-							sjjssjDate = new Date();
+							qrsjDate = new Date();
+						}
+						
+						Date yxyssjDate = null;
+						if (StringUtils.isNotEmpty(yxyssj)) {
+							yxyssjDate = ymdhms.parse(yxyssj);
+						}
+						else {
+							yxyssjDate = new Date();
 						}
 						
 						if ("QXLB1".equals(qxlb)) {
@@ -641,7 +658,7 @@ public class TimingTaskTool {
 							expendHours = 72;
 						}
 						else if ("QXLB3".equals(qxlb)) {
-							expendHours = 48;
+							expendHours = 24;
 						}
 						else if ("QXLB4".equals(qxlb)) {
 							expendHours = 72;
@@ -650,11 +667,11 @@ public class TimingTaskTool {
 						if (fxsjDate.after(jzsj) && !"QXLB1".equals(qxlb)) {
 							if (StringUtils.isNotEmpty(hfkksj)) {
 								Date hfkksjDate = ymdhms.parse(hfkksj);
-								if ((Math.abs(sjjssjDate.getTime() - hfkksjDate.getTime())/1000/60/60) > 48) {
+								if ((Math.abs(yxyssjDate.getTime() - hfkksjDate.getTime())/1000/60/60) >= 48) {
 									dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='true' WHERE S_ID='" + sid + "'", false);
 								}
 							}
-							else if ((Math.abs(sjjssjDate.getTime() - fxsjDate.getTime())/1000/60/60) > expendHours) {
+							else if ((Math.abs(yxyssjDate.getTime() - qrsjDate.getTime())/1000/60/60) >= expendHours) {
 								dbf.sqlExe("UPDATE T_QXJL set S_REDWARN='true' WHERE S_ID='" + sid + "'", false);
 							}
 						}
@@ -777,8 +794,8 @@ public class TimingTaskTool {
 		Date zeroDate = ymdhms.parse(ymd.format(fxsjDate) + " 00:00");
 		System.out.println(ymdhms.format(zeroDate));
 		
-		Date fssjDate1 = ymdhms.parse("2019-12-29 10:47");
-		Date qrsjDate1 = ymdhms.parse("2019-12-23 11:01");
+		Date fssjDate1 = ymdhms.parse("2020-02-11 08:52");
+		Date qrsjDate1 = ymdhms.parse("2020-02-11 10:52");
 		long hours = Math.abs(qrsjDate1.getTime() - fssjDate1.getTime())/1000/60/60;
 		System.out.println(qrsjDate1.after(fssjDate1));
 		System.out.println(hours);

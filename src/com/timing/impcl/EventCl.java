@@ -44,7 +44,7 @@ public class EventCl extends Event {
 		//check T_QXJL every 10*60 seconds
 		if (timer % 60 == 0) {
 			timTool.checkQXJL();
-			timTool.checkYHDJPG();
+			//timTool.checkYHDJPG();
 		}
 		
 		//tasks run once every day
