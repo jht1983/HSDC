@@ -566,7 +566,7 @@ public class TimingTaskTool {
 				
 				//缺陷挂起
 				try {
-					if ("QXZT030".equals(qxzt) || "QXZT031".equals(qxzt) || "QXZT032".equals(qxzt) || "QXZT033".equals(qxzt)) {
+					if ("QXZT030".equals(qxzt) || "QXZT031".equals(qxzt) || "QXZT032".equals(qxzt) || "QXZT033".equals(qxzt) || "QXZT036".equals(qxzt)) {
 						dbf.sqlExe("UPDATE T_QXJL set S_SUSPEND='true' WHERE S_ID='" + sid + "'", false);
 						checkRedWarn = false;
 					}
